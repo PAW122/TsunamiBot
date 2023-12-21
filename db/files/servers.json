@@ -1,0 +1,32 @@
+{
+  "727662119553728532": {
+    "name": "priv",
+    "welcome_channel": "727662119553728535",
+    "autorole": {
+      "role_id": "797588820929413131",
+      "status": true
+    }
+  },
+  "1083481840159039588": {
+    "name": "SentiByte-Studio",
+    "welcome_channel": "1083484567450693652",
+    "welcome_message": null,
+    "welcome_status": null,
+    "welcome_dm_message": "witramy na serweże",
+    "autorole": {
+      "role_id": "1083483182424404028",
+      "status": true
+    },
+    "error_logs": []
+  },
+  "example": {
+    "name": "test",
+    "bot_name": "",
+    "blacklist_channels": [],
+    "commands_settings": {
+      "ping": {
+        "mode": false
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <base href="/">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .top-bar {
+            background-color: #7289DA;
+            padding: 10px;
+            text-align: right;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .server {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #avatar {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        #name {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .logout-link {
+            margin-top: 20px;
+            color: #7289DA;
+            text-decoration: none;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            align-items: start;
+            /* Align items to the top */
+            justify-content: start;
+            /* Align items to the start (left) */
+            height: 95.9vh;
+            background-color: #2C2F33;
+            color: white;
+            padding: 20px;
+        }
+
+        .kafelek {
+            margin: 10px;
+            border: 1px solid #7289DA;
+            padding: 10px;
+            text-align: center;
+            /* Center text within each kafelek */
+
+            height: 50px;
+            width: 100px;
+        }
+
+        .command_name {
+            /* Your existing styles for command_name */
+        }
+
+        .command_description {
+            /* Your existing styles for command_description */
+        }
+
+        .command_mode {
+            /* Your existing styles for command_mode */
+        }
+
+        .settings {
+            /* Your existing styles for settings */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <a href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"
+            target="_blank">Invite</a>
+        <a href="/" class="text-sm mt-5 logout-link">Logout</a>
+    </div>
+
+    <div class="dashboard-container">
+
+        tutaj dodać opcje do wybrania dla danej komendy
+    </div>
+
+    <script>
+        window.onload = () => {
+            // ... (previous code) ...
+
+            // Handle click event on the gear icon button
+            document.querySelectorAll('.settings-btn').forEach((btn) => {
+                btn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent unwanted events from propagating
+                    const accessToken = fragment.get('access_token');
+                    const tokenType = fragment.get('token_type');
+                    const guildId = 'replace_with_guild_id'; // You need to get the guild ID from the DOM
+                    const commandName = event.target.closest('.kafelek').querySelector('.command_name').innerText;
+
+                    if (!accessToken) {
+                        // Use a different variable name to avoid conflicts
+                        window.location.href = '/';
+                    }
+
+                    // Now you can use the retrieved variables as needed
+                    console.log('Access Token:', accessToken);
+                    console.log('Token Type:', tokenType);
+                    console.log('Guild ID:', guildId);
+                    console.log('Command Name:', commandName);
+                });
+            });
+        };
+    </script>
+</body>
+
+</html>
