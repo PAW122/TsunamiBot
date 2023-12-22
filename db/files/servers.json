@@ -5,6 +5,9 @@
     "autorole": {
       "role_id": "797588820929413131",
       "status": true
+    },
+    "settings": {
+
     }
   },
   "1083481840159039588": {
@@ -26,6 +29,14 @@
     "commands_settings": {
       "ping": {
         "mode": false
+      }
+    },
+    "settings": {
+      "commands": {
+        "ping": {
+          "enable": true,
+          "only_use_channels": []
+        }
       }
     }
   }
