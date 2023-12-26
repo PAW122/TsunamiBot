@@ -1,7 +1,12 @@
 const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"
 const OWNER_ID = "438336824516149249";
 const { Client, GatewayIntentBits, EmbedBuilder, PermissionsBitField, Permissions, SlashCommandBuilder } = require("discord.js")
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
+const client = new Client({ intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates] });
 
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
 const { commandsMap } = require("./handlers/commandsMap")
@@ -9,6 +14,7 @@ const welcome_messages = require("./handlers/welcome")
 //const autorole = require("./handlers/autorole")
 const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
+const {lvl_system} = require("./handlers/lvlHandler")
 
 client.on("ready", (res) => {
     console.log(`${res.user.tag} is ready`);
@@ -16,6 +22,7 @@ client.on("ready", (res) => {
 
     //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
     unregisterAllCommands(client)
+    .then(register_slash_commands(client))
     //register_slash_commands(client)
 
     //run bot webside
@@ -74,6 +81,7 @@ client.on('guildMemberAdd', member => {
 
 client.on("messageCreate", message => {
     log_messages(message)
+    lvl_system(message)
 })
 
 client.on("uncaughtException", (e) => {
