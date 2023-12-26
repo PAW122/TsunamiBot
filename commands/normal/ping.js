@@ -5,7 +5,7 @@ const command = new SlashCommandBuilder()
     .setDescription("This is a ping command!");
 
 async function execute(interaction, client) {
-    console.log(client)
+    //console.log(client)
     await interaction.reply("Pong!");
 }
 
