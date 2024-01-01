@@ -1,6 +1,6 @@
 const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"
 const OWNER_ID = "438336824516149249";
-const { Client, GatewayIntentBits, EmbedBuilder, PermissionsBitField, Permissions, SlashCommandBuilder } = require("discord.js")
+const { Client, GatewayIntentBits } = require("discord.js")
 const client = new Client({ intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,

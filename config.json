@@ -3,5 +3,6 @@
     "lvling": {
         "min_xp": 5,
         "max_xp": 15
-    }
+    },
+    "dev_only_servers": ["727662119553728532"]
 }

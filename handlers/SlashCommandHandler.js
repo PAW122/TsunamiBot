@@ -11,7 +11,7 @@ async function register_slash_commands(client) {
             for (const file of commandsFile) {
                 const filePath = __dirname + `\\..\\commands\\${folder}\\${file}`;
                 delete require.cache[require.resolve(filePath)]; // Clear the cache
-                const { command, _ } = require(filePath);
+                const { command, _  } = require(filePath);
 
                 try {
                     // Register command on the specific guild
@@ -23,7 +23,7 @@ async function register_slash_commands(client) {
                 }
             }
         }
-    });
+    })
 
     console.log("All commands registered successfully on all guilds.");
 }
@@ -57,7 +57,7 @@ async function registerSlashCommandsForGuild(guild, client) {
         for (const file of commandsFile) {
             const filePath = __dirname + `\\..\\commands\\${folder}\\${file}`;
             delete require.cache[require.resolve(filePath)]; // Clear the cache
-            const { command, _ } = require(filePath);
+            const { command, _, settings } = require(filePath);
 
             try {
                 // Register command on the specific guild

@@ -14,14 +14,25 @@ grają w te gre teraz
 
 const { SlashCommandBuilder } = require("discord.js");
 
+const settings = {
+    dev_only: true
+}
+
 const command = new SlashCommandBuilder()
     .setName("find-teammate")
-    .setDescription("find someone to play with");
+    .setDescription("find someone to play with")
+    .addStringOption(option =>
+		option.setName('games')
+			.setDescription('Find your game')
+			.setAutocomplete(true));
 
 async function execute(interaction, client) {
+    
     //console.log(client)
     await interaction.reply("Pong!");
 }
+
+//tak samo autocomplete jak to z helpa do wyboróv
 
 //return message if user use /help/ping
 async function help_message(interaction, client) {
@@ -31,4 +42,4 @@ async function help_message(interaction, client) {
     })
 }
 
-module.exports = { command, execute, help_message };
+module.exports = { command, execute, help_message, settings };

@@ -1,5 +1,7 @@
 v 0.1
 # teraz
+po odpaleniu bota ma zostać w jsonie z mapy komend zapisane wszystkie komendy po to żeby strona internetowa mogła z tamtąd wczytać liste komend
+
 folder komend *test*
 komendy są rejestrowane tylko na priv.
 albo dodatek do ustawień komendy (dev_only: true)
