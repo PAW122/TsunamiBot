@@ -39,6 +39,15 @@ app.get('/server', (req, res) => {
     return res.sendFile('\\web\\views\\server.html', { root: '.' });
 })
 
+//user musi przekazywać token z zalogowania za pomocą dc, potem sprawdzane jest czy ten user jest adminem na serwerze(aby odczytać ustawienia serwera)
+app.get("/server/settings/load", (req, res) => {
+
+})
+//tak samo jak w /loadm ale w body musi być przekazywany json z danymi do zmiany
+app.post("/server/settings/save", (req, res) => {
+
+})
+
 // Middleware obsługujący nieistniejące ścieżki
 app.use((req, res) => {
     res.status(404).send('this page is unavailable (404).');

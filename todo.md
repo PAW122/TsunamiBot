@@ -11,6 +11,7 @@ albo dodatek do ustawień komendy (dev_only: true)
     każda propozycja jest do zweryfikowania, po zweryfyfiukonwaiu jak user użyhe
     /get propozycja filmu to dostaje jakąś losowa propozycje, to samo dla anime
 2. propozycję anime
+3. 
 
 # pomysły na next funkcji:
 1. logi wiadomości

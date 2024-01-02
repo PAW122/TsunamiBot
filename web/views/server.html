@@ -29,8 +29,9 @@
 
         .dashboard-container {
             display: flex;
+            /* Zmiana na column */
+            flex-direction: column;
             align-items: flex-start;
-            /* Zmiana na flex-start */
             margin-top: 20px;
             height: 95.9vh;
             background-color: #2C2F33;
@@ -38,13 +39,21 @@
             padding: 20px;
         }
 
+        .avatar-server-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px; /* Dodane, aby zwiększyć odstęp między avatarem a kafelkami */
+        }
+
+        .avatar-container,
+        .server-details {
+            margin-right: 20px;
+        }
+
         .avatar-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-right: auto;
-            margin-left: 20px;
-            /* Now on the left */
         }
 
         #avatar {
@@ -58,15 +67,8 @@
             font-size: 24px;
         }
 
-        .logout-link {
-            margin-top: 20px;
-            color: #7289DA;
-            text-decoration: none;
-        }
-
         /* Style for server details */
         .server-details {
-            margin-right: 20px;
             color: white;
         }
 
@@ -75,6 +77,72 @@
             width: 60px;
             height: 60px;
             margin-bottom: 10px;
+        }
+
+        .kafelki {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .kafelek {
+            flex: 1;
+            max-width: 300px;
+            padding: 20px;
+            background-color: #7289DA;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-label {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
         }
     </style>
 </head>
@@ -87,17 +155,42 @@
     </div>
 
     <div class="dashboard-container">
-        <div class="avatar-container">
-            <img src='' id="avatar" class="rounded-full w-12 h-12" />
-            <div id="name"></div>
+        <div class="avatar-server-container">
+            <div class="avatar-container">
+                <img src='' id="avatar" class="rounded-full w-12 h-12" />
+                <div id="name"></div>
+            </div>
+
+            <div class="server-details">
+                <div id="server-avatar-container"></div>
+                <div id="server-name"></div>
+                <!-- Content will be added here dynamically -->
+            </div>
         </div>
 
-        <div class="server-details">
-            <div id="server-avatar-container"></div>
-            <div id="server-name"></div>
-            <!-- Content will be added here dynamically -->
+        <div class="kafelki">
+            <div class="kafelek">
+                <div>
+                    <h3>Welcome Command</h3>
+                    <!-- Pole do wyboru kanału -->
+                    <label for="channelSelect">Select Channel:</label>
+                    <select id="channelSelect">
+                        <!-- Opcje kanałów zostaną dodane dynamicznie w kodzie JavaScript -->
+                    </select>
+
+                    <!-- Przycisk switch włączający i wyłączający komendę -->
+                    <div class="toggle-container">
+                        <label class="toggle-label" for="switchButton">
+                            <input type="checkbox" id="switchButton" class="toggle-input" onclick="toggleWelcomeCommand()">
+                            <div class="toggle-slider"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Kolejne kafelki mogą być dodane tutaj -->
         </div>
     </div>
+
     <script>
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -164,7 +257,44 @@
                         .catch(console.error);
                 })
                 .catch(console.error);
+
+
+            //load channels options for welcome command
+            function populateChannels() {
+                // Pobierz listę kanałów z serwera (możesz to zaimplementować według potrzeb)
+                const channelList = ['Channel 1', 'Channel 2', 'Channel 3'];
+
+                // Znajdź pole do wyboru kanału w dokumencie
+                const channelSelect = document.getElementById('channelSelect');
+
+                // Wyczyść istniejące opcje
+                channelSelect.innerHTML = '';
+
+                // Dodaj nowe opcje do pola wyboru
+                channelList.forEach(channel => {
+                    const option = document.createElement('option');
+                    option.value = channel;
+                    option.text = channel;
+                    channelSelect.appendChild(option);
+                });
+            }
+            populateChannels();
+
+            function setSwitchButtonState() {
+                const switchButton = document.getElementById('switchButton');
+
+                // Ustaw pozycję początkową na włączoną lub wyłączoną, w zależności od potrzeb
+                const initialState = true; // zmień na false, jeśli chcesz, aby switchButton był początkowo wyłączony
+                switchButton.checked = initialState;
+            }
+
+            // Wywołanie funkcji po wczytaniu strony
+            setSwitchButtonState();
         };
+
+        function toggleWelcomeCommand(i) {
+            console.log("Change welcome channel status")
+        }
     </script>
 
 </body>
