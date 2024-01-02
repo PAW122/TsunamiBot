@@ -56,6 +56,14 @@
       "1191491946749898822": {
         "author": "928399458570502155",
         "content": "Please select a command:"
+      },
+      "1191525578604544021": {
+        "author": "438336824516149249",
+        "content": "to love ru 3"
+      },
+      "1191526204042387537": {
+        "author": "438336824516149249",
+        "content": "Na podstawie tego można zrobić ciekawą historyjkę\nhttps://youtube.com/shorts/lUaPIvgBfdE?si=F_WFtVjuY6t_WRzc"
       }
     },
     "745768777022701648": {
@@ -274,12 +282,34 @@
       "1191430147186888724": {
         "author": "928399458570502155",
         "content": "Please select a command:"
+      },
+      "1191566899511840928": {
+        "author": "438336824516149249",
+        "content": "Pomysł:\nServer backup\n\nTak dla wszystkich kanałów.\nZapisanie uprawnień(ról)\nItd,\n\nPodgląd przykladowy na stronie,\nPo odpaleniu/use_backup\nPotwierzedziu przez właściciela serwera.\nBot przerobi automatycznie serwer na 1:1 jak tamten poprzedni,\nPo wysyła wiadomośći na kanałach(ostatnie 100)\nItd\n\nJson dla swrwera:\nServer_id:{\nChannel_id:{\nCannel name:\nmessages:\n}\n}"
       }
     },
     "1179459678716039248": {
       "1189615475982872646": {
         "author": "438336824516149249",
         "content": "Na ferie:.\n1. Prawdopodobnie odma\n2. Pompa paliwa pomiędzy 1a2 częścią baku\n3.zlaczka elastyczna wydechu \n4.prawdopodobnie termostat(silnik się bardzo słabo nagrzewa)\n5.espomaganie kierownicy prawie nie działa \n\n6. SprawdIc szczelność plastików bo na zimnym przy minusowej temperaturę czasami chwilę pocałują obroty"
+      },
+      "1191583944173441144": {
+        "author": "438336824516149249",
+        "content": "Słabe światło cofania\n\nPrzednie lampy do polerki\n\nRdza"
+      },
+      "1191586071557972091": {
+        "author": "438336824516149249",
+        "content": "Sprawdzić pompę paliwa\nUstawić spryskiwacze"
+      }
+    },
+    "1095438496702939237": {
+      "1191689305811320894": {
+        "author": "1095438555549024256",
+        "content": ""
+      },
+      "1191689308067860530": {
+        "author": "1095438555549024256",
+        "content": ""
       }
     }
   },
