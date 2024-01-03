@@ -64,6 +64,10 @@
       "1191526204042387537": {
         "author": "438336824516149249",
         "content": "Na podstawie tego można zrobić ciekawą historyjkę\nhttps://youtube.com/shorts/lUaPIvgBfdE?si=F_WFtVjuY6t_WRzc"
+      },
+      "1192135495967326259": {
+        "author": "438336824516149249",
+        "content": "spisać liczniki wody na pulku"
       }
     },
     "745768777022701648": {
@@ -286,6 +290,18 @@
       "1191566899511840928": {
         "author": "438336824516149249",
         "content": "Pomysł:\nServer backup\n\nTak dla wszystkich kanałów.\nZapisanie uprawnień(ról)\nItd,\n\nPodgląd przykladowy na stronie,\nPo odpaleniu/use_backup\nPotwierzedziu przez właściciela serwera.\nBot przerobi automatycznie serwer na 1:1 jak tamten poprzedni,\nPo wysyła wiadomośći na kanałach(ostatnie 100)\nItd\n\nJson dla swrwera:\nServer_id:{\nChannel_id:{\nCannel name:\nmessages:\n}\n}"
+      },
+      "1191882627003723837": {
+        "author": "928399458570502155",
+        "content": "Pong!"
+      },
+      "1192103574730178571": {
+        "author": "438336824516149249",
+        "content": ""
+      },
+      "1192208085318647968": {
+        "author": "438336824516149249",
+        "content": "logi (konsola)"
       }
     },
     "1179459678716039248": {
