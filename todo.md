@@ -1,10 +1,23 @@
 v 0.1
 # teraz
+zrobić klasę logs
+class console
+console.log() -> loguje dany strong w konsoli + godzina
+console.warn() -> loguje dane w konsoli + godzina + miejsce (plik i linijka wywołania)
+wszysztkie te rzeczy są zapisywane do zmiennej (lista na max 1000 wpisów)
+jeżeli przekroczy się 1000 wpisów to najstarczy zostaje usunięty
+!!
+strona może odczytać te logi ze zmiennej
+
+
 po odpaleniu bota ma zostać w jsonie z mapy komend zapisane wszystkie komendy po to żeby strona internetowa mogła z tamtąd wczytać liste komend
 
 folder komend *test*
 komendy są rejestrowane tylko na priv.
 albo dodatek do ustawień komendy (dev_only: true)
+
+# lużne rzeczy do zrobienia.
+.sprawdzić czy po usunięciu wszystkich plików z /files z db wszystkie bazy danych się poprawnie zainicjują i bot zadziała bez wywalania żadnych błędów
 
 # pomysły na proste komendy
 1. propozycje filmów
@@ -14,8 +27,11 @@ albo dodatek do ustawień komendy (dev_only: true)
 3. 
 
 # pomysły na next funkcji:
-1. logi wiadomości
-    - zrobić jsona servers_logs.js { "server_id": "channel_id": "message_id": "message_data"}
+1. na stronie internetowej w /console zrobić opcję wykonywania poleceń
+    - np zarządzanie plikami bazy danych (edytowanie)
+    - opcja używania komend w konsoli
+        + reload(srv_id)
+        + reload("global")
 
 - pomysł: config
     - robić wszystkie komendy w 1 bocie, w configu dodać nazwy folderów które są pomijane np dla tsu pomijane bedą Albion, a dla albiona Tsu
