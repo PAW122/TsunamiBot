@@ -4,6 +4,7 @@ const Canvas = require("canvas");
 const { AttachmentBuilder } = require("discord.js");
 
 async function welcome_messages(member, client) {
+    database.init();
     const guild = member.guild.id;
     const data = database.read(`${guild}`);
 

@@ -15,6 +15,7 @@ const command = new SlashCommandBuilder()
 
 async function execute(interaction, client) {
     const user_option = interaction.options.getUser('user')
+    db.init()
 
     if (!user_option) {
         //show author data

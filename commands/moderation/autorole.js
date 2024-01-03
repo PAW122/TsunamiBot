@@ -18,6 +18,7 @@ const command = new SlashCommandBuilder()
     );
 
 async function execute(interaction) {
+    database.init();
     // Check if the user has administrator permissions
     if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
         return interaction.reply({
