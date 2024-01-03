@@ -4,9 +4,12 @@ const port = process.env.PORT || 3000;
 
 const server = http.createServer(app);
 
+const ConsoleLogger = require("../handlers/console")
+const logger = ConsoleLogger.getInstance();
+
 function run() {
     server.listen(port);
-    console.log("serwer online\n localhost:3000")
+    logger.log(`serwer online localhost:${port}`)
 }
 
 module.exports = run

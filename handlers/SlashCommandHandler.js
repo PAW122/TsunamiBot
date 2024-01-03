@@ -1,4 +1,6 @@
 const fs = require('fs');
+const ConsoleLogger = require("./console")
+const logger = ConsoleLogger.getInstance();
 
 async function register_slash_commands(client) {
     const commandsDir = fs.readdirSync(__dirname + `\\..\\commands`);
@@ -18,14 +20,14 @@ async function register_slash_commands(client) {
                     await guild.commands.create(command);
                     //console.log(`Command registered on guild ${guild.id}: ${command.name}`);
                 } catch (error) {
-                    console.log(command)
-                    console.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
+                    logger.log(command)
+                    logger.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
                 }
             }
         }
     })
 
-    console.log("All commands registered successfully on all guilds.");
+    logger.log("All commands registered successfully on all guilds.");
 }
 
 
@@ -37,9 +39,9 @@ async function unregisterAllCommands(client) {
             await client.application.commands.delete(command.id);
         }
 
-        console.log('All commands unregistered successfully.');
+        logger.log('All commands unregistered successfully.');
     } catch (error) {
-        console.error('Error while unregistering commands:', error);
+        logger.error('Error while unregistering commands:', error);
     }
 
 }
@@ -64,12 +66,12 @@ async function registerSlashCommandsForGuild(guild, client) {
                 await guild.commands.create(command);
                 //console.log(`Command registered on guild ${guild.id}: ${command.name}`);
             } catch (error) {
-                console.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
+                logger.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
             }
         }
     }
 
-    console.log(`All commands registered successfully on guild ${guild.id}.`);
+    logger.log(`All commands registered successfully on guild ${guild.id}.`);
 }
 
 /**
@@ -87,7 +89,7 @@ async function unregisterAllCommandsForGuild(guild, client) {
 
         //console.log(`All commands unregistered successfully on guild ${guild.id}.`);
     } catch (error) {
-        console.error(`Error while unregistering commands on guild ${guild.id}:`, error);
+        logger.error(`Error while unregistering commands on guild ${guild.id}:`, error);
     }
 }
 
