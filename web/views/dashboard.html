@@ -87,6 +87,7 @@
         <a href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"
             target="_blank">Invite</a>
         <a href="/" class="text-sm mt-5 logout-link">Logout</a>
+        <a id="consoleLink" href="#" class="console_page">Console</a>
     </div>
 
     <div class="dashboard-container">
@@ -115,6 +116,11 @@
                 window.location.href('/');
             }
     
+            const consoleLink = document.getElementById('consoleLink');
+            consoleLink.href = `/console/${accessToken}/${tokenType}`;
+            console.log(accessToken)
+            console.log(tokenType)
+
             // Fetch user information
             fetch('https://discord.com/api/users/@me', {
                 headers: {

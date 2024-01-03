@@ -232,6 +232,11 @@
                             // Find the specific server in the user's guilds
                             const server = guildsResponse.find(guild => guild.id === serverId);
 
+                            // req do wewnętrznego api po dane o serwerze (kanały txt)
+                            // dla welcome messages
+                            // można wywołać handler w main(bo tam ma dostęp do clienta) który
+                            //wywoła drógi handler w /handlers który zwróci dane o serwerze(kanały itd)
+
                             // Zmodyfikowany kod JavaScript
                             const serverDetailsContainer = document.querySelector('.server-details');
                             if (serverDetailsContainer) {

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .top-bar {
+            background-color: #7289DA;
+            padding: 10px;
+            text-align: right;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
+            height: 95.9vh;
+            background-color: #2C2F33;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <a href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"
+            target="_blank">Invite</a>
+        <a href="/" class="text-sm mt-5 logout-link">Logout</a>
+    </div>
+
+    <div class="dashboard-container" id="dashboardContainer">
+        <!-- Kontener, do którego będziemy wczytywać treść z API -->
+    </div>
+
+    <script>
+         window.onload = () => {
+        // Pobierz parametry z URL
+        const pathParams = window.location.pathname.split('/');
+        const token = pathParams[2];
+        const tokenType = pathParams[3];
+
+        // Pobierz treść z API
+        fetch(`https://charmed-marginally-bonefish.ngrok-free.app/console/load/${token}/${tokenType}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Zaktualizuj treść w dashboard-container
+                const dashboardContainer = document.getElementById('dashboardContainer');
+                dashboardContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            })
+            .catch(error => {
+                console.error('Błąd podczas pobierania danych z API:', error);
+                // W przypadku błędu, możesz również wyświetlić odpowiedni komunikat w dashboard-container
+                const dashboardContainer = document.getElementById('dashboardContainer');
+                dashboardContainer.innerHTML = '<p>Błąd podczas pobierania danych z API.</p>';
+            });
+    };
+    </script>
+</body>
+
+</html>
