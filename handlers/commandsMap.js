@@ -4,7 +4,7 @@ const fs = require('fs');
 const commandsMap = new Map();
 
 const commandsDir = fs.readdirSync(__dirname + '\\..\\commands', { withFileTypes: true });
-
+//every command file need to have same file name and command name !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 for (const dirEntry of commandsDir) {
     if (dirEntry.isDirectory()) {
         const subDir = dirEntry.name;
