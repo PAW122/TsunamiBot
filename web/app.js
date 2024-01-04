@@ -7,6 +7,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const { is_owner } = require("./routes/is_bot_owner")
 const { verify } = require("./routes/veryfi_user")
+const { save_server_settings, load_server_settings } = require("./routes/server_settings")
 
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -45,6 +46,25 @@ app.get('/auth/discord', (request, response) => {
 //dodać wszystkie opcje zarządzania na stronie
 app.get('/server', (req, res) => {
     return res.sendFile('\\web\\views\\server.html', { root: '.' });
+})
+
+app.get("/info/:guildId", async (req, res) => {
+    const { client } = require("../main")
+    const guildId = req.params.guildId
+    const guild = await client.guilds.fetch(guildId);
+    if (!guild) return res.sendStatus(404);
+    return res.send(guild);
+})
+
+
+app.get("/info/channels/:guildId", async (req, res) => {
+    const { client } = require("../main")
+    const guildId = req.params.guildId
+    const guild = await client.guilds.fetch(guildId);
+    const channels_ids = guild.channels
+    const channels = guild.channels.cache.map(channel => channel.name)
+    if (!guild) return res.sendStatus(404);
+    return res.send([channels, channels_ids]);
 })
 
 //strona z pomysłami komend.
@@ -91,11 +111,53 @@ app.get("/console/load/:token/:tokenType", (req, res) => {
 
 //user musi przekazywać token z zalogowania za pomocą dc, potem sprawdzane jest czy ten user jest adminem na serwerze(aby odczytać ustawienia serwera)
 app.get("/server/settings/load", (req, res) => {
+    const server_id = req.headers.server_id;
+    const type = req.headers.type;
+    const token = req.headers.token;
+    const tokenType = req.headers.tokentype;
 
+    //weryfikacja zalogowania
+    verify(token, tokenType)
+        .then(ver => {
+            if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
+            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
+        })
+        .catch(error => {
+            logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
+            res.status(500).json({ error: 'Błąd weryfikacji' });
+        });
+    return res.send({channel_id: String(load_server_settings(type, server_id))})
 })
 //tak samo jak w /loadm ale w body musi być przekazywany json z danymi do zmiany
-app.post("/server/settings/save", (req, res) => {
+app.get("/server/settings/save", (req, res) => {
+    // Odczytaj dane z nagłówków zapytania
+    const type = req.headers.type;
+    const value = req.headers.value;
+    const token = req.headers.token;
+    const tokenType = req.headers.tokentype;
+    const server_id = req.headers.server_id
 
+    //TODO:
+    //sprawdzić czy ten zalogowany user ma właścicela w serweże o id <server_id>
+
+    //weryfikacja zalogowania
+    verify(token, tokenType)
+        .then(ver => {
+            if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
+            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
+        })
+        .catch(error => {
+            logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
+            res.status(500).json({ error: 'Błąd weryfikacji' });
+        });
+
+    //pomyślnie zwerfikowano użytkownika
+
+    //zapisz odpowiednie dane
+    save_server_settings(type, value, server_id)
+
+    // Możesz również zwrócić odpowiedź HTTP z odpowiednim statusem
+    res.status(200).send("Received and logged the data successfully.");
 })
 
 // Middleware obsługujący nieistniejące ścieżki

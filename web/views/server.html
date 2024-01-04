@@ -42,7 +42,8 @@
         .avatar-server-container {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px; /* Dodane, aby zwiększyć odstęp między avatarem a kafelkami */
+            margin-bottom: 20px;
+            /* Dodane, aby zwiększyć odstęp między avatarem a kafelkami */
         }
 
         .avatar-container,
@@ -137,11 +138,11 @@
             transition: .4s;
         }
 
-        input:checked + .toggle-slider {
+        input:checked+.toggle-slider {
             background-color: #2196F3;
         }
 
-        input:checked + .toggle-slider:before {
+        input:checked+.toggle-slider:before {
             transform: translateX(26px);
         }
     </style>
@@ -181,7 +182,8 @@
                     <!-- Przycisk switch włączający i wyłączający komendę -->
                     <div class="toggle-container">
                         <label class="toggle-label" for="switchButton">
-                            <input type="checkbox" id="switchButton" class="toggle-input" onclick="toggleWelcomeCommand()">
+                            <input type="checkbox" id="switchButton" class="toggle-input"
+                                onclick="toggleWelcomeCommand()">
                             <div class="toggle-slider"></div>
                         </label>
                     </div>
@@ -232,11 +234,82 @@
                             // Find the specific server in the user's guilds
                             const server = guildsResponse.find(guild => guild.id === serverId);
 
-                            // req do wewnętrznego api po dane o serwerze (kanały txt)
-                            // dla welcome messages
-                            // można wywołać handler w main(bo tam ma dostęp do clienta) który
-                            //wywoła drógi handler w /handlers który zwróci dane o serwerze(kanały itd)
+                            //channels list
+                            //TODO: załadować deafultowo wybrany kanał (ustawiony na srv) i ustawić go jako wybrany po załadowaniu strony
+                            fetch(`https://charmed-marginally-bonefish.ngrok-free.app/info/channels/${serverId}`)
+                                .then(result => result.json())
+                                .then(channels => {
+                                    console.log(channels);
 
+                                    // Pobierz listę kanałów z tablicy channels
+                                    const channelList = channels[0];
+                                    const channelIdList = channels[1].guild.channels;
+
+                                    const channelSelect = document.getElementById('channelSelect');
+                                    // Wyczyść istniejące opcje
+                                    channelSelect.innerHTML = '';
+
+                                    // Dodaj nowe opcje do pola wyboru
+                                    channelList.forEach((channel, index) => {
+                                        const option = document.createElement('option');
+                                        option.value = channelIdList[index];  // Przypisz wartość channelId dla danej opcji
+                                        option.text = channel;
+                                        channelSelect.appendChild(option);
+                                    });
+
+                                    // Pobierz otrzymane ID kanału do domyślnej opcji
+                                    fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/load`, {
+                                        headers: {
+                                            type: "welcome_channel",
+                                            token: accessToken,
+                                            tokenType: tokenType,
+                                            server_id: serverId
+                                        },
+                                    })
+                                        .then(result => result.json())
+                                        .then(res => {
+                                            res = res.channel_id
+                                            console.log(`switch def status: ${res}`);
+                                            if (res != null || res != undefined) {
+                                                // Znajdź odpowiadający identyfikator kanału
+                                                const selectedChannelIndex = channelIdList.indexOf(res);
+                                                if (selectedChannelIndex !== -1) {
+                                                    const correct_name = channelList[selectedChannelIndex];
+                                                    const correct_value = channelIdList[selectedChannelIndex];
+
+                                                    // Tutaj umieść kod, który ustawia wartości w dokumencie HTML
+                                                    const channelSelect = document.getElementById('channelSelect');
+                                                    channelSelect.value = correct_value;
+
+                                                } else {
+                                                    console.log(`Nie znaleziono odpowiedniego indeksu dla: ${res}`);
+                                                }
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Błąd podczas pobierania informacji o kanałach:', error);
+                                        });
+
+                                    // Dodaj nasłuchiwanie zdarzenia zmiany na elemencie <select>
+                                    channelSelect.addEventListener('change', () => {
+                                        // Pobierz wartość wybranej opcji
+                                        const selectedValue = channelSelect.value;
+                                        // Wywołaj funkcję, która ma wypisać value wybranej opcji
+                                        console.log(selectedValue);
+                                        fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/save`, {
+                                            headers: {
+                                                type: "welcome_channel",
+                                                value: selectedValue,
+                                                token: accessToken,
+                                                tokenType: tokenType,
+                                                server_id: serverId
+                                            },
+                                        })
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Błąd podczas pobierania informacji o kanałach:', error);
+                                });
                             // Zmodyfikowany kod JavaScript
                             const serverDetailsContainer = document.querySelector('.server-details');
                             if (serverDetailsContainer) {
@@ -263,42 +336,51 @@
                 })
                 .catch(console.error);
 
-
-            //load channels options for welcome command
-            function populateChannels() {
-                // Pobierz listę kanałów z serwera (możesz to zaimplementować według potrzeb)
-                const channelList = ['Channel 1', 'Channel 2', 'Channel 3'];
-
-                // Znajdź pole do wyboru kanału w dokumencie
-                const channelSelect = document.getElementById('channelSelect');
-
-                // Wyczyść istniejące opcje
-                channelSelect.innerHTML = '';
-
-                // Dodaj nowe opcje do pola wyboru
-                channelList.forEach(channel => {
-                    const option = document.createElement('option');
-                    option.value = channel;
-                    option.text = channel;
-                    channelSelect.appendChild(option);
-                });
-            }
-            populateChannels();
-
             function setSwitchButtonState() {
                 const switchButton = document.getElementById('switchButton');
 
-                // Ustaw pozycję początkową na włączoną lub wyłączoną, w zależności od potrzeb
-                const initialState = true; // zmień na false, jeśli chcesz, aby switchButton był początkowo wyłączony
-                switchButton.checked = initialState;
+                //pobierz deafultowy status przycisku
+                fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/load`, {
+                    headers: {
+                        type: "welcome_status",
+                        token: accessToken,
+                        tokenType: tokenType,
+                        server_id: serverId
+                    },
+                })
+                    .then(result => result.json())
+                    .then(res => {
+                        console.log(`switch def status: ${res}`)
+                        if (res != null || res != undefined) {
+                            switchButton.checked = res || false;
+                        }
+                    })
             }
 
             // Wywołanie funkcji po wczytaniu strony
-            setSwitchButtonState();
+            setSwitchButtonState();;
         };
 
-        function toggleWelcomeCommand(i) {
-            console.log("Change welcome channel status")
+        function toggleWelcomeCommand() {
+            // Pobierz element input (przycisk) po ID
+            const switchButton = document.getElementById('switchButton');
+
+            // Sprawdź aktualny stan przycisku
+            const isSwitchOn = switchButton.checked;
+            const urlParams = new URLSearchParams(window.location.search);
+            const accessToken = urlParams.get('access_token');
+            const tokenType = urlParams.get('token_type');
+            const serverId = urlParams.get('server_id');
+
+            fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/save`, {
+                headers: {
+                    type: "welcome_status",
+                    value: isSwitchOn,
+                    token: accessToken,
+                    tokenType: tokenType,
+                    server_id: serverId
+                },
+            })
         }
     </script>
 
