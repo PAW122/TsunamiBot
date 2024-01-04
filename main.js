@@ -94,6 +94,7 @@ client.on("uncaughtException", (e) => {
 });
 
 client.login(TOKEN)
+module.exports = { client }
 /*TODO
 podstronę z pomysłami.
 opcje dodawania up vote i down vote,
