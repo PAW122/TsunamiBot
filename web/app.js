@@ -56,7 +56,7 @@ app.get("/info/:guildId", async (req, res) => {
     return res.send(guild);
 })
 
-
+//TODO do info, channels i roles dodać jakąś weryfikacje aby nikt nieporządany nie sprawdzał danych z api
 app.get("/info/channels/:guildId", async (req, res) => {
     const { client } = require("../main")
     const guildId = req.params.guildId
@@ -65,6 +65,16 @@ app.get("/info/channels/:guildId", async (req, res) => {
     const channels = guild.channels.cache.map(channel => channel.name)
     if (!guild) return res.sendStatus(404);
     return res.send([channels, channels_ids]);
+})
+
+app.get("/info/roles/:guildId", async (req, res) => {
+    const { client } = require("../main")
+    const guildId = req.params.guildId
+    const guild = await client.guilds.fetch(guildId);
+    const roles_ids = guild.roles
+    const roles = guild.roles.cache.map(role => role.name)
+    if (!guild) return res.sendStatus(404);
+    return res.send([roles, roles_ids]);
 })
 
 //strona z pomysłami komend.

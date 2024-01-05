@@ -24,7 +24,7 @@ function save_server_settings(type, value, server_id) {
  */
 function load_server_settings(type, server_id) {
     database.init()
-    const data = database.read(`${server_id}.${type}`).toString()
+    const data = database.read(`${server_id}.${type}`)
     return data;
 }
 
