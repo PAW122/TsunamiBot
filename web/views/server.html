@@ -190,6 +190,24 @@
                 </div>
             </div>
             <!-- Kolejne kafelki mogą być dodane tutaj -->
+            <div class="kafelek">
+                <div>
+                    <h3>Auto Role</h3>
+                    <select id="Role Select">
+                        <!-- Opcje kanałów zostaną dodane dynamicznie w kodzie JavaScript -->
+                    </select>
+                
+                    <!-- Przycisk switch włączający i wyłączający komendę -->
+                    <!-- przypisać inne id żeby nie ustawiał go deafultowo jak switcha z welcome-->
+                    <div class="toggle-container">
+                        <label class="toggle-label" for="switchButton">
+                            <input type="checkbox" id="switchButton" class="toggle-input"
+                                onclick="">
+                            <div class="toggle-slider"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -229,17 +247,14 @@
                     })
                         .then(guildsResult => guildsResult.json())
                         .then(guildsResponse => {
-                            console.log(guildsResponse);
 
                             // Find the specific server in the user's guilds
                             const server = guildsResponse.find(guild => guild.id === serverId);
 
                             //channels list
-                            //TODO: załadować deafultowo wybrany kanał (ustawiony na srv) i ustawić go jako wybrany po załadowaniu strony
                             fetch(`https://charmed-marginally-bonefish.ngrok-free.app/info/channels/${serverId}`)
                                 .then(result => result.json())
                                 .then(channels => {
-                                    console.log(channels);
 
                                     // Pobierz listę kanałów z tablicy channels
                                     const channelList = channels[0];
@@ -269,7 +284,6 @@
                                         .then(result => result.json())
                                         .then(res => {
                                             res = res.channel_id
-                                            console.log(`switch def status: ${res}`);
                                             if (res != null || res != undefined) {
                                                 // Znajdź odpowiadający identyfikator kanału
                                                 const selectedChannelIndex = channelIdList.indexOf(res);
@@ -295,7 +309,6 @@
                                         // Pobierz wartość wybranej opcji
                                         const selectedValue = channelSelect.value;
                                         // Wywołaj funkcję, która ma wypisać value wybranej opcji
-                                        console.log(selectedValue);
                                         fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/save`, {
                                             headers: {
                                                 type: "welcome_channel",
@@ -350,7 +363,6 @@
                 })
                     .then(result => result.json())
                     .then(res => {
-                        console.log(`switch def status: ${res}`)
                         if (res != null || res != undefined) {
                             switchButton.checked = res || false;
                         }
