@@ -62,7 +62,6 @@
         fetch(`https://charmed-marginally-bonefish.ngrok-free.app/console/load/${token}/${tokenType}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 // Zaktualizuj treść w dashboard-container
                 const dashboardContainer = document.getElementById('dashboardContainer');
                 dashboardContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
