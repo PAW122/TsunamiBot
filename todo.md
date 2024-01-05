@@ -1,20 +1,45 @@
 v 0.1
 # teraz
-zrobić klasę logs
-class console
-console.log() -> loguje dany strong w konsoli + godzina
-console.warn() -> loguje dane w konsoli + godzina + miejsce (plik i linijka wywołania)
-wszysztkie te rzeczy są zapisywane do zmiennej (lista na max 1000 wpisów)
-jeżeli przekroczy się 1000 wpisów to najstarczy zostaje usunięty
-!!
-strona może odczytać te logi ze zmiennej
 
 
-po odpaleniu bota ma zostać w jsonie z mapy komend zapisane wszystkie komendy po to żeby strona internetowa mogła z tamtąd wczytać liste komend
 
 folder komend *test*
 komendy są rejestrowane tylko na priv.
 albo dodatek do ustawień komendy (dev_only: true)
+
+# web
+1. opcja wyłączenia komendy dla serwera (komendy typu ping)
+po wyłączeniu komendy bot po załadowaniu wszyzstkich komend usówa ją z komend danego serwera
+jeżeli ktoś da rade użyć tej komendy to ma dostać odpowiedź ta komenda nie jest wyłączona przez administracje
+
+2. ustawienia autoroli
+
+3. koemnda /disable_web_settings ->
+po włączeniu nie da się zmieniać ustawień serwera z poziomu strony internetowej
+
+4. więcej ustawień welcome messages (wiadomość powitalna)
+
+    - te opcje mają się pokazać po tym jak user kliknie w zębatkę
+    wtedy pojawia się jakby takie okno wewnątrz przeglądarki które pokazuje więcej opcji
+
+    + (automatyczne wczytywanie) wszystkich danych po załadowaniu strony
+
+    + opcja klioknięcia znaku ? który pokaże jak użyć nicku usera w wiadomości
+    + wiadomość pv
+    + wiadomość na kanale
+    + konfiguracja tła
+
+5. bot client panel
+    + wybieranie serwera po nazwie lub id
+    + sprawdzanie userów
+    + ról
+    + kanałów
+    + ustawień kanałów
+    + wiadomości na kanałach
+    + wszystkie akcje jak wysyłanie wiadomości itd
+
+6. podgląd bazy danych na stronie
+7. ustawianie nicku bota na stronie
 
 # lużne rzeczy do zrobienia.
 .sprawdzić czy po usunięciu wszystkich plików z /files z db wszystkie bazy danych się poprawnie zainicjują i bot zadziała bez wywalania żadnych błędów
