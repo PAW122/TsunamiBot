@@ -3,14 +3,14 @@
     "name": "priv",
     "welcome_channel": "727662119553728535",
     "autorole": {
-      "role_id": "767844496389439509",
-      "status": true
+      "role_id": "1046110060935385098",
+      "status": false
     },
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
-        "xp": 232,
-        "messages": 21
+        "xp": 241,
+        "messages": 22
       }
     },
     "welcome_status": true
