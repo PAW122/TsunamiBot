@@ -36,6 +36,7 @@
             background-color: #2C2F33;
             color: white;
             padding: 20px;
+            overflow-y: auto; /* Dodana właściwość do obsługi paska przewijania */
         }
     </style>
 </head>
@@ -52,27 +53,27 @@
     </div>
 
     <script>
-         window.onload = () => {
-        // Pobierz parametry z URL
-        const pathParams = window.location.pathname.split('/');
-        const token = pathParams[2];
-        const tokenType = pathParams[3];
+        window.onload = () => {
+            // Pobierz parametry z URL
+            const pathParams = window.location.pathname.split('/');
+            const token = pathParams[2];
+            const tokenType = pathParams[3];
 
-        // Pobierz treść z API
-        fetch(`https://charmed-marginally-bonefish.ngrok-free.app/console/load/${token}/${tokenType}`)
-            .then(response => response.json())
-            .then(data => {
-                // Zaktualizuj treść w dashboard-container
-                const dashboardContainer = document.getElementById('dashboardContainer');
-                dashboardContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-            })
-            .catch(error => {
-                console.error('Błąd podczas pobierania danych z API:', error);
-                // W przypadku błędu, możesz również wyświetlić odpowiedni komunikat w dashboard-container
-                const dashboardContainer = document.getElementById('dashboardContainer');
-                dashboardContainer.innerHTML = '<p>Błąd podczas pobierania danych z API.</p>';
-            });
-    };
+            // Pobierz treść z API
+            fetch(`https://charmed-marginally-bonefish.ngrok-free.app/console/load/${token}/${tokenType}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Zaktualizuj treść w dashboard-container
+                    const dashboardContainer = document.getElementById('dashboardContainer');
+                    dashboardContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                })
+                .catch(error => {
+                    console.error('Błąd podczas pobierania danych z API:', error);
+                    // W przypadku błędu, możesz również wyświetlić odpowiedni komunikat w dashboard-container
+                    const dashboardContainer = document.getElementById('dashboardContainer');
+                    dashboardContainer.innerHTML = '<p>Błąd podczas pobierania danych z API.</p>';
+                });
+        };
     </script>
 </body>
 

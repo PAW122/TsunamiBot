@@ -136,7 +136,7 @@ app.get("/server/settings/load", (req, res) => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
             res.status(500).json({ error: 'Błąd weryfikacji' });
         });
-    return res.send({channel_id: String(load_server_settings(type, server_id))})
+    return res.send({data: String(load_server_settings(type, server_id))})
 })
 //tak samo jak w /loadm ale w body musi być przekazywany json z danymi do zmiany
 app.get("/server/settings/save", (req, res) => {

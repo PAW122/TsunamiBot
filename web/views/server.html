@@ -283,7 +283,7 @@
                                     })
                                         .then(result => result.json())
                                         .then(res => {
-                                            res = res.channel_id
+                                            res = res.data
                                             if (res != null || res != undefined) {
                                                 // Znajdź odpowiadający identyfikator kanału
                                                 const selectedChannelIndex = channelIdList.indexOf(res);
@@ -381,7 +381,7 @@
                             })
                                 .then(result => result.json())
                                 .then(res => {
-                                    res = res.role
+                                    res = res.data
                                     if (res != null || res != undefined) {
                                         // Znajdź odpowiadający identyfikator kanału
                                         const selectedChannelIndex = relesIdList.indexOf(res);
@@ -396,6 +396,8 @@
                                         } else {
                                             console.log(`Nie znaleziono odpowiedniego indeksu dla: ${res}`);
                                         }
+                                    } else {
+                                        console.log(`res err: ${res}`)
                                     }
                                 })
                                 .catch(error => {
@@ -441,29 +443,29 @@
                 })
                     .then(result => result.json())
                     .then(res => {
-                        if (res != null || res != undefined) {
-                            switchButton.checked = res || false;
-                        }
+                        switchButton.checked = res || false;
+                    
                     })
             }
 
             function setAutoroleSwitchButtonState() {
-                const switchButton = document.getElementById('AutoroleswitchButton');
+                const AutoroleswitchButton = document.getElementById('AutoroleswitchButton');
 
                 //pobierz deafultowy status przycisku
                 fetch(`https://charmed-marginally-bonefish.ngrok-free.app/server/settings/load`, {
                     headers: {
-                        type: "autorole.status",
+                        type: "autorole",
                         token: accessToken,
                         tokenType: tokenType,
                         server_id: serverId
                     },
                 })
-                    .then(result => result.json())
                     .then(res => {
-                        if (res != null || res != undefined) {
-                            switchButton.checked = res || false;
-                        }
+                        res = res
+                        console.log(res)
+                        AutoroleswitchButton.checked = res || false;
+                        console.log(AutoroleswitchButton.checked)
+
                     })
             }
 
