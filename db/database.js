@@ -1,4 +1,7 @@
 const fs = require('fs');
+const ConsoleLogger = require("../handlers/console")
+const logger = ConsoleLogger.getInstance();
+
 class Database {
     constructor(file_path) {
         this.file_path = file_path
@@ -54,20 +57,26 @@ class Database {
      * @returns {object|null} - Dane z bazy danych lub null, jeśli ścieżka nie istnieje
      */
     read(path) {
-        const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
-        const pathSegments = path.split('.');
-        let current = database;
-
-        // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
-        for (let i = 0; i < pathSegments.length; i++) {
-            if (!current[pathSegments[i]]) {
-                return null; // Jeśli którakolwiek część ścieżki nie istnieje, zwróć null
+        try {
+            const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
+            const pathSegments = path.split('.');
+            let current = database;
+    
+            // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
+            for (let i = 0; i < pathSegments.length; i++) {
+                if (!current[pathSegments[i]]) {
+                    return null; // Jeśli którakolwiek część ścieżki nie istnieje, zwróć null
+                }
+                current = current[pathSegments[i]];
             }
-            current = current[pathSegments[i]];
+    
+            return current;
+        } catch (error) {
+            logger.error('Błąd odczytu bazy danych:', error);
+            return null;
         }
-
-        return current;
     }
+    
 
     /**
      * add
