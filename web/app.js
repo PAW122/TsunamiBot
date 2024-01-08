@@ -102,6 +102,7 @@ app.get("/favicon.ico", (req, res) => {
 app.get("/console/load/:token/:tokenType", (req, res) => {
     const token = req.params.token;
     const tokenType = req.params.tokenType;
+    const option = req.query.option;
 
     verify(token, tokenType)
         .then(ver => {
@@ -111,7 +112,7 @@ app.get("/console/load/:token/:tokenType", (req, res) => {
             // Pobierz dane z loggera
             const consoleLogger = require("..//handlers/console");
             const loggerInstance = consoleLogger.getInstance();
-            const data = loggerInstance.getLogList();
+            const data = loggerInstance.getLogList(option);
 
             // Zwróć dane w formie obiektu JSON
             res.json(data);
