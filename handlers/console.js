@@ -46,11 +46,11 @@ class ConsoleLogger {
       console.warn(warningMessage);
     }
   
-    error(message) {
-      const errorMessage = `\x1b[31m[${this.getCurrentTime()}] [Error] ${message} (at ${this.getCallerLocation()})\x1b[0m`;
+    error(message, error) {
+      const errorMessage = `\x1b[31m[${this.getCurrentTime()}] [Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
       this.addToLogList(errorMessage);
       console.error(errorMessage);
-    }
+  }
   
     getCallerLocation() {
       // Pobierz informacje o miejscu wywołania
