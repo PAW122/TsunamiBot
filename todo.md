@@ -1,18 +1,31 @@
 v 0.1
 # teraz
+napisać do np 20 małych streamerów z propozycjami zrobienia im bota.
 
+zrobić dla database config, opcja production_database: <bool> -> jeżeli == false to tworzy kopie bazy danych, po zmienieniu spowrotem an true usuwa ją
 
+zrobic na stronie bota logi akcji z db (message.celete itd)
+na podobnej klasie co logger
+
+napisać kod który spowoduje, że seen wyjdzie z serwerów mających > niż 10 osób
+i podłączyć seena pod tsu bota
 
 folder komend *test*
 komendy są rejestrowane tylko na priv.
 albo dodatek do ustawień komendy (dev_only: true)
+
+> dodać system uzupełniania danych db. po tym jak ktoś pierwszy raz użyje bota to nie wszystkie komendy uzupełniają wszyzstkie dane (server nami itd)
 
 # web
 1. opcja wyłączenia komendy dla serwera (komendy typu ping)
 po wyłączeniu komendy bot po załadowaniu wszyzstkich komend usówa ją z komend danego serwera
 jeżeli ktoś da rade użyć tej komendy to ma dostać odpowiedź ta komenda nie jest wyłączona przez administracje
 
-2. ustawienia autoroli
+2. opcja interakcji z botem przez użytkownika nie będącym właścicielem bota.
+    + jakieś interakcje z ekonomią (dzienne nagrody, sklep itd)
+    + jakiś system reaction roli na stronie bota
+    + ocenianie serwera (gwiazdki 1-5), lista top serwerów.
+    + podgląd statystyk userów serwera (ile dany user wysłał wiadomości, siedział na vc itd) !!
 
 3. koemnda /disable_web_settings ->
 po włączeniu nie da się zmieniać ustawień serwera z poziomu strony internetowej
@@ -40,6 +53,50 @@ po włączeniu nie da się zmieniać ustawień serwera z poziomu strony internet
 
 6. podgląd bazy danych na stronie
 7. ustawianie nicku bota na stronie
+8. dodać jakieś staty
+    + ilość użytych komend 24h
+    + ilość serwerów
+    + ilość userów
+    + 
+9. podgląd statystyk userów serwera (ile dany user wysłał wiadomości, siedział na vc itd)
+
+# ekonomia
+zrobić ekonomie na podstawie jakiś kart z postaciami anime
+dropienie, walki itd
++ DZIAŁANIE / zasady
+    1. bot tworzy kategorie z kanałami
+        + drops
+        + arena
+        + pvp
+        + tutorials
+
+    2. bot ma działać globalnie lub serwerowo:
+        - deafultowo działa serwerowo, ale admin może zmienić na globalnie
+
++ dropy:
+    1. user może dropić co 30min komendą
+    2. zależnie od wielkości serwera (userów) co x czasu będą dropy na #drops
+    3. zależnie od aktuwności będą dropy na #drops (zależnie od ilości wysłanych wiadoości)
+
+    - czas na odebranie dropu (bot sprawdza danie emoji pod wiadomością) przez 30s
+
++ pvp
+    - globalnie
+        matchmacing zależnie od rankingu
+
+    - serwerowo
+        granie z ludźmi z czatu
+
++ akcje z kartami
+    + pvp -> wygrany bierze karte przeciwnika (walka wystawiając 3 karty)
+        - 
+
++ dropienie kard:
+    - jakość od 1 do 5
+        > zależnie od jakości będzie inna ramka karty
+
++ statystyki
+    - zapisywanie danych (dropy ile danych kard)
 
 # lużne rzeczy do zrobienia.
 .sprawdzić czy po usunięciu wszystkich plików z /files z db wszystkie bazy danych się poprawnie zainicjują i bot zadziała bez wywalania żadnych błędów
