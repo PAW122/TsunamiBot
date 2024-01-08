@@ -2,9 +2,11 @@ class ConsoleLogger {
   constructor() {
     if (!ConsoleLogger.instance) {
       this.logList = [];
+      this.errors = [];
       this.fullLogList = [];
 
       this.maxLogs = 1000;
+      this.maxErrors = 100000;
       this.maxFullLogs = 10000;
       ConsoleLogger.instance = this;
     }
@@ -49,6 +51,7 @@ class ConsoleLogger {
     error(message, error) {
       const errorMessage = `\x1b[31m[${this.getCurrentTime()}] [Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
       this.addToLogList(errorMessage);
+      this.addToErrorsList(errorMessage)
       console.error(errorMessage);
   }
   
@@ -77,9 +80,24 @@ class ConsoleLogger {
         this.fullLogList.shift()
       }
     }
+
+    addToErrorsList(message) {
+      this.errors.push(message)
+
+      if(this.errors.length > this.maxErrors) {
+        this.errors.shift()
+      }
+    }
   
-    getLogList() {
-      return this.logList;
+    getLogList(option) {
+      if(option == "extra") {
+        return this.fullLogList
+      } else if (option == "errors") {
+        return this.errors;
+      } else {
+        return this.logList;
+      }
+
     }
 
     getFullLogList() {
