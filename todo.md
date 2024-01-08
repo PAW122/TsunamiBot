@@ -1,5 +1,12 @@
 v 0.1
 # teraz
+zmienić nazwę (na githubie i folderu z Tsubota na coś inego)
+
+naprawić backupy dla sersers.json 42-linijki i takiego samego backupu
+wykrywa jako za duży backup
+
+w klasie logger dodać zapisywanie logów .error do pliku,
+
 napisać do np 20 małych streamerów z propozycjami zrobienia im bota.
 
 zrobić dla database config, opcja production_database: <bool> -> jeżeli == false to tworzy kopie bazy danych, po zmienieniu spowrotem an true usuwa ją
@@ -17,6 +24,8 @@ albo dodatek do ustawień komendy (dev_only: true)
 > dodać system uzupełniania danych db. po tym jak ktoś pierwszy raz użyje bota to nie wszystkie komendy uzupełniają wszyzstkie dane (server nami itd)
 
 # web
+0. opcja wyświetlania wszyzstkich logów w konsoli na stronie (logger.extra)
+    + opcja wyświetlania logów specyficznie dla danego serwera (wiadomości, eventy, itd) kiedyś
 1. opcja wyłączenia komendy dla serwera (komendy typu ping)
 po wyłączeniu komendy bot po załadowaniu wszyzstkich komend usówa ją z komend danego serwera
 jeżeli ktoś da rade użyć tej komendy to ma dostać odpowiedź ta komenda nie jest wyłączona przez administracje
