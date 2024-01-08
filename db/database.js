@@ -1,6 +1,7 @@
 const fs = require('fs');
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
+const path = require('path');
 
 class Database {
     constructor(file_path) {
@@ -50,6 +51,37 @@ class Database {
         //console.log(`Nowy wpis został dodany do ${path}.`);
     }
 
+
+    /**
+ * add
+ * Dodaje lub aktualizuje wpis w bazie danych
+ * @param {string} path - Ścieżka do elementu w bazie danych (np. "table1.users.userid.example_user_id")
+ * @param {object} data - Nowe dane do dodania lub aktualizacji
+ */
+    push(path, data) {
+        const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
+        const pathSegments = path.split('.');
+        let current = database;
+
+        // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
+        for (let i = 0; i < pathSegments.length - 1; i++) {
+            if (!current[pathSegments[i]]) {
+                current[pathSegments[i]] = {};
+            }
+            current = current[pathSegments[i]];
+        }
+
+        // Aktualizuje istniejące pola
+        current[pathSegments[pathSegments.length - 1]] = {
+            ...current[pathSegments[pathSegments.length - 1]],
+            ...data
+        };
+
+        // Zapisuje zmienioną bazę danych z powrotem do pliku JSON
+        fs.writeFileSync(this.file_path, JSON.stringify(database, null, 2), 'utf-8');
+        //console.log(`Dane w ${path} zostały zaktualizowane.`);
+    }
+
     /**
      * read
      * Odczytuje dane z bazy danych
@@ -61,7 +93,7 @@ class Database {
             const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
             const pathSegments = path.split('.');
             let current = database;
-    
+
             // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
             for (let i = 0; i < pathSegments.length; i++) {
                 if (!current[pathSegments[i]]) {
@@ -69,14 +101,14 @@ class Database {
                 }
                 current = current[pathSegments[i]];
             }
-    
+
             return current;
         } catch (error) {
             logger.error('Błąd odczytu bazy danych:', error);
             return null;
         }
     }
-    
+
 
     /**
      * add
@@ -116,6 +148,46 @@ class Database {
         // Zapisuje zmienioną bazę danych z powrotem do pliku JSON
         fs.writeFileSync(this.file_path, JSON.stringify(database, null, 2), 'utf-8');
         //console.log(`Nowy wpis został dodany do ${path}.`);
+    }
+
+    getCurrentFileSize(filePath) {
+        try {
+            const stats = fs.statSync(filePath);
+            return stats.size;
+        } catch (error) {
+            console.error('Error getting current file size:', error);
+            return null;
+        }
+    }
+
+    backup(backup_path) {
+        // Pobierz rozmiar pliku przed wykonaniem backupu
+        const currentSizeBeforeBackup = this.getCurrentFileSize(this.file_path);
+
+        // Wygeneruj nazwę pliku backupu z timestampem
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const backupFileName = `backup_${timestamp}.json`;
+
+        // Ustal pełną ścieżkę do pliku backupu
+        const backupFilePath = path.join(backup_path, backupFileName);
+
+        try {
+            // Wykonaj backup
+            fs.copyFileSync(this.file_path, backupFilePath);
+
+            // Pobierz rozmiar pliku po wykonaniu backupu
+            const currentSizeAfterBackup = this.getCurrentFileSize(this.file_path);
+            
+            // Porównaj rozmiar pliku przed i po backupie
+            if (currentSizeBeforeBackup !== null && currentSizeAfterBackup !== null &&
+                currentSizeBeforeBackup > currentSizeAfterBackup) {
+                logger.log(`Backup created successfully at: ${backupFilePath}`);
+            } else {
+                logger.error('Error creating backup: New backup size is not smaller than the current size.');
+            }
+        } catch (error) {
+            logger.error('Error creating backup:', error);
+        }
     }
 
 
