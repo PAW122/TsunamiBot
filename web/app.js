@@ -7,7 +7,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const { is_owner } = require("./routes/is_bot_owner")
 const { verify } = require("./routes/veryfi_user")
-const { save_server_settings, load_server_settings } = require("./routes/server_settings")
+const { save_server_settings, load_server_settings, save_bot_username } = require("./routes/server_settings")
 
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -95,6 +95,10 @@ app.get("/console/:token/:token_type", (req, res) => {
     return res.sendFile(`\\web\\views\\console.html`, { root: '.' });
 })
 
+app.get("/favicon.ico", (req, res) => {
+    return res.sendFile(`\\web\\public\\favicon.ico`)
+})
+
 app.get("/console/load/:token/:tokenType", (req, res) => {
     const token = req.params.token;
     const tokenType = req.params.tokenType;
@@ -134,10 +138,36 @@ app.get("/server/settings/load", (req, res) => {
         })
         .catch(error => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
-            res.status(500).json({ error: 'Błąd weryfikacji' });
+            //res.status(500).json({ error: 'Błąd weryfikacji' });
         });
-    return res.send({data: String(load_server_settings(type, server_id))})
+    return res.send({ data: String(load_server_settings(type, server_id)) })
 })
+
+app.get("/server/settings/bot_username", (req, res) => {
+    const name = req.headers.name;
+    const token = req.headers.token;
+    const tokenType = req.headers.tokentype;
+    const server_id = req.headers.server_id
+
+    verify(token, tokenType)
+        .then(ver => {
+            if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
+            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
+        })
+        .catch(error => {
+            logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
+            // res.status(500).json({ error: 'Błąd weryfikacji' });
+        });
+
+    //pomyślnie zwerfikowano użytkownika
+
+    //zapisz odpowiednie dane
+    save_bot_username(name,server_id)
+
+    // Możesz również zwrócić odpowiedź HTTP z odpowiednim statusem
+    res.status(200).send("Received and updated the data successfully.");
+})
+
 //tak samo jak w /loadm ale w body musi być przekazywany json z danymi do zmiany
 app.get("/server/settings/save", (req, res) => {
     // Odczytaj dane z nagłówków zapytania
@@ -158,7 +188,7 @@ app.get("/server/settings/save", (req, res) => {
         })
         .catch(error => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
-            res.status(500).json({ error: 'Błąd weryfikacji' });
+            // res.status(500).json({ error: 'Błąd weryfikacji' });
         });
 
     //pomyślnie zwerfikowano użytkownika
