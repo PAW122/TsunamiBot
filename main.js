@@ -1,4 +1,5 @@
-const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"
+const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"//tsu
+//const TOKEN = "ODc0MzIzNjgyMjYzMTc5MzE0.GsNEqS.eyIHch0YhI4dTD6b6gsXJfdyDo5UPrHyw8_IvQ"//senko
 const OWNER_ID = "438336824516149249";
 const { Client, GatewayIntentBits } = require("discord.js")
 const client = new Client({
@@ -17,19 +18,24 @@ const welcome_messages = require("./handlers/welcome")
 const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
+const status_handler = require("./handlers/botStatus")
 
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
 
+const Database = require("./db/database")
+const database = new Database(__dirname + "\\db\\files\\servers.json")
+
 client.on("ready", (res) => {
     logger.log(`${res.user.tag} is ready`);
-    client.user.setActivity("Watching TTV TsunamiCat");
 
     //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
     unregisterAllCommands(client)
         .then(register_slash_commands(client))
     //register_slash_commands(client)
 
+    status_handler(client)
+    database.backup(__dirname + "\\db\\backup")
     //run bot webside
     web();
 });
