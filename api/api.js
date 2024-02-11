@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 function run() {
     server.listen(port);
-    console.log(`serwer online localhost:${port}`)
+    console.log(`API online localhost:${port}`)
 }
 
 module.exports = run
