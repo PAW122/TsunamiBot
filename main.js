@@ -25,7 +25,7 @@ const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
 
 const Database = require("./db/database")
-const database = new Database(__dirname + "\\db\\files\\servers.json")
+const database = new Database(__dirname + "/db/files/servers.json")
 
 client.on("ready", (res) => {
     logger.log(`${res.user.tag} is ready`);
@@ -36,7 +36,7 @@ client.on("ready", (res) => {
     //register_slash_commands(client)
 
     status_handler(client)
-    database.backup(__dirname + "\\db\\backup")
+    database.backup(__dirname + "/db/backup")
     //run bot webside
     web();
 });

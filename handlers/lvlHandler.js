@@ -1,5 +1,5 @@
 const Database = require("../db/database")
-const db = new Database(__dirname + "\\..\\db\\files\\servers.json")
+const db = new Database(__dirname + "/../db/files/servers.json")
 db.init()
 
 const calculate_lvl = require("./calculateLvl")

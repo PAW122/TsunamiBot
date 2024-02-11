@@ -3,15 +3,15 @@ const ConsoleLogger = require("./console")
 const logger = ConsoleLogger.getInstance();
 
 async function register_slash_commands(client) {
-    const commandsDir = fs.readdirSync(__dirname + `\\..\\commands`);
+    const commandsDir = fs.readdirSync(__dirname + `/../commands`);
 
     // Iterate through each guild the bot is a member of
     client.guilds.cache.forEach(async (guild) => {
         for (const folder of commandsDir) {
-            const commandsFile = fs.readdirSync(__dirname + `\\..\\commands\\${folder}`).filter(file => file.endsWith(".js"));
+            const commandsFile = fs.readdirSync(__dirname + `/../commands/${folder}`).filter(file => file.endsWith(".js"));
 
             for (const file of commandsFile) {
-                const filePath = __dirname + `\\..\\commands\\${folder}\\${file}`;
+                const filePath = __dirname + `/../commands/${folder}/${file}`;
                 delete require.cache[require.resolve(filePath)]; // Clear the cache
                 const { command, _  } = require(filePath);
 
@@ -51,13 +51,13 @@ async function unregisterAllCommands(client) {
  * @param {object} client client
  */
 async function registerSlashCommandsForGuild(guild, client) {
-    const commandsDir = fs.readdirSync(__dirname + `\\..\\commands`);
+    const commandsDir = fs.readdirSync(__dirname + `/../commands`);
 
     for (const folder of commandsDir) {
-        const commandsFile = fs.readdirSync(__dirname + `\\..\\commands\\${folder}`).filter(file => file.endsWith(".js"));
+        const commandsFile = fs.readdirSync(__dirname + `/../commands/${folder}`).filter(file => file.endsWith(".js"));
 
         for (const file of commandsFile) {
-            const filePath = __dirname + `\\..\\commands\\${folder}\\${file}`;
+            const filePath = __dirname + `/../commands/${folder}/${file}`;
             delete require.cache[require.resolve(filePath)]; // Clear the cache
             const { command, _, settings } = require(filePath);
 

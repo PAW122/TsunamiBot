@@ -1,5 +1,5 @@
 const Database = require("../db/database");
-const database = new Database(__dirname + "\\..\\db\\files\\servers.json");
+const database = new Database(__dirname + "/../db/files/servers.json");
 
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
