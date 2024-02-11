@@ -2,7 +2,7 @@
   "727662119553728532": {
     "name": "priv",
     "welcome_channel": "727662119553728535",
-    "welcome_status": false,
+    "welcome_status": true,
     "autorole": {
       "role_id": "1046110060935385098",
       "status": false
