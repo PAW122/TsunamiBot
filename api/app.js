@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 
 const { client } = require("../main")
-
 //web
 app.get('/', (request, response) => {
     return response.sendFile(process.cwd() + '/web2/views/index.html');
@@ -16,7 +15,7 @@ app.get('/main.js', (request, response) => {
  * /load/server-list/:token_type/:token
  * @param :token_type
  * @param token
- * @return {json} list of user servers
+ * @return {json} .servers -> list of user servers + .user -> user data
  */
 app.get("/load/server-list/:token_type/:token", (req, res) => {
     const tokenType = req.params.token_type
@@ -47,7 +46,26 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                 })
                 .then(guildsResponse => {
 
-                    return res.json(guildsResponse)
+                    //bot servers
+                    const bot_server_list = client
+                    console.log(bot_server_list)
+
+                    //user servers
+                    console.log(guildsResponse)
+                    let guild_list = {}
+
+                    guildsResponse.forEach(element => {
+                        if(element.owner === true) {
+                            guild_list.push(element);
+                        }
+                    });
+
+                    return res.json({servers: guildsResponse, 
+                        user: {
+                            username: username,
+                            discriminator: discriminator,
+                            avatar: avatar,
+                            id: id}})
 
                 })
                 .catch(console.error);
