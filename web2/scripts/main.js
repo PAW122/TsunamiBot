@@ -7,6 +7,7 @@ function load() {
     let token = urlParams.get("access_token");
     let token_type = urlParams.get("#token_type");
     if (token && token_type) {
+        console.log(`token_type: ${token_type}`);
         console.log(`token: ${token}`);
         fetch(`http://localhost:3000/load/server-list/${token_type}/${token}`)
             .then(res => res.json())
