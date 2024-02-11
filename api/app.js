@@ -40,17 +40,27 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                     if (!guildsResult.ok) {
                         throw new Error(`HTTP error! Status: ${guildsResult.status}`);
                     }
-                    //sprawdź na jakich serwerach jest bot.},
 
 
                     return guildsResult.json();
                 })
                 .then(guildsResponse => {
 
+                    let { client } = require("../main");
+
                     let botGuilds = client.guilds.cache.map(guild => guild.id);
                     let userGuilds = guildsResponse.map(guild => guild.id);
                     let updatedUserGuilds = userGuilds.filter(guildId => botGuilds.includes(guildId));
-                    guildsResponse = guildsResponse.filter(guild => updatedUserGuilds.includes(guild.id));
+                    let guildsWithAdminPermission = [];
+                    updatedUserGuilds.forEach(guildId => {
+                        let guild = client.guilds.cache.get(guildId);
+                        let member = guild.members.cache.get(id);
+                        if (member.permissions.has("ADMINISTRATOR") || guild.ownerId === id) {
+                            guildsWithAdminPermission.push(guildId);
+                        }
+                    });
+                    guildsResponse = guildsResponse.filter(guild => guildsWithAdminPermission.includes(guild.id));
+                    
 
                     // Zwrócenie danych
                     return res.json({
