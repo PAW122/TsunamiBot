@@ -7,7 +7,7 @@ const command = new SlashCommandBuilder()
 async function execute(interaction, client) {
     
     const Database = require("../../db/database")
-    const db = new Database(__dirname + "\\..\\..\\db\\files\\servers.json");
+    const db = new Database(__dirname + "/../../db/files/servers.json");
     db.init();
     const data = db.read("727662119553728532")
     console.log(data)

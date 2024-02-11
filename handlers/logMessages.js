@@ -1,5 +1,5 @@
 const Database = require("../db/database")
-const db = new Database(__dirname + "\\..\\db\\files\\log_messages.json");
+const db = new Database(__dirname + "/../db/files/log_messages.json");
 function log_messages(message) {
     const guild_id = message.guild.id
     const channel_id = message.channel.id

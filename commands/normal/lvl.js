@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const calculate_lvl = require("../../handlers/calculateLvl")
 const Database = require("../../db/database")
-const db = new Database(__dirname + "\\..\\..\\db\\files\\servers.json")
+const db = new Database(__dirname + "/../../db/files/servers.json")
 
 const command = new SlashCommandBuilder()
     .setName("lvl")

@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const Database = require("../../db/database");
-const database = new Database(__dirname + "\\..\\..\\db\\files\\ideas.json");
+const database = new Database(__dirname + "/../../db/files/ideas.json");
 
 const command = new SlashCommandBuilder()
     .setName("idea")

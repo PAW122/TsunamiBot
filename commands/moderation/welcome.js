@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, ChannelType, PermissionsBitField, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
-const database = new Database(__dirname + "\\..\\..\\db\\files\\servers.json");
+const database = new Database(__dirname + "/../../db/files/servers.json");
 //TODO: dodać opcję usówania welcome z db
 const command = new SlashCommandBuilder()
     .setName("welcome")

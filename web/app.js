@@ -27,7 +27,7 @@ app.use(limiter);
 
 //strona interntowa:
 app.set('view engine', 'ejs');
-app.set('views', `${__dirname}\\views`);
+app.set('views', `${__dirname}/views`);
 const publicFolderPath = path.join(__dirname, 'public');
 app.use(express.static(publicFolderPath));
 
@@ -40,20 +40,20 @@ app.use(express.json({ limit: '10mb' }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.get('/', (request, response) => {
-    return response.sendFile('\\web\\views\\index.html', { root: '.' });
+    return response.sendFile('/web/views/index.html', { root: '.' });
 });
 
 app.get('/auth/discord', (request, response) => {
-    return response.sendFile('\\web\\views\\dashboard.html', { root: '.' });
+    return response.sendFile('/web/views/dashboard.html', { root: '.' });
 });
 
 //dodać wszystkie opcje zarządzania na stronie
 app.get('/server', (req, res) => {
-    return res.sendFile('\\web\\views\\server.html', { root: '.' });
+    return res.sendFile('/web/views/server.html', { root: '.' });
 })
 
 app.get("/guildconsole/:token/:tokenType/:serverId", (req, res) => {
-    return res.sendFile('\\web\\views\\guild_console.html', {root: '.'});
+    return res.sendFile('/web/views/guild_console.html', {root: '.'});
 })
 
 app.get("/info/:guildId", async (req, res) => {
@@ -142,11 +142,11 @@ app.get("/report/:token/:token_type", (req, res) => {
 
 //bot owner webside
 app.get("/console/:token/:token_type", (req, res) => {
-    return res.sendFile(`\\web\\views\\console.html`, { root: '.' });
+    return res.sendFile(`/web/views/console.html`, { root: '.' });
 })
 
 app.get("/favicon.ico", (req, res) => {
-    return res.sendFile(`\\web\\public\\favicon.ico`)
+    return res.sendFile(`/web/public/favicon.ico`)
 })
 
 app.get("/console/load/:token/:tokenType", (req, res) => {
