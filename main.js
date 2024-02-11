@@ -40,8 +40,8 @@ client.on("ready", (res) => {
     status_handler(client)
     database.backup(__dirname + "/db/backup")
     //run bot webside
-    web();
-    web2();
+    //web();
+    // web2();
     api();
 });
 

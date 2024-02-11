@@ -3,10 +3,21 @@ const app = express();
 
 const { client } = require("../main")
 
+//web
 app.get('/', (request, response) => {
-    return response.send({ status: "ok" })
+    return response.sendFile(process.cwd() + '/web2/views/index.html');
 });
 
+app.get('/main.js', (request, response) => {
+    return response.sendFile(process.cwd()  + '/web2/scripts/main.js');
+});
+
+/**
+ * /load/server-list/:token_type/:token
+ * @param :token_type
+ * @param token
+ * @return {json} list of user servers
+ */
 app.get("/load/server-list/:token_type/:token", (req, res) => {
     const tokenType = req.params.token_type
     const token = req.params.token
@@ -36,14 +47,12 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                 })
                 .then(guildsResponse => {
 
-                    console.log(guildsResponse)
                     return res.json(guildsResponse)
 
                 })
                 .catch(console.error);
         })
         .catch(console.error);
-
 })
 
 module.exports = app;
