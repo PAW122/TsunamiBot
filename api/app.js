@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
 
-const { client } = require("../main")
 //web
 app.get('/', (request, response) => {
     return response.sendFile(process.cwd() + '/web2/views/index.html');
 });
 
 app.get('/main.js', (request, response) => {
-    return response.sendFile(process.cwd()  + '/web2/scripts/main.js');
+    return response.sendFile(process.cwd() + '/web2/scripts/main.js');
 });
 
 /**
@@ -28,6 +27,7 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
     })
         .then(result => result.json())
         .then(response => {
+            const { client } = require("../main")
             const { username, discriminator, avatar, id } = response;
             // Fetch user's guilds (servers)
             fetch('https://discord.com/api/users/@me/guilds', {
@@ -41,32 +41,27 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                         throw new Error(`HTTP error! Status: ${guildsResult.status}`);
                     }
                     //sprawdź na jakich serwerach jest bot.},
-                    
+
 
                     return guildsResult.json();
                 })
                 .then(guildsResponse => {
 
-                    // //bot servers
-                    // const bot_server_list = client
-                    // console.log(bot_server_list)
+                    let botGuilds = client.guilds.cache.map(guild => guild.id);
+                    let userGuilds = guildsResponse.map(guild => guild.id);
+                    let updatedUserGuilds = userGuilds.filter(guildId => botGuilds.includes(guildId));
+                    guildsResponse = guildsResponse.filter(guild => updatedUserGuilds.includes(guild.id));
 
-                    // //user servers
-                    // console.log(guildsResponse)
-                    // let guild_list = {}
-
-                    // guildsResponse.forEach(element => {
-                    //     if(element.owner === true) {
-                    //         guild_list.push(element);
-                    //     }
-                    // });
-
-                    return res.json({servers: guildsResponse, 
+                    // Zwrócenie danych
+                    return res.json({
+                        servers: guildsResponse,
                         user: {
                             username: username,
                             discriminator: discriminator,
                             avatar: avatar,
-                            id: id}})
+                            id: id
+                        }
+                    });
 
                 })
                 .catch(console.error);
