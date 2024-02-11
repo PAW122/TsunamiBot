@@ -8,9 +8,13 @@ const favicon = require('serve-favicon');
 const { is_owner } = require("./routes/is_bot_owner")
 const { verify } = require("./routes/veryfi_user")
 const { save_server_settings, load_server_settings, save_bot_username } = require("./routes/server_settings")
+const { DiscordAPIError } = require('discord.js');
 
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
+
+const GuildConsoleLogger = require("../handlers/guildConsoleLogs")
+const loggerInstance = GuildConsoleLogger.getInstance();
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // Okno czasowe (1 minuta)
@@ -48,33 +52,79 @@ app.get('/server', (req, res) => {
     return res.sendFile('\\web\\views\\server.html', { root: '.' });
 })
 
-app.get("/info/:guildId", async (req, res) => {
-    const { client } = require("../main")
-    const guildId = req.params.guildId
-    const guild = await client.guilds.fetch(guildId);
-    if (!guild) return res.sendStatus(404);
-    return res.send(guild);
+app.get("/guildconsole/:token/:tokenType/:serverId", (req, res) => {
+    return res.sendFile('\\web\\views\\guild_console.html', {root: '.'});
 })
+
+app.get("/info/:guildId", async (req, res) => {
+    const { client } = require("../main");
+    const guildId = req.params.guildId;
+
+    try {
+        const guild = await client.guilds.fetch(guildId);
+
+        if (!guild) {
+            // Gildia nie została znaleziona
+            return res.sendStatus(404);
+        }
+
+        // Gildia została znaleziona, zwróć informacje o gildii
+        return res.send(guild);
+    } catch (error) {
+        // Obsługa błędu, np. błąd "Unknown Guild"
+        logger.error("Błąd podczas pozyskiwania informacji o gildii:", error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+});
 
 //TODO do info, channels i roles dodać jakąś weryfikacje aby nikt nieporządany nie sprawdzał danych z api
 app.get("/info/channels/:guildId", async (req, res) => {
-    const { client } = require("../main")
-    const guildId = req.params.guildId
-    const guild = await client.guilds.fetch(guildId);
-    const channels_ids = guild.channels
-    const channels = guild.channels.cache.map(channel => channel.name)
-    if (!guild) return res.sendStatus(404);
-    return res.send([channels, channels_ids]);
-})
+    const { client } = require("../main");
+    const guildId = req.params.guildId;
+
+    try {
+        const guild = await client.guilds.fetch(guildId);
+
+        if (!guild) {
+            return res.sendStatus(404);
+        }
+
+        const channels_ids = guild.channels;
+        const channels = guild.channels.cache.map(channel => channel.name);
+
+        return res.send([channels, channels_ids]);
+    } catch (error) {
+        if (error instanceof DiscordAPIError && error.code === 10004) {
+            // Obsługa błędu "Unknown Guild"
+            console.error("Gildia nieznaleziona:", error);
+            return res.sendStatus(404);
+        }
+
+        // Obsługa innych błędów
+        console.error("Błąd podczas pozyskiwania informacji o gildii:", error);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+});
+
 
 app.get("/info/roles/:guildId", async (req, res) => {
     const { client } = require("../main")
     const guildId = req.params.guildId
-    const guild = await client.guilds.fetch(guildId);
-    const roles_ids = guild.roles
-    const roles = guild.roles.cache.map(role => role.name)
-    if (!guild) return res.sendStatus(404);
-    return res.send([roles, roles_ids]);
+    try{
+        const guild = await client.guilds.fetch(guildId);
+        if(!guild) {
+            return res.sendStatus(404);
+        }
+
+        const roles_ids = guild.roles
+        const roles = guild.roles.cache.map(role => role.name)
+        if (!guild) return res.sendStatus(404);
+        return res.send([roles, roles_ids]);
+    } catch(err) {
+        logger.error("Błąd podczas pozyskiwania informacji o gildii:", err);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+
 })
 
 //strona z pomysłami komend.
@@ -103,6 +153,9 @@ app.get("/console/load/:token/:tokenType", (req, res) => {
     const token = req.params.token;
     const tokenType = req.params.tokenType;
     const option = req.query.option;
+    if(!token || !tokenType) {
+        return res.sendStatus(500).send({ error: "Invalid params" });
+    }
 
     verify(token, tokenType)
         .then(ver => {
@@ -123,6 +176,41 @@ app.get("/console/load/:token/:tokenType", (req, res) => {
         });
 });
 
+app.get("/load/guildconsole/:token/:tokenType/:guildId", (req, res) => {
+    const token = req.params.token;
+    const tokenType = req.params.tokenType;
+    const guildId =  req.params.guildId;
+
+    if(!token || !tokenType) {
+        return res.sendStatus(500).send({ error: "Invalid params" });
+    }
+    verify(token, tokenType)
+        .then(ver => {
+            if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
+
+            //sprawdż czy dany user jest właścicielem serwera(aby mógł zobaczyć jego logi)
+            console.error("app.js 138. Sprawdż czy user ma uprawnienia do podglądu konsoli serwera. (admin/owner)");
+
+            const data = loggerInstance.getLogs(guildId, 100);
+
+            // Zwróć dane w formie obiektu JSON
+            res.json(data);
+        })
+        .catch(error => {
+            logger.log('Błąd podczas weryfikacji użytkownika: ' + error);
+            res.status(500).json({ error: 'Błąd weryfikacji' });
+        });
+})
+
+//rework
+app.get("/bot/is_on_server", (req, res) => {
+    const servers = req.headers.servers;
+    const token = req.headers.token;
+    const tokenType = req.headers.tokentype;
+
+    //return is bot on server:
+    logger.log(servers)
+})
 
 //user musi przekazywać token z zalogowania za pomocą dc, potem sprawdzane jest czy ten user jest adminem na serwerze(aby odczytać ustawienia serwera)
 app.get("/server/settings/load", (req, res) => {
@@ -135,7 +223,6 @@ app.get("/server/settings/load", (req, res) => {
     verify(token, tokenType)
         .then(ver => {
             if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
-            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
         })
         .catch(error => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
@@ -153,7 +240,6 @@ app.get("/server/settings/bot_username", (req, res) => {
     verify(token, tokenType)
         .then(ver => {
             if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
-            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
         })
         .catch(error => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);
@@ -185,7 +271,6 @@ app.get("/server/settings/save", (req, res) => {
     verify(token, tokenType)
         .then(ver => {
             if (!ver) return res.status(10).json({ error: 'Błąd weryfikacji' });
-            if (!is_owner(ver)) return res.status(11).json({ error: 'Nie jesteś właścicielem' });
         })
         .catch(error => {
             logger.extra('Błąd podczas weryfikacji użytkownika: ' + error);

@@ -8,13 +8,14 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildVoiceStates]
+        GatewayIntentBits.GuildVoiceStates,
+        GatewayIntentBits.GuildPresences]
 });
 
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
 const { commandsMap } = require("./handlers/commandsMap")
 const welcome_messages = require("./handlers/welcome")
-//const autorole = require("./handlers/autorole")
+const autorole = require("./handlers/autorole")
 const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
@@ -87,7 +88,7 @@ client.on('interactionCreate', async (interaction) => {
 
 client.on('guildMemberAdd', member => {
     welcome_messages(member, client)
-    //autorole(member, client)
+    autorole(member, client)
 });
 
 client.on("messageCreate", message => {

@@ -2,18 +2,23 @@
   "727662119553728532": {
     "name": "priv",
     "welcome_channel": "727662119553728535",
+    "welcome_status": false,
     "autorole": {
       "role_id": "1046110060935385098",
-      "status": true
+      "status": false
     },
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
-        "xp": 477,
-        "messages": 43
+        "xp": 516,
+        "messages": 47
+      },
+      "778643150981562368": {
+        "xp": 178,
+        "messages": 19
       }
     },
-    "welcome_status": true
+    "owner": "438336824516149249"
   },
   "1083481840159039588": {
     "name": "SentiByte-Studio",
@@ -34,9 +39,34 @@
       "role_id": "743094629238439946",
       "status": true
     },
-    "bot_nickname": "Senko",
+    "bot_nickname": "Sneko_",
     "name": "Porg Comunuty",
-    "onwer": "438336824516149249",
+    "users_lvls": {
+      "609743130987593749": {
+        "xp": 11,
+        "messages": 1
+      },
+      "771135515780972575": {
+        "xp": 8,
+        "messages": 1
+      },
+      "438336824516149249": {
+        "xp": 120,
+        "messages": 12
+      },
+      "577507822011416592": {
+        "xp": 140,
+        "messages": 13
+      },
+      "759765392787767316": {
+        "xp": 11,
+        "messages": 1
+      },
+      "734374783529255022": {
+        "xp": 7,
+        "messages": 1
+      }
+    },
     "owner": "438336824516149249"
   }
 }

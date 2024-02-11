@@ -161,6 +161,7 @@ class Database {
     }
 
     backup(backup_path) {
+        return logger.error("backup is disabled")
         // Pobierz rozmiar pliku przed wykonaniem backupu
         const currentSizeBeforeBackup = this.getCurrentFileSize(this.file_path);
 
@@ -180,7 +181,7 @@ class Database {
             
             // Porównaj rozmiar pliku przed i po backupie
             if (currentSizeBeforeBackup !== null && currentSizeAfterBackup !== null &&
-                currentSizeBeforeBackup > currentSizeAfterBackup) {
+                currentSizeBeforeBackup >= currentSizeAfterBackup) {
                 logger.log(`Backup created successfully at: ${backupFilePath}`);
             } else {
                 logger.error('Error creating backup: New backup size is not smaller than the current size.');

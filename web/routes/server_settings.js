@@ -27,8 +27,18 @@ function save_server_settings(type, value, server_id) {
  * @param {*} server_id 
  */
 function load_server_settings(type, server_id) {
+
+    //avoid wird error
+    if(type === "welcome_status") {
+        const data = database.read(`${server_id}`)
+        let res = data.welcome_status
+        console.log(res)
+        return res;
+    }
+
     database.init()
     const data = database.read(`${server_id}.${type}`)
+    console.log(data)
     return data;
 }
 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawiuHub</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #2C2F33; /* Kolor tła dla całej strony */
+      color: white; /* Kolor tekstu dla całej strony */
+    }
+
+    main {
+      background-color: #808080; /* Kolor tła dla <main> */
+      color: white; /* Kolor tekstu dla <main> */
+      padding: 20px; /* Dodatkowy padding dla <main> */
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+
+    <div class="menu-wrapper">
+      <!-- Ikonka menu -->
+      <div class="menu-toggle" id="menuToggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+
+      <!-- Menu -->
+      <div class="menu-container" id="menuContainer">
+        <ul class="menu-list">
+          <li><a href="/">Login</a></li>
+          <li><a href="/servers">Servers</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h1>Guild Console</h1>
+  </header>
+
+  <main>
+    <div class="dashboard-container" id="dashboardContainer">
+      <!-- Kontener, do którego będziemy wczytywać treść z API -->
+    </div>
+  </main>
+  <footer>
+    <p>_pawiu &copy; 2024</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menuContainer = document.getElementById("menuContainer");
+      menuContainer.classList.toggle("menu-open");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const header = document.querySelector('header');
+
+      menuToggle.addEventListener('click', () => {
+        header.classList.toggle('menu-open');
+      });
+    });
+
+
+    window.onload = () => {
+      // Pobierz parametry z URL
+      const pathParams = window.location.pathname.split('/');
+      const token = pathParams[2];
+      const tokenType = pathParams[3];
+      const guildId = pathParams[4]
+      // Pobierz treść z API
+      fetch(`https://charmed-marginally-bonefish.ngrok-free.app/load/guildconsole/${token}/${tokenType}/${guildId}`)
+        .then(response => response.json())
+        .then(data => {
+          // Zaktualizuj treść w dashboard-container
+          const dashboardContainer = document.getElementById('dashboardContainer');
+          dashboardContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        })
+        .catch(error => {
+          console.error('Błąd podczas pobierania danych z API:', error);
+          // W przypadku błędu, możesz również wyświetlić odpowiedni komunikat w dashboard-container
+          const dashboardContainer = document.getElementById('dashboardContainer');
+          dashboardContainer.innerHTML = '<p>Błąd podczas pobierania danych z API.</p>';
+        });
+    };
+  </script>
+</body>
+
+</html>

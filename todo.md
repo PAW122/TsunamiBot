@@ -2,6 +2,12 @@ v 0.1
 # teraz
 zmienić nazwę (na githubie i folderu z Tsubota na coś inego)
 
+zorbić taką console dal serwerów (dodano userowi role, wysłano wiadomość powitalną, user x użył komendy x )
+
+błędnie wczytywany jest początkowy stan switcha na dashboard serwer do welcome messages
+
+funkcja save_basics nadpisuje zmienną owner w jsonie.
+
 naprawić backupy dla sersers.json 42-linijki i takiego samego backupu
 wykrywa jako za duży backup
 

@@ -46,8 +46,6 @@ async function welcome_messages(member, client) {
         let avatarURL = member.user.displayAvatarURL({ format: "jpg", dynamic: false, size: av.size });
         avatarURL = avatarURL.replace(".webp", ".jpg");
 
-        console.log(avatarURL)
-
         const canvas = Canvas.createCanvas(dim.width, dim.height);
         const ctx = canvas.getContext("2d");
 

@@ -111,11 +111,11 @@
         window.onload = () => {
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
-    
+
             if (!accessToken) {
                 window.location.href = 'https://charmed-marginally-bonefish.ngrok-free.app/';
             }
-    
+
             const consoleLink = document.getElementById('consoleLink');
             consoleLink.href = `/console/${accessToken}/${tokenType}`;
 
@@ -125,52 +125,55 @@
                     authorization: `${tokenType} ${accessToken}`,
                 },
             })
-            .then(result => result.json())
-            .then(response => {
-                const { username, discriminator, avatar, id } = response;
-                //set the welcome username string
-                document.getElementById('name').innerText = ` ${username}#${discriminator}`;
-    
-                //set the avatar image by constructing a URL to access Discord's CDN
-                document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
-    
-                // Fetch user's guilds (servers)
-                fetch('https://discord.com/api/users/@me/guilds', {
-                    headers: {
-                        authorization: `${tokenType} ${accessToken}`,
-                    },
-                })
-                .then(guildsResult => {
-                    if (!guildsResult.ok) {
-                        throw new Error(`HTTP error! Status: ${guildsResult.status}`);
-                    }
-                    return guildsResult.json();
-                })
-                .then(guildsResponse => {
-    
-                    const serverListContainer = document.querySelector('.server_list');
-    
-                    guildsResponse.forEach(guild => {
-                        const serverElement = document.createElement('div');
-                        
-                        // Check if the user is an administrator of the server
-                        if (guild.owner) {
-                            // If the user is an admin, modify the server name link
-                            const serverLink = document.createElement('a');
-                            serverLink.href = `/server?access_token=${accessToken}&token_type=${tokenType}&server_id=${guild.id}`;
-                            serverLink.textContent = guild.name;
-                            serverElement.appendChild(serverLink);
-                        } else {
-                            // If the user is not an admin, use a plain div
-                            serverElement.textContent = guild.name;
-                        }
-    
-                        serverListContainer.appendChild(serverElement);
-                    });
+                .then(result => result.json())
+                .then(response => {
+                    const { username, discriminator, avatar, id } = response;
+                    //set the welcome username string
+                    document.getElementById('name').innerText = ` ${username}#${discriminator}`;
+
+                    //set the avatar image by constructing a URL to access Discord's CDN
+                    document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
+
+                    // Fetch user's guilds (servers)
+                    fetch('https://discord.com/api/users/@me/guilds', {
+                        headers: {
+                            authorization: `${tokenType} ${accessToken}`,
+                        },
+                    })
+                        .then(guildsResult => {
+                            if (!guildsResult.ok) {
+                                throw new Error(`HTTP error! Status: ${guildsResult.status}`);
+                            }
+                            //sprawdź na jakich serwerach jest bot.},
+                            
+
+                            return guildsResult.json();
+                        })
+                        .then(guildsResponse => {
+
+                            const serverListContainer = document.querySelector('.server_list');
+
+                            guildsResponse.forEach(guild => {
+                                const serverElement = document.createElement('div');
+
+                                // Check if the user is an administrator of the server
+                                if (guild.owner) {
+                                    // If the user is an admin, modify the server name link
+                                    const serverLink = document.createElement('a');
+                                    serverLink.href = `/server?access_token=${accessToken}&token_type=${tokenType}&server_id=${guild.id}`;
+                                    serverLink.textContent = guild.name;
+                                    serverElement.appendChild(serverLink);
+                                } else {
+                                    // If the user is not an admin, use a plain div
+                                    serverElement.textContent = guild.name;
+                                }
+
+                                serverListContainer.appendChild(serverElement);
+                            });
+                        })
+                        .catch(console.error);
                 })
                 .catch(console.error);
-            })
-            .catch(console.error);
         };
     </script>
 </body>
