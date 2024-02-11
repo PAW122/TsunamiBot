@@ -20,6 +20,7 @@ const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
+const api = require("./api/api")
 
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -39,6 +40,7 @@ client.on("ready", (res) => {
     database.backup(__dirname + "\\db\\backup")
     //run bot webside
     web();
+    api();
 });
 
 client.on("interactionCreate", async (interaction) => {
