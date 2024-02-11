@@ -46,19 +46,19 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                 })
                 .then(guildsResponse => {
 
-                    //bot servers
-                    const bot_server_list = client
-                    console.log(bot_server_list)
+                    // //bot servers
+                    // const bot_server_list = client
+                    // console.log(bot_server_list)
 
-                    //user servers
-                    console.log(guildsResponse)
-                    let guild_list = {}
+                    // //user servers
+                    // console.log(guildsResponse)
+                    // let guild_list = {}
 
-                    guildsResponse.forEach(element => {
-                        if(element.owner === true) {
-                            guild_list.push(element);
-                        }
-                    });
+                    // guildsResponse.forEach(element => {
+                    //     if(element.owner === true) {
+                    //         guild_list.push(element);
+                    //     }
+                    // });
 
                     return res.json({servers: guildsResponse, 
                         user: {
