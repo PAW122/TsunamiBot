@@ -17,7 +17,6 @@ const { commandsMap } = require("./handlers/commandsMap")
 const welcome_messages = require("./handlers/welcome")
 const autorole = require("./handlers/autorole")
 const web = require("./web/main")
-const web2 = require("./web2/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
@@ -41,7 +40,6 @@ client.on("ready", (res) => {
     database.backup(__dirname + "/db/backup")
     //run bot webside
     //web();
-    // web2();
     api();
 });
 

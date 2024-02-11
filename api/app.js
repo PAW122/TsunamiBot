@@ -36,6 +36,7 @@ app.get("/load/server-list/:token_type/:token", (req, res) => {
                 },
             })
                 .then(guildsResult => {
+                    console.log(tokenType, token, guildsResult)
                     if (!guildsResult.ok) {
                         throw new Error(`HTTP error! Status: ${guildsResult.status}`);
                     }
