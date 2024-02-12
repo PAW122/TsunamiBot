@@ -10,6 +10,7 @@ async function autorole(member, client) {
 
     const data = database.read(`${guild_id}`);
     const role_id = data.autorole.role_id;
+
     if (!role_id) return;
 
     const role = guild.roles.cache.get(role_id);
@@ -17,22 +18,20 @@ async function autorole(member, client) {
     if (!role) return;
 
     try {
-        // Pobierz obiekty roli dla użytkownika i bota
-        const memberHighestRole = member.roles.highest;
+        // Sprawdź, czy bot ma uprawnienia administratora lub do zarządzania rolami
         const botMember = guild.members.cache.get(client.user.id);
-        const botHighestRole = botMember.roles.highest;
-
-        // Sprawdź czy bot ma wyższą pozycję niż użytkownik
-        if (memberHighestRole.comparePositionTo(botHighestRole) >= 0) {
-            loggerInstance.log(guild_id,`Autorole -> Added roleId: ${role.id} role to user`);
-            // Możesz dodać rolę użytkownikowi
-            member.roles.add(role);
-        } else {
-            loggerInstance.log(guild_id, 'Autorole Error: The bot does not have sufficient permissions to add the role.');
+        
+        if (!botMember.permissions.has("ADMINISTRATOR") && !botMember.permissions.has("MANAGE_ROLES")) {
+            loggerInstance.log(guild_id, "Autorole Error: The bot does not have sufficient permissions to add the role.");
+            return;
         }
+
+        // Dodaj rolę użytkownikowi
+        await member.roles.add(role);
+        loggerInstance.log(guild_id, `Autorole -> Added roleId: ${role.id} role to user`);
     } catch (err) {
-        console.log(err);
+        loggerInstance.log(guild_id, "Missing Permissions. the bot cannot assign a role to the user. move the bot role higher in settings/roles")
     }
 }
 
-module.exports = autorole;
+module.exports = autorole

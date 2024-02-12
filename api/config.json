@@ -1,0 +1,5 @@
+{
+    "api": {
+        "max_bot_name_length": 32
+    }
+}

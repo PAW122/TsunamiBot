@@ -1,21 +1,21 @@
 {
   "727662119553728532": {
     "name": "priv",
-    "welcome_channel": "727662119553728535",
+    "welcome_channel": "745768777022701648",
     "welcome_status": true,
     "autorole": {
       "role_id": "1046110060935385098",
-      "status": false
+      "status": true
     },
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
-        "xp": 516,
-        "messages": 47
+        "xp": 530,
+        "messages": 48
       },
       "778643150981562368": {
-        "xp": 178,
-        "messages": 19
+        "xp": 235,
+        "messages": 24
       }
     },
     "owner": "438336824516149249"
@@ -40,7 +40,7 @@
       "status": true
     },
     "bot_nickname": "Sneko_",
-    "name": "Porg Comunuty",
+    "name": "Senko",
     "users_lvls": {
       "609743130987593749": {
         "xp": 11,
