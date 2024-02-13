@@ -21,6 +21,7 @@ const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
 const api = require("./api/api")
+const mod_logs = require("./handlers/mod_logs_handler")
 
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -41,6 +42,7 @@ client.on("ready", (res) => {
     //run bot webside
     //web();
     api();
+    mod_logs(client);
 });
 
 client.on("interactionCreate", async (interaction) => {

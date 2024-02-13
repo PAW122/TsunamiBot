@@ -15,10 +15,10 @@ app.get('/main.js', (request, response) => {
 });
 
 /**
- * /load/server-list/:token_type/:token
+ * /load/~~~/:token_type/:token
  * @param :token_type
  * @param token
- * @return {json} .servers -> list of user servers + .user -> user data
+ * @return {json}
  */
 app.use("/load", server_list)
 
@@ -27,7 +27,7 @@ app.use("/load", server_list)
  * @param token_type
  * @param token
  * @param server_id
- * @return {json} .save tatus (true/false)
+ * @return {json}
  */
 app.use("/save", save)
 
