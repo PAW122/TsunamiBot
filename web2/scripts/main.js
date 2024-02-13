@@ -1,26 +1,24 @@
-document.onload = load()
-document.logout = logout;
-
 var urlParams;
 
+var loginManager;
+
 function load() {
-    urlParams = new URLSearchParams(window.location.hash);
-    let token = urlParams.get("access_token");
-    let token_type = urlParams.get("#token_type");
-    if (token && token_type) {
-        console.log(`token_type: ${token_type}`);
-        console.log(`token: ${token}`);
-        fetch(`http://localhost:3000/load/server-list/${token_type}/${token}`)
-            .then(res => res.json())
-            .then(out => {
-                console.log('Downloaded JSON: ', out)
-                login(out)
-            })
-            .catch(err => { throw err }
-            );
-    } else {
-        console.log("token not found");
+    loginManager = new auth()
+    if (loginManager.token.token != null) {
+        doFetch(`http://localhost:3000/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`, login)
     }
+}
+
+function doFetch(url, callback) {
+    console.log("fetching", url)
+    fetch(url)
+        .then(res => res.json())
+        .then(out => {
+            console.log('Downloaded JSON: ', out)
+            callback(out)
+        })
+        .catch(err => { throw err }
+        );
 }
 
 function login(serverListResponse) {
@@ -49,12 +47,60 @@ function login(serverListResponse) {
     })
 }
 
-function logout() {
-    document.getElementById("servers").innerHTML = "";
-    document.querySelectorAll(".profile-logout").forEach(function (el) {
-        el.classList.remove("d-none");
-    })
-    document.querySelectorAll(".profile-login").forEach(function (el) {
-        el.classList.add("d-none");
-    })
+class auth {
+    token = {
+        token: undefined,
+        token_type: undefined
+    }
+
+    constructor() {
+        console.debug("Trying to get new token from URL")
+        this.token = this.readURL()
+        if (!this.token.token) {
+            console.debug("Token not found in URL. Loading token from cache")
+            this.token = this.load_cached()
+        }
+        this.save_cache()
+    }
+
+    readURL() {
+        let urlParams = new URLSearchParams(window.location.hash);
+        let token = urlParams.get("access_token");
+        let token_type = urlParams.get("#token_type");
+        console.debug("URL: ", { token: token, token_type: token_type })
+        if (token && token_type) {
+            window.location.hash = ""
+            return { token: token, token_type: token_type }
+        }
+        return { token: undefined, token_type: undefined }
+    }
+
+    load_cached({ token_path = "token", token_type_path = "token_type" } = {}) {
+        let token = localStorage.getItem(token_path)
+        let token_type = localStorage.getItem(token_type_path)
+        console.debug("Cache: ", { token: token, token_type: token_type })
+        if (token && token_type) {
+            return { token: token, token_type: token_type }
+        }
+        return { token: undefined, token_type: undefined }
+    }
+
+    save_cache({ token_path = "token", token_type_path = "token_type" } = {}) {
+        localStorage.setItem(token_path, this.token.token)
+        localStorage.setItem(token_type_path, this.token.token_type)
+    }
+
+    dispose() {
+        this.token = {
+            token: undefined,
+            token_type: undefined
+        }
+        this.save_cache()
+    }
 }
+
+document.onload = load()
+document.getElementById('logout-button').addEventListener("click", function () {
+    loginManager.dispose();
+    location.reload();
+})
