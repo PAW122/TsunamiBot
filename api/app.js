@@ -4,6 +4,7 @@ const app = express();
 //routes
 const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
+const mod_logs = require("./endpoints/mod_logs")
 
 //web
 app.get('/', (request, response) => {
@@ -30,5 +31,16 @@ app.use("/load", server_list)
  * @return {json}
  */
 app.use("/save", save)
+
+/**
+ * /modlogs/:tokenType/:token/:server_id/:filter/:elements
+ * @param tokenType
+ * @param token
+ * @param server_id
+ * @param filter - filtry jakie logi wczytać
+ * @param {int} elements - ilość logów do wczytania
+ * @return {json}
+ */
+app.use("/modlogs", mod_logs)
 
 module.exports = app;

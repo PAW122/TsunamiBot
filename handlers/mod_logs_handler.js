@@ -47,7 +47,9 @@ userUsernameUpdate
 function mod_logs(client) {
     database_servers.init();
     database_modLogs.init();
-    const currentTimestamp = Date.now();
+    function getCurrentTimestampInSeconds() {
+        return Math.floor(Date.now() / 1000);
+    }
 
     //delete message
     client.on("messageDelete", async (message) => {
@@ -55,7 +57,7 @@ function mod_logs(client) {
         if (!guildId) return;
 
         const data = {
-            timesamp: currentTimestamp,
+            timesamp: getCurrentTimestampInSeconds(),
             channelId: message.channelId,
             messageId: message.id,
             createdTimestamp: message.createdTimestamp,
@@ -92,7 +94,7 @@ function mod_logs(client) {
             addedRoles.forEach(role => {
                 const fetchedBy = newMember.guild.members.cache.find(member => member.roles.cache.has(role.id));
                 const data = {
-                    timesamp: currentTimestamp,
+                    timesamp: getCurrentTimestampInSeconds(),
                     addedRole: role,
                     addedBy: fetchedBy,
                     addedTo: newMember
@@ -116,7 +118,7 @@ function mod_logs(client) {
             removedRoles.forEach(role => {
                 const removedBy = newMember.guild.members.cache.find(member => member.roles.cache.has(role.id));
                 const data = {
-                    timesamp: currentTimestamp,
+                    timesamp: getCurrentTimestampInSeconds(),
                     removedRole: role,
                     removedBy: removedBy,
                     removedFrom: newMember
@@ -132,7 +134,7 @@ function mod_logs(client) {
         if (!guildId) return;
 
         const data = {
-            timesamp: currentTimestamp,
+            timesamp: getCurrentTimestampInSeconds(),
             member: member,
             oldNickname: oldNickname,
             newNickname: newNickname
@@ -146,7 +148,7 @@ function mod_logs(client) {
         if (!guildId) return;
 
         const data = {
-            timesamp: currentTimestamp,
+            timesamp: getCurrentTimestampInSeconds(),
             member: member
         };
 
@@ -161,7 +163,7 @@ function mod_logs(client) {
         // Sprawdzamy czy banner serwera został zmieniony
         if (oldGuild.banner !== newGuild.banner) {
             const data = {
-                timesamp: currentTimestamp,
+                timesamp: getCurrentTimestampInSeconds(),
                 oldBanner: oldGuild.banner,
                 newBanner: newGuild.banner
             };
@@ -177,7 +179,7 @@ function mod_logs(client) {
         // Sprawdzamy czy kanał AFK został dodany
         if (!oldGuild.afkChannel && newGuild.afkChannel) {
             const data = {
-                timesamp: currentTimestamp,
+                timesamp: getCurrentTimestampInSeconds(),
                 afkChannel: newGuild.afkChannel
             };
 
@@ -190,7 +192,7 @@ function mod_logs(client) {
         if (!guildId) return;
 
         const data = {
-            timesamp: currentTimestamp,
+            timesamp: getCurrentTimestampInSeconds(),
             oldContent: oldMessage.content,
             newContent: newMessage.content,
             editedBy: newMessage.author
@@ -215,7 +217,7 @@ function mod_logs(client) {
         // Sprawdzamy czy pozycja roli została zmieniona
         if (oldPosition !== newPosition) {
             const data = {
-                timesamp: currentTimestamp,
+                timesamp: getCurrentTimestampInSeconds(),
                 oldPosition: oldPosition,
                 newPosition: newPosition,
                 role: newRole
@@ -236,7 +238,7 @@ function mod_logs(client) {
 
         if (oldPermissions !== newPermissions) {
             const data = {
-                timesamp: currentTimestamp,
+                timesamp: getCurrentTimestampInSeconds(),
                 oldPermissions: oldPermissions.toArray(),
                 newPermissions: newPermissions.toArray(),
                 role: newRole
@@ -253,7 +255,7 @@ function mod_logs(client) {
         // Sprawdzamy, czy nazwa użytkownika została zmieniona
         if (oldMember.displayName !== newMember.displayName) {
             const data = {
-                timesamp: currentTimestamp,
+                timesamp: getCurrentTimestampInSeconds(),
                 oldUsername: oldMember.nickname,
                 newUsername: newMember.nickname,
                 member: newMember
