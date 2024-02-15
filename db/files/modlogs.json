@@ -450,6 +450,50 @@
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
           }
         }
+      ],
+      "messageContentEdited": [
+        {
+          "timesamp": 1707966582,
+          "oldContent": "https://youtube.com/shorts/CncfLPVx1Q8?si=mbBiO8-ulRpl1_yb",
+          "newContent": "https://youtube.com/shorts/CncfLPVx1Q8?si=mbBiO8-ulRpl1_yb",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1707966589,
+          "oldContent": "https://youtube.com/shorts/fdVdHFUJOnw?si=FbWHG1KFujuYAi2j",
+          "newContent": "https://youtube.com/shorts/fdVdHFUJOnw?si=FbWHG1KFujuYAi2j",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        }
       ]
     }
   },
