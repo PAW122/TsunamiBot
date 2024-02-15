@@ -30,6 +30,9 @@
 + /flags -> przepisać komendę z SEEN-
 
 # web
+ # todo
+ + jeżeli user nie będzie miał żadnego serwera wspólnego z botem to w miejscu listy serwerów wyświetlić: No server's found. Invite bot on your server:  <button Invait link>
+
  # admin page
  + wyświetlać ilość wejść na stronę i użyć komend z ostatnich 24h
  + configi do wyłączania pojedyńczych komend lub całych funkcji (np mod_logs)

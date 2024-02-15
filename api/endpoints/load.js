@@ -13,19 +13,19 @@ const checkServerExists = require("../handlers/checkServerExists")
  * @param server_id
  * @return {json, Bool} welcome messages enable / disable
  */
-router.get("/server-settings/welcome_status/:tokenType/:token/:server_id",async (req, res) => {
+router.get("/server-settings/welcome_status/:tokenType/:token/:server_id", async (req, res) => {
 
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
     const is_auth = await auth(tokenType, token, server_id)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(server_id)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
 
     db.init();
@@ -34,7 +34,7 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id",async 
     const to_send = data.welcome_status ?? "data not found";
 
     return res.json(to_send);
-    
+
 })
 
 /**
@@ -43,19 +43,19 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id",async 
  * @param server_id
  * @return {json} welcome messages {id: channel_id, name: channel_name}
  */
-router.get("/server-settings/welcome_channel/:tokenType/:token/:server_id",async (req, res) => {
+router.get("/server-settings/welcome_channel/:tokenType/:token/:server_id", async (req, res) => {
     let { client } = require("../../main");
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
     const is_auth = await auth(tokenType, token, server_id)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(server_id)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
 
     db.init();
@@ -77,19 +77,19 @@ router.get("/server-settings/welcome_channel/:tokenType/:token/:server_id",async
  * @param server_id
  * @return {json} server cahnnel list {channel_id: id, channel_name: name}...
  */
-router.get("/server-channels-list/:tokenType/:token/:server_id",async (req, res) => {
+router.get("/server-channels-list/:tokenType/:token/:server_id", async (req, res) => {
     let { client } = require("../../main");
     const tokenType = req.params.tokenType
     const token = req.params.token
     const serverId = req.params.server_id;
     const is_auth = await auth(tokenType, token, serverId)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(serverId)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
     // Pobierz serwer na podstawie jego identyfikatora
     const server = client.guilds.cache.get(serverId);
@@ -118,19 +118,19 @@ router.get("/server-channels-list/:tokenType/:token/:server_id",async (req, res)
  * @param server_id
  * @return {json, Bool} autorole status enable / disable
  */
-router.get("/server-settings/autorole/:tokenType/:token/:server_id",async (req, res) => {
-   
+router.get("/server-settings/autorole/:tokenType/:token/:server_id", async (req, res) => {
+
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
     const is_auth = await auth(tokenType, token, server_id)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(server_id)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
     db.init();
     const data = db.read(`${server_id}`);
@@ -145,20 +145,20 @@ router.get("/server-settings/autorole/:tokenType/:token/:server_id",async (req, 
  * @param server_id
  * @return {json} autorole: {role_id, role_name} 
  */
-router.get("/server-settings/get_autorole_role/:tokenType/:token/:server_id",async (req, res) => {
-    
+router.get("/server-settings/get_autorole_role/:tokenType/:token/:server_id", async (req, res) => {
+
     let { client } = require("../../main");
     const server_id = req.params.server_id;
     const tokenType = req.params.tokenType
     const token = req.params.token
     const is_auth = await auth(tokenType, token, server_id)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(server_id)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
     db.init();
     const data = db.read(`${server_id}`);
@@ -201,20 +201,20 @@ router.get("/server-settings/get_autorole_role/:tokenType/:token/:server_id",asy
  * @param server_id
  * @return {json} server roles list {role_id, role_name}
  */
-router.get("/server-roles-list/:tokenType/:token/:server_id",async (req, res) => {
+router.get("/server-roles-list/:tokenType/:token/:server_id", async (req, res) => {
 
     let { client } = require("../../main");
     const serverId = req.params.server_id;
     const tokenType = req.params.tokenType
     const token = req.params.token
     const is_auth = await auth(tokenType, token, serverId)
-    if(!is_auth) {
-        return res.status(400).json({error: "Not auth"})
+    if (!is_auth) {
+        return res.status(400).json({ error: "Not auth" })
     }
 
     const is_server = await checkServerExists(serverId)
-    if(!is_server) {
-        return res.status(400).json({error: "server_id is invalid"})
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" })
     }
     // Pobierz serwer na podstawie jego identyfikatora
     const server = client.guilds.cache.get(serverId);
@@ -280,12 +280,13 @@ router.get("/server-list/:token_type/:token", (req, res) => {
                     updatedUserGuilds.forEach(guildId => {
                         let guild = client.guilds.cache.get(guildId);
                         let member = guild.members.cache.get(id);
-                        if (member.permissions.has("ADMINISTRATOR") || guild.ownerId === id) {
+                        if (member && member.permissions && (member.permissions.has("ADMINISTRATOR") || guild.ownerId === id)) {
                             guildsWithAdminPermission.push(guildId);
                         }
+                        
                     });
                     guildsResponse = guildsResponse.filter(guild => guildsWithAdminPermission.includes(guild.id));
-                    
+
 
                     // Zwrócenie danych
                     return res.json({
