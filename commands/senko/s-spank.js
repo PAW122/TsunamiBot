@@ -1,23 +1,20 @@
-//staty z /love i /hate
-
 const { SlashCommandBuilder } = require("discord.js");
 
 const command = new SlashCommandBuilder()
-    .setName("s-profile")
-    .setDescription("pat command");
+    .setName("s-spank")
+    .setDescription("spank command");
 
 async function execute(interaction, client) {
 
-    interaction.reply({
-        content: "todo",
-        ephemeral: true // Optional, makes the message visible only to the user who triggered the command
+    await interaction.reply({
+        content: "Uhnnn, why would you spank me, Master? Did I do anything wrong?"
     });
 }
 
 
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `Sned senko pat git`,
+        content: `Sends senko spank`,
         ephemeral: true
     })
 }

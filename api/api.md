@@ -1,8 +1,19 @@
 # todo
-+ /load/server-list
++ /load/server-list-not-admin
     - zmienić tak aby dawało też listę serwerów gdzie user ma admina/owner ale bota tam nie ma,
     taki server będzie podświetlany w jakiś sopsób,
     po kliknięciu otworzy się zapka bota na serwer
+
++ /save i /load i handler
+    > do powiadomień o tym że bot jest online
+
++ /load/user_lvl
+    > wczytywanie lvl i ilości wysłanych wiadomości
+
++ endpoint do zmieniania tła w Welcome
++ endpoint do edytowania ewlcome message, pv
++ coś w stylu credits
++ coś na wzór bloga ze zmianami w bocie - powiadomienia o nowych komendach itp
 
 + dodać przycisk do zapraszania bota na serwer
 
@@ -11,8 +22,12 @@
 
 + serwerowa konsola
 
++ kanały statystyki
+    > kanał głosowy na który nikt nie może wbić wyświtlający dane np online users itp
+
 # commands todo
 + /report -> zgłaszanie błędów + admin panel do odczytywania
++ /flags -> przepisać komendę z SEEN-
 
 # web
  # admin page
