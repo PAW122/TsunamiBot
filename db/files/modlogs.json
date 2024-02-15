@@ -452,5 +452,241 @@
         }
       ]
     }
+  },
+  "438621187132751873": {
+    "modlogs": {
+      "guildMemberJoin": [
+        {
+          "timesamp": 1707945242,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945242123,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "629749953635287046",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Kry$tian",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/629749953635287046/fee0c2d6da90d2b11fd86b2e5aa1952d.webp"
+          }
+        },
+        {
+          "timesamp": 1707945420,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945420892,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "608380656027828250",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "0",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/608380656027828250/716f05756fc42620738ac67a572bb88d.webp"
+          }
+        },
+        {
+          "timesamp": 1707945619,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945620093,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "719669181926080523",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Kosia",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/719669181926080523/774ae87ceafab1e0c54e9afb82c58a81.webp"
+          }
+        }
+      ],
+      "guildMemberAddRole": [
+        {
+          "timesamp": 1707945243,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 68,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1610922415609,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "800489431265312808",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "nie wiesz nic...",
+            "roles": [
+              "743095111503839352",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945242123,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "629749953635287046",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Kry$tian",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/629749953635287046/fee0c2d6da90d2b11fd86b2e5aa1952d.webp"
+          }
+        },
+        {
+          "timesamp": 1707945420,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 68,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1610922415609,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "800489431265312808",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "nie wiesz nic...",
+            "roles": [
+              "743095111503839352",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945420892,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "608380656027828250",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "0",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/608380656027828250/716f05756fc42620738ac67a572bb88d.webp"
+          }
+        },
+        {
+          "timesamp": 1707945620,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 68,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1610922415609,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "800489431265312808",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "nie wiesz nic...",
+            "roles": [
+              "743095111503839352",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1707945620093,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "719669181926080523",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Kosia",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/719669181926080523/774ae87ceafab1e0c54e9afb82c58a81.webp"
+          }
+        }
+      ]
+    }
   }
 }
