@@ -732,5 +732,31 @@
         }
       ]
     }
+  },
+  "1207812039133892638": {
+    "modlogs": {
+      "guildMemberJoin": [
+        {
+          "timesamp": 1708035264,
+          "member": {
+            "guildId": "1207812039133892638",
+            "joinedTimestamp": 1708035263986,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1207812039133892638"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        }
+      ]
+    }
   }
 }

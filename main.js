@@ -1,5 +1,8 @@
-const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"//tsu
-//const TOKEN = "ODc0MzIzNjgyMjYzMTc5MzE0.GsNEqS.eyIHch0YhI4dTD6b6gsXJfdyDo5UPrHyw8_IvQ"//senko
+const config = require("./config.json")
+const is_test = config.tests
+const TOKEN = config.token
+const TEST_TOKEN = config.test_token
+
 const OWNER_ID = "438336824516149249";
 const { Client, GatewayIntentBits } = require("discord.js")
 const client = new Client({
@@ -32,10 +35,12 @@ const database = new Database(__dirname + "/db/files/servers.json")
 client.on("ready", (res) => {
     logger.log(`${res.user.tag} is ready`);
 
-    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-    unregisterAllCommands(client)
-        .then(register_slash_commands(client))
-    //register_slash_commands(client)
+    if (!is_test) {
+        //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
+        unregisterAllCommands(client)
+            .then(register_slash_commands(client))
+        //register_slash_commands(client)
+    }
 
     status_handler(client)
     database.backup(__dirname + "/db/backup")
@@ -104,7 +109,12 @@ client.on("uncaughtException", (e) => {
     logger.warn(e)
 });
 
-client.login(TOKEN)
+if (!is_test) {
+    client.login(TOKEN)
+} else {
+    client.login(TEST_TOKEN)
+}
+
 module.exports = { client }
 /*TODO
 podstronę z pomysłami.

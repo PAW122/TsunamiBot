@@ -280,9 +280,11 @@ router.get("/server-list/:token_type/:token", (req, res) => {
                     updatedUserGuilds.forEach(guildId => {
                         let guild = client.guilds.cache.get(guildId);
                         let member = guild.members.cache.get(id);
-                        if (member && member.permissions && (member.permissions.has("ADMINISTRATOR") || guild.ownerId === id)) {
+                        if (member && (member.permissions.bitfield & BigInt(8)) === BigInt(8) || guild.ownerId === id) {
                             guildsWithAdminPermission.push(guildId);
                         }
+                        
+                        
                         
                     });
                     guildsResponse = guildsResponse.filter(guild => guildsWithAdminPermission.includes(guild.id));

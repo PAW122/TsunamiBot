@@ -4,18 +4,13 @@ var loginManager;
 
 function load() {
     loginManager = new auth()
-    /** (naprawiony) - wyjaśnienie
-     * @error : loginManager.token.token było typu string.
-     * każda wartość zapisana w pamięci przeglądarki (prawdopodobnie) jest zamieniana na string przez co zwracane nie było undefined
-     * tylko "undefined" co powodowało, że if(string) = true ponieważ został przekazywany jakiś string a nie bool czy inny syf tego typu
-     */
     if (loginManager.token.token === "undefined") {
         return;
     }
 
     if (loginManager.token.token) {
 
-        doFetch(`http://localhost:3000/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`, login)
+        doFetch(`https://senko.pagekite.me/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`, login)
     }
 }
 

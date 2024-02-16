@@ -8,6 +8,10 @@ async function welcome_messages(member, client) {
     const guild = member.guild.id;
     const data = database.read(`${guild}`);
 
+    if(!data.welcome_channel) {
+        return;
+    }
+
     const welcome_channel = data.welcome_channel || false;
     const server_name = data.name || "Server";
     var channel = client.channels.cache.get(welcome_channel);
