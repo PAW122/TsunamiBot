@@ -10,7 +10,7 @@
         "sourceMap": true,
         "target": "ES5",
         "module": "ES2020",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "node10",
         "outDir": "api/webpanel/dist/"
     },
     "include": [
