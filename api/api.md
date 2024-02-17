@@ -25,6 +25,9 @@
 + kanały statystyki
     > kanał głosowy na który nikt nie może wbić wyświtlający dane np online users itp
 
++ dodać jakąś grafikę / logo / avatar bota który będzie wyświetlany na dc po wysłaniu linku
++ dodać .ico do strony
+
 # commands todo
 + /report -> zgłaszanie błędów + admin panel do odczytywania
 + /flags -> przepisać komendę z SEEN-
@@ -32,6 +35,11 @@
 # web
  # todo
  + jeżeli user nie będzie miał żadnego serwera wspólnego z botem to w miejscu listy serwerów wyświetlić: No server's found. Invite bot on your server:  <button Invait link>
+ + jakąś maxymalną długość nazwy serwera i jeżeli nazwa serwera jest dłuższa to uciąć i dodać "..." (tak aby może trochę zmiejszyć pasek z listą serwerów)
+ + dodać kolejną sekcję w "/" z listą opcji (tak samo jak wybór serwerów to):
+    > Dashboard (ta główna strona)
+    > logs
+    > Ideas (podstrona do pisania pomysłów na nowe komendy)
 
  # admin page
  + wyświetlać ilość wejść na stronę i użyć komend z ostatnich 24h
@@ -51,8 +59,3 @@
     > gdzieś z boku strony albo na podstronie będzie po wejściu wyświetlane randomowe 10 serwerów na które user może dołączyć
  + przycisk invite który odpala zapkę bota w nowej karcie
  + przycisk docs z opisami wszsytkich komend bota (+ przy każdek komendzie ikonka zielona lub czerwona kropka oznaczająca czy jakaś z komend jest wyłączona w configu bota)
-
- # no admin user page (pomysł do omówienia)
- > jeżeli user wejdzie na stronę może zobaczyć jakieś dane o serweże na którym jest bota ale sam user nie ma uprawnień administratora.
- 
- > np staty o ilości godz na kanałach, ilość wiadomości z tyg, toplistę kto ma największy lvl, kto jest adminem serwera

@@ -1,5 +1,7 @@
 const express = require("express");
+const favicon = require('serve-favicon');
 const app = express();
+const path = require("path");
 
 //routes
 const server_list = require("./endpoints/load")
@@ -9,6 +11,13 @@ const mod_logs = require("./endpoints/mod_logs")
 // static file serving
 const staticsFolder = process.cwd() + "./api/webpanel";
 app.use("/", express.static(staticsFolder))
+
+
+//.ico to test!
+app.use(favicon(path.join(__dirname, './assets/favicon.ico')));
+app.get("/favicon.ico", (req, res) => {
+    return res.sendFile(`/api/assets/favicon.ico`)
+})
 
 /**
  * /load/~~~/:token_type/:token
