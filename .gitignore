@@ -1,6 +1,6 @@
 *.tsbuildinfo
 .eslintcache
 .stylelintcache
-package-lock.json
 /node_modules
 handlers/../db/files/servers.json
+api/webpanel/dist/*

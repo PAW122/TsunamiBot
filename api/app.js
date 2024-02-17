@@ -8,9 +8,21 @@ const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
 
-// static file serving
-const staticsFolder = process.cwd() + "/api/webpanel";
-app.use("/", express.static(staticsFolder))
+// index file serving
+app.get("/", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/index.html")
+})
+
+// This is (and should) be overriding /api/webpanel/dist/config.js which is a template
+// TODO: use config
+let currentMode = "local_dev";
+app.get("/config.js", (req, res) => {
+    return res.sendFile(process.cwd() + `/api/webpanel/config/${currentMode}.js`)
+})
+
+// front-end scripts file serving
+const frontFolder = process.cwd() + "/api/webpanel/dist";
+app.use("/", express.static(frontFolder))
 
 
 //.ico to test!

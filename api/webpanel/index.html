@@ -20,16 +20,16 @@
 
 <body data-bs-theme="dark" style="width: 100vw; height: 100vh; margin: 0; padding: 0;">
     <div class="d-flex flex-column w-100 h-100">
+        <div id="test-banner" class="d-none w-100 p-2 text-center bg-warning text-dark">TEST MODE ON</div>
         <div class="d-flex align-items-center bg-body-secondary p-4 gap-3 w-100">
             <div class="h5">Bot panel</div>
             <div class="profile-logout ms-auto">
-                <a href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email"
-                    class="btn btn-primary">Login</a>
+                <a id="login-button" href="#" class="btn btn-primary">Login</a>
             </div>
             <div class="profile-login d-none ms-auto d-flex align-items-center gap-3">
                 <img src="" height=40 alt="profile" id="profile-picture" class="rounded">
                 <div id="username-text" class="text-white">username</div>
-                <a id="logout-button" class="btn btn-outline-warning" href="#" >
+                <a id="logout-button" class="btn btn-outline-warning" href="#">
                     <i class="bi bi-box-arrow-right"></i>
                     Logout
                 </a>
