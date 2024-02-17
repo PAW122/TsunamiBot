@@ -9,7 +9,7 @@ const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
 
 // static file serving
-const staticsFolder = process.cwd() + "./api/webpanel";
+const staticsFolder = process.cwd() + "/api/webpanel";
 app.use("/", express.static(staticsFolder))
 
 

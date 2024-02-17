@@ -1,7 +1,7 @@
 const http = require("http");
 const app = require("./app");
 const config = require("../config.json")
-let port_ = config.port
+let port_ = config[config.using].port
 const port = process.env.PORT || port_;
 
 const server = http.createServer(app);

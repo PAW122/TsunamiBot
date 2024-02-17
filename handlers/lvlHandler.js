@@ -4,8 +4,9 @@ db.init()
 
 const calculate_lvl = require("./calculateLvl")
 const config = require("../config.json")
-var min_xp = config.lvling.min_xp
-var max_xp = config.lvling.max_xp
+const using = config.using
+var min_xp = config[using].config.lvling.min_xp
+var max_xp = config[using].config.lvling.max_xp
 
 function get_random_xp(min, max) {
     min = Math.ceil(min)
