@@ -1,9 +1,13 @@
-const config = require("./config.json")
-const is_test = config.tests
-const TOKEN = config.token
-const TEST_TOKEN = config.test_token
+const config_manager = require("./config.json")
+const config = config_manager[config_manager.using]
+const is_test = config.is_test ? config.is_test : false
+const token = config.token
 
-const OWNER_ID = "438336824516149249";
+console.log({
+    "Using configuration": config_manager.using,
+    "Test mode: ": is_test,
+})
+
 const { Client, GatewayIntentBits } = require("discord.js")
 const client = new Client({
     intents: [
@@ -19,16 +23,13 @@ const { register_slash_commands, unregisterAllCommands } = require("./handlers/S
 const { commandsMap } = require("./handlers/commandsMap")
 const welcome_messages = require("./handlers/welcome")
 const autorole = require("./handlers/autorole")
-const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
 const api = require("./api/api")
 const mod_logs = require("./handlers/mod_logs_handler")
-
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
-
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
 
@@ -71,30 +72,6 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-//!!!!!!! setCustomId dla selectMenu musi być nazwą komendy
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isSelectMenu()) return;
-    //console.log(interaction)
-    // można zamienić na StringSelectMenuInteraction
-
-    const command_name = interaction.customId
-    const commandLocation = commandsMap.get(command_name);
-
-    if (commandLocation) {
-        const { data, execute, selectMenu } = require(commandLocation);
-
-        try {//selectMenu is function name in command to execute selectMenu interaction
-            await selectMenu(interaction, client);
-        } catch (error) {
-            logger.error(error);
-            await interaction.reply({
-                content: "There was an error while executing this command!",
-                ephemeral: true,
-            });
-        }
-    }
-});
-
 client.on('guildMemberAdd', member => {
     welcome_messages(member, client)
     autorole(member, client)
@@ -109,16 +86,11 @@ client.on("uncaughtException", (e) => {
     logger.warn(e)
 });
 
-if (!is_test) {
-    client.login(TOKEN)
-} else {
-    client.login(TEST_TOKEN)
-}
-
-module.exports = { client }
-/*TODO
-podstronę z pomysłami.
-opcje dodawania up vote i down vote,
-posty segregowane za względu na:
-ilość votów albo który został pierwszy wczytany
-*/
+client.login(token)
+module.exports = { client, config }
+// /*TODO
+// podstronę z pomysłami.
+// opcje dodawania up vote i down vote,
+// posty segregowane za względu na:
+// ilość votów albo który został pierwszy wczytany
+// */
