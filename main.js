@@ -3,6 +3,9 @@ const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
 const token = config.token
 
+const ConsoleLogger = require("./handlers/console")
+const logger = ConsoleLogger.getInstance();
+
 console.log({
     "Using configuration": config_manager.using,
     "Test mode: ": is_test,
@@ -28,27 +31,23 @@ const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
 const api = require("./api/api")
 const mod_logs = require("./handlers/mod_logs_handler")
-const ConsoleLogger = require("./handlers/console")
-const logger = ConsoleLogger.getInstance();
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
 
-client.on("ready", (res) => {
+client.on("ready",async (res) => {
     logger.log(`${res.user.tag} is ready`);
-
-    if (!is_test) {
-        //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-        unregisterAllCommands(client)
-            .then(register_slash_commands(client))
-        //register_slash_commands(client)
-    }
 
     status_handler(client)
     database.backup(__dirname + "/db/backup")
-    //run bot webside
-    //web();
+
     api();
     mod_logs(client);
+
+
+    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
+    unregisterAllCommands(client)
+        .then(register_slash_commands(client, is_test))
+        .then(logger.log("All commands registered successfully on all guilds."))
 });
 
 client.on("interactionCreate", async (interaction) => {
