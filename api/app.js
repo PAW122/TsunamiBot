@@ -6,14 +6,9 @@ const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
 
-//web
-app.get('/', (request, response) => {
-    return response.sendFile(process.cwd() + '/web2/views/index.html');
-});
-
-app.get('/main.js', (request, response) => {
-    return response.sendFile(process.cwd() + '/web2/scripts/main.js');
-});
+// static file serving
+const staticsFolder = process.cwd() + "./api/webpanel";
+app.use("/", express.static(staticsFolder))
 
 /**
  * /load/~~~/:token_type/:token
