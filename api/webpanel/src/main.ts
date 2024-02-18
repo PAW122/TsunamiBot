@@ -6,6 +6,7 @@ import { auth } from "./login.js"
 
 window.onload = initial
 const loginManager = new auth()
+let serverId: string;
 
 function initial() {
     if (String(config.MainURL) === "http://localhost:3000") {
@@ -42,9 +43,9 @@ function login(serverListResponse) {
 }
 
 //załaduj dane dla przycisków ustawień
-function handleServerClick(serverId: string) {
+function handleServerClick(clickedServerId: string) {
     console.log(`Button with value ${serverId} clicked`);
-
+    serverId = clickedServerId;
     //poprzenosić to wszstko do oddzielnych funkcji || plików ale to jak skończe dodawać ten syf
     // w /api/api.md jest jak coś takie ala drzewko endpointow
 
@@ -171,5 +172,46 @@ function handleServerClick(serverId: string) {
             });
         });
     });
+    
 }
 
+
+//save autorole-select role change
+document.addEventListener('DOMContentLoaded', () => {
+    const autoroleList = document.getElementById('autorole-select') as HTMLSelectElement;
+
+    if (autoroleList) {
+        autoroleList.addEventListener('change', function(event) {
+            const selectedValue = (event.target as HTMLSelectElement).value;
+            handleWelcomeSelectChange(selectedValue);
+        });
+    } else {
+        console.error('Element with id "autorole-select" not found.');
+    }
+
+    function handleWelcomeSelectChange(value: string) {
+        doFetch(`${config.MainURL}/save/auto_role_id/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
+            console.log(res)
+        })
+    }
+});
+
+//save welcome channel change
+document.addEventListener('DOMContentLoaded', () => {
+    const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
+
+    if (welcomeMessagesList) {
+        welcomeMessagesList.addEventListener('change', function(event) {
+            const selectedValue = (event.target as HTMLSelectElement).value;
+            handleAutoroleSelectChange(selectedValue);
+        });
+    } else {
+        console.error('Element with id "welcome-select" not found.');
+    }
+
+    function handleAutoroleSelectChange(value: string) {
+        doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
+            console.log(res)
+        })
+    }
+});
