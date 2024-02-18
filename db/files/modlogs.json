@@ -758,5 +758,31 @@
         }
       ]
     }
+  },
+  "1024430870226010133": {
+    "modlogs": {
+      "guildMemberJoin": [
+        {
+          "timesamp": 1708277331,
+          "member": {
+            "guildId": "1024430870226010133",
+            "joinedTimestamp": 1708277332758,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "515290879439667203",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Mistny",
+            "roles": [
+              "1024430870226010133"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/515290879439667203/199bf38963e64076cc083deedc327bb2.webp"
+          }
+        }
+      ]
+    }
   }
 }
