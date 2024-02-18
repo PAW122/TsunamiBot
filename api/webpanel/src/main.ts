@@ -120,5 +120,56 @@ function handleServerClick(serverId: string) {
     autoRoleSwitchElement.removeEventListener('change', handleAutoRoleSwitchChange); // Remove existing listener
     autoRoleSwitchElement.addEventListener('change', handleAutoRoleSwitchChange);
 
+    //load welcome channels
+    doFetch(`${config.MainURL}/load/server-settings/welcome_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channelFromServer) => {
+        doFetch(`${config.MainURL}/load/server-channels-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channels) => {
+            console.log(channelFromServer);
+            console.log(channels);
+    
+            const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
+    
+            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
+            welcomeMessagesList.innerHTML = '';
+    
+            // Dodaj opcje kanałów
+            channels.forEach((channel, _index) => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.text = channel.name;
+                welcomeMessagesList.add(option);
+    
+                // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+                if (channel.id === channelFromServer.id) {
+                    option.selected = true;
+                }
+            });
+        });
+    });
 
+    //load autorole roles
+    doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (selected_role) => {
+        doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (roles) => {
+            console.log(selected_role);
+            console.log(roles);
+    
+            const welcomeMessagesList = document.getElementById('autorole-select') as HTMLSelectElement;
+    
+            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
+            welcomeMessagesList.innerHTML = '';
+    
+            // Dodaj opcje kanałów
+            roles.forEach((role, _index) => {
+                const option = document.createElement('option');
+                option.value = role.id;
+                option.text = role.name;
+                welcomeMessagesList.add(option);
+    
+                // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+                if (role.id === selected_role.id) {
+                    option.selected = true;
+                }
+            });
+        });
+    });
 }
+
