@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require("../handlers/auth")
+
+const Auth = require("../handlers/auth")
+const auth = Auth.getInstance();
+
 const config = require("../config.json")
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
@@ -22,7 +25,7 @@ router.get("/auto_role_status/:tokenType/:token/:server_id/:status", async (req,
     const server_id = req.params.server_id
     let status = req.params.status
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }
@@ -60,7 +63,7 @@ router.get("/auto_role_id/:tokenType/:token/:server_id/:role_id", async (req, re
     const server_id = req.params.server_id
     let role_id = req.params.role_id
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }
@@ -104,7 +107,7 @@ router.get("/welcome_messages_status/:tokenType/:token/:server_id/:status", asyn
     const server_id = req.params.server_id
     let status = req.params.status
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }
@@ -142,7 +145,7 @@ router.get("/welcome_messages_channel/:tokenType/:token/:server_id/:channel_id",
     const server_id = req.params.server_id
     let channel_id = req.params.channel_id
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }
@@ -180,7 +183,7 @@ router.get("/bot_name/:tokenType/:token/:server_id/:bot_name", async (req, res) 
     const server_id = req.params.server_id
     const bot_name = req.params.bot_name
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }

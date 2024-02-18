@@ -1,7 +1,14 @@
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
-const token = config.token
+
+require('dotenv').config();
+let token;
+if(is_test) {
+    token = process.env.TOKEN2;
+} else {
+    token = process.env.TOKEN;
+}
 
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -71,12 +78,12 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd',async member => {
     welcome_messages(member, client)
     autorole(member, client)
 });
 
-client.on("messageCreate", message => {
+client.on("messageCreate",async message => {
     log_messages(message)
     lvl_system(message)
 })

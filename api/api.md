@@ -1,11 +1,39 @@
-# todo
-+ /load/server-list-not-admin
-    - zmienić tak aby dawało też listę serwerów gdzie user ma admina/owner ale bota tam nie ma,
-    taki server będzie podświetlany w jakiś sopsób,
-    po kliknięciu otworzy się zapka bota na serwer
+# api tree
+ + localhost:3000/
+    + load/
+        + server-settings/welcome_status/:tokenType/:token/:server_id
+        + server-settings/welcome_channel/:tokenType/:token/:server_id
+        + server-channels-list/:tokenType/:token/:server_id
+        + server-settings/autorole/:tokenType/:token/:server_id
+        + server-settings/get_autorole_role/:tokenType/:token/:server_id
+        + server-roles-list/:tokenType/:token/:server_id
+        + server-list/:token_type/:token
+    + save/
+        + auto_role_status/:tokenType/:token/:server_id/:status
+        + auto_role_id/:tokenType/:token/:server_id/:role_id
+        + welcome_messages_status/:tokenType/:token/:server_id/:status
+        + welcome_messages_channel/:tokenType/:token/:server_id/:channel_id
+        + bot_name/:tokenType/:token/:server_id/:bot_name
+    + modlogs/
+        + :tokenType/:token/:server_id/:filter/:elements
 
-+ /save i /load i handler
-    > do powiadomień o tym że bot jest online
+
+# todo
++ auth
+    + zamienić na synchroniczne, cooldowny z danych () -> req discord rest
+    + wygasanie tokenów po 24h
+    + po wciśnięciu logout niech da req do api aby usunąć token z cache!!!
+    + może:
+        - zapisywać requesty, jeżeli wywali 429 to wczytywać ostatni req i zwracać odp jeszcze raz
+
++ api -> system powiadomień
+    - powiadoemiania globalne
+        > timesamp + data
+    - powiadomienia prywatne
+        > timesamp + data
+
+    + user otrzymuje swoje ostatnie 10 powiadomień + 3 ostatnie globalne,
+    powiadomienia są sortowane po timesampach
 
 + /load/user_lvl
     > wczytywanie lvl i ilości wysłanych wiadomości
@@ -48,6 +76,8 @@
  + odczytywanie logów z /handlers/console.js
  + powiadomienia o błędach (jakaś ikonka dzwonka powiadomień w rogu)
  + odczytywanie i odpowiadanie na /idea i /report
+ + ustawianie statusu aktywności bota,
+ + ustawianie opisu i globalnego nicku
 
  - (może) coś ala bot client do przeglądania serwerów.
 

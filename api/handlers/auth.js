@@ -1,49 +1,59 @@
-function auth(tokenType, token, server_id) {
-    return fetch('https://discord.com/api/users/@me', {
-        headers: {
-            authorization: `${tokenType} ${token}`,
-        },
-    })
-    .then(result => result.json())
-    .then(response => {
-        const { username, discriminator, avatar, id } = response;
+const fetch = require('node-fetch');
 
-        if(!id) {
-            return false;
+class Auth {
+    constructor() {
+        if (!Auth.instance) {
+            this.cache = {};
+            Auth.instance = this;
+        }
+    }
+
+    static getInstance() {
+        if (!this.instance) {
+          this.instance = new Auth();
+        }
+    
+        return this.instance;
+    }
+
+    async verification(tokenType, token, server_id) {
+        const cacheKey = `${token}_${server_id}`;
+
+        if (this.cache[cacheKey]) {
+            return this.cache[cacheKey];
         }
 
-        return fetch('https://discord.com/api/users/@me/guilds', {
-            headers: {
-                authorization: `${tokenType} ${token}`,
-            },
-        })
-        .then(guildsResult => {
-            if (!guildsResult.ok) {
-                throw new Error(`HTTP error! Status: ${guildsResult.status}`);
-            }
-
-            return guildsResult.json();
-        })
-        .then(guildsResponse => {
-            let { client } = require("../../main");
-
-            let botGuilds = client.guilds.cache.map(guild => guild.id);
-            let userGuilds = guildsResponse.map(guild => guild.id);
-            let updatedUserGuilds = userGuilds.filter(guildId => botGuilds.includes(guildId));
-            let guildsWithAdminPermission = [];
-            updatedUserGuilds.forEach(guildId => {
-                let guild = client.guilds.cache.get(guildId);
-                let member = guild.members.cache.get(id);
-                if (member.permissions.has("ADMINISTRATOR") || guild.ownerId === id) {
-                    guildsWithAdminPermission.push(guildId);
-                }
+        try {
+            const userResponse = await fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `${tokenType} ${token}`,
+                },
             });
-            guildsResponse = guildsResponse.filter(guild => guildsWithAdminPermission.includes(guild.id));
+            if (!userResponse.ok) {
+                throw new Error(`User request failed with status ${userResponse.status}`);
+            }
+            const userData = await userResponse.json();
+            const { id } = userData;
 
-            const verified_servers = guildsResponse.some(guild => guild.id === server_id);
+            const guildsResponse = await fetch('https://discord.com/api/users/@me/guilds', {
+                headers: {
+                    authorization: `${tokenType} ${token}`,
+                },
+            });
+            if (!guildsResponse.ok) {
+                throw new Error(`Guilds request failed with status ${guildsResponse.status}`);
+            }
+            const guildsData = await guildsResponse.json();
+
+            const verified_servers = guildsData.some(guild => guild.id === server_id);
+            this.cache[cacheKey] = verified_servers;
+
             return verified_servers;
-        });
-    });
+        } catch (error) {
+            console.error('An error occurred during authentication:', error);
+            return false;
+        }
+    }
 }
 
-module.exports = auth;
+module.exports = Auth;

@@ -1,7 +1,6 @@
 {
     "using": "local_dev",
     "public": {
-        "token": "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98",
         "main_url": "https://senko.pagekite.me/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email",
         "port": 80,
@@ -17,7 +16,6 @@
     },
     "local_dev": {
         "is_test": true,
-        "token": "Nzk3MDcwODA2ODg1OTkwNDMx.GkpX7L.qk5MljpRWJ7dQYSDW26w4C5uxGaAPBem4j49HY",
         "main_url": "http://localhost:3000/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=797070806885990431&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=identify+guilds+email",
         "port": 3000,

@@ -4,3 +4,4 @@
 /node_modules
 handlers/../db/files/servers.json
 api/webpanel/dist/*
+.env

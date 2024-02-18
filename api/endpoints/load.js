@@ -4,7 +4,9 @@ const router = express.Router();
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
 
-const auth = require("../handlers/auth")
+const Auth = require("../handlers/auth")
+const auth = Auth.getInstance();
+
 const checkServerExists = require("../handlers/checkServerExists")
 
 /**
@@ -18,7 +20,7 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id", async
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -29,10 +31,12 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id", async
     }
 
     db.init();
-    const data = db.read(`${server_id}`);
+    const data = await await db.read(`${server_id}`);
     //dodać checki czy data instnieje
+    if(!data) {
+        return res.json({error: "no data"})
+    }
     const to_send = data.welcome_status ?? "data not found";
-
     return res.json(to_send);
 
 })
@@ -48,7 +52,7 @@ router.get("/server-settings/welcome_channel/:tokenType/:token/:server_id", asyn
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -59,7 +63,10 @@ router.get("/server-settings/welcome_channel/:tokenType/:token/:server_id", asyn
     }
 
     db.init();
-    const data = db.read(`${server_id}`);
+    const data = await db.read(`${server_id}`);
+    if(!data) {
+        return res.json({error: "no data"})
+    }
     //dodać checki czy data instnieje
     const channel_name = client.channels.cache.get(data.welcome_channel) ?? "data not found";;
     const json = {
@@ -82,7 +89,7 @@ router.get("/server-channels-list/:tokenType/:token/:server_id", async (req, res
     const tokenType = req.params.tokenType
     const token = req.params.token
     const serverId = req.params.server_id;
-    const is_auth = await auth(tokenType, token, serverId)
+    const is_auth = await auth.verification(tokenType, token, serverId)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -123,7 +130,7 @@ router.get("/server-settings/autorole/:tokenType/:token/:server_id", async (req,
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -133,7 +140,10 @@ router.get("/server-settings/autorole/:tokenType/:token/:server_id", async (req,
         return res.status(400).json({ error: "server_id is invalid" })
     }
     db.init();
-    const data = db.read(`${server_id}`);
+    const data = await db.read(`${server_id}`);
+    if(!data) {
+        return res.json({error: "no data"})
+    }
     const to_send = data.autorole.status ?? false;
 
     return res.json(to_send);
@@ -151,7 +161,7 @@ router.get("/server-settings/get_autorole_role/:tokenType/:token/:server_id", as
     const server_id = req.params.server_id;
     const tokenType = req.params.tokenType
     const token = req.params.token
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await auth.verification(tokenType, token, server_id)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -161,7 +171,7 @@ router.get("/server-settings/get_autorole_role/:tokenType/:token/:server_id", as
         return res.status(400).json({ error: "server_id is invalid" })
     }
     db.init();
-    const data = db.read(`${server_id}`);
+    const data = await db.read(`${server_id}`);
 
     // Sprawdź, czy dane dotyczące roli autora są dostępne
     if (!data || !data.autorole || !data.autorole.role_id) {
@@ -207,7 +217,7 @@ router.get("/server-roles-list/:tokenType/:token/:server_id", async (req, res) =
     const serverId = req.params.server_id;
     const tokenType = req.params.tokenType
     const token = req.params.token
-    const is_auth = await auth(tokenType, token, serverId)
+    const is_auth = await auth.verification(tokenType, token, serverId)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }

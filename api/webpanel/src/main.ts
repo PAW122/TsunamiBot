@@ -13,7 +13,7 @@ function initial() {
     }
     let login_button = document.getElementById("login-button") as HTMLLinkElement
     login_button.href = config.AuthURL
-    
+
     if (loginManager.token.token) {
         document.querySelectorAll(".profile-logout").forEach(function (el) {
             el.classList.add("d-none");
@@ -28,15 +28,97 @@ function initial() {
 
 
 function login(serverListResponse) {
-    let userinfo = serverListResponse["user"]
-    let x = document.querySelector("#username-text") as HTMLDivElement
+    let userinfo = serverListResponse["user"];
+    let x = document.querySelector("#username-text") as HTMLDivElement;
     x.textContent = `@${userinfo["username"]}`;
-    let y = document.getElementById("profile-picture") as HTMLImageElement
+    let y = document.getElementById("profile-picture") as HTMLImageElement;
     y.src = `https://cdn.discordapp.com/avatars/${userinfo["id"]}/${userinfo["avatar"]}.jpg`;
     let servers = serverListResponse["servers"];
-    drawServers(servers)
-    document.querySelector("#logout-button") ?.addEventListener("click", function() {
-        loginManager.dispose()
-        window.location.reload()
-    })
+    drawServers(servers, handleServerClick);
+    document.querySelector("#logout-button")?.addEventListener("click", function () {
+        loginManager.dispose();
+        window.location.reload();
+    });
+}
+
+//załaduj dane dla przycisków ustawień
+function handleServerClick(serverId: string) {
+    console.log(`Button with value ${serverId} clicked`);
+
+    //poprzenosić to wszstko do oddzielnych funkcji || plików ale to jak skończe dodawać ten syf
+    // w /api/api.md jest jak coś takie ala drzewko endpointow
+
+    //---Welcome---
+    function toggleWelcomeSwitch(enabled: boolean) {
+        const switchElement = document.querySelector('#welcome-switch') as HTMLInputElement;
+
+        if (enabled) {
+            switchElement.checked = true;
+        } else {
+            switchElement.checked = false;
+        }
+    }
+
+    // Load Welcome Messages status
+    doFetch(`${config.MainURL}/load/server-settings/welcome_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (res: boolean) => {
+        console.log(res);
+        toggleWelcomeSwitch(res);
+    });
+
+
+    //---Autorole---
+    function toggleAutoRoleSwitch(enabled: boolean) {
+        const switchElement = document.querySelector('#auto-role-switch') as HTMLInputElement;
+
+        if (enabled) {
+            switchElement.checked = true;
+        } else {
+            switchElement.checked = false;
+        }
+    }
+
+    // Load Auto Role status
+    doFetch(`${config.MainURL}/load/server-settings/autorole/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (res: boolean) => {
+        console.log(res); // Just for debugging, you can remove this line
+        toggleAutoRoleSwitch(res); // Update UI based on response
+    });
+
+//TODO -> funkcje zapisujące dane \/ są wykonywane 2 razy po każdym wciśnięciu switcha
+
+    // Function to handle the change event for Welcome Messages switch
+    function handleWelcomeSwitchChange(event: Event) {
+        event.stopPropagation(); // Stop event propagation
+        const welcomeSwitch = event.target as HTMLInputElement;
+        const isEnabled = welcomeSwitch.checked;
+        console.log("switch")
+        //save data
+        doFetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${isEnabled}`, (res) => {
+            console.log(res)
+        })
+    }
+
+    // Function to handle the change event for Auto Role switch
+    function handleAutoRoleSwitchChange(event: Event) {
+        event.stopPropagation(); // Stop event propagation
+        const autoRoleSwitch = event.target as HTMLInputElement;
+        const isEnabled = autoRoleSwitch.checked;
+        console.log("auto - switch")
+
+        //save data
+        doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${isEnabled}`, (res) => {
+            console.log(res)
+        })
+    }
+
+    // Add event listener for change event on Welcome Messages switch, but first remove any existing listeners to prevent duplicates
+    const welcomeSwitchElement = document.getElementById('welcome-switch') as HTMLInputElement;
+    welcomeSwitchElement.removeEventListener('change', handleWelcomeSwitchChange); // Remove existing listener
+    welcomeSwitchElement.addEventListener('change', handleWelcomeSwitchChange);
+
+    // Add event listener for change event on Auto Role switch, but first remove any existing listeners to prevent duplicates
+    const autoRoleSwitchElement = document.getElementById('auto-role-switch') as HTMLInputElement;
+    autoRoleSwitchElement.removeEventListener('change', handleAutoRoleSwitchChange); // Remove existing listener
+    autoRoleSwitchElement.addEventListener('change', handleAutoRoleSwitchChange);
+
+
 }
