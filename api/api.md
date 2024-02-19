@@ -1,5 +1,6 @@
 # api tree
  + localhost:3000/
+    + /config.js
     + load/
         + server-settings/welcome_status/:tokenType/:token/:server_id
         + server-settings/welcome_channel/:tokenType/:token/:server_id
@@ -19,7 +20,6 @@
 
 
 # todo
-+ jeżeli nazwa kanału / roli jest dłuższa niź x znaków uciąć i dodać ... na końcu
 + poprzenosić w main.ts syf do oddzielnych plików
 
 + auth

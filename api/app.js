@@ -14,8 +14,7 @@ app.get("/", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/index.html")
 })
 
-// This is (and should) be overriding /api/webpanel/dist/config.js which is a template
-// TODO: use config
+
 let currentMode = config.using
 app.get("/config.js", (req, res) => {
     return res.sendFile(process.cwd() + `/api/webpanel/config/${currentMode}.js`)
@@ -26,7 +25,6 @@ const frontFolder = process.cwd() + "/api/webpanel/dist";
 app.use("/", express.static(frontFolder))
 
 
-//.ico to test!
 app.use(favicon(path.join(__dirname, './assets/favicon.ico')));
 app.get("/favicon.ico", (req, res) => {
     return res.sendFile(`/api/assets/favicon.ico`)

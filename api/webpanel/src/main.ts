@@ -136,7 +136,7 @@ function handleServerClick(clickedServerId: string) {
             channels.forEach((channel, _index) => {
                 const option = document.createElement('option');
                 option.value = channel.id;
-                option.text = channel.name;
+                option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
                 welcomeMessagesList.add(option);
     
                 // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
@@ -162,7 +162,7 @@ function handleServerClick(clickedServerId: string) {
             roles.forEach((role, _index) => {
                 const option = document.createElement('option');
                 option.value = role.id;
-                option.text = role.name;
+                option.text = role.name.length > 32 ? role.name.substring(0, 29) + "..." : role.name;
                 welcomeMessagesList.add(option);
     
                 // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
