@@ -2,6 +2,7 @@ const express = require("express");
 const favicon = require('serve-favicon');
 const app = express();
 const path = require("path");
+const config = require("../config.json")
 
 //routes
 const server_list = require("./endpoints/load")
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 
 // This is (and should) be overriding /api/webpanel/dist/config.js which is a template
 // TODO: use config
-let currentMode = "local_dev";
+let currentMode = config.using
 app.get("/config.js", (req, res) => {
     return res.sendFile(process.cwd() + `/api/webpanel/config/${currentMode}.js`)
 })

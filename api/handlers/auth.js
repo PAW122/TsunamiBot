@@ -3,7 +3,7 @@ const { PermissionsBitField } = require('discord.js');
 
 class Auth {
     constructor() {
-        if(!Auth.instance) {
+        if (!Auth.instance) {
             this.cache = {};
             this.requests = {};
             Auth.instance = this;
@@ -11,7 +11,7 @@ class Auth {
     }
 
     static getInstance() {
-        if(!this.instance) {
+        if (!this.instance) {
             this.instance = new Auth();
         }
 
@@ -30,25 +30,25 @@ class Auth {
         const cacheKey = `${token}_${server_id}`
 
         //todo system wygasania kluczy po 24h
-        if(this.cache[cacheKey]) {
-           return true
+        if (this.cache[cacheKey]) {
+            return true
         }
 
-        try{
+        try {
             const user_data = await fetch('https://discord.com/api/users/@me', {
                 headers: {
                     authorization: `${tokenType} ${token}`
                 }
             })
 
-            if(!user_data.ok) {
+            if (!user_data.ok) {
                 console.log("ratelimit")
                 return false;
             }
 
             //Dane użytkownika
             const userData = await user_data.json();
-            const {id} = userData;
+            const { id } = userData;
 
             const guildsResponse = await fetch('https://discord.com/api/users/@me/guilds', {
                 headers: {
@@ -56,14 +56,14 @@ class Auth {
                 },
             })
 
-            if(!guildsResponse.ok) {
+            if (!guildsResponse.ok) {
                 console.log("ratelimit")
                 return false;
             }
             //Serwery użytkownika
             const guildsData = await guildsResponse.json();
 
-            const {client} = require("../../main")
+            const { client } = require("../../main")
 
             let botGuilds = client.guilds.cache.map(guild => guild.id);//serwery bota
             let userGuilds = guildsData.map(guild => guild.id);//serwery usera
@@ -73,27 +73,29 @@ class Auth {
             sharedGuilds.forEach(guildId => {//dla każdego wspulnego serwera
                 let guild = client.guilds.cache.get(guildId);//dane serwera
                 let member = guild.members.cache.get(id);//dane usera w danym serweże
-                if(this.has_permisions(member) || guild.ownerId == id) {
+                if (this.has_permisions(member) || guild.ownerId == id) {
                     guildsWithAdminPermission.push(guildId);
                 }
             });
-            this.get_data()
-            // console.log(guildsWithAdminPermission)
-            // console.log(server_id)
+
             this.cache[cacheKey] = guildsWithAdminPermission;
-            if(guildsWithAdminPermission.includes(`${server_id}`)) {
+            if (guildsWithAdminPermission.includes(`${server_id}`)) {
                 return true
             } else {
                 return false;
             }
-        } catch(error) {
+        } catch (error) {
             console.error(error)
             return false;
         }
     }
 
     has_permisions(member) {
-        return member.permissions.has(PermissionsBitField.Flags.Administrator)
+        if (member && member.permissions) {
+            return member.permissions.has(PermissionsBitField.Flags.Administrator);
+        } else {
+            return false;
+        }
     }
 
     get_data() {

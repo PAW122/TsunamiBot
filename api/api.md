@@ -19,10 +19,15 @@
 
 
 # todo
++ jeżeli nazwa kanału / roli jest dłuższa niź x znaków uciąć i dodać ... na końcu
++ poprzenosić w main.ts syf do oddzielnych plików
+
 + auth
-    + zamienić na synchroniczne, cooldowny z danych () -> req discord rest
     + wygasanie tokenów po 24h
     + po wciśnięciu logout niech da req do api aby usunąć token z cache!!!
+        > endpoint: /logout/tokenType/token
+        > dodać do kalsy remove_token()
+        > wywołać temovve_token() i wysłać req do discorda o usunięcie tokena
     + może:
         - zapisywać requesty, jeżeli wywali 429 to wczytywać ostatni req i zwracać odp jeszcze raz
 
@@ -39,14 +44,15 @@
     > wczytywanie lvl i ilości wysłanych wiadomości
 
 + endpoint do zmieniania tła w Welcome
-+ endpoint do edytowania ewlcome message, pv
+    > ikonka zembatki na kafelku do edycji welcome, po kliknięciu przycieminić całą stronę i wyswietlić na tym nową większą kafelkę z polem do wpisywania textu dla wiadomości, dla pv, wybieranie jednego z kilku grafik na tło wiadomości
++ endpoint do edytowania welcome message, pv
 + coś w stylu credits
 + coś na wzór bloga ze zmianami w bocie - powiadomienia o nowych komendach itp
 
 + dodać przycisk do zapraszania bota na serwer
 
 + dodać admin panel
-    - oczytywanie /ideas
+    - odczytywanie /ideas
 
 + serwerowa konsola
 
