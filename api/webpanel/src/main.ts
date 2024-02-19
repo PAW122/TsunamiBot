@@ -6,6 +6,7 @@ import { auth } from "./login.js"
 
 window.onload = initial
 const loginManager = new auth()
+let serverId: string;
 
 function initial() {
     if (String(config.MainURL) === "http://localhost:3000") {
@@ -42,9 +43,9 @@ function login(serverListResponse) {
 }
 
 //załaduj dane dla przycisków ustawień
-function handleServerClick(serverId: string) {
+function handleServerClick(clickedServerId: string) {
     console.log(`Button with value ${serverId} clicked`);
-
+    serverId = clickedServerId;
     //poprzenosić to wszstko do oddzielnych funkcji || plików ale to jak skończe dodawać ten syf
     // w /api/api.md jest jak coś takie ala drzewko endpointow
 
@@ -120,5 +121,97 @@ function handleServerClick(serverId: string) {
     autoRoleSwitchElement.removeEventListener('change', handleAutoRoleSwitchChange); // Remove existing listener
     autoRoleSwitchElement.addEventListener('change', handleAutoRoleSwitchChange);
 
+    //load welcome channels
+    doFetch(`${config.MainURL}/load/server-settings/welcome_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channelFromServer) => {
+        doFetch(`${config.MainURL}/load/server-channels-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channels) => {
+            console.log(channelFromServer);
+            console.log(channels);
+    
+            const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
+    
+            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
+            welcomeMessagesList.innerHTML = '';
+    
+            // Dodaj opcje kanałów
+            channels.forEach((channel, _index) => {
+                const option = document.createElement('option');
+                option.value = channel.id;
+                option.text = channel.name;
+                welcomeMessagesList.add(option);
+    
+                // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+                if (channel.id === channelFromServer.id) {
+                    option.selected = true;
+                }
+            });
+        });
+    });
 
+    //load autorole roles
+    doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (selected_role) => {
+        doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (roles) => {
+            console.log(selected_role);
+            console.log(roles);
+    
+            const welcomeMessagesList = document.getElementById('autorole-select') as HTMLSelectElement;
+    
+            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
+            welcomeMessagesList.innerHTML = '';
+    
+            // Dodaj opcje kanałów
+            roles.forEach((role, _index) => {
+                const option = document.createElement('option');
+                option.value = role.id;
+                option.text = role.name;
+                welcomeMessagesList.add(option);
+    
+                // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+                if (role.id === selected_role.id) {
+                    option.selected = true;
+                }
+            });
+        });
+    });
+    
 }
+
+
+//save autorole-select role change
+document.addEventListener('DOMContentLoaded', () => {
+    const autoroleList = document.getElementById('autorole-select') as HTMLSelectElement;
+
+    if (autoroleList) {
+        autoroleList.addEventListener('change', function(event) {
+            const selectedValue = (event.target as HTMLSelectElement).value;
+            handleWelcomeSelectChange(selectedValue);
+        });
+    } else {
+        console.error('Element with id "autorole-select" not found.');
+    }
+
+    function handleWelcomeSelectChange(value: string) {
+        doFetch(`${config.MainURL}/save/auto_role_id/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
+            console.log(res)
+        })
+    }
+});
+
+//save welcome channel change
+document.addEventListener('DOMContentLoaded', () => {
+    const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
+
+    if (welcomeMessagesList) {
+        welcomeMessagesList.addEventListener('change', function(event) {
+            const selectedValue = (event.target as HTMLSelectElement).value;
+            handleAutoroleSelectChange(selectedValue);
+        });
+    } else {
+        console.error('Element with id "welcome-select" not found.');
+    }
+
+    function handleAutoroleSelectChange(value: string) {
+        doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
+            console.log(res)
+        })
+    }
+});

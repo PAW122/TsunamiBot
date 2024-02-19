@@ -21,6 +21,7 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id", async
     const token = req.params.token
     const server_id = req.params.server_id
     const is_auth = await auth.verification(tokenType, token, server_id)
+    console.log(is_auth)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
