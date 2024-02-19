@@ -9,7 +9,11 @@ export function drawServers(servers: any, onClickHandler: (serverId: string) => 
         };
 
         let icon = document.createElement("img") as HTMLImageElement;
-        icon.src = `https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png`;
+        if(!server.icon || server.icon === undefined || server.icon === null) {
+            icon.src = `https://w7.pngwing.com/pngs/609/846/png-transparent-discord-logo-discord-computer-icons-logo-computer-software-avatar-miscellaneous-blue-angle.png`
+        } else {
+            icon.src = `https://cdn.discordapp.com/icons/${server.id}/${server.icon}.png`;
+        }
         icon.height = 25;
         icon.classList.add("me-2", "rounded");
 
