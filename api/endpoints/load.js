@@ -7,7 +7,38 @@ const db = new Database(__dirname + "/../../db/files/servers.json")
 const Auth = require("../handlers/auth")
 const auth = Auth.getInstance();
 
+const ConsoleLogger = require("../../handlers/console")
+const logger = ConsoleLogger.getInstance();
+
 const checkServerExists = require("../handlers/checkServerExists")
+
+
+/**
+ * @param tokenType
+ * @param token
+ * @param server_id
+ * @return {json, Bool} welcome message content
+ */
+router.get("/welcome_messages_content/:tokenType/:token/:server_id", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+
+    const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_auth) {
+        return res.status(400).json({error: "Not auth"})
+    }
+
+    const is_server = await checkServerExists(server_id)
+    if(!is_server) {
+        return res.status(400).json({error: "server_id is invalid"})
+    }
+
+    db.init();
+    const message = await db.read(`${server_id}.welcome_dm_message`);
+    
+    return res.status(400).json({status: "ok", message: message})
+})
 
 /**
  * @param tokenType
@@ -21,7 +52,7 @@ router.get("/server-settings/welcome_status/:tokenType/:token/:server_id", async
     const token = req.params.token
     const server_id = req.params.server_id
     const is_auth = await auth.verification(tokenType, token, server_id)
-    console.log(is_auth)
+    logger.log(is_auth)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
     }
@@ -313,9 +344,9 @@ router.get("/server-list/:token_type/:token", (req, res) => {
                     });
 
                 })
-                .catch(console.error);
+                .catch(logger.error);
         })
-        .catch(console.error);
+        .catch(logger.error);
 });
 
 module.exports = router;

@@ -9,12 +9,14 @@
         + server-settings/get_autorole_role/:tokenType/:token/:server_id
         + server-roles-list/:tokenType/:token/:server_id
         + server-list/:token_type/:token
+        + welcome_messages_content/:tokenType/:token/:server_id/
     + save/
         + auto_role_status/:tokenType/:token/:server_id/:status
         + auto_role_id/:tokenType/:token/:server_id/:role_id
         + welcome_messages_status/:tokenType/:token/:server_id/:status
         + welcome_messages_channel/:tokenType/:token/:server_id/:channel_id
         + bot_name/:tokenType/:token/:server_id/:bot_name
+        + welcome_messages_content/:tokenType/:token/:server_id/:message
     + modlogs/
         + :tokenType/:token/:server_id/:filter/:elements
 

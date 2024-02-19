@@ -9,7 +9,41 @@ const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
 const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
+
 const checkServerExists = require("../handlers/checkServerExists")
+
+/**
+ * @param tokenType
+ * @param token
+ * @param server_id
+ * @param message
+ * @return {json} ok:200
+ */
+router.get("/welcome_messages_content/:tokenType/:token/:server_id/:message", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    const message = req.params.message
+
+    const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_auth) {
+        return res.status(400).json({error: "Not auth"})
+    }
+
+    const is_server = await checkServerExists(server_id)
+    if(!is_server) {
+        return res.status(400).json({error: "server_id is invalid"})
+    }
+
+    if(message.length > 1024) {
+        return res.status(400).json({error: "message lenght should be < 1024 characters"})
+    }
+
+    db.init();
+    db.write(`${server_id}.welcome_dm_message`, message);
+    
+    return res.status(400).json({ok: 200})
+})
 
 /**
  * @param tokenType
