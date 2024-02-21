@@ -23,9 +23,14 @@ class ConsoleLogger {
   }
 
     getCurrentTime() {
+      try{
       const now = new Date();
       return now.toLocaleTimeString();
+    }catch(error) {
+      return "ERROR"
+      console.log(error)
     }
+  }
   
     log(...args) {
       const logMessage = `[${this.getCurrentTime()}] ${args.join(' ')}`;

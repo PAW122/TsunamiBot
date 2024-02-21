@@ -6,9 +6,9 @@ const { AttachmentBuilder } = require("discord.js");
 async function welcome_messages(member, client) {
     database.init();
     const guild = member.guild.id;
-    const data = database.read(`${guild}`);
+    const data = await database.read(`${guild}`);
 
-    if(!data.welcome_channel) {
+    if(!data || !data.welcome_channel) {
         return;
     }
 

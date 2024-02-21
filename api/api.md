@@ -23,7 +23,7 @@
 
 # todo
 + poprzenosić w main.ts syf do oddzielnych plików
-
++ dodać na stronie baner
 + auth
     + wygasanie tokenów po 24h
     + po wciśnięciu logout niech da req do api aby usunąć token z cache!!!
