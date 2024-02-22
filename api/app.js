@@ -8,6 +8,7 @@ const config = require("../config.json")
 const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
+const full_load = require("./endpoints/full_load")
 
 // index file serving
 app.get("/", (req, res) => {
@@ -37,6 +38,15 @@ app.get("/favicon.ico", (req, res) => {
  * @return {json}
  */
 app.use("/load", server_list)
+
+/**
+ * load all webside elements in one request
+ * /load/~~~/:token_type/:token
+ * @param :token_type
+ * @param token
+ * @return {json}
+ */
+app.use("/full_load", full_load);
 
 /**
  * /save/~~~/:token_type/:token/:server_id

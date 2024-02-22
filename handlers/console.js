@@ -54,7 +54,7 @@ class ConsoleLogger {
     }
   
     error(message, error) {
-      const errorMessage = `\x1b[31m[${this.getCurrentTime()}] [Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
+      const errorMessage = `\x1b[Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
       this.addToLogList(errorMessage);
       this.addToErrorsList(errorMessage)
       console.error(errorMessage);

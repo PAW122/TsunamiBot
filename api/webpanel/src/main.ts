@@ -83,72 +83,92 @@ function handleServerClick(clickedServerId: string) {
     }
     genSettings()
 
-    // Load Welcome Messages status
-    doFetch(`${config.MainURL}/load/server-settings/welcome_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (res: boolean) => {
-        console.debug("welcome messages enabled: ", res);
-        welcomeMessageCheck.checked = res;
-    });
-    // Save Welcome Messages status
-    welcomeMessageCheck!.addEventListener("change", function () {
-        doFetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeMessageCheck.checked}`, (res) => {
-            console.log(`Welcome message set to ${welcomeMessageCheck.checked}. Response: `, res)
-        })
+    const body = {
+        tokenType: loginManager.token.token_type,
+        token: loginManager.token.token,
+        server_id: clickedServerId
+    };
+    
+    console.log("loaded")
+    console.log(body)
+    interface MyResponse {
+        welcome_message_content: string;
+        welcome_message_enable: boolean;
+        welcome_message_channel: any;
+        server_channels_list: any;
+        autorole_enable: boolean;
+        autorole_role: any;
+        server_roles_list: any;
+    }
+
+    fetch(`${config.MainURL}/full_load/content`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    }).then((response: Response) => {
+        return response.json(); // Parsowanie odpowiedzi do JSON
     })
+        .then((data: MyResponse) => {
+            // Tutaj możesz uzyskać dostęp do welcome_message_content
+            //const welcomeMessageContent = data.welcome_message_content;
+            const welcome_message_enable = data.welcome_message_enable;
+            const welcome_message_channel = data.welcome_message_channel;
+            const server_channels_list = data.server_channels_list;
+            const autorole_enable = data.autorole_enable;
+            const autorole_role = data.autorole_role;
+            const server_roles_list = data.server_roles_list;
 
-    // Load Auto Role status
-    doFetch(`${config.MainURL}/load/server-settings/autorole/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (res: boolean) => {
-        console.debug("loading autorole status: ", res);
-        autoroleCheck.checked = res;
-    });
-    // Save Auto Role status
-    autoroleCheck!.addEventListener("change", function () {
-        doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${autoroleCheck.checked}`, (res) => {
-            console.log(`Autorole set to ${autoroleCheck.checked}. Response: `, res)
-        })
-    })
 
-    //load welcome channels
-    doFetch(`${config.MainURL}/load/server-settings/welcome_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (channelFromServer) => {
-        doFetch(`${config.MainURL}/load/server-channels-list/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (channels) => {
-            console.debug("channel from server: ", channelFromServer);
-            console.debug("channels", channels);
-
-            channels?.forEach((channel, _index) => {
+            welcomeMessageCheck.checked = welcome_message_enable
+            autoroleCheck.checked = autorole_enable
+            server_channels_list?.forEach((channel, _index) => {
                 const option = document.createElement('option');
                 option.value = channel.id;
                 option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
                 welcomeChannelSelect.options.add(option)
 
                 // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
-                if (channel.id === channelFromServer.id) {
+                if (channel.id === welcome_message_channel.id) {
                     option.selected = true;
                 }
             });
+            if(server_roles_list) {
+                server_roles_list.forEach((role, _index) => {
+                    const option = document.createElement('option');
+                    option.value = role.id;
+                    option.text = role.name.length > 32 ? role.name.substring(0, 29) + "..." : role.name;
+                    autoroleSelect.options.add(option)
+                    // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+                    if (role.id === autorole_role.id) {
+                        option.selected = true;
+                    }
+                });
+            }
+
+        })
+        .catch((error: Error) => {
+            console.log(error)
         });
-    });
+
+    // Save Welcome Messages status
+    welcomeMessageCheck!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeMessageCheck.checked}`, (res) => {
+            console.log(`Welcome message set to ${welcomeMessageCheck.checked}. Response: `, res)
+        })
+    })
+    // Save Auto Role status
+    autoroleCheck!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${autoroleCheck.checked}`, (res) => {
+            console.log(`Autorole set to ${autoroleCheck.checked}. Response: `, res)
+        })
+    })
     // save welcome channels
     welcomeChannelSelect!.addEventListener("change", function () {
         doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeChannelSelect.value}`, (res) => {
             console.log(`Welcome Message Channel set to: ${welcomeChannelSelect.value}. Response: `, res)
         })
-    });
-    // load autorole roles
-    doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (selected_role) => {
-        doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (roles) => {
-            console.log("Selected role: ", selected_role);
-            console.log("Roles: ", roles);
-            // Dodaj opcje kanałów
-            roles.forEach((role, _index) => {
-                const option = document.createElement('option');
-                option.value = role.id;
-                option.text = role.name.length > 32 ? role.name.substring(0, 29) + "..." : role.name;
-                autoroleSelect.options.add(option)
-                // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
-                if (role.id === selected_role.id) {
-                    option.selected = true;
-                }
-            });
-        });
     });
     // save autorole roles
     autoroleSelect!.addEventListener("change", function () {
