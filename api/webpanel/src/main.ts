@@ -6,7 +6,6 @@ import { auth } from "./login.js"
 
 window.onload = initial
 const loginManager = new auth()
-let serverId: string;
 
 function initial() {
     if (String(config.MainURL) === "http://localhost:3000") {
@@ -30,10 +29,8 @@ function initial() {
 
 function login(serverListResponse) {
     let userinfo = serverListResponse["user"];
-    let x = document.querySelector("#username-text") as HTMLDivElement;
-    x.textContent = `@${userinfo["username"]}`;
-    let y = document.getElementById("profile-picture") as HTMLImageElement;
-    y.src = `https://cdn.discordapp.com/avatars/${userinfo["id"]}/${userinfo["avatar"]}.jpg`;
+    document.getElementById("username-text")!.textContent = `@${userinfo["username"]}`
+    document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${userinfo["id"]}/${userinfo["avatar"]}.jpg`)
     let servers = serverListResponse["servers"];
     drawServers(servers, handleServerClick);
     document.querySelector("#logout-button")?.addEventListener("click", function () {
@@ -44,101 +41,87 @@ function login(serverListResponse) {
 
 //załaduj dane dla przycisków ustawień
 function handleServerClick(clickedServerId: string) {
-    console.log(`Button with value ${serverId} clicked`);
-    serverId = clickedServerId;
+    console.log(`Button with value ${clickedServerId} clicked`);
+    let welcomeChannelSelect: HTMLSelectElement;
+    let welcomeMessageCheck: HTMLInputElement;
+    let autoroleSelect: HTMLSelectElement;
+    let autoroleCheck: HTMLInputElement;
+    function genSettings() {
+        let settings_parent = document.getElementById("settings_container") as HTMLDivElement
+        settings_parent.innerHTML = ""
+        let aa = document.createElement("div");
+        aa.classList.add("d-flex", "flex-column", "gap-2")
+        let ab = document.createElement("div");
+        ab.classList.add("h3");
+        ab.textContent = "Welcome messages";
+        welcomeChannelSelect = document.createElement("select") as HTMLSelectElement;
+        welcomeChannelSelect.classList.add("form-select");
+        welcomeMessageCheck = document.createElement("input") as HTMLInputElement;
+        welcomeMessageCheck.type = "checkbox";
+        welcomeMessageCheck.classList.add("form-check-input");
+
+        let ba = document.createElement("div");
+        ba.classList.add("d-flex", "flex-column", "gap-2")
+        let bb = document.createElement("div");
+        bb.classList.add("h3");
+        bb.textContent = "Autorole";
+        autoroleSelect = document.createElement("select") as HTMLSelectElement;
+        autoroleSelect.classList.add("form-select");
+        autoroleCheck = document.createElement("input") as HTMLInputElement;
+        autoroleCheck.type = "checkbox";
+        autoroleCheck.classList.add("form-check-input");
+
+        aa.appendChild(ab);
+        aa.appendChild(welcomeChannelSelect);
+        aa.appendChild(welcomeMessageCheck);
+
+        ba.appendChild(bb);
+        ba.appendChild(autoroleSelect);
+        ba.appendChild(autoroleCheck);
+
+        settings_parent.appendChild(aa);
+        settings_parent.appendChild(ba);
+    }
+    genSettings()
     //poprzenosić to wszstko do oddzielnych funkcji || plików ale to jak skończe dodawać ten syf
     // w /api/api.md jest jak coś takie ala drzewko endpointow
 
-    //---Welcome---
-    function toggleWelcomeSwitch(enabled: boolean) {
-        const switchElement = document.querySelector('#welcome-switch') as HTMLInputElement;
-
-        if (enabled) {
-            switchElement.checked = true;
-        } else {
-            switchElement.checked = false;
-        }
-    }
-
     // Load Welcome Messages status
-    doFetch(`${config.MainURL}/load/server-settings/welcome_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (res: boolean) => {
-        console.log(res);
-        toggleWelcomeSwitch(res);
+    doFetch(`${config.MainURL}/load/server-settings/welcome_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (res: boolean) => {
+        console.debug("welcome messages enabled: ", res);
+        welcomeMessageCheck.checked = res;
     });
-
-
-    //---Autorole---
-    function toggleAutoRoleSwitch(enabled: boolean) {
-        const switchElement = document.querySelector('#auto-role-switch') as HTMLInputElement;
-
-        if (enabled) {
-            switchElement.checked = true;
-        } else {
-            switchElement.checked = false;
-        }
-    }
+    // Save Welcome Messages status
+    welcomeMessageCheck!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeMessageCheck.checked}`, (res) => {
+            console.log(`Welcome message set to ${welcomeMessageCheck.checked}. Response: `, res)
+        })
+    })
 
     // Load Auto Role status
-    doFetch(`${config.MainURL}/load/server-settings/autorole/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (res: boolean) => {
-        console.log(res); // Just for debugging, you can remove this line
-        toggleAutoRoleSwitch(res); // Update UI based on response
+    doFetch(`${config.MainURL}/load/server-settings/autorole/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (res: boolean) => {
+        console.debug("loading autorole status: ", res);
+        autoroleCheck.checked = res;
     });
-
-//TODO -> funkcje zapisujące dane \/ są wykonywane 2 razy po każdym wciśnięciu switcha
-
-    // Function to handle the change event for Welcome Messages switch
-    function handleWelcomeSwitchChange(event: Event) {
-        event.stopPropagation(); // Stop event propagation
-        const welcomeSwitch = event.target as HTMLInputElement;
-        const isEnabled = welcomeSwitch.checked;
-        console.log("switch")
-        //save data
-        doFetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${isEnabled}`, (res) => {
-            console.log(res)
+    // Save Auto Role status
+    autoroleCheck!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${autoroleCheck.checked}`, (res) => {
+            console.log(`Autorole set to ${autoroleCheck.checked}. Response: `, res)
         })
-    }
-
-    // Function to handle the change event for Auto Role switch
-    function handleAutoRoleSwitchChange(event: Event) {
-        event.stopPropagation(); // Stop event propagation
-        const autoRoleSwitch = event.target as HTMLInputElement;
-        const isEnabled = autoRoleSwitch.checked;
-        console.log("auto - switch")
-
-        //save data
-        doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${isEnabled}`, (res) => {
-            console.log(res)
-        })
-    }
-
-    // Add event listener for change event on Welcome Messages switch, but first remove any existing listeners to prevent duplicates
-    const welcomeSwitchElement = document.getElementById('welcome-switch') as HTMLInputElement;
-    welcomeSwitchElement.removeEventListener('change', handleWelcomeSwitchChange); // Remove existing listener
-    welcomeSwitchElement.addEventListener('change', handleWelcomeSwitchChange);
-
-    // Add event listener for change event on Auto Role switch, but first remove any existing listeners to prevent duplicates
-    const autoRoleSwitchElement = document.getElementById('auto-role-switch') as HTMLInputElement;
-    autoRoleSwitchElement.removeEventListener('change', handleAutoRoleSwitchChange); // Remove existing listener
-    autoRoleSwitchElement.addEventListener('change', handleAutoRoleSwitchChange);
+    })
 
     //load welcome channels
-    doFetch(`${config.MainURL}/load/server-settings/welcome_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channelFromServer) => {
-        doFetch(`${config.MainURL}/load/server-channels-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (channels) => {
-            console.log(channelFromServer);
-            console.log(channels);
-    
-            const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
-    
-            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
-            welcomeMessagesList.innerHTML = '';
-    
-            // Dodaj opcje kanałów
-            channels.forEach((channel, _index) => {
+    doFetch(`${config.MainURL}/load/server-settings/welcome_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (channelFromServer) => {
+        doFetch(`${config.MainURL}/load/server-channels-list/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (channels) => {
+            console.debug("channel from server: ", channelFromServer);
+            console.debug("channels", channels);
+
+            channels?.forEach((channel, _index) => {
                 const option = document.createElement('option');
                 option.value = channel.id;
                 option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
-                welcomeMessagesList.add(option);
-    
+                welcomeChannelSelect.options.add(option)
+
                 // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
                 if (channel.id === channelFromServer.id) {
                     option.selected = true;
@@ -146,25 +129,22 @@ function handleServerClick(clickedServerId: string) {
             });
         });
     });
-
+    welcomeChannelSelect!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeChannelSelect.value}`, (res) => {
+            console.log(`Welcome Message Channel set to: ${welcomeChannelSelect.value}. Response: `, res)
+        })
+    });
     //load autorole roles
-    doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (selected_role) => {
-        doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}`, (roles) => {
-            console.log(selected_role);
-            console.log(roles);
-    
-            const welcomeMessagesList = document.getElementById('autorole-select') as HTMLSelectElement;
-    
-            // Wyczyść listę rozwijaną przed dodaniem nowych opcji
-            welcomeMessagesList.innerHTML = '';
-    
+    doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (selected_role) => {
+        doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (roles) => {
+            console.log("Selected role: ", selected_role);
+            console.log("Roles: ", roles);
             // Dodaj opcje kanałów
             roles.forEach((role, _index) => {
                 const option = document.createElement('option');
                 option.value = role.id;
                 option.text = role.name.length > 32 ? role.name.substring(0, 29) + "..." : role.name;
-                welcomeMessagesList.add(option);
-    
+                autoroleSelect.options.add(option)
                 // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
                 if (role.id === selected_role.id) {
                     option.selected = true;
@@ -172,46 +152,11 @@ function handleServerClick(clickedServerId: string) {
             });
         });
     });
-    
+    // save autorole roles
+    autoroleSelect!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/auto_role_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`, (res) => {
+            console.log(`Autorole Selected: ${autoroleSelect.value}. Response: `, res)
+        })
+    })
+
 }
-
-
-//save autorole-select role change
-document.addEventListener('DOMContentLoaded', () => {
-    const autoroleList = document.getElementById('autorole-select') as HTMLSelectElement;
-
-    if (autoroleList) {
-        autoroleList.addEventListener('change', function(event) {
-            const selectedValue = (event.target as HTMLSelectElement).value;
-            handleWelcomeSelectChange(selectedValue);
-        });
-    } else {
-        console.error('Element with id "autorole-select" not found.');
-    }
-
-    function handleWelcomeSelectChange(value: string) {
-        doFetch(`${config.MainURL}/save/auto_role_id/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
-            console.log(res)
-        })
-    }
-});
-
-//save welcome channel change
-document.addEventListener('DOMContentLoaded', () => {
-    const welcomeMessagesList = document.getElementById('welcome-select') as HTMLSelectElement;
-
-    if (welcomeMessagesList) {
-        welcomeMessagesList.addEventListener('change', function(event) {
-            const selectedValue = (event.target as HTMLSelectElement).value;
-            handleAutoroleSelectChange(selectedValue);
-        });
-    } else {
-        console.error('Element with id "welcome-select" not found.');
-    }
-
-    function handleAutoroleSelectChange(value: string) {
-        doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${serverId}/${value}`, (res) => {
-            console.log(res)
-        })
-    }
-});
