@@ -39,7 +39,6 @@ function login(serverListResponse) {
     });
 }
 
-//załaduj dane dla przycisków ustawień
 function handleServerClick(clickedServerId: string) {
     console.log(`Button with value ${clickedServerId} clicked`);
     let welcomeChannelSelect: HTMLSelectElement;
@@ -83,8 +82,6 @@ function handleServerClick(clickedServerId: string) {
         settings_parent.appendChild(ba);
     }
     genSettings()
-    //poprzenosić to wszstko do oddzielnych funkcji || plików ale to jak skończe dodawać ten syf
-    // w /api/api.md jest jak coś takie ala drzewko endpointow
 
     // Load Welcome Messages status
     doFetch(`${config.MainURL}/load/server-settings/welcome_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (res: boolean) => {
@@ -129,12 +126,13 @@ function handleServerClick(clickedServerId: string) {
             });
         });
     });
+    // save welcome channels
     welcomeChannelSelect!.addEventListener("change", function () {
         doFetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${welcomeChannelSelect.value}`, (res) => {
             console.log(`Welcome Message Channel set to: ${welcomeChannelSelect.value}. Response: `, res)
         })
     });
-    //load autorole roles
+    // load autorole roles
     doFetch(`${config.MainURL}/load/server-settings/get_autorole_role/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (selected_role) => {
         doFetch(`${config.MainURL}/load/server-roles-list/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, (roles) => {
             console.log("Selected role: ", selected_role);
