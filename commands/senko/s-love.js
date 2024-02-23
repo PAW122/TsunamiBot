@@ -8,7 +8,7 @@ const command = new SlashCommandBuilder()
 
 async function execute(interaction, client) {
 
-    const asset = path.join(__dirname, "../../assets/senko/love.webp");
+    const asset = path.join(__dirname, "../../assets/senko/love.gif");
 
     await interaction.reply({
         files: [asset]
