@@ -53,6 +53,8 @@ router.post("/content", async (req, res) => {
     let autorole_enable = "N/A"
     let autorole_role = "N/A"
     
+    //load data if server is in DB
+    //else database.data = "N/A"
     if(data) {
         welcome_message_content =  data.welcome_dm_message
         welcome_message_enable = data.welcome_status
@@ -73,6 +75,7 @@ router.post("/content", async (req, res) => {
         };
     }
 
+    //load data from client
     const channels = server.channels.cache;//dont send
     const server_channels_list = channels.map(channel => ({
         id: channel.id,

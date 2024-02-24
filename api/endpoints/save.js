@@ -12,6 +12,78 @@ const logger = ConsoleLogger.getInstance();
 
 const checkServerExists = require("../handlers/checkServerExists")
 
+
+/**
+ * @param {string} tokenType
+ * @param {string} token
+ * @param {string} server_id
+ * @param {bool} status - enable/disable command for server 
+ * 
+ */
+router.get("/dad_messages/enable/:tokenType/:token/:server_id/:status", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+
+    const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_auth) {
+        return res.status(400).json({error: "Not auth"})
+    }
+
+    const is_server = await checkServerExists(server_id)
+    if(!is_server) {
+        return res.status(400).json({error: "server_id is invalid"})
+    }
+
+    if(status == "true") {
+        status = true
+    } else if(status == "false") {
+        status = false
+    } else {
+        return res.status(400).json({error: ":status should be boolean"})
+    }
+
+    db.init()
+    db.write(`${server_id}.dad_channel_enable`, status);
+    return res.status(200).json({ok: 200});
+})
+
+/**
+ * @param {string} tokenType
+ * @param {string} token
+ * @param {string} server_id
+ * @param {string} channel_id - dad command channel listener
+ * 
+ */
+router.get("/dad_messages/channel/:tokenType/:token/:server_id/:channel_id", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    const channel_id = req.params.channel_id
+
+    const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_auth) {
+        return res.status(400).json({error: "Not auth"})
+    }
+
+    const is_server = await checkServerExists(server_id);
+    if (!is_server) {
+        return res.status(400).json({ error: "server_id is invalid" });
+    }
+    
+    const channel = client.channels.resolve(channel_id);
+    if (!channel || channel.guildId !== server_id) {
+        return res.status(400).json({ error: "invalid channel id or channel doesn't belong to the specified server" });
+    }    
+
+    db.init()
+    db.write(`${server_id}.dad_channel_id`, channel_id);
+    return res.status(200).json({ok: 200});
+})
+
+
+
 /**
  * @param tokenType
  * @param token
@@ -191,8 +263,8 @@ router.get("/welcome_messages_channel/:tokenType/:token/:server_id/:channel_id",
 
     let { client } = require("../../main");
     const channel = client.channels.resolve(channel_id);
-    if(!channel) {
-        return res.status(400).json({error: "invalid channel id"})
+    if (!channel || channel.guildId !== server_id) {
+        return res.status(400).json({ error: "invalid channel id or channel doesn't belong to the specified server" });
     }
 
     db.init();

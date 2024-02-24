@@ -9,7 +9,9 @@ async function autorole(member, client) {
     const guild = member.guild;
 
     const data = database.read(`${guild_id}`);
+    if(!data || !data.autorole) return;
     const role_id = data.autorole.role_id;
+    
 
     if (!role_id) return;
 

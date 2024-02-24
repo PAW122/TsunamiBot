@@ -40,6 +40,7 @@ const api = require("./api/api")
 const mod_logs = require("./handlers/mod_logs_handler")
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
+const dad_handler = require("./handlers/dad_handler");
 
 client.on("ready",async (res) => {
     logger.log(`${res.user.tag} is ready`);
@@ -86,6 +87,7 @@ client.on('guildMemberAdd',async member => {
 client.on("messageCreate",async message => {
     log_messages(message)
     lvl_system(message)
+    dad_handler(client, message)
 })
 
 client.on("uncaughtException", (e) => {
