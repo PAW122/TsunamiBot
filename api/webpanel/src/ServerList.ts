@@ -1,5 +1,6 @@
 export function drawServers(servers: any, onClickHandler: (serverId: string) => void) {
     let serversContainer = document.getElementById("servers") as HTMLDivElement;
+    serversContainer.innerHTML = "";
     servers.forEach(function (server) {
         let parentDiv = document.createElement("div");
         parentDiv.classList.add("d-flex", "p-3", "bg-body-secondary", "rounded", "align-items-center");
