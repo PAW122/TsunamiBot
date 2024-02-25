@@ -52,6 +52,7 @@ router.post("/content", async (req, res) => {
     let welcome_message_channel = "N/A"
     let autorole_enable = "N/A"
     let autorole_role = "N/A"
+    let dad_responses_enable = "N/A"
     
     //load data if server is in DB
     //else database.data = "N/A"
@@ -73,6 +74,12 @@ router.post("/content", async (req, res) => {
             id: role.id,
             name: role.name
         };
+
+        dad_responses_enable = data.dad_channel_enable
+        dad_bot = {
+            enable: dad_responses_enable,
+            only_channel_id: false//to do opcja globalna / 1 kanał
+        }
     }
 
     //load data from client
@@ -95,7 +102,8 @@ router.post("/content", async (req, res) => {
         server_channels_list: server_channels_list,
         autorole_enable: autorole_enable,
         autorole_role: autorole_role,
-        server_roles_list: server_roles_list
+        server_roles_list: server_roles_list,
+        dad_bot: dad_bot
     }
 
     return res.json(response_data);

@@ -45,6 +45,7 @@ function handleServerClick(clickedServerId: string) {
     let welcomeMessageCheck: HTMLInputElement;
     let autoroleSelect: HTMLSelectElement;
     let autoroleCheck: HTMLInputElement;
+    let dadResCheck: HTMLInputElement;
     function genSettings() {
         let settings_parent = document.getElementById("settings_container") as HTMLDivElement
         settings_parent.innerHTML = ""
@@ -70,6 +71,17 @@ function handleServerClick(clickedServerId: string) {
         autoroleCheck.type = "checkbox";
         autoroleCheck.classList.add("form-check-input");
 
+        let ca = document.createElement("div");
+        ca.classList.add("d-flex", "flex-column", "gap-2")
+        let cb = document.createElement("div");
+        cb.classList.add("h3");
+        cb.textContent = "dad responses";
+        // autoroleSelect = document.createElement("select") as HTMLSelectElement;
+        // autoroleSelect.classList.add("form-select");
+        dadResCheck = document.createElement("input") as HTMLInputElement;
+        dadResCheck.type = "checkbox";
+        dadResCheck.classList.add("form-check-input");
+
         aa.appendChild(ab);
         aa.appendChild(welcomeChannelSelect);
         aa.appendChild(welcomeMessageCheck);
@@ -78,8 +90,12 @@ function handleServerClick(clickedServerId: string) {
         ba.appendChild(autoroleSelect);
         ba.appendChild(autoroleCheck);
 
+        ca.appendChild(cb);
+        ca.appendChild(dadResCheck);
+
         settings_parent.appendChild(aa);
         settings_parent.appendChild(ba);
+        settings_parent.appendChild(ca);
     }
     genSettings()
 
@@ -99,6 +115,7 @@ function handleServerClick(clickedServerId: string) {
         autorole_enable: boolean;
         autorole_role: any;
         server_roles_list: any;
+        dad_bot: any;
     }
 
     fetch(`${config.MainURL}/full_load/content`, {
@@ -111,14 +128,13 @@ function handleServerClick(clickedServerId: string) {
         return response.json(); // Parsowanie odpowiedzi do JSON
     })
         .then((data: MyResponse) => {
-            // Tutaj możesz uzyskać dostęp do welcome_message_content
-            //const welcomeMessageContent = data.welcome_message_content;
             const welcome_message_enable = data.welcome_message_enable;
             const welcome_message_channel = data.welcome_message_channel;
             const server_channels_list = data.server_channels_list;
             const autorole_enable = data.autorole_enable;
             const autorole_role = data.autorole_role;
             const server_roles_list = data.server_roles_list;
+            const dad_bot_enable = data.dad_bot.enable;
 
 
             welcomeMessageCheck.checked = welcome_message_enable
@@ -146,6 +162,10 @@ function handleServerClick(clickedServerId: string) {
                     }
                 });
             }
+            if(dad_bot_enable) {
+                dadResCheck.checked = dad_bot_enable
+                
+            }
 
         })
         .catch((error: Error) => {
@@ -162,6 +182,12 @@ function handleServerClick(clickedServerId: string) {
     autoroleCheck!.addEventListener("change", function () {
         doFetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${autoroleCheck.checked}`, (res) => {
             console.log(`Autorole set to ${autoroleCheck.checked}. Response: `, res)
+        })
+    })
+    // Save dadResCheck status
+    dadResCheck!.addEventListener("change", function () {
+        doFetch(`${config.MainURL}/save/dad_messages/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${dadResCheck.checked}`, (res) => {
+            console.log(`dadResCheck set to ${dadResCheck.checked}. Response: `, res)
         })
     })
     // save welcome channels

@@ -85,6 +85,7 @@ client.on('guildMemberAdd',async member => {
 });
 
 client.on("messageCreate",async message => {
+    if(message.author.bot) return;
     log_messages(message)
     lvl_system(message)
     dad_handler(client, message)
