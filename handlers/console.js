@@ -54,7 +54,13 @@ class ConsoleLogger {
     }
   
     error(message, error) {
-      const errorMessage = `\x1b[Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
+      let loc = "N/A"
+      try{
+        loc = this.getCallerLocation()
+      }catch(err) {
+        console.log(err)
+      }
+      const errorMessage = `\x1b[Error] ${message} (at ${loc})\n${error}\x1b[0m`;
       this.addToLogList(errorMessage);
       this.addToErrorsList(errorMessage)
       console.error(errorMessage);
