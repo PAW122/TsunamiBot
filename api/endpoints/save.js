@@ -114,7 +114,7 @@ router.get("/welcome_messages_content/:tokenType/:token/:server_id/:message", as
     db.init();
     db.write(`${server_id}.welcome_dm_message`, message);
     
-    return res.status(400).json({ok: 200})
+    return res.status(200).json({ok: 200})
 })
 
 /**
@@ -152,7 +152,7 @@ router.get("/auto_role_status/:tokenType/:token/:server_id/:status", async (req,
     db.init();
     db.write(`${server_id}.autorole.status`, status);
     
-    return res.status(400).json({ok: 200})
+    return res.status(200).json({ok: 200})
 })
 
 /**
@@ -196,7 +196,7 @@ router.get("/auto_role_id/:tokenType/:token/:server_id/:role_id", async (req, re
     db.init();
     db.write(`${server_id}.autorole.role_id`, role_id);
     
-    return res.status(400).json({ok: 200})
+    return res.status(200).json({ok: 200})
 })
 
 /**
@@ -234,7 +234,7 @@ router.get("/welcome_messages_status/:tokenType/:token/:server_id/:status", asyn
     db.init();
     db.write(`${server_id}.welcome_status`, status);
     
-    return res.status(400).json({ok: 200})
+    return res.status(200).json({ok: 200})
 })
 
 /**
@@ -270,7 +270,7 @@ router.get("/welcome_messages_channel/:tokenType/:token/:server_id/:channel_id",
     db.init();
     db.write(`${server_id}.welcome_channel`, channel_id);
     
-    return res.status(400).json({ok: 200})
+    return res.status(200).json({ok: 200})
 })
 
 /**
