@@ -75,7 +75,7 @@ router.post("/content", async (req, res) => {
             name: role.name
         };
 
-        dad_responses_enable = data.dad_channel_enable
+        dad_responses_enable = data.dad_channel_enable ?? false
         dad_bot = {
             enable: dad_responses_enable,
             only_channel_id: false//to do opcja globalna / 1 kanał

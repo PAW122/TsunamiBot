@@ -70,6 +70,15 @@ async function handleServerClick(clickedServerId: string) {
 
     let autorole = genSettings(settings_parent, "Autorole", true);
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
+    let dad_bot = genSettings(settings_parent, "Dad bot", true);
+
+    if(body.dad_bot.enable === false) {
+        dad_bot.checkbox!.checked = false;
+    } else if (body.autorole_enable === true) {
+        dad_bot.checkbox!.checked = true;
+    } else {
+        throw new Error("Corrupted dad_bot response data");
+    }
 
     // reading autorole switches
     if (body.autorole_enable === false) {
@@ -147,6 +156,15 @@ async function handleServerClick(clickedServerId: string) {
             console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
         } else {
             console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+    dad_bot.checkbox!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/dad_messages/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        if (response.ok) {
+            console.log(`Welcome dad_bot channel set to ${this.value}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting dad_bot channel to ${this.value}. Refreshing`);
             handleServerClick(clickedServerId);
         }
     })
