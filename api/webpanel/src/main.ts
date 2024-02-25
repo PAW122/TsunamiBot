@@ -3,7 +3,7 @@ import { drawServers } from "./ServerList.js"
 import * as config from "./config.js"
 import { navbarStyle } from "./helpers.js"
 import { auth } from "./login.js"
-import { genSettings } from "./settings.js"
+import { genSettings, setting } from "./settings.js"
 
 window.onload = initial
 const loginManager = new auth()
@@ -71,6 +71,7 @@ async function handleServerClick(clickedServerId: string) {
     let autorole = genSettings(settings_parent, "Autorole", true);
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
     let dad_bot = genSettings(settings_parent, "Dad bot", true);
+
 
     if(body.dad_bot.enable === false) {
         dad_bot.checkbox!.checked = false;
