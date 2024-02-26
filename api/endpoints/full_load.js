@@ -78,7 +78,13 @@ router.post("/content", async (req, res) => {
         dad_responses_enable = data.dad_channel_enable ?? false
         dad_bot = {
             enable: dad_responses_enable,
-            only_channel_id: false//to do opcja globalna / 1 kanał
+            channel_id: false,//to do opcja globalna / 1 kanał
+            // value: true -> all channels
+            // value <id> -> one channel
+            // value undefined -> disables
+            select: {
+
+            }
         }
     }
 

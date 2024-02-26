@@ -10,6 +10,13 @@
         + server-roles-list/:tokenType/:token/:server_id
         + server-list/:token_type/:token
         + welcome_messages_content/:tokenType/:token/:server_id/
+    + full_load
+        + localhost:3000/full_load/content
+            >    {
+            >    "tokenType": "",
+            >    "token": "",
+            >    "server_id": ""
+            >    }
     + save/
         + auto_role_status/:tokenType/:token/:server_id/:status
         + auto_role_id/:tokenType/:token/:server_id/:role_id
@@ -17,11 +24,14 @@
         + welcome_messages_channel/:tokenType/:token/:server_id/:channel_id
         + bot_name/:tokenType/:token/:server_id/:bot_name
         + welcome_messages_content/:tokenType/:token/:server_id/:message
+        + dad_messages/enable/:tokenType/:token/:server_id/:status
+        + dad_messages/channel/:tokenType/:token/:server_id/:value
     + modlogs/
         + :tokenType/:token/:server_id/:filter/:elements
 
 
 # todo
++ takik switch pomiędzy 3 elementami "disabled | only one channel | all channels"
 + poprzenosić w main.ts syf do oddzielnych plików
 + dodać na stronie baner
 + auth
