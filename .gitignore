@@ -5,3 +5,4 @@
 /db/files/servers.json
 api/webpanel/dist/*
 .env
+/trash

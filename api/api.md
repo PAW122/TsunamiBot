@@ -31,7 +31,27 @@
 
 
 # todo
++ /play https://youtu.be/4xnsmyI5KMQ?si=Z6sfwCzW15d1pTg_
+
++ statbota.
++ powiadomienia jak ktoś bana/kikcka dostanie
++ invite tracker
++ stats channels
+
++ zrobić prototypową stronę do logów serwer (mod logs)
+    > dodać do tego funkcję alertów (wiadomość na pv z pingiem + może wiadomość na maila)
+
++ coś ala event listener:
+if <user> do <action> => <do action>
+if <krokiet> do <kick> => <console log>
+albo
+(jezeli wystąpi jakikolwiek edit z rangami an serwie to jest sprawdzane)
+if <user> can <do action> =>
+if <krokiet> can <kick> =>
+
 + takik switch pomiędzy 3 elementami "disabled | only one channel | all channels"
++ podgląd jak będzie wyglądała welcome message z danymi użytkownika.
++ opcja wysyłania embedów przez stronę / edytor wpisywania w pola jka wordpress albo opcja edytowania jsona.
 + poprzenosić w main.ts syf do oddzielnych plików
 + dodać na stronie baner
 + auth

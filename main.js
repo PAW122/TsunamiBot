@@ -41,6 +41,7 @@ const mod_logs = require("./handlers/mod_logs_handler")
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
 const dad_handler = require("./handlers/dad_handler");
+const {messages_stats_handler} = require("./handlers/stats_handler")
 
 client.on("ready",async (res) => {
     logger.log(`${res.user.tag} is ready`);
@@ -53,11 +54,12 @@ client.on("ready",async (res) => {
 
 
     //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-    unregisterAllCommands(client)
-        .then(register_slash_commands(client, is_test))
+    await unregisterAllCommands(client)
+        .then(await register_slash_commands(client, is_test))
         .then(logger.log("All commands registered successfully on all guilds."))
 });
 
+//execute
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
@@ -79,6 +81,29 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
+//autocomplete
+client.on('interactionCreate', async interaction => {
+	if (interaction.isAutocomplete()) {
+        const commandName = interaction.commandName
+        if(!commandName) return;
+        if(interaction.responded) return;
+        const commandLocation = commandsMap.get(commandName);
+        if (commandLocation) {
+            const { data, autocomplete } = require(commandLocation);
+    
+            try {
+                await autocomplete(interaction, client);
+            } catch (error) {
+                logger.error(error);
+                await interaction.reply({
+                    content: "There was an error while executing autocomplete in this command!",
+                    ephemeral: true,
+                });
+            }
+        }
+	}
+});
+
 client.on('guildMemberAdd',async member => {
     welcome_messages(member, client)
     autorole(member, client)
@@ -89,6 +114,7 @@ client.on("messageCreate",async message => {
     log_messages(message)
     lvl_system(message)
     dad_handler(client, message)
+    messages_stats_handler(message)
 })
 
 client.on("uncaughtException", (e) => {

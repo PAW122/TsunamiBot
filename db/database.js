@@ -92,12 +92,12 @@ class Database {
         const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
         const pathSegments = path.split('.');
         let current = database;
-
-        // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
-        for (let i = 0; i < pathSegments.length - 1; i++) {
+    
+        // Przechodzi po ścieżce, tworząc brakujące elementy w bazie danych
+        for (let i = 0; i < pathSegments.length; i++) {
             if (!current[pathSegments[i]]) {
-                // Sprawdza czy następny segment jest liczbą, co oznacza, że jest to nowy indeks tablicy
-                if (!isNaN(parseInt(pathSegments[i + 1]))) {
+                // Jeśli to ostatni segment ścieżki, utwórz pustą listę
+                if (i === pathSegments.length - 1) {
                     current[pathSegments[i]] = [];
                 } else {
                     current[pathSegments[i]] = {};
@@ -105,19 +105,16 @@ class Database {
             }
             current = current[pathSegments[i]];
         }
-
-        // Tworzy pustą listę, jeśli jeszcze nie istnieje
-        if (!current[pathSegments[pathSegments.length - 1]]) {
-            current[pathSegments[pathSegments.length - 1]] = [];
-        }
-
+    
         // Dodaje nowy element do listy
-        current[pathSegments[pathSegments.length - 1]].push(data);
-
+        current.push(data);
+    
         // Zapisuje zmienioną bazę danych z powrotem do pliku JSON
         fs.writeFileSync(this.file_path, JSON.stringify(database, null, 2), 'utf-8');
         //console.log(`Nowy element został dodany do listy w ${path}.`);
     }
+    
+    
 
     /**
       * readList

@@ -1,66 +1,78 @@
-const { StringSelectMenuBuilder, ActionRowBuilder, StringSelectMenuOptionBuilder, SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { return_commands } = require("../../handlers/commandsMap");
 const commandsMap = return_commands();
+const maxChoices = 25;
+const ConsoleLogger = require("../../handlers/console")
+const logger = ConsoleLogger.getInstance();
+
+const choices = Array.from(commandsMap.keys());
+
 const command = new SlashCommandBuilder()
     .setName("help")
-    .setDescription("Sends information about commands");
+    .setDescription("Sends information about commands")
+    .addStringOption((option) => option
+        .setName("command")
+        .setDescription("Choose command")
+        .setAutocomplete(true)
+        .setRequired(false)
+    );
 
-async function execute(interaction, client) {
 
-    // Create options for the select menu based on your commands
-    const options = Array.from(commandsMap.keys()).map(commandName => ({
-        label: commandName,
-        value: commandName
-    }));
+async function autocomplete(interaction) {
 
-    // Create a StringSelectMenuBuilder
-    const select = new StringSelectMenuBuilder()
-        //!!!!!!! setCustomId dla selectMenu musi być nazwą komendy
-        .setCustomId('help') // Custom ID for interaction handling
-        .setPlaceholder('Select a command') // Placeholder text
-        .addOptions(...options); // Add options dynamically based on your commands
+    const focusedValue = interaction.options.getFocused();
+    const filtered = choices.filter(choice => choice.startsWith(focusedValue)).slice(0, maxChoices);
 
-    // Create an ActionRowBuilder and add the select menu
-    const row = new ActionRowBuilder()
-        .addComponents(select);
+    await interaction.respond(
+        filtered.map(choice => ({ name: choice, value: choice })),
+    );
 
-    // Reply to the interaction with the select menu
-    await interaction.reply({
-        content: 'Please select a command:',
-        components: [row],
-    });
 }
 
-async function selectMenu(interaction, client) {
-    console.log(interaction.customId + "interaction executed")
+async function execute(interaction, client) {
+    const chosenCommand = interaction.options.getString("command");
 
-    const option = interaction.values[0]
-    const commandLocation = commandsMap.get(option)
-
+    const commandLocation = commandsMap.get(chosenCommand);
     if (commandLocation) {
         const { help_message } = require(commandLocation);
+
         try {
             await help_message(interaction, client);
         } catch (error) {
-            console.error(error);
+            logger.error(error);
             await interaction.reply({
-                content: "There was an error while executing this command!",
+                content: "There was an error while executing autocomplete in this command!",
                 ephemeral: true,
             });
         }
     } else {
-        interaction.reply({
-            content: "This command dont have description",
-            ephemeral: true
-        })
+
+
+        let content = ""
+
+        const embed = new EmbedBuilder()
+            .setColor('#0099ff')
+            .setTitle('Commands list.')
+
+        choices.forEach((choice, index) => {
+            content += `${index + 1}: **/${choice}**\n`;
+        });
+
+        embed.setDescription(content)
+
+
+        await interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
     }
 }
 
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `sends help message`,
+        content: `Sends help message`,
         ephemeral: true
-    })
+    });
 }
 
-module.exports = { command, execute, selectMenu, help_message };
+module.exports = { command, execute, help_message, autocomplete };
