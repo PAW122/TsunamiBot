@@ -28,6 +28,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "libsodium-wrappers": "^0.7.13",
     "lowdb": "^6.1.1",
+    "prism-media": "^1.3.5",
     "replace": "^1.2.2",
     "serve-favicon": "^2.5.0"
   },

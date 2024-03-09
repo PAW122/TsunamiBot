@@ -16,6 +16,9 @@
 ---
 
 # TODO
++ dodać komendę do przeładowania wszystkich komend bota na wszystkich serwerach i jakiś licznik ile czasu to trwa + od czasu przeładowania wszystkich komend ma się odpalać coś w stylu service mode i na wszystkie interakcje bot by odpowiadał "jesteśmy w trakcie restartowania serwerów, spróbuj ponownie za kilka minut"
+
+
 v 0.1
 # teraz
 zmienić nazwę (na githubie i folderu z Tsubota na coś inego)

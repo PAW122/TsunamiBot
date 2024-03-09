@@ -56,14 +56,14 @@ class ConsoleLogger {
     error(message, error) {
       let loc = "N/A"
       try{
-        loc = this.getCallerLocation()
+        loc = this.getCallerLocation() || "N/A"
       }catch(err) {
         console.log(err)
       }
       const errorMessage = `\x1b[Error] ${message} (at ${loc})\n${error}\x1b[0m`;
+      console.error(errorMessage);
       this.addToLogList(errorMessage);
       this.addToErrorsList(errorMessage)
-      console.error(errorMessage);
   }
   
     getCallerLocation() {

@@ -4,7 +4,7 @@ const is_test = config.is_test ? config.is_test : false
 
 require('dotenv').config();
 let token;
-if(is_test) {
+if (is_test) {
     token = process.env.TOKEN2;
 } else {
     token = process.env.TOKEN;
@@ -41,9 +41,10 @@ const mod_logs = require("./handlers/mod_logs_handler")
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
 const dad_handler = require("./handlers/dad_handler");
-const {messages_stats_handler} = require("./handlers/stats_handler")
+const { messages_stats_handler } = require("./handlers/stats_handler")
+const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
 
-client.on("ready",async (res) => {
+client.on("ready", async (res) => {
     logger.log(`${res.user.tag} is ready`);
 
     status_handler(client)
@@ -83,14 +84,14 @@ client.on("interactionCreate", async (interaction) => {
 
 //autocomplete
 client.on('interactionCreate', async interaction => {
-	if (interaction.isAutocomplete()) {
+    if (interaction.isAutocomplete()) {
         const commandName = interaction.commandName
-        if(!commandName) return;
-        if(interaction.responded) return;
+        if (!commandName) return;
+        if (interaction.responded) return;
         const commandLocation = commandsMap.get(commandName);
         if (commandLocation) {
             const { data, autocomplete } = require(commandLocation);
-    
+
             try {
                 await autocomplete(interaction, client);
             } catch (error) {
@@ -101,20 +102,34 @@ client.on('interactionCreate', async interaction => {
                 });
             }
         }
-	}
+    }
 });
 
-client.on('guildMemberAdd',async member => {
+client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)
     autorole(member, client)
 });
 
-client.on("messageCreate",async message => {
-    if(message.author.bot) return;
+client.on("messageCreate", async message => {
+    if (message.author.bot) return;
     log_messages(message)
     lvl_system(message)
     dad_handler(client, message)
     messages_stats_handler(message)
+
+    if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
+        const args = message.content.trim().split(/ +/);
+        if (args[0] === "reload") {
+            const guild = message.guild
+
+            unregisterAllCommandsForGuild(guild, client)
+                .then(
+                    registerSlashCommandsForGuild(guild, client)
+                )
+
+            await message.reply("commands are being refreshed. This may take a few minutes");
+        }
+    }
 })
 
 client.on("uncaughtException", (e) => {
