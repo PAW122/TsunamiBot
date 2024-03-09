@@ -180,9 +180,13 @@ router.get("/server-list/:token_type/:token", (req, res) => {
                     });
 
                 })
-                .catch(logger.error);
+                .catch((error) => {
+                    console.error(error)
+                });
         })
-        .catch(logger.error);
+        .catch((error) => {
+            console.error(error)
+        });
 });
 
 module.exports = router;

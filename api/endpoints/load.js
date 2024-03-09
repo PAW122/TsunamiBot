@@ -288,6 +288,7 @@ router.get("/server-roles-list/:tokenType/:token/:server_id", async (req, res) =
 router.get("/server-list/:token_type/:token", (req, res) => {
     const tokenType = req.params.token_type
     const token = req.params.token
+    let valid_token = true
 
     fetch('https://discord.com/api/users/@me', {
         headers: {
@@ -305,14 +306,14 @@ router.get("/server-list/:token_type/:token", (req, res) => {
             })
                 .then(guildsResult => {
                     if (!guildsResult.ok) {
-                        throw new Error(`HTTP error! Status: ${guildsResult.status}`);
+                        valid_token = false
                     }
 
 
                     return guildsResult.json();
                 })
                 .then(guildsResponse => {
-
+                    if(!valid_token) return; //TODO logout w tym miejscu!!!!!!!!!!!!!!!!!!!!
                     let { client } = require("../../main");
 
                     let botGuilds = client.guilds.cache.map(guild => guild.id);

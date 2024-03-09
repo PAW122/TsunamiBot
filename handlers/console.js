@@ -47,6 +47,13 @@ class ConsoleLogger {
       this.addToFullLogList(logMessage);
     }
   
+    getCallerLocation() {
+      // Pobierz informacje o miejscu wywołania
+      const stack = new Error().stack.split('\n');
+      const callerInfo = stack[3].trim();
+      return callerInfo;
+    }
+
     warn(message) {
       const warningMessage = `[${this.getCurrentTime()}] [Warning] ${message} (at ${this.getCallerLocation()})`;
       this.addToLogList(warningMessage);
@@ -54,6 +61,7 @@ class ConsoleLogger {
     }
   
     error(message, error) {
+      console.log(message, error)
       let loc = "N/A"
       try{
         loc = this.getCallerLocation() || "N/A"
@@ -65,13 +73,6 @@ class ConsoleLogger {
       this.addToLogList(errorMessage);
       this.addToErrorsList(errorMessage)
   }
-  
-    getCallerLocation() {
-      // Pobierz informacje o miejscu wywołania
-      const stack = new Error().stack.split('\n');
-      const callerInfo = stack[3].trim();
-      return callerInfo;
-    }
   
     addToLogList(message) {
       this.logList.push(message);

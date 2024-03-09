@@ -1,7 +1,10 @@
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
-
+//TODO !!!!!!!!!!!!!!!!!!!!
+//jak wygaśnie token autoryzacji to w /api/load:288
+//wywala error http 401 crashujący całego bota.
+//dać jakiś cache
 require('dotenv').config();
 let token;
 if (is_test) {
