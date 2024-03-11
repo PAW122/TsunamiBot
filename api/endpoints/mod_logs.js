@@ -4,7 +4,9 @@ const router = express.Router();
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/modlogs.json")
 
-const auth = require("../handlers/auth")
+const {Auth, AuthV2} = require("../handlers/auth")
+const authV2 = AuthV2.getInstance();
+
 const checkServerExists = require("../handlers/checkServerExists")
 
 const config = require("../config.json")
@@ -17,7 +19,7 @@ router.get("/:tokenType/:token/:server_id/:filter/:elements", async (req, res) =
     const filter = req.params.filter
     let elements = req.params.elements
 
-    const is_auth = await auth(tokenType, token, server_id)
+    const is_auth = await authV2.verification(tokenType, token, server_id)
     if(!is_auth) {
         return res.status(400).json({error: "Not auth"})
     }

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const Auth = require("../handlers/auth")
-const auth = Auth.getInstance();
+const {Auth, AuthV2} = require("../handlers/auth")
+const auth = AuthV2.getInstance();
 
 const config = require("../config.json")
 const Database = require("../../db/database")

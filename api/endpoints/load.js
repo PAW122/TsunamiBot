@@ -4,8 +4,9 @@ const router = express.Router();
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
 
-const Auth = require("../handlers/auth")
+const {Auth, AuthV2} = require("../handlers/auth")
 const auth = Auth.getInstance();
+const authV2 = AuthV2.getInstance();
 
 const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -22,9 +23,10 @@ router.get("/welcome_messages_content/:tokenType/:token/:server_id", async (req,
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
+    
+    const is_authV2 = await authV2.verification(tokenType, token, server_id)
 
-    const is_auth = await auth.verification(tokenType, token, server_id)
-    if(!is_auth) {
+    if(!is_authV2) {
         return res.status(400).json({error: "Not auth"})
     }
 

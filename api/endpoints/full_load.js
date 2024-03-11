@@ -4,8 +4,9 @@ router.use(express.json());
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
 
-const Auth = require("../handlers/auth")
+const {Auth, AuthV2} = require("../handlers/auth")
 const auth = Auth.getInstance();
+const authV2 = AuthV2.getInstance();
 
 const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -31,9 +32,11 @@ router.post("/content", async (req, res) => {
     if(!tokenType || !token || !server_id) {
         return res.status(400).json({error: "one or more body argument is undefined"})
     }
+    
+    const is_authV2 = await authV2.verification(tokenType, token, server_id)
 
-    const is_auth = await auth.verification(tokenType, token, server_id)
-    if(!is_auth) {
+    //const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_authV2) {
         return res.status(400).json({error: "Not auth"})
     }
 
@@ -54,6 +57,7 @@ router.post("/content", async (req, res) => {
     let autorole_enable = false
     let autorole_role = "N/A"
     let dad_responses_enable = false
+    let dad_bot = false
     
     //load data if server is in DB
     //else database.data = "N/A"

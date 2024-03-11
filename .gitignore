@@ -2,7 +2,10 @@
 .eslintcache
 .stylelintcache
 /node_modules
-/db/files/servers.json
 api/webpanel/dist/*
 .env
 /trash
+/db/files/*
+db/files/modlogs.json
+db/files/servers.json
+/db/files
