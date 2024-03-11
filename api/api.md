@@ -10,6 +10,7 @@
         + server-roles-list/:tokenType/:token/:server_id
         + server-list/:token_type/:token
         + welcome_messages_content/:tokenType/:token/:server_id/
+        + welcome_dm_messages_content/:tokenType/:token/:server_id/
     + full_load
         + localhost:3000/full_load/content
             >    {
@@ -24,6 +25,7 @@
         + welcome_messages_channel/:tokenType/:token/:server_id/:channel_id
         + bot_name/:tokenType/:token/:server_id/:bot_name
         + welcome_messages_content/:tokenType/:token/:server_id/:message
+        + welcome_dm_messages_content/:tokenType/:token/:server_id/:message
         + dad_messages/enable/:tokenType/:token/:server_id/:status
         + dad_messages/channel/:tokenType/:token/:server_id/:value
     + modlogs/

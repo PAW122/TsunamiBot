@@ -12,7 +12,6 @@ const logger = ConsoleLogger.getInstance();
 
 const checkServerExists = require("../handlers/checkServerExists")
 
-
 /**
  * @param tokenType
  * @param token
@@ -20,6 +19,33 @@ const checkServerExists = require("../handlers/checkServerExists")
  * @return {json, Bool} welcome message content
  */
 router.get("/welcome_messages_content/:tokenType/:token/:server_id", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+
+    const is_auth = await auth.verification(tokenType, token, server_id)
+    if(!is_auth) {
+        return res.status(400).json({error: "Not auth"})
+    }
+
+    const is_server = await checkServerExists(server_id)
+    if(!is_server) {
+        return res.status(400).json({error: "server_id is invalid"})
+    }
+
+    db.init();
+    const message = await db.read(`${server_id}.welcome_message`);
+    
+    return res.status(400).json({status: "ok", message: message})
+})
+
+/**
+ * @param tokenType
+ * @param token
+ * @param server_id
+ * @return {json, Bool} welcome message content
+ */
+router.get("/welcome_dm_messages_content/:tokenType/:token/:server_id", async (req, res) => {
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id

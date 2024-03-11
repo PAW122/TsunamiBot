@@ -18,6 +18,44 @@
 # TODO
 + dodać komendę do przeładowania wszystkich komend bota na wszystkich serwerach i jakiś licznik ile czasu to trwa + od czasu przeładowania wszystkich komend ma się odpalać coś w stylu service mode i na wszystkie interakcje bot by odpowiadał "jesteśmy w trakcie restartowania serwerów, spróbuj ponownie za kilka minut"
 
+# hosting
+{
+    system płatności: user_id {wybrana oferta (np 1mieś)}
+    logowanie: discord(+opcja podpięcia chasła do maila podłączonego do konta discord, wymaga opcji resetu chasła(system mailowy)) / google
+    
+    user data
+    {
+        każdy użytkownik ma takie samo id jka na discordzie,
+        dla logowania googlem oddzielna sekcja w db
+
+        bot data
+        {
+            name:
+            description
+            avatar
+            custom commands []
+            custom slash commands []
+            config {
+
+            }
+            disabled messages []
+            logs []
+        }
+    }
+}
+opcja wykupiuenia hostingu, podajesz token bota i dostajesz hostowaną kopię
+TsunamiBota + swój panel admina (bez dostępu do db)
+
++ z mapy komend wczytuje wszystko, jeżeli jakaś komenda jest "włączona" to po wczytaniu jest odrazu usówana przez rejestracją,
+
++ opcja start, stop, restart
++ konsola gdzie pójdą wsystkie dane z loggera
+
++ custom commands
+    - message (if user send "content" response "content")
+    - slash command (prepare json)
+        + dana odp dla danej opcji jeżeli jest
+        + dana odp dla danego wprowadzonego stringa...
 
 v 0.1
 # teraz

@@ -48,17 +48,19 @@ router.post("/content", async (req, res) => {
     //var
     const server = client.guilds.cache.get(server_id);//dont send
     let welcome_message_content = "N/A"
-    let welcome_message_enable = "N/A"
+    let welcome_dm_message_content = "N/A"
+    let welcome_message_enable = false
     let welcome_message_channel = "N/A"
-    let autorole_enable = "N/A"
+    let autorole_enable = false
     let autorole_role = "N/A"
-    let dad_responses_enable = "N/A"
+    let dad_responses_enable = false
     
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
-        welcome_message_content =  data.welcome_dm_message
-        welcome_message_enable = data.welcome_status
+        welcome_message_content =  data.welcome_message
+        welcome_dm_message_content = data.welcome_dm_message
+        welcome_message_enable = data.welcome_status ?? false
     
         const channel_name = client.channels.cache.get(data.welcome_channel)//dont send
         welcome_message_channel = {
@@ -66,14 +68,18 @@ router.post("/content", async (req, res) => {
             name: channel_name.name
         }
 
-        autorole_enable =  data.autorole.status ?? false
+        let autorole = data.autorole
+        if(autorole) {
+            autorole_enable =  data.autorole.status ?? false
 
-        const roleId = data.autorole.role_id;//dont send
-        const role = server.roles.cache.get(roleId);//dont send
-        autorole_role = {
-            id: role.id,
-            name: role.name
-        };
+            const roleId = data.autorole.role_id;//dont send
+            const role = server.roles.cache.get(roleId);//dont send
+            autorole_role = {
+                id: role.id,
+                name: role.name
+            };
+    
+        }
 
         dad_responses_enable = data.dad_channel_enable ?? false
         dad_bot = {
@@ -103,6 +109,7 @@ router.post("/content", async (req, res) => {
 
     const response_data = {
         welcome_message_content: welcome_message_content,
+        welcome_dm_message_content: welcome_dm_message_content,
         welcome_message_enable: welcome_message_enable,
         welcome_message_channel: welcome_message_channel,
         server_channels_list: server_channels_list,

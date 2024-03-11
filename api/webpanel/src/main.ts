@@ -3,7 +3,7 @@ import { drawServers } from "./ServerList.js"
 import * as config from "./config.js"
 import { navbarStyle } from "./helpers.js"
 import { auth } from "./login.js"
-import { genSettings, setting } from "./settings.js"
+import { genSettings, setting, genTextBox, addTooltip, genCheckBox } from "./settings.js"
 
 window.onload = initial
 const loginManager = new auth()
@@ -32,6 +32,10 @@ function initial() {
 async function login() {
     let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
     let json = await response.json();
+    if(json?.error && json.error === "invalid_token") {
+        loginManager.dispose();
+        window.location.reload();
+    }
     document.getElementById("username-text")!.textContent = `@${json.user.username}`
     document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
     let servers = json.servers;
@@ -68,17 +72,39 @@ async function handleServerClick(clickedServerId: string) {
     }
     settings_parent!.innerHTML = "";
 
+    //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
+    //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
-    let dad_bot = genSettings(settings_parent, "Dad bot", true);
+    //welcome message
+    let welcome_text_box = genTextBox(settings_parent, "Welcome message", body.welcome_message_content, saveWelcomeMessage);
+    let titleDiv = welcome_text_box.input.parentElement!.previousElementSibling as HTMLDivElement;
+    addTooltip(titleDiv, "Hello {user} welcome to {server_name}\n message sent with the welcome image");
+    //welcome dm message
+    let welcome_dm_text_box = genTextBox(settings_parent, "Welcome dm message", body.welcome_dm_message_content, saveWelcomeDmMessage);
+    let welcome_dm_text_box_div = welcome_dm_text_box.input.parentElement!.previousElementSibling as HTMLDivElement;
+    addTooltip(welcome_dm_text_box_div, "Hello {user} welcome to {server_name}\n a message sent in a private chat to the user ");
+    //dad bot
+    let dad_bot = genCheckBox(settings_parent, "Dad bot", body.dad_bot.enable);
 
-
-    if(body.dad_bot.enable === false) {
-        dad_bot.checkbox!.checked = false;
-    } else if (body.autorole_enable === true) {
-        dad_bot.checkbox!.checked = true;
-    } else {
-        throw new Error("Corrupted dad_bot response data");
+    async function saveWelcomeMessage(data: string) {
+        let response = await fetch(`${config.MainURL}/save/welcome_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);
+        if (response.ok) {
+            console.log(`Welcome message content set to. Response: ${response.status}`);
+        } else {
+            console.warn(`Error `);
+        }
+        // Możesz wykonać inne operacje na podstawie odpowiedzi
+    }
+    
+    async function saveWelcomeDmMessage(data: string) {
+        let response = await fetch(`${config.MainURL}/save/welcome_dm_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);
+        if (response.ok) {
+            console.log(`Welcome dm message content set to. Response: ${response.status}`);
+        } else {
+            console.warn(`Error `);
+        }
+        // Możesz wykonać inne operacje na podstawie odpowiedzi
     }
 
     // reading autorole switches
@@ -88,6 +114,7 @@ async function handleServerClick(clickedServerId: string) {
     } else if (body.autorole_enable === true) {
         autorole.checkbox!.checked = true;
     } else {
+        
         throw new Error("Corrupted autorole response data");
     }
     body.server_roles_list?.forEach((role, _index) => {
