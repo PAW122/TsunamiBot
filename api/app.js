@@ -9,6 +9,7 @@ const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
 const full_load = require("./endpoints/full_load")
+const actions = require("./endpoints/actions")
 
 // index file serving
 app.get("/", (req, res) => {
@@ -67,5 +68,6 @@ app.use("/save", save)
  * @return {json}
  */
 app.use("/modlogs", mod_logs)
+app.use("/actions", actions)
 
 module.exports = app;

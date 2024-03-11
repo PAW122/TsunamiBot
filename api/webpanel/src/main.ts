@@ -41,6 +41,9 @@ async function login() {
     let servers = json.servers;
     drawServers(servers, handleServerClick);
     document.querySelector("#logout-button")?.addEventListener("click", function () {
+        
+        fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
+        
         loginManager.dispose();
         window.location.reload();
     });
