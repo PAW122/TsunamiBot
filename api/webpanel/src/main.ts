@@ -8,7 +8,15 @@ import { genSettings, setting, genTextBox, addTooltip, genCheckBox } from "./set
 window.onload = initial
 const loginManager = new auth()
 
+// main.ts
 function initial() {
+
+    // Kod wykonywany tylko dla podstrony /partners
+    if (window.location.pathname === "/partners") {
+        loadPartners();
+        return;
+    }
+
     navbarStyle();
     if (String(config.MainURL) === "http://localhost:3000") {
         document.getElementById("test-banner")?.classList.remove("d-none")
@@ -16,23 +24,73 @@ function initial() {
     let login_button = document.getElementById("login-button") as HTMLLinkElement
     login_button.href = config.AuthURL
 
-    if (loginManager.token.token) {
-        document.querySelectorAll(".profile-logout").forEach(function (el) {
-            el.classList.add("d-none");
-        })
+    console.log(loginManager.token.token)
+
+    const loginButton = document.getElementById("login-button");
+    if (loginManager.token.token && loginButton) {
         document.querySelectorAll(".profile-login").forEach(function (el) {
             el.classList.remove("d-none");
         })
+        // Ukryj przycisk login
+        loginButton.classList.add("d-none");
         login();
         // doFetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`, login)
+    } else {
+        // Ukryj przycisk logout
+        const logoutButton = document.getElementById("logout-button");
+        if (logoutButton) {
+            logoutButton.classList.add("d-none");
+            // Ukryj okienko z "username"
+            const usernameWindow = document.getElementById("username-text");
+            if (usernameWindow) {
+                usernameWindow.classList.add("d-none");
+            }
+        }
     }
     window["lm"] = loginManager
+}
+
+
+// Funkcja do wczytywania partnerów i wyświetlania ich na stronie
+async function loadPartners() {
+    const response = await fetch(`${config.MainURL}/load/partners`);
+    if (response.ok) {
+        const partnersData = await response.json();
+        const partnersContainer = document.getElementById("partners-container");
+        if (partnersContainer) {
+            // Iterujemy przez każdego partnera w obiekcie partnersData
+            for (const key in partnersData) {
+                if (Object.hasOwnProperty.call(partnersData, key)) {
+                    const partner = partnersData[key];
+                    const partnerElement = document.createElement("div");
+                    partnerElement.classList.add("partner");
+                    // Tworzymy HTML z danymi partnera
+                    partnerElement.innerHTML = `
+                        <div class="partner-info">
+                            <img src="${partner.avatar_link}" alt="Avatar" class="partner-avatar">
+                            <div class="partner-details">
+                                <h2>${partner.name}</h2>
+                                ${partner.description ? `<p>Description: <a>${partner.description}</a></p>` : ""}
+                                ${partner.yt_link ? `<p>YouTube: <a href="${partner.yt_link}">${partner.yt_link}</a></p>` : ""}
+                                ${partner.ttv_link ? `<p>Twitch: <a href="${partner.ttv_link}">${partner.ttv_link}</a></p>` : ""}
+                                ${partner.discord_invite ? `<p>Discord: <a href="${partner.discord_invite}">${partner.discord_invite}</a></p>` : ""}
+                                ${partner.twitter ? `<p>Twitter: <a href="${partner.twitter}">${partner.twitter}</a></p>` : ""}
+                            </div>
+                        </div>
+                    `;
+                    partnersContainer.appendChild(partnerElement);
+                }
+            }
+        }
+    } else {
+        console.error("Failed to load partners:", response.status, response.statusText);
+    }
 }
 
 async function login() {
     let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
     let json = await response.json();
-    if(json?.error && json.error === "invalid_token") {
+    if (json?.error && json.error === "invalid_token") {
         loginManager.dispose();
         window.location.reload();
     }
@@ -41,9 +99,9 @@ async function login() {
     let servers = json.servers;
     drawServers(servers, handleServerClick);
     document.querySelector("#logout-button")?.addEventListener("click", function () {
-        
+
         fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
-        
+
         loginManager.dispose();
         window.location.reload();
     });
@@ -99,7 +157,7 @@ async function handleServerClick(clickedServerId: string) {
         }
         // Możesz wykonać inne operacje na podstawie odpowiedzi
     }
-    
+
     async function saveWelcomeDmMessage(data: string) {
         let response = await fetch(`${config.MainURL}/save/welcome_dm_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);
         if (response.ok) {
@@ -117,7 +175,7 @@ async function handleServerClick(clickedServerId: string) {
     } else if (body.autorole_enable === true) {
         autorole.checkbox!.checked = true;
     } else {
-        
+
         throw new Error("Corrupted autorole response data");
     }
     body.server_roles_list?.forEach((role, _index) => {

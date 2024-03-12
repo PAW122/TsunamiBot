@@ -2,6 +2,14 @@
 
 ## building
 - update `config.json` to use specific config
+    public is config to use TOKEN and public port
+    local_dev isconfig to user TOKEN2 and local port
+- add .env file and add bot token
+    ```
+    TOKEN=
+    TOKEN2=
+    ```
+
 - build front-end:
     ```
     npm run build

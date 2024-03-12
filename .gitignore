@@ -5,7 +5,5 @@
 api/webpanel/dist/*
 .env
 /trash
-/db/files/*
 db/files/modlogs.json
 db/files/servers.json
-/db/files

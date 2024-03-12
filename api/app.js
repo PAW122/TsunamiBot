@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/index.html")
 })
 
+app.get("/partners", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/partners.html")
+})
+
 
 let currentMode = config.using
 app.get("/config.js", (req, res) => {

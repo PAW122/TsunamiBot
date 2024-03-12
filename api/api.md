@@ -11,6 +11,7 @@
         + server-list/:token_type/:token
         + welcome_messages_content/:tokenType/:token/:server_id/
         + welcome_dm_messages_content/:tokenType/:token/:server_id/
+        + partners
     + full_load
         + localhost:3000/full_load/content
             >    {
