@@ -16,7 +16,8 @@
             margin-inline: 16px;
             margin-block: 16px;
             top: -1px;
-            z-index: 1000; /* Z-index, aby navbar był na wierzchu */
+            z-index: 1000;
+            /* Z-index, aby navbar był na wierzchu */
         }
 
         .navbar.sticky-top.is-pinned {
@@ -35,8 +36,13 @@
     <!-- Nawigacja -->
     <nav class="navbar d-flex justify-content-between align-items-center sticky-top bg-blur p-3 rounded">
         <a class="navbar-brand" href="#">Partners panel</a>
+        <form class="d-flex align-items-center">
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="search-button" class="btn btn-outline-light" type="button">Search</button>
+        </form>
         <a class="btn btn-outline-light" href="/">Home</a>
     </nav>
+
 
     <!-- Kontener na partnerów -->
     <div id="partners-container" class="m-3 p-3 rounded bg-body-tertiary">
@@ -45,6 +51,40 @@
 
     <!-- Skrypty -->
     <script src="/main.js" type="module"></script>
+    <script>
+        // Funkcja sortująca partnerów po nazwie
+        function sortPartnersByName(partners, searchTerm) {
+            return partners.filter(partner => partner.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                .sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        // Funkcja wywoływana po naciśnięciu przycisku "Search" lub klawisza "Enter"
+        document.getElementById("search-button").addEventListener("click", function () {
+            searchPartners();
+        });
+
+        document.getElementById("search-input").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                searchPartners();
+            }
+        });
+
+        function searchPartners() {
+            const searchTerm = document.getElementById("search-input").value.trim().toLowerCase();
+            const partnerElements = document.querySelectorAll(".partner-info");
+
+            partnerElements.forEach(partnerElement => {
+                const partnerName = partnerElement.querySelector("h2").textContent.trim().toLowerCase();
+                if (partnerName.includes(searchTerm)) {
+                    partnerElement.style.display = "block";
+                } else {
+                    partnerElement.style.display = "none";
+                }
+            });
+        }
+
+
+    </script>
 </body>
 
 </html>

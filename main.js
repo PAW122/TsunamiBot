@@ -135,12 +135,56 @@ client.on("messageCreate", async message => {
     }
 })
 
+async function restartBot() {
+    try {
+        console.log('Restartowanie bota...');
+
+        // Rozłączanie bota z Discord
+        await client.destroy();
+
+        // Ponowne połączenie bota z Discord
+        await client.login(token);
+
+        console.log('Bot został pomyślnie zrestartowany!');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas restartowania bota:', error);
+    }
+}
+
+// Definicja funkcji wyłączającej bota
+async function bot_off() {
+    try {
+        console.log('Wyłączanie bota...');
+
+        // Rozłączanie bota z Discord
+        await client.destroy();
+
+        console.log('Bot został pomyślnie wyłączony!');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas wyłączania bota:', error);
+    }
+}
+
+// Definicja funkcji włączającej bota
+async function bot_on() {
+    try {
+        console.log('Włączanie bota...');
+
+        // Ponowne połączenie bota z Discord
+        await client.login(token);
+
+        console.log('Bot został pomyślnie włączony!');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas włączania bota:', error);
+    }
+}
+
 client.on("uncaughtException", (e) => {
     logger.warn(e)
 });
 
 client.login(token)
-module.exports = { client, config }
+module.exports = { client, config, restartBot, bot_off, bot_on }
 // /*TODO
 // podstronę z pomysłami.
 // opcje dodawania up vote i down vote,

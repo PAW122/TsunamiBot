@@ -16,7 +16,7 @@ async function execute(interaction, client) {
     const interaction_id = interaction.id
     const user_id = interaction.user.id
     database.init();
-    database.add(`${user_id}`, {[interaction_id]: content})
+    database.add(`ideas.${user_id}`, {[interaction_id]: content})
     await interaction.reply("saved");
 }
 

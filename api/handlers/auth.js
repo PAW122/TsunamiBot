@@ -1,6 +1,10 @@
 const fetch = require('node-fetch');
 const { PermissionsBitField } = require('discord.js');
 
+const _config = require("../../config.json")
+const using = _config.using
+const admin_list = _config[using].admin_list
+
 class AuthV2 {
     constructor() {
         if (!AuthV2.instance) {
@@ -20,14 +24,37 @@ class AuthV2 {
         Object.assign(this.cache, data);
     }
 
+
     is_data(key) {
         return this.cache.hasOwnProperty(key) ? this.cache[key] : false;
     }
+
 
     remove_data(key) {
         if (this.cache.hasOwnProperty(key)) {
             delete this.cache[key];
         }
+    }
+
+
+    async admin_verification(tokenType, token) {
+        let user = this.is_data(token + tokenType)
+        if (!user) {
+            //jeżeli nie uda się zalogować to wywal error
+            //zwykłe login wykonuje 1 usles req do restapi!
+            user = await this.login(tokenType, token)
+        }
+
+        if (!user) return false;
+        //console.log(user)
+        const id = user.id
+
+        if(admin_list.includes(id)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     async verification(tokenType, token, server_id) {
@@ -76,7 +103,6 @@ class AuthV2 {
         })
 
         if (!user_data.ok) {
-            console.log("AUTHV2 ratelimit")
             return false;
         }
 

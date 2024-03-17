@@ -32,8 +32,15 @@ class Database {
      */
     write(path, data) {
         const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
-        const pathSegments = path.split('.');
+
+        //save wothout the path
         let current = database;
+        if(path === true) {
+            current = data
+            fs.writeFileSync(this.file_path, JSON.stringify(database, null, 2), 'utf-8');
+            return;
+        }
+        const pathSegments = path.split('.');
 
         // Przechodzi po ścieżce do odpowiedniego miejsca w bazie danych
         for (let i = 0; i < pathSegments.length - 1; i++) {
@@ -157,11 +164,18 @@ class Database {
      * read
      * Odczytuje dane z bazy danych
      * @param {string} path - Ścieżka do elementu w bazie danych (np. "table1.users.userid.example_user_id")
+     * path = true - load all data
      * @returns {object|null} - Dane z bazy danych lub null, jeśli ścieżka nie istnieje
      */
     read(path) {
         try {
             const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
+
+            if(path === true) {
+                return database
+            }
+
+
             const pathSegments = path.split('.');
             let current = database;
 

@@ -10,6 +10,7 @@ const save = require("./endpoints/save")
 const mod_logs = require("./endpoints/mod_logs")
 const full_load = require("./endpoints/full_load")
 const actions = require("./endpoints/actions")
+const admin = require("./endpoints/admin")
 
 // index file serving
 app.get("/", (req, res) => {
@@ -18,6 +19,10 @@ app.get("/", (req, res) => {
 
 app.get("/partners", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/partners.html")
+})
+
+app.get("/admin", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/admin.html")
 })
 
 
@@ -73,5 +78,6 @@ app.use("/save", save)
  */
 app.use("/modlogs", mod_logs)
 app.use("/actions", actions)
+app.use("/admin", admin)
 
 module.exports = app;
