@@ -11,6 +11,7 @@ const mod_logs = require("./endpoints/mod_logs")
 const full_load = require("./endpoints/full_load")
 const actions = require("./endpoints/actions")
 const admin = require("./endpoints/admin")
+const full_mod_load = require("./endpoints/full_mod_logs_load")
 
 // index file serving
 app.get("/", (req, res) => {
@@ -79,5 +80,6 @@ app.use("/save", save)
 app.use("/modlogs", mod_logs)
 app.use("/actions", actions)
 app.use("/admin", admin)
+app.use("/mod_logs", full_mod_load)
 
 module.exports = app;

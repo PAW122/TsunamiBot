@@ -77,6 +77,46 @@ export function genCheckBox(parent: HTMLDivElement, title: string = "TextBox", c
         // Zwracamy checkbox, aby można było go użyć później
     };
 }
+export function genButtonElement(parent: HTMLElement, value: string, buttonId: string, buttonClass: string, url: string): HTMLButtonElement {
+    // Tworzenie głównego kontenera dla przycisku
+    const container = document.createElement("div");
+    container.classList.add("container", "mt-4");
+
+    // Tworzenie wiersza i komórki dla przycisku
+    const row = document.createElement("div");
+    row.classList.add("row", "justify-content-center");
+    const col = document.createElement("div");
+    col.classList.add("col-md-6");
+
+    // Tworzenie karty i zawartości karty
+    const card = document.createElement("div");
+    card.classList.add("card");
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    // Tworzenie przycisku
+    const button = document.createElement("button");
+    button.id = buttonId;
+    button.classList.add("btn", buttonClass);
+    button.textContent = value;
+
+    // Dodanie obsługi zdarzenia kliknięcia przycisku
+    button.addEventListener("click", () => {
+        window.location.href = url;
+    });
+
+    // Dodanie przycisku do zawartości karty
+    cardBody.appendChild(button);
+    card.appendChild(cardBody);
+    col.appendChild(card);
+    row.appendChild(col);
+    container.appendChild(row);
+    parent.appendChild(container);
+
+    // Zwracanie przycisku
+    return button;
+}
+
 
 
 export function addTooltip(titleDiv: HTMLElement, description: string) {

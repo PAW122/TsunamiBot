@@ -30,6 +30,7 @@
         + dad_messages/enable/:tokenType/:token/:server_id/:status
         + dad_messages/channel/:tokenType/:token/:server_id/:value
     + modlogs/
+        + /
         + :tokenType/:token/:server_id/:filter/:elements
 
 

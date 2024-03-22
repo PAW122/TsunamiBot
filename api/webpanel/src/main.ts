@@ -3,7 +3,7 @@ import { drawServers } from "./ServerList.js"
 import * as config from "./config.js"
 import { navbarStyle } from "./helpers.js"
 import { auth } from "./login.js"
-import { genSettings, setting, genTextBox, addTooltip, genCheckBox } from "./settings.js"
+import { genSettings, setting, genTextBox, addTooltip, genCheckBox, genButtonElement } from "./settings.js"
 
 window.onload = initial
 const loginManager = new auth()
@@ -133,6 +133,10 @@ async function handleServerClick(clickedServerId: string) {
     }
     settings_parent!.innerHTML = "";
 
+    //modLogs
+    let link = `${config.MainURL}/modlogs/${clickedServerId}`
+    genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
+
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
     //welcome channel
@@ -147,6 +151,8 @@ async function handleServerClick(clickedServerId: string) {
     addTooltip(welcome_dm_text_box_div, "Hello {user} welcome to {server_name}\n a message sent in a private chat to the user ");
     //dad bot
     let dad_bot = genCheckBox(settings_parent, "Dad bot", body.dad_bot.enable);
+    //mod logs TODO: zamienić false na wartość wczytywaną w fill_load z db | dodać zapisywanie zmian do db
+    let mod_logs = genCheckBox(settings_parent, "Mod Logs", false);
 
     async function saveWelcomeMessage(data: string) {
         let response = await fetch(`${config.MainURL}/save/welcome_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);

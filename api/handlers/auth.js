@@ -49,7 +49,7 @@ class AuthV2 {
         //console.log(user)
         const id = user.id
 
-        if(admin_list.includes(id)) {
+        if (admin_list.includes(id)) {
             return true;
         } else {
             return false;
@@ -96,54 +96,58 @@ class AuthV2 {
      * @param {*} token 
      */
     async login(tokenType, token) {
-        const user_data = await fetch('https://discord.com/api/users/@me', {
-            headers: {
-                authorization: `${tokenType} ${token}`
+        try {
+            const user_data = await fetch('https://discord.com/api/users/@me', {
+                headers: {
+                    authorization: `${tokenType} ${token}`
+                }
+            })
+
+            if (!user_data.ok) {
+                return false;
             }
-        })
 
-        if (!user_data.ok) {
-            return false;
-        }
+            const userData = await user_data.json();
+            const { id } = userData;
 
-        const userData = await user_data.json();
-        const { id } = userData;
+            const guildsResponse = await fetch('https://discord.com/api/users/@me/guilds', {
+                headers: {
+                    authorization: `${tokenType} ${token}`,
+                },
+            })
 
-        const guildsResponse = await fetch('https://discord.com/api/users/@me/guilds', {
-            headers: {
-                authorization: `${tokenType} ${token}`,
-            },
-        })
-
-        if (!guildsResponse.ok) {
-            console.log("AUTHV2 ratelimit")
-            return false;
-        }
-
-        //Serwery użytkownika
-        const guildsData = await guildsResponse.json();
-
-        const { client } = require("../../main")
-
-        let botGuilds = client.guilds.cache.map(guild => guild.id);//serwery bota
-        let userGuilds = guildsData.map(guild => guild.id);//serwery usera
-        let sharedGuilds = userGuilds.filter(guildId => botGuilds.includes(guildId));//wspólne serwery
-
-        let cache_data = {
-            [token + tokenType]: {
-                id: id,
-                ip: "",
-                last_login_timesamp: "",
-                guilds: sharedGuilds
+            if (!guildsResponse.ok) {
+                console.log("AUTHV2 ratelimit")
+                return false;
             }
-        }
 
-        this.save_data(cache_data)
-        return cache_data[token+tokenType];
+            //Serwery użytkownika
+            const guildsData = await guildsResponse.json();
+
+            const { client } = require("../../main")
+
+            let botGuilds = client.guilds.cache.map(guild => guild.id);//serwery bota
+            let userGuilds = guildsData.map(guild => guild.id);//serwery usera
+            let sharedGuilds = userGuilds.filter(guildId => botGuilds.includes(guildId));//wspólne serwery
+
+            let cache_data = {
+                [token + tokenType]: {
+                    id: id,
+                    ip: "",
+                    last_login_timesamp: "",
+                    guilds: sharedGuilds
+                }
+            }
+
+            this.save_data(cache_data)
+            return cache_data[token + tokenType];
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     async logout(tokenType, token) {
-        this.remove_data(token+tokenType)
+        this.remove_data(token + tokenType)
     }
 
     has_permisions(member) {
@@ -259,4 +263,4 @@ class Auth {
     }
 }
 
-module.exports = {Auth, AuthV2}
+module.exports = { Auth, AuthV2 }

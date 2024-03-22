@@ -12,12 +12,18 @@ const checkServerExists = require("../handlers/checkServerExists")
 const config = require("../config.json")
 const mod_logs_list = config.api.mod_logs_list
 
+router.get("/:server_id",async (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/mod_logs.html");
+})
+
 router.get("/:tokenType/:token/:server_id/:filter/:elements", async (req, res) => {
     const tokenType = req.params.tokenType
     const token = req.params.token
     const server_id = req.params.server_id
-    const filter = req.params.filter
-    let elements = req.params.elements
+    const filter = req.params.filter // all
+    let elements = req.params.elements // 25
+
+    console.log(`${filter} | ${elements}`)
 
     const is_auth = await authV2.verification(tokenType, token, server_id)
     if(!is_auth) {
@@ -75,17 +81,27 @@ router.get("/:tokenType/:token/:server_id/:filter/:elements", async (req, res) =
 
         db.init();
         const data = db.readList(`${server_id}.modlogs.${filter}`, elements)
+
+        //console.log(data)
+
         return data;
     }
 
     //load all last logs
     if(filter == null || filter === "all") {
         const send = await load_all();
-        return res.status(200).json(send);
+
+        //console.log(send)
+
+        //return res.send("test message")
+        return res.json(send)
 
     }else if(mod_logs_list.includes(filter)) {
         const send = await load_one(filter);
-        return res.status(200).json(send);
+
+
+        //return res.send("test")
+        return res.json(send);
 
     } else {
         return res.status(400).json({error: "invalid filter"})
