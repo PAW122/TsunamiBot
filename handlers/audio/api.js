@@ -86,6 +86,10 @@ app.get("/connect/:station_name", async (req, res) => {
     if (ipAddress === "::1") {
         ipAddress = "127.0.0.1"
     }
+
+    ipAddress = ipAddress.includes('::ffff:') ? ipAddress.slice(7) : ipAddress;
+
+
     res.json({ ok: 200 })
 
     //send test req
