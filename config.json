@@ -1,11 +1,11 @@
 {
-    "using": "local_dev",
+    "using": "public",
     "public": {
         "is_test": false,
         "main_url": "https://senko.pagekite.me/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email",
         "port": 80,
-        "audio_port": 81,
+        "audio_port": 3001,
         "whitelist": false,
         "aduio_file_path": "/db/files/audio/",
         "config": {
