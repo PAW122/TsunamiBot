@@ -46,6 +46,7 @@ const database = new Database(__dirname + "/db/files/servers.json")
 const dad_handler = require("./handlers/dad_handler");
 const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
+const {audio_api_run} = require("./handlers/audio/api")
 
 client.on("ready", async (res) => {
     logger.log(`${res.user.tag} is ready`);
@@ -54,6 +55,7 @@ client.on("ready", async (res) => {
     database.backup(__dirname + "/db/backup")
 
     api();
+    audio_api_run();
     mod_logs(client);
 
 

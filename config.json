@@ -1,11 +1,13 @@
 {
-    "using": "public",
+    "using": "local_dev",
     "public": {
         "is_test": false,
         "main_url": "https://senko.pagekite.me/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email",
         "port": 80,
+        "audio_port": 81,
         "whitelist": false,
+        "aduio_file_path": "/db/files/audio/",
         "config": {
             "messages_logs": false,
             "owner_id": "438336824516149249",
@@ -21,9 +23,11 @@
         "main_url": "http://localhost:3000/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=797070806885990431&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=identify+guilds+email",
         "port": 3000,
+        "audio_port": 3001,
         "whitelist": [
             "727662119553728532"
         ],
+        "aduio_file_path": "/db/files/audio/",
         "config": {
             "messages_logs": false,
             "owner_id": "438336824516149249",
