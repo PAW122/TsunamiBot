@@ -83,6 +83,10 @@ app.use("/admin", admin)
 app.use("/mod_logs", full_mod_load)
 app.use(bodyParser.json());
 // AUDIO TEST API ==================================================
+
+const { DataStore } = require("../handlers/audio/api")
+let data = DataStore.getInstance()
+
 app.post("/connect/:station_name", async (req, res) => {
     let ipAddress = req.ip;
     const station_name = req.params.station_name
