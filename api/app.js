@@ -94,9 +94,9 @@ app.post("/connect/:station_name", async (req, res) => {
     // console.log(req)
     
     //test req
-    if (ipAddress === "::1") {
-        ipAddress = "127.0.0.1"
-    }
+    // if (ipAddress === "::1") {
+    //     ipAddress = "127.0.0.1"
+    // }
 
     // if(!station_name) {
     //     return req.status(401).json({error: "station name undefined"})
