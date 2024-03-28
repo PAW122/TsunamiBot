@@ -87,10 +87,10 @@ app.use(bodyParser.json());
 const { DataStore } = require("../handlers/audio/api")
 let data = DataStore.getInstance()
 
-app.post("/connect/:station_name", async (req, res) => {
-    let ipAddress = req.ip;
+app.post("/connect/:station_name/:ip", async (req, res) => {
+    let ipAddress = req.params.ip
     const station_name = req.params.station_name
-    
+    console.log(`ip: ${ipAddress}`)
     // console.log(req)
     
     //test req
