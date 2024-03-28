@@ -2,12 +2,15 @@ const http = require("http");
 const express = require("express");
 const axios = require("axios")
 const fs = require("fs")
+const bodyParser = require('body-parser');
 
 const config = require("../../config.json")
 let port_ = config[config.using].audio_port
+let audio_station_banned_names = config[config.using].audio_station_banned_names
 const aduio_file_path = config[config.using].aduio_file_path
 const port = process.env.PORT || port_;
 const app = express();
+app.use(bodyParser.json());
 
 
 class DataStore {
@@ -79,77 +82,81 @@ app.get("/ping", (req, res) => {
     return res.json({ ok: 200 })
 })
 
-app.get("/connect/:station_name", async (req, res) => {
+app.post("/connect/:station_name", async (req, res) => {
     let ipAddress = req.ip;
     const station_name = req.params.station_name
+    
+    // console.log(req)
+    
     //test req
     if (ipAddress === "::1") {
         ipAddress = "127.0.0.1"
     }
 
+    // if(!station_name) {
+    //     return req.status(401).json({error: "station name undefined"})
+    // } else if (audio_station_banned_names.has(station_name)) {
+    //     console.log(`IP: ${ipAddress} try to use banned station name: ${station_name}`)
+    //     return req.status(401).json({error: "station name is not available"})
+    // }
+
     ipAddress = ipAddress.includes('::ffff:') ? ipAddress.slice(7) : ipAddress;
 
+   //lista piosenek przyjdzie w body
 
-    res.json({ ok: 200 })
+    console.log(req.body)
+    const songs_list = req.body
 
-    //send test req
-    const options = {
-        hostname: ipAddress,
-        port: 3002,
-        path: '/endpoint',
-        method: 'GET'
-    };
+    console.log(station_name)
+   
+    //client odpowiedział, dodaj go do listy
+    data.add(ipAddress, { name: station_name, files: songs_list });
 
-    const _req = http.request(options, (res) => {
-        console.log(`Status code: ${res.statusCode}`);
+    console.log("wszystkie dane")
+    console.log(data.get())
+    
+    return res.status(200).json({ok: 200})
+})
 
-        let rawData = ''; // Zainicjuj zmienną do przechowywania danych
+/**
+ * 
+ * @param {*} ip 
+ * @param {*} station_name 
+ * @param {*} fileName 
+ * @returns file path
+ */
+async function get_song(ip, station_name, fileName) {
+    const filePath = `${process.cwd() + aduio_file_path + station_name + "_" + fileName}`;
 
-        res.on('data', (chunk) => {
-            console.log(`Odpowiedź: ${chunk}`);
-            rawData += chunk.toString(); // Dodaj chunk do całkowitych danych jako ciąg znaków
+    try {
+        const response = await axios.post(`http://${ip}/${fileName}`, {
+            // Możesz przekazać dane w ciele żądania, jeśli to konieczne
+        }, {
+            responseType: 'stream' // Ustawienie responseType na 'stream' dla strumienia
         });
 
-        res.on('end', () => {
-            try {
-                const dataArray = JSON.parse(rawData); // Parsuj całkowite dane JSON do tablicy
-                console.log(dataArray); // Wyświetl przetworzone dane
+        // Pipe strumień odpowiedzi do pliku
+        response.data.pipe(fs.createWriteStream(filePath));
 
-                // Jeśli dataArray jest już tablicą, możesz ją dodać do listy
-                if (Array.isArray(dataArray)) {
-
-                    //client odpowiedział, dodaj go do listy
-                    data.add(ipAddress, { name: station_name, files: dataArray });
-                    console.log(data.get());
-
-                    console.log("wszystkie dane")
-                    console.log(data.get())
-
-                    let station = data.get_by_key(ipAddress)
-                    console.log("stacja")
-                    console.log(station.name)
+        // Zwróć ścieżkę do pobranego pliku
+        return filePath;
+    } catch (error) {
+        console.error('Wystąpił błąd:', error);
+        throw error; // Rzuć błąd, jeśli wystąpił
+    }
+}
 
 
 
-                    //get_song(ipAddress + ":3002", station.name, "opening.mp3")
+const server = http.createServer(app);
 
-                } else {
-                    console.error('Otrzymane dane nie są tablicą JSON.');
-                }
-            } catch (error) {
-                console.error(`Błąd parsowania JSON: ${error.message}`);
-            }
+function audio_api_run() {
+    server.listen(port);
+    console.log(`Audio API online localhost:${port}`)
+}
+module.exports = { audio_api_run, DataStore, get_song }
 
-
-        });
-    });
-
-    _req.on('error', (error) => {
-        console.error(`Błąd żądania: ${error}`);
-    });
-
-    _req.end();
-    /*
+ /*
         zapisywać plik w danym miejscu,
         zapisywać do klasy gdzie się znajduje,
         odtworzyć na kanale i usunąć
@@ -166,40 +173,8 @@ app.get("/connect/:station_name", async (req, res) => {
 
         +hartbeat (jeżeli serwer nie odpowie jest usówany z klasy data)
 
+
+        =============
+
+        można sprubować przesyłać dane audio na żywo.
     */
-})
-
-/**
- * 
- * @param {*} ip 
- * @param {*} station_name 
- * @param {*} fileName 
- * @returns file path
- */
-async function get_song(ip, station_name, fileName) {
-    console.log(`http://${ip}/get_song/${fileName}`)
-    try {
-        const response = await axios.get(`http://${ip}/get_song/${fileName}`, {
-            responseType: 'arraybuffer' // Określamy, że chcemy otrzymać plik jako arraybuffer
-        });
-
-        if (response.status === 200) {
-            // Zapisujemy otrzymane dane jako plik na dysku
-            fs.writeFileSync(process.cwd() + aduio_file_path +station_name + "_" + fileName, Buffer.from(response.data));
-            console.log(`Pobrano plik: ${fileName}`);
-        }
-    } catch (error) {
-        console.error('Wystąpił błąd:', error.message);
-    }
-
-    return `${process.cwd() + aduio_file_path +station_name + "_" + fileName}`
-}
-
-
-const server = http.createServer(app);
-
-function audio_api_run() {
-    server.listen(port);
-    console.log(`Audio API online localhost:${port}`)
-}
-module.exports = { audio_api_run, DataStore, get_song }

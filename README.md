@@ -23,6 +23,20 @@
 ---
 ---
 
+# TODO!!! Audio
+1. zapisywać pobrane songi w cache (file path, station name, file_name)
+2. po 1 req serwer (go) się zacina
+3. server ip do audio pobrać z api
+
+! na localhost nic się nie zacina.
+ogarnąć uprawnienia albo postawić wszystko na linuksie czy coś,
+dodać uprawnienia do firewalla
+
+może dodać opcję streamowania audio live (client w go) przesyłał by audio do api a api do użytkownika w czasie rzeczywistym
+
+4. dodać opcję tworzenia playlist /playlists
+playlist_name.json {queue: ["sona_name"...]}
+/play-playlist station <playlist_name>
 # TODO
 + dodać komendę do przeładowania wszystkich komend bota na wszystkich serwerach i jakiś licznik ile czasu to trwa + od czasu przeładowania wszystkich komend ma się odpalać coś w stylu service mode i na wszystkie interakcje bot by odpowiadał "jesteśmy w trakcie restartowania serwerów, spróbuj ponownie za kilka minut"
 

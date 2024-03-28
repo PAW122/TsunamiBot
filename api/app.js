@@ -3,7 +3,7 @@ const favicon = require('serve-favicon');
 const app = express();
 const path = require("path");
 const config = require("../config.json")
-
+const bodyParser = require('body-parser');
 //routes
 const server_list = require("./endpoints/load")
 const save = require("./endpoints/save")
@@ -81,5 +81,42 @@ app.use("/modlogs", mod_logs)
 app.use("/actions", actions)
 app.use("/admin", admin)
 app.use("/mod_logs", full_mod_load)
+app.use(bodyParser.json());
+// AUDIO TEST API ==================================================
+app.post("/connect/:station_name", async (req, res) => {
+    let ipAddress = req.ip;
+    const station_name = req.params.station_name
+    
+    // console.log(req)
+    
+    //test req
+    if (ipAddress === "::1") {
+        ipAddress = "127.0.0.1"
+    }
+
+    // if(!station_name) {
+    //     return req.status(401).json({error: "station name undefined"})
+    // } else if (audio_station_banned_names.has(station_name)) {
+    //     console.log(`IP: ${ipAddress} try to use banned station name: ${station_name}`)
+    //     return req.status(401).json({error: "station name is not available"})
+    // }
+
+    ipAddress = ipAddress.includes('::ffff:') ? ipAddress.slice(7) : ipAddress;
+
+   //lista piosenek przyjdzie w body
+
+    console.log(req.body)
+    const songs_list = req.body
+
+    console.log(station_name)
+   
+    //client odpowiedział, dodaj go do listy
+    data.add(ipAddress, { name: station_name, files: songs_list });
+
+    console.log("wszystkie dane")
+    console.log(data.get())
+    
+    return res.status(200).json({ok: 200})
+})
 
 module.exports = app;

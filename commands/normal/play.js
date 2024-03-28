@@ -85,6 +85,9 @@ async function execute(interaction, client) {
 
     //download
     const song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, song)
+    if(!song_path) {
+        return interaction.reply("An error occurred while downloading the audio file")
+    }
 
     if (!interaction.member.voice || !interaction.member.voice.channel) {
         return await interaction.reply({ content: "You need to be in a voice channel to use this command.", ephemeral: true });
@@ -125,7 +128,7 @@ async function execute(interaction, client) {
 //return message if user use /help/ping
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `.`,
+        content: `Play music`,
         ephemeral: true
     })
 }

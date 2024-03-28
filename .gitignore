@@ -7,3 +7,4 @@ api/webpanel/dist/*
 /trash
 db/files/modlogs.json
 db/files/servers.json
+/db/files/audio
