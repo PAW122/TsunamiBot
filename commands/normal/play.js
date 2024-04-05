@@ -81,18 +81,16 @@ async function autocomplete(interaction) {
 
 }
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function playAudio(interaction, song, station_name, autoplay) {
     // Get data
     let data = DataStore.getInstance();
-    console.log("Data:", data);
 
     var ipAddress = data.get_by_name(station_name)
     ipAddress = Object.keys(ipAddress)[0]
-    console.log("IpAddress:", ipAddress);
 
     var files = data.data[ipAddress].files
-    console.log("Files")
-    console.log(files)
 
     if (!station_name) return interaction.reply("error");
 
@@ -113,57 +111,65 @@ async function playAudio(interaction, song, station_name, autoplay) {
 
     if (autoplay) {
         // Iterate through each song in the list
-        for (let i = 0; i < files.length; i++) {
-            let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, files[i]);
+        for await (const file of files) {
+            let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, file);
             if (!song_path) {
                 console.error("An error occurred while downloading the audio file.");
                 continue;
             }
+
+            // Wait for a short delay before attempting to read the file
+            await delay(500);
 
             // Read the audio file and push the buffer to the array
             let buffer = fs.readFileSync(song_path);
             audioBuffers.push(buffer);
         }
 
-        // Concatenate all audio buffers into one buffer
-        let concatenatedBuffer = Buffer.concat(audioBuffers);
+        // Check if all songs have been downloaded
+        if (audioBuffers.length === files.length) {
+            // Concatenate all audio buffers into one buffer
+            let concatenatedBuffer = Buffer.concat(audioBuffers);
 
-        // Create a PassThrough stream from the concatenated buffer
-        const stream = new PassThrough();
-        stream.end(concatenatedBuffer);
+            // Create a PassThrough stream from the concatenated buffer
+            const stream = new PassThrough();
+            stream.end(concatenatedBuffer);
 
-        // Create an audio resource from the PassThrough stream
-        const audioResource = createAudioResource(stream);
+            // Create an audio resource from the PassThrough stream
+            const audioResource = createAudioResource(stream);
 
-        // Create an audio player
-        const audioPlayer = createAudioPlayer();
+            // Create an audio player
+            const audioPlayer = createAudioPlayer();
 
-        // Join the user's voice channel
-        const voiceChannel = interaction.member.voice.channel;
-        const connection = joinVoiceChannel({
-            channelId: voiceChannel.id,
-            guildId: interaction.guild.id,
-            adapterCreator: interaction.guild.voiceAdapterCreator,
-        });
-        connection.subscribe(audioPlayer);
+            // Join the user's voice channel
+            const voiceChannel = interaction.member.voice.channel;
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: interaction.guild.id,
+                adapterCreator: interaction.guild.voiceAdapterCreator,
+            });
+            connection.subscribe(audioPlayer);
 
-        // Play the audio resource
-        audioPlayer.play(audioResource);
+            // Play the audio resource
+            audioPlayer.play(audioResource);
 
-        // Send a message indicating that the playlist is now playing
-        await interaction.channel.send({ content: `Now playing the playlist in your voice channel.`, ephemeral: true });
-
+            // Send a message indicating that the playlist is now playing
+            await interaction.channel.send({ content: `Now playing the playlist in your voice channel.`, ephemeral: true });
+        } else {
+            console.error("Not all songs have been downloaded.");
+        }
     } else {
-        playAudioOnce(interaction,song, station_name)
+        playAudioOnce(interaction, song, station_name);
     }
 }
+
+
+
 
 async function execute(interaction, client) {
     const station_name = interaction.options._hoistedOptions[0].value;
     const song = interaction.options._hoistedOptions[1].value;
     const autoplay = interaction.options.getBoolean("autoplay");
-
-    console.log(station_name + song);
     // Play the audio
     await playAudio(interaction, song, station_name, autoplay);
 }
