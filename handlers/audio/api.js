@@ -17,6 +17,7 @@ class DataStore {
     constructor() {
         if (!DataStore.instance) {
             this.data = {};
+            this.cache = {};
             DataStore.instance = this;
         }
 
@@ -77,6 +78,47 @@ class DataStore {
     }
 }
 
+class SongManager {
+    constructor() {
+        if (!SongManager.instance) {
+            this.cache = {};
+            SongManager.instance = this;
+        }
+
+        return SongManager.instance;
+    }
+
+    static getInstance() {
+        if (!this.instance) {
+            this.instance = new SongManager();
+        }
+        return this.instance;
+    }
+
+    playing(fileName, filePath) {
+        if (!this.cache[fileName]) {
+            this.cache[fileName] = {
+                filePath: filePath,
+                playCount: 1
+            };
+        } else {
+            this.cache[fileName].playCount++;
+        }
+    }
+
+    notPlaying(fileName) {
+        if (this.cache[fileName]) {
+            if (this.cache[fileName].playCount > 0) {
+                this.cache[fileName].playCount--;
+            }
+
+            if (this.cache[fileName].playCount === 0) {
+                delete this.cache[fileName];
+            }
+        }
+    }
+}
+
 let data = DataStore.getInstance()
 app.get("/ping", (req, res) => {
     return res.json({ ok: 200 })
@@ -118,6 +160,7 @@ app.post("/connect/:station_name", async (req, res) => {
     return res.status(200).json({ok: 200})
 })
 
+const songManager = SongManager.getInstance()
 /**
  * 
  * @param {*} ip 
@@ -127,7 +170,7 @@ app.post("/connect/:station_name", async (req, res) => {
  */
 async function get_song(ip, station_name, fileName) {
     const filePath = `${process.cwd() + aduio_file_path + station_name + "_" + fileName}`;
-
+    songManager.playing(fileName, filePath)
     try {
         const response = await axios.post(`http://${ip}/${fileName}`, {
             // Możesz przekazać dane w ciele żądania, jeśli to konieczne
@@ -154,7 +197,7 @@ function audio_api_run() {
     server.listen(port);
     console.log(`Audio API online localhost:${port}`)
 }
-module.exports = { audio_api_run, DataStore, get_song }
+module.exports = { audio_api_run, DataStore, get_song, SongManager}
 
  /*
         zapisywać plik w danym miejscu,

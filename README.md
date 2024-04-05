@@ -23,6 +23,9 @@
 ---
 ---
 
+## Dane
+wifi connection usage - 0.2MB/s - Audio stream for 1 user
+
 # TODO!!! Audio
 1. zapisywać pobrane songi w cache (file path, station name, file_name)
 2. po 1 req serwer (go) się zacina

@@ -13,6 +13,11 @@ const { SlashCommandBuilder } = require("discord.js");
 const { DataStore, get_song } = require("../../handlers/audio/api")
 const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@discordjs/voice');
 const path = require("path");
+const { SongManager } = require("../../handlers/audio/api")
+const songmanager = SongManager.getInstance()
+var is_user_playing = false
+const fs = require("fs")
+const { PassThrough } = require("stream");
 
 const command = new SlashCommandBuilder()
     .setName("play")
@@ -28,7 +33,12 @@ const command = new SlashCommandBuilder()
         .setDescription("Choose song")
         .setAutocomplete(true)
         .setRequired(true)
-    );
+    )
+    .addBooleanOption((option) => option
+        .setName("autoplay")
+        .setDescription("auto play next song")
+        .setRequired(true)
+    )
 
 async function autocomplete(interaction) {
     const options = interaction.options._hoistedOptions;
@@ -50,7 +60,7 @@ async function autocomplete(interaction) {
     }
 
     const data_instance = DataStore.getInstance();
-    console.log(data_instance)
+    // console.log(data_instance)
 
     if (focusedOptionName === "station_name") {
         const stations = Object.values(data_instance.get()).map(item => item.name).sort();
@@ -71,54 +81,139 @@ async function autocomplete(interaction) {
 
 }
 
-async function execute(interaction, client) {
-    const station_name = interaction.options._hoistedOptions[0].value
-    const song = interaction.options._hoistedOptions[1].value
+async function playAudio(interaction, song, station_name, autoplay) {
+    // Get data
+    let data = DataStore.getInstance();
+    console.log("Data:", data);
 
-    console.log(station_name + song)
+    var ipAddress = data.get_by_name(station_name)
+    ipAddress = Object.keys(ipAddress)[0]
+    console.log("IpAddress:", ipAddress);
 
-    //get data
-    let data = DataStore.getInstance()
-    const ipAddress = data.get_by_name(station_name)
-    if(!station_name) return interaction.reply("error")
+    var files = data.data[ipAddress].files
+    console.log("Files")
+    console.log(files)
 
+    if (!station_name) return interaction.reply("error");
 
-    //download
-    const song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, song)
-    if(!song_path) {
-        return interaction.reply("An error occurred while downloading the audio file")
+    // Check if ipAddress is defined
+    if (!ipAddress) {
+        console.error("Station not found for station name:", station_name);
+        return;
     }
 
+    // Check if files are available
+    if (!files || files.length === 0) {
+        console.error("No files found for station:", ipAddress.name);
+        return;
+    }
+
+    // Prepare an array to store the audio buffers
+    let audioBuffers = [];
+
+    if (autoplay) {
+        // Iterate through each song in the list
+        for (let i = 0; i < files.length; i++) {
+            let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, files[i]);
+            if (!song_path) {
+                console.error("An error occurred while downloading the audio file.");
+                continue;
+            }
+
+            // Read the audio file and push the buffer to the array
+            let buffer = fs.readFileSync(song_path);
+            audioBuffers.push(buffer);
+        }
+
+        // Concatenate all audio buffers into one buffer
+        let concatenatedBuffer = Buffer.concat(audioBuffers);
+
+        // Create a PassThrough stream from the concatenated buffer
+        const stream = new PassThrough();
+        stream.end(concatenatedBuffer);
+
+        // Create an audio resource from the PassThrough stream
+        const audioResource = createAudioResource(stream);
+
+        // Create an audio player
+        const audioPlayer = createAudioPlayer();
+
+        // Join the user's voice channel
+        const voiceChannel = interaction.member.voice.channel;
+        const connection = joinVoiceChannel({
+            channelId: voiceChannel.id,
+            guildId: interaction.guild.id,
+            adapterCreator: interaction.guild.voiceAdapterCreator,
+        });
+        connection.subscribe(audioPlayer);
+
+        // Play the audio resource
+        audioPlayer.play(audioResource);
+
+        // Send a message indicating that the playlist is now playing
+        await interaction.channel.send({ content: `Now playing the playlist in your voice channel.`, ephemeral: true });
+
+    } else {
+        playAudioOnce(interaction,song, station_name)
+    }
+}
+
+async function execute(interaction, client) {
+    const station_name = interaction.options._hoistedOptions[0].value;
+    const song = interaction.options._hoistedOptions[1].value;
+    const autoplay = interaction.options.getBoolean("autoplay");
+
+    console.log(station_name + song);
+    // Play the audio
+    await playAudio(interaction, song, station_name, autoplay);
+}
+
+async function playAudioOnce(interaction, song, station_name) {
+    // Get data
+    let data = DataStore.getInstance();
+    let ipAddress = data.get_by_name(station_name);
+    if (!station_name) return interaction.reply("error");
+
+    // Download the song
+    const song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, song);
+    if (!song_path) {
+        return interaction.reply("An error occurred while downloading the audio file");
+    }
+
+    // Check if the user is in a voice channel
     if (!interaction.member.voice || !interaction.member.voice.channel) {
         return await interaction.reply({ content: "You need to be in a voice channel to use this command.", ephemeral: true });
     }
-    // Pobieramy kanał głosowy użytkownika
+
+    // Get the user's voice channel
     const voiceChannel = interaction.member.voice.channel;
 
-    // Ścieżka do pliku wideo
+    // Path to the video file
     const videoPath = path.join(song_path);
 
     try {
-        // Utwórz zasób audio z pliku wideo (potrzebujemy przekonwertować wideo na audio)
+        // Create an audio resource from the video file
         const audioResource = createAudioResource(videoPath);
 
-        // Tworzymy odtwarzacz audio
+        // Create an audio player
         const audioPlayer = createAudioPlayer();
 
-        // Dołączamy do kanału głosowego
+        // Join the user's voice channel
         const connection = joinVoiceChannel({
             channelId: voiceChannel.id,
             guildId: interaction.guild.id,
             adapterCreator: interaction.guild.voiceAdapterCreator,
         });
 
-        // Subskrybujemy odtwarzacz audio do połączenia głosowego
+        // Subscribe the audio player to the voice connection
         connection.subscribe(audioPlayer);
 
-        // Odtwarzamy zasób audio
+        // Play the audio resource
         audioPlayer.play(audioResource);
 
-        await interaction.reply({ content: "Now playing opening in your voice channel.", ephemeral: true });
+        // Send a message indicating that the song is now playing
+        await interaction.channel.send({ content: `Now playing ${song} in your voice channel.`, ephemeral: true });
+
     } catch (error) {
         console.error("Error playing opening with audio:", error);
         await interaction.reply({ content: "An error occurred while playing the opening with audio.", ephemeral: true });
