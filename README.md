@@ -23,14 +23,34 @@
 ---
 ---
 
+## APIS setup
+
+- Web Api:
+    Public Port - 80
+    Test Port - 3000
+
+- Audio Api:
+    Public Port - 3001
+    Test Port - 3001
+
+- Web Api Hosting
+[https://pagekite.net][pagekite]
+Public http "senko.pagekite.me" Trafic -> 127.0.0.1:80 
+
+- Audio Api Hosting
+[https://login.tailscale.com][tailscale]
+Public Trafic -> 127.0.0.1:3001
+
 ## Dane
 wifi connection usage - 0.2MB/s - Audio stream for 1 user
 
 # TODO!!! Audio
+!!! zmiejszyć deafultową głośność o 50%!
 !!! AudioManager class - remake
 1. zapisywać pobrane songi w cache (file path, station name, file_name)
-2. po 1 req serwer (go) się zacina
-3. server ip do audio pobrać z api
+2. jeżeli jest już jakaś nazwa to odrzucać jej nadpisanie
+3. komunikacja nie polegająca na IP (127.0.0.1) dla wszystkich userów
+- zrobić np endpoint var link/station_name czy jakoś tak
 
 ! na localhost nic się nie zacina.
 ogarnąć uprawnienia albo postawić wszystko na linuksie czy coś,

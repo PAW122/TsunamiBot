@@ -15,7 +15,6 @@ const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@d
 const path = require("path");
 const { SongManager } = require("../../handlers/audio/api")
 const songmanager = SongManager.getInstance()
-var is_user_playing = false
 const fs = require("fs")
 const { PassThrough } = require("stream");
 
@@ -106,61 +105,67 @@ async function playAudio(interaction, song, station_name, autoplay) {
         return;
     }
 
-    // Prepare an array to store the audio buffers
-    let audioBuffers = [];
-
     if (autoplay) {
-        // Iterate through each song in the list
-        for await (const file of files) {
-            let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, file);
-            if (!song_path) {
-                console.error("An error occurred while downloading the audio file.");
-                continue;
-            }
+        // Join the user's voice channel
+        const voiceChannel = interaction.member.voice.channel;
+        const connection = joinVoiceChannel({
+            channelId: voiceChannel.id,
+            guildId: interaction.guild.id,
+            adapterCreator: interaction.guild.voiceAdapterCreator,
+        });
 
-            // Wait for a short delay before attempting to read the file
-            await delay(500);
+        // Create an audio player
+        const audioPlayer = createAudioPlayer();
+        connection.subscribe(audioPlayer);
 
-            // Read the audio file and push the buffer to the array
-            let buffer = fs.readFileSync(song_path);
-            audioBuffers.push(buffer);
-        }
+        // Play the first song
+        await playNextSong(audioPlayer, files, ipAddress, station_name);
 
-        // Check if all songs have been downloaded
-        if (audioBuffers.length === files.length) {
-            // Concatenate all audio buffers into one buffer
-            let concatenatedBuffer = Buffer.concat(audioBuffers);
+        interaction.channel.send("No more songs to play.")
+        //Add leave vc
 
-            // Create a PassThrough stream from the concatenated buffer
-            const stream = new PassThrough();
-            stream.end(concatenatedBuffer);
-
-            // Create an audio resource from the PassThrough stream
-            const audioResource = createAudioResource(stream);
-
-            // Create an audio player
-            const audioPlayer = createAudioPlayer();
-
-            // Join the user's voice channel
-            const voiceChannel = interaction.member.voice.channel;
-            const connection = joinVoiceChannel({
-                channelId: voiceChannel.id,
-                guildId: interaction.guild.id,
-                adapterCreator: interaction.guild.voiceAdapterCreator,
-            });
-            connection.subscribe(audioPlayer);
-
-            // Play the audio resource
-            audioPlayer.play(audioResource);
-
-            // Send a message indicating that the playlist is now playing
-            await interaction.channel.send({ content: `Now playing the playlist in your voice channel.`, ephemeral: true });
-        } else {
-            console.error("Not all songs have been downloaded.");
-        }
     } else {
         playAudioOnce(interaction, song, station_name);
     }
+}
+
+async function playNextSong(audioPlayer, files, ipAddress, station_name) {
+    if (files.length === 0) {
+        console.log("No more songs to play.");
+        return;
+    }
+
+    let song = files.shift(); // Take the next song from the list
+    let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, song);
+    
+    if (!song_path) {
+        console.error("An error occurred while downloading the audio file.");
+        return;
+    }
+
+    // Wait for a short delay before attempting to read the file
+    await delay(500);
+
+    // Read the audio file
+    let buffer = fs.readFileSync(song_path);
+
+    // Create a PassThrough stream from the buffer
+    const stream = new PassThrough();
+    stream.end(buffer);
+
+    // Create an audio resource from the stream
+    const audioResource = createAudioResource(stream);
+
+    // Play the audio resource
+    audioPlayer.play(audioResource);
+
+    // Event listener for audio player state change
+    audioPlayer.on("stateChange", async (oldState, newState) => {
+        if (oldState.status === "playing" && newState.status === "idle") {
+            // Play the next song when the current one finishes
+            await playNextSong(audioPlayer, files, ipAddress, station_name);
+        }
+    });
 }
 
 
@@ -216,6 +221,14 @@ async function playAudioOnce(interaction, song, station_name) {
 
         // Play the audio resource
         audioPlayer.play(audioResource);
+
+        //TEST
+        audioPlayer.on("stateChange", async (oldState, newState) => {
+
+            if(oldState.status == "playing" && newState.status == "idle") {
+                songmanager.notPlaying(song)
+            }
+        })
 
         // Send a message indicating that the song is now playing
         await interaction.channel.send({ content: `Now playing ${song} in your voice channel.`, ephemeral: true });

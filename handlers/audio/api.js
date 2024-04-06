@@ -96,6 +96,8 @@ class SongManager {
     }
 
     playing(fileName, filePath) {
+        //działa
+        console.log("Playing: " + fileName)
         if (!this.cache[fileName]) {
             this.cache[fileName] = {
                 filePath: filePath,
@@ -107,6 +109,7 @@ class SongManager {
     }
 
     notPlaying(fileName) {
+        console.log("Not playing: " + fileName)
         if (this.cache[fileName]) {
             if (this.cache[fileName].playCount > 0) {
                 this.cache[fileName].playCount--;
@@ -146,16 +149,10 @@ app.post("/connect/:station_name", async (req, res) => {
 
    //lista piosenek przyjdzie w body
 
-    console.log(req.body)
     const songs_list = req.body
 
-    console.log(station_name)
-   
     //client odpowiedział, dodaj go do listy
     data.add(ipAddress, { name: station_name, files: songs_list });
-
-    console.log("wszystkie dane")
-    console.log(data.get())
     
     return res.status(200).json({ok: 200})
 })
