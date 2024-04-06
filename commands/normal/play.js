@@ -62,16 +62,17 @@ async function autocomplete(interaction) {
     // console.log(data_instance)
 
     if (focusedOptionName === "station_name") {
-        const stations = Object.values(data_instance.get()).map(item => item.name).sort();
+        const stations = Object.values(data_instance.get()).map(item => item.name).sort().slice(0, 25);
         await interaction.respond(
             stations.map(choice => ({ name: choice, value: choice })),
         );
     } else if (focusedOptionName === "song") {
-        const files = Object.values(data_instance.get()).flatMap(item => item.files).sort();
+        const files = Object.values(data_instance.get()).flatMap(item => item.files).sort().slice(0, 25);
         await interaction.respond(
             files.map(choice => ({ name: choice, value: choice })),
         );
     }
+    
 
     /*  
     dodać logikę jsona dla autocomplete (jeżeli json posiada  < niż 25 wpisów to wyświetlać wszystkie tylko w innej kolejności (logika z help.js))
