@@ -18,6 +18,9 @@ const songmanager = SongManager.getInstance()
 const fs = require("fs")
 const { PassThrough } = require("stream");
 
+//new api
+// const { get_songV2, DataStoreV2 } = require("../../handlers/audio/apiV2")
+
 const command = new SlashCommandBuilder()
     .setName("play")
     .setDescription("play any song from any station")
@@ -44,34 +47,88 @@ async function autocomplete(interaction) {
 
     // Szukanie opcji, w której użytkownik pisze
     let focusedOptionName = null;
-    let focusedOptionValue = null
+    let focusedOptionValue = null;
     for (const option of options) {
         if (option.focused) {
             focusedOptionName = option.name;
-            focusedOptionValue = option.value
+            focusedOptionValue = option.value;
             break;
         }
     }
-
+    
     if (!focusedOptionName) {
         console.error("No focused option found.");
         return;
     }
-
+    
     const data_instance = DataStore.getInstance();
-    // console.log(data_instance)
-
+    
     if (focusedOptionName === "station_name") {
-        const stations = Object.values(data_instance.get()).map(item => item.name).sort().slice(0, 25);
+        const stations = Object.values(data_instance.get()).map(item => item.name);
+        // Sortujemy stacje według podobieństwa do focusedOptionValue
+        stations.sort((a, b) => {
+            const similarityA = similarity(a, focusedOptionValue);
+            const similarityB = similarity(b, focusedOptionValue);
+            return similarityB - similarityA; // Sortowanie malejąco według podobieństwa
+        });
+        // Wybieramy tylko 25 najbardziej podobnych stacji
+        const topStations = stations.slice(0, 25);
         await interaction.respond(
-            stations.map(choice => ({ name: choice, value: choice })),
+            topStations.map(choice => ({ name: choice, value: choice })),
         );
     } else if (focusedOptionName === "song") {
-        const files = Object.values(data_instance.get()).flatMap(item => item.files).sort().slice(0, 25);
+        const files = Object.values(data_instance.get()).flatMap(item => item.files);
+        // Sortujemy pliki według podobieństwa do focusedOptionValue
+        files.sort((a, b) => {
+            const similarityA = similarity(a, focusedOptionValue);
+            const similarityB = similarity(b, focusedOptionValue);
+            return similarityB - similarityA; // Sortowanie malejąco według podobieństwa
+        });
+        // Wybieramy tylko 25 najbardziej podobnych plików
+        const topFiles = files.slice(0, 25);
         await interaction.respond(
-            files.map(choice => ({ name: choice, value: choice })),
+            topFiles.map(choice => ({ name: choice, value: choice })),
         );
     }
+    
+    // Funkcja obliczająca podobieństwo między dwoma ciągami znaków
+    function similarity(s1, s2) {
+        const longer = s1.length > s2.length ? s1 : s2;
+        const shorter = s1.length > s2.length ? s2 : s1;
+        const longerLength = longer.length;
+        if (longerLength === 0) {
+            return 1.0;
+        }
+        return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+    }
+    
+    // Funkcja obliczająca odległość edycyjną między dwoma ciągami znaków
+    function editDistance(s1, s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+    
+        const costs = [];
+        for (let i = 0; i <= s1.length; i++) {
+            let lastValue = i;
+            for (let j = 0; j <= s2.length; j++) {
+                if (i === 0) {
+                    costs[j] = j;
+                } else if (j > 0) {
+                    let newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    }
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+            if (i > 0) {
+                costs[s2.length] = lastValue;
+            }
+        }
+        return costs[s2.length];
+    }
+    
     
 
     /*  
