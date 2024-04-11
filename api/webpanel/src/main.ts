@@ -134,8 +134,8 @@ async function handleServerClick(clickedServerId: string) {
     settings_parent!.innerHTML = "";
 
     //modLogs
-    let link = `${config.MainURL}/modlogs/${clickedServerId}`
-    genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
+    // let link = `${config.MainURL}/modlogs/${clickedServerId}`
+    // genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
@@ -152,7 +152,7 @@ async function handleServerClick(clickedServerId: string) {
     //dad bot
     let dad_bot = genCheckBox(settings_parent, "Dad bot", body.dad_bot.enable);
     //mod logs TODO: zamienić false na wartość wczytywaną w fill_load z db | dodać zapisywanie zmian do db
-    let mod_logs = genCheckBox(settings_parent, "Mod Logs", false);
+    // let mod_logs = genCheckBox(settings_parent, "Mod Logs", false);
 
     async function saveWelcomeMessage(data: string) {
         let response = await fetch(`${config.MainURL}/save/welcome_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);

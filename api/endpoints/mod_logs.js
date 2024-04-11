@@ -49,8 +49,8 @@ router.get("/:tokenType/:token/:server_id/:filter/:elements", async (req, res) =
      */
     async function load_all() {
 
-        if(elements > 25) {
-            return res.status(400).json({error: "u cant load more then 25 elements one type. elements is to big"})
+        if(elements > 100) {
+            return {error: "u cant load more then 25 elements one type. elements is to big"}
         }
 
         db.init();
@@ -75,8 +75,8 @@ router.get("/:tokenType/:token/:server_id/:filter/:elements", async (req, res) =
      */
     async function load_one(filter) {
 
-        if(elements > 50) {
-            return res.status(400).json({error: "u cant load more then 50 elements one type. elements is to big"})
+        if(elements > 100) {
+            return {error: "u cant load more then 50 elements one type. elements is to big"}
         }
 
         db.init();
