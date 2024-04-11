@@ -62,8 +62,6 @@ może dodać opcję streamowania audio live (client w go) przesyłał by audio d
 playlist_name.json {queue: ["sona_name"...]}
 /play-playlist station <playlist_name>
 # TODO
-+ dodać komendę do przeładowania wszystkich komend bota na wszystkich serwerach i jakiś licznik ile czasu to trwa + od czasu przeładowania wszystkich komend ma się odpalać coś w stylu service mode i na wszystkie interakcje bot by odpowiadał "jesteśmy w trakcie restartowania serwerów, spróbuj ponownie za kilka minut"
-
 # hosting
 {
     system płatności: user_id {wybrana oferta (np 1mieś)}
@@ -105,8 +103,6 @@ TsunamiBota + swój panel admina (bez dostępu do db)
 
 v 0.1
 # teraz
-zmienić nazwę (na githubie i folderu z Tsubota na coś inego)
-
 zorbić taką console dal serwerów (dodano userowi role, wysłano wiadomość powitalną, user x użył komendy x )
 
 błędnie wczytywany jest początkowy stan switcha na dashboard serwer do welcome messages
