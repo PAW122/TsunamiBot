@@ -29,7 +29,8 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences]
+        GatewayIntentBits.GuildPresences
+    ]
 });
 
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
@@ -47,6 +48,11 @@ const dad_handler = require("./handlers/dad_handler");
 const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
 const {audio_api_run} = require("./handlers/audio/api")
+const { AudioApiV2 } = require("./handlers/audio/apiV2")
+
+// "/test" handlers
+require("./test/handlers/handler")(client)
+const test_msg_handler = require("./test/handlers/msg_handler")
 
 client.on("ready", async (res) => {
     logger.log(`${res.user.tag} is ready`);
@@ -55,7 +61,10 @@ client.on("ready", async (res) => {
     database.backup(__dirname + "/db/backup")
 
     api();
+
     audio_api_run();
+    // AudioApiV2();
+
     mod_logs(client);
 
 
@@ -122,6 +131,7 @@ client.on("messageCreate", async message => {
     lvl_system(message)
     dad_handler(client, message)
     messages_stats_handler(message)
+    test_msg_handler(client, message)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
