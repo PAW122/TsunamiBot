@@ -13,6 +13,25 @@ if (is_test) {
     token = process.env.TOKEN;
 }
 
+if (is_test) {
+    const { exec } = require('child_process');
+    const pathToExe = process.cwd() + '/progress_display/code_counter.exe';
+    const directoryPath = 'C:\\Users\\oem\\OneDrive\\Dokumenty\\GitHub\\TsunamiBot';
+
+
+    exec(`${pathToExe} "${directoryPath}"`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Błąd podczas wykonywania pliku .exe: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`Błąd podczas wykonywania pliku .exe: ${stderr}`);
+            return;
+        }
+        console.log(stdout); // Wyświetl wynik w konsoli
+    });
+}
+
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
 
@@ -206,3 +225,5 @@ module.exports = { client, config, restartBot, bot_off, bot_on }
 // posty segregowane za względu na:
 // ilość votów albo który został pierwszy wczytany
 // */
+
+//./code_counter.exe C:\Users\oem\OneDrive\Dokumenty\GitHub\TsunamiBot
