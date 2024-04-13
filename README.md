@@ -46,79 +46,79 @@ memory usage -  +/- 55MB
 wifi connection usage - 0.2MB/s - Audio stream for 1 user
 
 ## Dirs
-- /api
-    /assets - web assets
-    /endpoints - http web user endpoints
-        ./actions - user actions (logout - disable auth token)
-        ./admin - only admin accounts endpoint
-        ./full_load - load all user data on 1 req to avoid ratelimit from Auth sys
-        ./full_mod_logs_load - load all moderator logs for specific server
-        ./load - all load endpoints
-        ./mod_logs - all moderators logs actions (loading logs)
-        ./save - all endpoints to save user changes in settings on webside
-    /handlers - backend universal functions
-        ./auth - user authorization and cache sys
-        ./checkServerExists - check for valid server id
-    /webpanel - frontend
-        ./config - builds configs
-        ./dir - convert ts to js for frontend
-    /api.js, app.js - run frontend and backend
-    /config - api only config
+- /api:
+    + /assets - web assets<br>
+    + /endpoints - http web user endpoints
+        - ./actions - user actions (logout - disable auth token)
+        - ./admin - only admin accounts endpoint
+        - ./full_load - load all user data on 1 req to avoid ratelimit from Auth sys
+        - ./full_mod_logs_load - load all moderator logs for specific server
+        - ./load - all load endpoints
+        - ./mod_logs - all moderators logs actions (loading logs)
+        - ./save - all endpoints to save user changes in settings on webside
+    + /handlers - backend universal functions
+        - ./auth - user authorization and cache sys
+        - ./checkServerExists - check for valid server id
+    + /webpanel - frontend
+        - ./config - builds configs
+        - ./dir - convert ts to js for frontend
+    + /api.js, app.js - run frontend and backend
+    + /config - api only config
 
 - /assets - assets for commands
 
 - /commands
-    /moderation - commands for discord server moderation
-        ./autorole - setup autorole settings for server
-        ./clear - delete manu messages with 1 command
-        ./reload - reload all commands for one server
-        ./welocme - setup welcome messages settings
-    /normal - commands for all discord users
-        ./8ball - random res
-        ./avatar - sends marked user avatar
-        ./dashboard - link to bot webside
-        ./help - get datials about commands
-        ./idea - send your idea to developers
-        ./link - bot invite link
-        ./lvl - get your on someone lvl
-        ./ping - check is bot online
-        ./play - play audio from [https://github.com/PAW122/tsunami-client][tsunami-clients]
-    /senko - commands for sending reaction images
+    + /moderation - commands for discord server moderation
+        - ./autorole - setup autorole settings for server
+        - ./clear - delete manu messages with 1 command
+        - ./reload - reload all commands for one server
+        - ./welocme - setup welcome messages settings
+    + /normal - commands for all discord users
+        - ./8ball - random res
+        - ./avatar - sends marked user avatar
+        - ./dashboard - link to bot webside
+        - ./help - get datials about commands
+        - ./idea - send your idea to developers
+        - ./link - bot invite link
+        - ./lvl - get your on someone lvl
+        - ./ping - check is bot online
+        - ./play - play audio from [https://github.com/PAW122/tsunami-client][tsunami-clients]
+    + /senko - commands for sending reaction images
 
 - /db - Bot database (db without sensitive data)
-    ./backup - backup db
-    ./data - minimages db
-    ./files - all db's dir
-    .database - custom json-based db sys
+    - ./backup - backup db
+    - ./data - minimages db
+    - ./files - all db's dir
+    - .database - custom json-based db sys
 
 - /handlers - Bot modules
-    /audio - audio sys handlers and API
-        ./api - tsunami-client api
-        ./apiV2 - new api (in development)
-    ./_save_basics_data - get basics informations about server and save to db (name...)
-    ./autorole - handler autorole when user join discord server
-    ./botStatus - auto refrest bot status
-    ./calculateLvl - calculate user lvl from xp
-    ./commandsMap - Map with all commands
-    ./console - logs sys
-    ./cooldown - cooldown handler for commands
-    ./dad_handler - dad bot handler
-    ./guildConsoleLogs - Class with logs for discord server administration
-    ./lvlhandler - mamage xp and lvl's
-    ./mod_logs_handler - save all logs for discord moderators
-    ./SlashCommandHandler - manage loading all slash commands on discord
-    ./stats_handler - TODO stats channel's manager
-    ./welcome - welcome messages manager
+    + /audio - audio sys handlers and API
+        - ./api - tsunami-client api
+        - ./apiV2 - new api (in development)
+    + ./_save_basics_data - get basics informations about server and save to db (name...)
+    + ./autorole - handler autorole when user join discord server
+    + ./botStatus - auto refrest bot status
+    + ./calculateLvl - calculate user lvl from xp
+    + ./commandsMap - Map with all commands
+    + ./console - logs sys
+    + ./cooldown - cooldown handler for commands
+    + ./dad_handler - dad bot handler
+    + ./guildConsoleLogs - Class with logs for discord server administration
+    + ./lvlhandler - mamage xp and lvl's
+    + ./mod_logs_handler - save all logs for discord moderators
+    + ./SlashCommandHandler - manage loading all slash commands on discord
+    + ./stats_handler - TODO stats channel's manager
+    + ./welcome - welcome messages manager
 
 - /test - only test commands
-    /commands - text commands e.g: $ping
-    /handlers - test commands handlers
-    /slash - slash commands e.g: /ping
+    - /commands - text commands e.g: $ping
+    - /handlers - test commands handlers
+    - /slash - slash commands e.g: /ping
 
 - /(main dir)
-    .config - universal bot config, contains 2 modes (local_dev - for testing and public - to run on server)
-    .main - main file -> runs everythink
-    .tsconfig - web build config
+    + .config - universal bot config, contains 2 modes (local_dev - for testing and public - to run on server)
+    + .main - main file -> runs everythink
+    + .tsconfig - web build config
 
 
 
