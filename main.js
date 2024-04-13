@@ -47,7 +47,7 @@ const database = new Database(__dirname + "/db/files/servers.json")
 const dad_handler = require("./handlers/dad_handler");
 const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
-const {audio_api_run} = require("./handlers/audio/api")
+const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
 
 // "/test" handlers
@@ -138,27 +138,29 @@ client.on("messageCreate", async message => {
         if (args[0] === "reload") {
             const guild = message.guild
 
+            await message.reply("commands are being refreshed. This may take a few minutes");
             unregisterAllCommandsForGuild(guild, client)
                 .then(
                     registerSlashCommandsForGuild(guild, client)
+                        .then(
+                            await message.channel.send("All command refreshed succesfully.")
+                        )
                 )
-
-            await message.reply("commands are being refreshed. This may take a few minutes");
         }
     }
 })
 
 async function restartBot() {
     try {
-        console.log('Restartowanie bota...');
+        console.log('Restarting bot...');
 
-        // Rozłączanie bota z Discord
+        // Disconect bot from Discord
         await client.destroy();
 
-        // Ponowne połączenie bota z Discord
+        // Connect bota to Discord
         await client.login(token);
 
-        console.log('Bot został pomyślnie zrestartowany!');
+        console.log('Bot are restarted succesfully');
     } catch (error) {
         console.error('Wystąpił błąd podczas restartowania bota:', error);
     }
@@ -167,12 +169,12 @@ async function restartBot() {
 // Definicja funkcji wyłączającej bota
 async function bot_off() {
     try {
-        console.log('Wyłączanie bota...');
+        console.log('Turning bot off');
 
         // Rozłączanie bota z Discord
         await client.destroy();
 
-        console.log('Bot został pomyślnie wyłączony!');
+        console.log('Bot are succesfully turned off');
     } catch (error) {
         console.error('Wystąpił błąd podczas wyłączania bota:', error);
     }
@@ -181,12 +183,12 @@ async function bot_off() {
 // Definicja funkcji włączającej bota
 async function bot_on() {
     try {
-        console.log('Włączanie bota...');
+        console.log('Turning bot on');
 
         // Ponowne połączenie bota z Discord
         await client.login(token);
 
-        console.log('Bot został pomyślnie włączony!');
+        console.log('Bot are succesfully turned on');
     } catch (error) {
         console.error('Wystąpił błąd podczas włączania bota:', error);
     }
