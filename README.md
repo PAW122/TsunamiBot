@@ -34,11 +34,11 @@
     Test Port - 3001
 
 - Web Api Hosting
-[https://pagekite.net][pagekite]
+[https://pagekite.net] pagekite
 Public http "senko.pagekite.me" Trafic -> 127.0.0.1:80 
 
 - Audio Api Hosting
-[https://login.tailscale.com][tailscale]
+[https://login.tailscale.com] tailscale
 Public Trafic -> 127.0.0.1:3001
 
 ## Data
@@ -82,7 +82,7 @@ wifi connection usage - 0.2MB/s - Audio stream for 1 user
         - ./link - bot invite link
         - ./lvl - get your on someone lvl
         - ./ping - check is bot online
-        - ./play - play audio from [https://github.com/PAW122/tsunami-client][tsunami-clients]
+        - ./play - play audio from [https://github.com/PAW122/tsunami-client] tsunami-clients
     + /senko - commands for sending reaction images
 
 - /db - Bot database (db without sensitive data)
