@@ -1,5 +1,5 @@
 {
-    "using": "local_dev",
+    "using": "public",
     "public": {
         "is_test": false,
         "prefix": ".",
