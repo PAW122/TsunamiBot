@@ -1,3 +1,4 @@
+const { exec } = require('child_process');
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
@@ -14,7 +15,6 @@ if (is_test) {
 }
 
 if (is_test) {
-    const { exec } = require('child_process');
     const pathToExe = process.cwd() + '/progress_display/code_counter.exe';
     const directoryPath = 'C:\\Users\\oem\\OneDrive\\Dokumenty\\GitHub\\TsunamiBot';
 
