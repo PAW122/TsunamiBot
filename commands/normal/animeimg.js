@@ -1,7 +1,5 @@
 const sharp = require('sharp');
 const { SlashCommandBuilder } = require("discord.js");
-require('dotenv').config();
-const token = process.env.WAIFU_TOKEN;
 
 const command = new SlashCommandBuilder()
     .setName("animeimg")
@@ -54,9 +52,6 @@ async function execute(interaction, client) {
         "uniform",
         "kamisato-ayaka"
     ]
-    if (!token) {
-        return interaction.reply("Configuration error")
-    }
 
     let category = interaction.options.getString('image-category');
 
