@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partners</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <style>
+        .navbar.sticky-top {
+            margin-inline: 16px;
+            margin-block: 16px;
+            top: -1px;
+            z-index: 1000;
+            /* Z-index, aby navbar był na wierzchu */
+        }
+
+        .navbar.sticky-top.is-pinned {
+            margin-inline: 0px;
+        }
+
+        .bg-blur {
+            background-color: rgb(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body data-bs-theme="dark">
+
+    <!-- Nawigacja -->
+    <nav class="navbar d-flex justify-content-between align-items-center sticky-top bg-blur p-3 rounded">
+        <a class="navbar-brand" href="#">Partners panel</a>
+        <form class="d-flex align-items-center">
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="search-button" class="btn btn-outline-light" type="button">Search</button>
+        </form>
+        <a class="btn btn-outline-light" href="/">Home</a>
+    </nav>
+
+
+    <!-- Kontener na partnerów -->
+    <div id="partners-container" class="m-3 p-3 rounded bg-body-tertiary">
+        <!-- Tutaj będą wyświetlane dane partnerów -->
+    </div>
+
+    <!-- Skrypty -->
+    <script src="/main.js" type="module"></script>
+    <script>
+        // Funkcja sortująca partnerów po nazwie
+        function sortPartnersByName(partners, searchTerm) {
+            return partners.filter(partner => partner.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                .sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        // Funkcja wywoływana po naciśnięciu przycisku "Search" lub klawisza "Enter"
+        document.getElementById("search-button").addEventListener("click", function () {
+            searchPartners();
+        });
+
+        document.getElementById("search-input").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                searchPartners();
+            }
+        });
+
+        function searchPartners() {
+            const searchTerm = document.getElementById("search-input").value.trim().toLowerCase();
+            const partnerElements = document.querySelectorAll(".partner-info");
+
+            partnerElements.forEach(partnerElement => {
+                const partnerName = partnerElement.querySelector("h2").textContent.trim().toLowerCase();
+                if (partnerName.includes(searchTerm)) {
+                    partnerElement.style.display = "block";
+                } else {
+                    partnerElement.style.display = "none";
+                }
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

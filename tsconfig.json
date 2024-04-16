@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        // "noImplicitAny": true,
+        // "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "target": "ES5",
+        "module": "ES2020",
+        "moduleResolution": "node",
+        "outDir": "api/webpanel/dist/"
+    },
+    "include": [
+        "api/webpanel/src/*"
+    ]
+}

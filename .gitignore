@@ -1,2 +1,10 @@
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
 /node_modules
-handlers..dbfilesservers.json
+api/webpanel/dist/*
+.env
+/trash
+db/files/modlogs.json
+db/files/servers.json
+/db/files/audio

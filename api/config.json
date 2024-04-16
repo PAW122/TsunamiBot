@@ -1,0 +1,18 @@
+{
+    "api": {
+        "max_bot_name_length": 32,
+        "mod_logs_list": [
+            "messageDelete",
+            "guildMemberAddRole",
+            "guildMemberRemoveRole",
+            "guildMemberNicknameUpdate",
+            "guildMemberJoin",
+            "guildBannerChange",
+            "guildAfkChannelAdd",
+            "messageContentEdited",
+            "rolePositionUpdate",
+            "rolePermissionsUpdate",
+            "userUsernameUpdate"
+        ]
+    }
+}

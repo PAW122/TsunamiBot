@@ -1,0 +1,1 @@
+1. publiczne api które przyjmuje połączenia od serwera

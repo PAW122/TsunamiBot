@@ -6,7 +6,11 @@ const { AttachmentBuilder } = require("discord.js");
 async function welcome_messages(member, client) {
     database.init();
     const guild = member.guild.id;
-    const data = database.read(`${guild}`);
+    const data = await database.read(`${guild}`);
+
+    if(!data || !data.welcome_channel) {
+        return;
+    }
 
     const welcome_channel = data.welcome_channel || false;
     const server_name = data.name || "Server";
@@ -14,15 +18,22 @@ async function welcome_messages(member, client) {
     const welcome_message_text = data.welcome_message || "";
     const welcome_status = data.welcome_status;
     const welcome_dm_message = data.welcome_dm_message || false;
+    let username = member.user.username;
 
+    console.log(welcome_status)
     if (welcome_status == false) return;
 
     if(welcome_dm_message != false) {
-        member.send(welcome_dm_message.replace("{server_name}", server_name));
+        member.send(welcome_dm_message
+            .replace("{server_name}", server_name)
+            .replace("{user}", username)
+            );
     }
 
     // Replace "{server_name}" with the actual server name
-    const formattedWelcomeMessage = welcome_message_text.replace("{server_name}", server_name);
+    let formattedWelcomeMessage = welcome_message_text
+    .replace("{server_name}", server_name)
+    .replace("{user}", username)
 
 
     if (welcome_channel) {
@@ -41,7 +52,6 @@ async function welcome_messages(member, client) {
         };
 
         // draw everything:
-        let username = member.user.username;
         let discrim = member.user.discriminator;
         let avatarURL = member.user.displayAvatarURL({ format: "jpg", dynamic: false, size: av.size });
         avatarURL = avatarURL.replace(".webp", ".jpg");

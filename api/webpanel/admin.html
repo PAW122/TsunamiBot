@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="/admin.js" type="module"></script>
+    <style>
+        .navbar.sticky-top {
+            margin-inline: 16px;
+            margin-block: 16px;
+            top: -1px;
+        }
+
+        .navbar.sticky-top.is-pinned {
+            margin-inline: 0px;
+        }
+
+        .bg-blur {
+            background-color: rgb(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (min-width: 768px) {
+            .w-md-25 {
+                width: 25%;
+            }
+        }
+    </style>
+</head>
+
+<body data-bs-theme="dark">
+
+    <nav class="navbar d-flex gap-2 sticky-top bg-blur p-3 rounded">
+        <a class="navbar-brand" href="#">Admin panel</a>
+        <div>
+            <div class="profile-logout">
+                <a id="login-button" href="#" class="btn btn-primary">Login</a>
+                <a id="partners-button" href="/partners" class="btn btn-primary">Partners</a>
+                <a id="invite-button"
+                    href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"
+                    class="btn btn-primary">Invite a Bot</a>
+            </div>
+
+            <div class="input-group profile-login">
+                <img src="" height=38 id="profile-picture" class="rounded">
+                <div id="username-text" class="input-group-text">username</div>
+                <a id="logout-button" class="btn btn-outline-warning" href="#">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Liczba serwerów</h5>
+                        <p class="card-text">Obecnie bot znajduje się na <span id="server-count">N/A</span> serwerach.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Runtime</h5>
+                        <button id="on-button" class="btn btn-success">On</button>
+                        <button id="restart-button" class="btn btn-primary">Restart</button>
+                        <button id="off-button" class="btn btn-danger">Off</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Zarządzaj partners</h5>
+                        <button id="load-button" class="btn btn-primary">Load</button>
+                        <button id="save-button" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Load ideas</h5>
+                        <button id="ideas-load-button" class="btn btn-primary">Load</button>
+                        <button id="ideas-save-button" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-3 p-3 d-flex rounded bg-body-tertiary">
+        <div class="w-md-25"></div>
+        <div id="settings_container" class="d-flex flex-column gap-4 flex-fill p-1 px-md-5 py-2 overflow-auto"
+            style="min-height: calc(100vh - 165px); align-items: center;">
+            
+        </div>
+    </div>
+</body>
+
+</html>

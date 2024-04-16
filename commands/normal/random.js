@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("discord.js");
 
 const command = new SlashCommandBuilder()
     .setName("random")
-    .setDescription("send random number")
+    .setDescription("send random number 0 - max_number")
     .addNumberOption((option) =>
         option
             .setName("max_number")

@@ -1,6 +1,8 @@
 const http = require("http");
 const app = require("./app");
-const port = process.env.PORT || 3001;
+const config = require("../config.json")
+let port_ = config[config.using].port
+const port = process.env.PORT || port_;
 
 const server = http.createServer(app);
 
@@ -9,7 +11,7 @@ const server = http.createServer(app);
 
 function run() {
     server.listen(port);
-    console.log(`serwer online localhost:${port}`)
+    console.log(`API online localhost:${port}`)
 }
 
 module.exports = run

@@ -23,9 +23,14 @@ class ConsoleLogger {
   }
 
     getCurrentTime() {
+      try{
       const now = new Date();
       return now.toLocaleTimeString();
+    }catch(error) {
+      return "ERROR"
+      console.log(error)
     }
+  }
   
     log(...args) {
       const logMessage = `[${this.getCurrentTime()}] ${args.join(' ')}`;
@@ -42,6 +47,13 @@ class ConsoleLogger {
       this.addToFullLogList(logMessage);
     }
   
+    getCallerLocation() {
+      // Pobierz informacje o miejscu wywołania
+      const stack = new Error().stack.split('\n');
+      const callerInfo = stack[3].trim();
+      return callerInfo;
+    }
+
     warn(message) {
       const warningMessage = `[${this.getCurrentTime()}] [Warning] ${message} (at ${this.getCallerLocation()})`;
       this.addToLogList(warningMessage);
@@ -49,18 +61,18 @@ class ConsoleLogger {
     }
   
     error(message, error) {
-      const errorMessage = `\x1b[31m[${this.getCurrentTime()}] [Error] ${message} (at ${this.getCallerLocation()})\n${error}\x1b[0m`;
+      console.log(message, error)
+      let loc = "N/A"
+      try{
+        loc = this.getCallerLocation() || "N/A"
+      }catch(err) {
+        console.log(err)
+      }
+      const errorMessage = `\x1b[Error] ${message} (at ${loc})\n${error}\x1b[0m`;
+      console.error(errorMessage);
       this.addToLogList(errorMessage);
       this.addToErrorsList(errorMessage)
-      console.error(errorMessage);
   }
-  
-    getCallerLocation() {
-      // Pobierz informacje o miejscu wywołania
-      const stack = new Error().stack.split('\n');
-      const callerInfo = stack[3].trim();
-      return callerInfo;
-    }
   
     addToLogList(message) {
       this.logList.push(message);

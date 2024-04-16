@@ -2,7 +2,7 @@ const fs = require('fs');
 const ConsoleLogger = require("./console")
 const logger = ConsoleLogger.getInstance();
 
-async function register_slash_commands(client) {
+async function register_slash_commands(client, is_test) {
     const commandsDir = fs.readdirSync(__dirname + `/../commands`);
 
     // Iterate through each guild the bot is a member of
@@ -14,20 +14,26 @@ async function register_slash_commands(client) {
                 const filePath = __dirname + `/../commands/${folder}/${file}`;
                 delete require.cache[require.resolve(filePath)]; // Clear the cache
                 const { command, _  } = require(filePath);
+                if(!command) {
+                    return logger.error("blank command")
+                }
 
                 try {
                     // Register command on the specific guild
                     await guild.commands.create(command);
                     //console.log(`Command registered on guild ${guild.id}: ${command.name}`);
                 } catch (error) {
-                    logger.log(command)
-                    logger.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
+                    if(!is_test) {
+                        logger.log(command)
+                        logger.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);
+                    } else {
+                        logger.extra(command)
+                        logger.extra(`Error registering command ${command.name} on guild ${guild.id}:`, error);
+                    }
                 }
             }
         }
     })
-
-    logger.log("All commands registered successfully on all guilds.");
 }
 
 
@@ -60,6 +66,9 @@ async function registerSlashCommandsForGuild(guild, client) {
             const filePath = __dirname + `/../commands/${folder}/${file}`;
             delete require.cache[require.resolve(filePath)]; // Clear the cache
             const { command, _, settings } = require(filePath);
+            if(!command) {
+                return console.log("global blank command")
+            }
 
             try {
                 // Register command on the specific guild

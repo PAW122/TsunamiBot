@@ -1,6 +1,14 @@
 const Database = require("../db/database")
 const db = new Database(__dirname + "/../db/files/log_messages.json");
+
+const config = require("../config.json")
+const using = config.using
+const enable = config[using].config.messages_logs
+
 function log_messages(message) {
+
+    if(!enable) return;
+
     const guild_id = message.guild.id
     const channel_id = message.channel.id
     const user = message.author.id

@@ -1,6 +1,45 @@
-const TOKEN = "OTI4Mzk5NDU4NTcwNTAyMTU1.G0laP_.-muoboXSKZ4aqA7kyJ_YJBKc7wBVwkigRWsF98"//tsu
-//const TOKEN = "ODc0MzIzNjgyMjYzMTc5MzE0.GsNEqS.eyIHch0YhI4dTD6b6gsXJfdyDo5UPrHyw8_IvQ"//senko
-const OWNER_ID = "438336824516149249";
+const { exec } = require('child_process');
+const config_manager = require("./config.json")
+const config = config_manager[config_manager.using]
+const is_test = config.is_test ? config.is_test : false
+//TODO !!!!!!!!!!!!!!!!!!!!
+//jak wygaśnie token autoryzacji to w /api/load:288
+//wywala error http 401 crashujący całego bota.
+//dać jakiś cache
+require('dotenv').config();
+let token;
+if (is_test) {
+    token = process.env.TOKEN2;
+} else {
+    token = process.env.TOKEN;
+}
+
+if (is_test) {
+    const pathToExe = process.cwd() + '/progress_display/code_counter.exe';
+    const directoryPath = 'C:\\Users\\oem\\OneDrive\\Dokumenty\\GitHub\\TsunamiBot';
+
+
+    exec(`${pathToExe} "${directoryPath}"`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Błąd podczas wykonywania pliku .exe: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`Błąd podczas wykonywania pliku .exe: ${stderr}`);
+            return;
+        }
+        console.log(stdout); // Wyświetl wynik w konsoli
+    });
+}
+
+const ConsoleLogger = require("./handlers/console")
+const logger = ConsoleLogger.getInstance();
+
+console.log({
+    "Using configuration": config_manager.using,
+    "Test mode: ": is_test,
+})
+
 const { Client, GatewayIntentBits } = require("discord.js")
 const client = new Client({
     intents: [
@@ -9,40 +48,52 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences]
+        GatewayIntentBits.GuildPresences
+    ]
 });
 
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
 const { commandsMap } = require("./handlers/commandsMap")
 const welcome_messages = require("./handlers/welcome")
 const autorole = require("./handlers/autorole")
-const web = require("./web/main")
 const log_messages = require("./handlers/logMessages")
 const { lvl_system } = require("./handlers/lvlHandler")
 const status_handler = require("./handlers/botStatus")
 const api = require("./api/api")
-
-const ConsoleLogger = require("./handlers/console")
-const logger = ConsoleLogger.getInstance();
-
+const mod_logs = require("./handlers/mod_logs_handler")
 const Database = require("./db/database")
 const database = new Database(__dirname + "/db/files/servers.json")
+const dad_handler = require("./handlers/dad_handler");
+const { messages_stats_handler } = require("./handlers/stats_handler")
+const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
+const { audio_api_run } = require("./handlers/audio/api")
+const { AudioApiV2 } = require("./handlers/audio/apiV2")
 
-client.on("ready", (res) => {
+// "/test" handlers
+require("./test/handlers/handler")(client)
+const test_msg_handler = require("./test/handlers/msg_handler")
+
+client.on("ready", async (res) => {
     logger.log(`${res.user.tag} is ready`);
-
-    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-    unregisterAllCommands(client)
-        .then(register_slash_commands(client))
-    //register_slash_commands(client)
 
     status_handler(client)
     database.backup(__dirname + "/db/backup")
-    //run bot webside
-    web();
+
     api();
+
+    audio_api_run();
+    // AudioApiV2();
+
+    mod_logs(client);
+
+
+    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
+    await unregisterAllCommands(client)
+        .then(await register_slash_commands(client, is_test))
+        .then(logger.log("All commands registered successfully on all guilds."))
 });
 
+//execute
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
@@ -64,49 +115,115 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-//!!!!!!! setCustomId dla selectMenu musi być nazwą komendy
-client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isSelectMenu()) return;
-    //console.log(interaction)
-    // można zamienić na StringSelectMenuInteraction
+//autocomplete
+client.on('interactionCreate', async interaction => {
+    if (interaction.isAutocomplete()) {
+        const commandName = interaction.commandName
+        if (!commandName) return;
+        if (interaction.responded) return;
+        const commandLocation = commandsMap.get(commandName);
+        if (commandLocation) {
+            const { data, autocomplete } = require(commandLocation);
 
-    const command_name = interaction.customId
-    const commandLocation = commandsMap.get(command_name);
-
-    if (commandLocation) {
-        const { data, execute, selectMenu } = require(commandLocation);
-
-        try {//selectMenu is function name in command to execute selectMenu interaction
-            await selectMenu(interaction, client);
-        } catch (error) {
-            logger.error(error);
-            await interaction.reply({
-                content: "There was an error while executing this command!",
-                ephemeral: true,
-            });
+            try {
+                await autocomplete(interaction, client);
+            } catch (error) {
+                logger.error(error);
+                console.log(error)
+                await interaction.reply({
+                    content: "There was an error while executing autocomplete in this command!",
+                    ephemeral: true,
+                });
+            }
         }
     }
 });
 
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)
     autorole(member, client)
 });
 
-client.on("messageCreate", message => {
+client.on("messageCreate", async message => {
+    if (message.author.bot) return;
     log_messages(message)
     lvl_system(message)
+    dad_handler(client, message)
+    messages_stats_handler(message)
+    test_msg_handler(client, message)
+
+    if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
+        const args = message.content.trim().split(/ +/);
+        if (args[0] === "reload") {
+            const guild = message.guild
+
+            await message.reply("commands are being refreshed. This may take a few minutes");
+            unregisterAllCommandsForGuild(guild, client)
+                .then(
+                    registerSlashCommandsForGuild(guild, client)
+                        .then(
+                            await message.channel.send("All command refreshed succesfully.")
+                        )
+                )
+        }
+    }
 })
+
+async function restartBot() {
+    try {
+        console.log('Restarting bot...');
+
+        // Disconect bot from Discord
+        await client.destroy();
+
+        // Connect bota to Discord
+        await client.login(token);
+
+        console.log('Bot are restarted succesfully');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas restartowania bota:', error);
+    }
+}
+
+// Definicja funkcji wyłączającej bota
+async function bot_off() {
+    try {
+        console.log('Turning bot off');
+
+        // Rozłączanie bota z Discord
+        await client.destroy();
+
+        console.log('Bot are succesfully turned off');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas wyłączania bota:', error);
+    }
+}
+
+// Definicja funkcji włączającej bota
+async function bot_on() {
+    try {
+        console.log('Turning bot on');
+
+        // Ponowne połączenie bota z Discord
+        await client.login(token);
+
+        console.log('Bot are succesfully turned on');
+    } catch (error) {
+        console.error('Wystąpił błąd podczas włączania bota:', error);
+    }
+}
 
 client.on("uncaughtException", (e) => {
     logger.warn(e)
 });
 
-client.login(TOKEN)
-module.exports = { client }
-/*TODO
-podstronę z pomysłami.
-opcje dodawania up vote i down vote,
-posty segregowane za względu na:
-ilość votów albo który został pierwszy wczytany
-*/
+client.login(token)
+module.exports = { client, config, restartBot, bot_off, bot_on }
+// /*TODO
+// podstronę z pomysłami.
+// opcje dodawania up vote i down vote,
+// posty segregowane za względu na:
+// ilość votów albo który został pierwszy wczytany
+// */
+
+//./code_counter.exe C:\Users\oem\OneDrive\Dokumenty\GitHub\TsunamiBot

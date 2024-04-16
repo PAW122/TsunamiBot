@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mod Logs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="/modlogs.js" type="module"></script>
+    <style>
+        .navbar.sticky-top {
+            margin-inline: 16px;
+            margin-block: 16px;
+            top: -1px;
+        }
+
+        .navbar.sticky-top.is-pinned {
+            margin-inline: 0px;
+        }
+
+        .bg-blur {
+            background-color: rgb(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (min-width: 768px) {
+            .w-md-25 {
+                width: 25%;
+            }
+        }
+
+
+        /* container elements */
+        .message-container {
+            margin-bottom: 20px;
+            /* Dodaj margines między wiadomościami */
+            display: flex;
+            /* Użyj flexboxa do kontroli układu */
+            align-items: flex-start;
+            /* Umieść elementy na górze kontenera */
+            word-wrap: break-word;
+            /* Ta reguła CSS spowoduje zawijanie tekstu, który nie mieści się w kontenerze */
+            white-space: nowrap;
+            /* Zapobiega zawijaniu tekstu wewnątrz wiadomości */
+            overflow-x: auto;
+            /* Dodaj pasek przewijania poziomego, gdy wiadomość jest zbyt szeroka */
+            max-width: calc(100% - 50px);
+            margin-left: 25px;
+            /* Dodaj margines po lewej stronie */
+            margin-right: 25px;
+            border: 1px solid #ccc;
+            /* Dodaj ramkę do kontenera wiadomości */
+            padding: 10px;
+        }
+
+        /* Przenieś suwak na dół ekranu */
+        .message-container::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        .message-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .message-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        .message-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+
+
+
+        .message {
+            /* Styluj zawartość wiadomości według potrzeb */
+            font-size: 14px;
+            line-height: 1.6;
+            display: inline-block;
+            /* Ustaw wiadomości jako bloki wewnątrz kontenera */
+            white-space: normal;
+            /* Ustaw normalne zawijanie tekstu dla wiadomości */
+            margin-right: 10px;
+        }
+
+        .message p {
+            margin: 5px 0;
+            /* Dodaj odstęp między kolejnymi danymi wiadomości */
+        }
+    </style>
+</head>
+
+<body data-bs-theme="dark">
+
+    <nav class="navbar d-flex gap-2 sticky-top bg-blur p-3 rounded">
+        <a class="navbar-brand" href="#">Mod Logs panel</a>
+        <div>
+            <div class="profile-logout">
+                <a id="login-button" href="#" class="btn btn-primary">Login</a>
+                <a id="invite-button"
+                    href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"
+                    class="btn btn-primary">Invite a Bot</a>
+            </div>
+
+            <div class="input-group profile-login">
+                <img src="" height=38 id="profile-picture" class="rounded">
+                <div id="username-text" class="input-group-text">username</div>
+                <a id="logout-button" class="btn btn-outline-warning" href="#">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">number of logs to load</h5>
+                        <button id="25" class="btn btn-secondary logs-number-button"
+                            data-category="logs-number">25</button>
+                        <button id="50" class="btn btn-secondary logs-number-button"
+                            data-category="logs-number">50</button>
+                        <button id="100" class="btn btn-secondary logs-number-button"
+                            data-category="logs-number">100</button>
+                        <button id="load-logs-button" class="btn btn-danger logs-load-button"
+                            data-category="logs-load">Load</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Logs Type</h5>
+                        <button id="all" class="btn btn-secondary mb-2" data-category="logs-type">All</button>
+                        <button id="messageDelete" class="btn btn-secondary mb-2"
+                            data-category="logs-type">messageDelete</button>
+                        <button id="guildMemberAddRole" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildMemberAddRole</button>
+                        <button id="guildMemberRemoveRole" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildMemberRemoveRole</button>
+                        <button id="guildMemberNicknameUpdate" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildMemberNicknameUpdate</button>
+                        <button id="guildMemberJoin" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildMemberJoin</button>
+                        <button id="guildBannerChange" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildBannerChange</button>
+                        <button id="guildAfkChannelAdd" class="btn btn-secondary mb-2"
+                            data-category="logs-type">guildAfkChannelAdd</button>
+                        <button id="messageContentEdited" class="btn btn-secondary mb-2"
+                            data-category="logs-type">messageContentEdited</button>
+                        <button id="rolePositionUpdate" class="btn btn-secondary mb-2"
+                            data-category="logs-type">rolePositionUpdate</button>
+                        <button id="rolePermissionsUpdate" class="btn btn-secondary mb-2"
+                            data-category="logs-type">rolePermissionsUpdate</button>
+                        <button id="userUsernameUpdate" class="btn btn-secondary mb-2"
+                            data-category="logs-type">userUsernameUpdate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- tutaj wczytywać kazdy log jako oddzielny afelek -->
+    <div class="m-3 p-3 d-flex rounded bg-body-tertiary">
+        <div id="container" class="d-flex flex-column gap-4 flex-fill p-1 px-md-5 py-2 overflow-auto"
+            style="min-height: calc(100vh - 165px); align-items: center;">
+
+        </div>
+    </div>
+</body>
+
+</html>
