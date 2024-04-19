@@ -125,11 +125,21 @@ wifi connection usage - 0.2MB/s - Audio stream for 1 user
 ## =========================TODO=LIST==========================================
 # TODO!!! Audio
 !!! zmiejszyć deafultową głośność o 50%!
-!!! AudioManager class - remake
-1. zapisywać pobrane songi w cache (file path, station name, file_name)
-2. jeżeli jest już jakaś nazwa to odrzucać jej nadpisanie
-3. komunikacja nie polegająca na IP (127.0.0.1) dla wszystkich userów
-- zrobić np endpoint var link/station_name czy jakoś tak
+audip api V2:
+
+wrzucanie piosenek na stronie internetowen, /play_user <username> <song name>
+
++ dodać sprawdzanie miejsca na dysku - jżeli na dysku jest mniej niż
+100GB to jeżeli user posiada więcej niż 25 piosenek to  wyświetlać informację, że na serweże kończy sie miejsce i nie można ich zapisaywać
+
++ + opcja 2
+zrobić coś ala db w go:
+exe odpalany jako subproces - będzie .db z zapisem user_ID SONG_NAME FILE_NAME
+
+i sys folderów
+/users/id/files (name: user_id+file_name+ .mp3)
+
++ maxymalna wielkość pliku to 25mb.
 
 ! na localhost nic się nie zacina.
 ogarnąć uprawnienia albo postawić wszystko na linuksie czy coś,

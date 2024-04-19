@@ -2,7 +2,6 @@ const { joinVoiceChannel, createAudioResource, NoSubscriberBehavior, createAudio
 
 let recordedAudio = [];
 // ???
-// https://youtu.be/h7CC-8kTsGI?si=885B70LZdVbpR68m
 const command_data = {
     name: "listen"
 }
