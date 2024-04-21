@@ -1594,6 +1594,205 @@
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "bannerURL": null
           }
+        },
+        {
+          "timesamp": 1713231896,
+          "channelId": "745768777022701648",
+          "messageId": "1229608379606106153",
+          "createdTimestamp": 1713231882717,
+          "content": "**hentai:**",
+          "author": {
+            "id": "928399458570502155",
+            "bot": true,
+            "system": false,
+            "flags": 0,
+            "username": "Senko",
+            "globalName": null,
+            "discriminator": "1742",
+            "avatar": "989a3becf3d69f7f79059eefbde277c2",
+            "avatarDecoration": null,
+            "verified": true,
+            "mfaEnabled": true,
+            "createdTimestamp": 1641418079751,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "tag": "Senko#1742",
+            "avatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [
+            {
+              "attachment": "https://cdn.discordapp.com/attachments/745768777022701648/1229608379983462430/file.jpg?ex=66304d0a&is=661dd80a&hm=70f6a1b0d40671bbf05147aff8e94656dd1ca6ef9773aeb0e6d2682a27285b1e&",
+              "name": "file.jpg",
+              "id": "1229608379983462430",
+              "size": 71905,
+              "url": "https://cdn.discordapp.com/attachments/745768777022701648/1229608379983462430/file.jpg?ex=66304d0a&is=661dd80a&hm=70f6a1b0d40671bbf05147aff8e94656dd1ca6ef9773aeb0e6d2682a27285b1e&",
+              "proxyURL": "https://media.discordapp.net/attachments/745768777022701648/1229608379983462430/file.jpg?ex=66304d0a&is=661dd80a&hm=70f6a1b0d40671bbf05147aff8e94656dd1ca6ef9773aeb0e6d2682a27285b1e&",
+              "height": 566,
+              "width": 800,
+              "contentType": "image/jpeg",
+              "description": null,
+              "ephemeral": false,
+              "duration": null,
+              "waveform": null,
+              "flags": 0
+            }
+          ],
+          "deleted_by": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713231905,
+          "channelId": "745768777022701648",
+          "messageId": "1229608463282212896",
+          "createdTimestamp": 1713231902667,
+          "content": "**hentai:**",
+          "author": {
+            "id": "928399458570502155",
+            "bot": true,
+            "system": false,
+            "flags": 0,
+            "username": "Senko",
+            "globalName": null,
+            "discriminator": "1742",
+            "avatar": "989a3becf3d69f7f79059eefbde277c2",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "verified": true,
+            "mfaEnabled": true,
+            "createdTimestamp": 1641418079751,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "hexAccentColor": null,
+            "tag": "Senko#1742",
+            "avatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [
+            {
+              "attachment": "https://cdn.discordapp.com/attachments/745768777022701648/1229608463588528138/file.jpg?ex=66304d1e&is=661dd81e&hm=2262f243226510a36ba0f20d4604018fc74f0f5bd8e1568fbecd11c4f424615e&",
+              "name": "file.jpg",
+              "id": "1229608463588528138",
+              "size": 30094,
+              "url": "https://cdn.discordapp.com/attachments/745768777022701648/1229608463588528138/file.jpg?ex=66304d1e&is=661dd81e&hm=2262f243226510a36ba0f20d4604018fc74f0f5bd8e1568fbecd11c4f424615e&",
+              "proxyURL": "https://media.discordapp.net/attachments/745768777022701648/1229608463588528138/file.jpg?ex=66304d1e&is=661dd81e&hm=2262f243226510a36ba0f20d4604018fc74f0f5bd8e1568fbecd11c4f424615e&",
+              "height": 600,
+              "width": 404,
+              "contentType": "image/jpeg",
+              "description": null,
+              "ephemeral": false,
+              "duration": null,
+              "waveform": null,
+              "flags": 0
+            }
+          ],
+          "deleted_by": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713231906,
+          "channelId": "745768777022701648",
+          "messageId": "1229608427110797312",
+          "createdTimestamp": 1713231894043,
+          "content": "**hentai:**",
+          "author": {
+            "id": "928399458570502155",
+            "bot": true,
+            "system": false,
+            "flags": 0,
+            "username": "Senko",
+            "globalName": null,
+            "discriminator": "1742",
+            "avatar": "989a3becf3d69f7f79059eefbde277c2",
+            "avatarDecoration": null,
+            "verified": true,
+            "mfaEnabled": true,
+            "createdTimestamp": 1641418079751,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "tag": "Senko#1742",
+            "avatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [
+            {
+              "attachment": "https://cdn.discordapp.com/attachments/745768777022701648/1229608427253141514/file.jpg?ex=66304d16&is=661dd816&hm=17e06c690163b203ddd48c090670d3ffb96e401542b63d569d3d403e9802a67c&",
+              "name": "file.jpg",
+              "id": "1229608427253141514",
+              "size": 32976,
+              "url": "https://cdn.discordapp.com/attachments/745768777022701648/1229608427253141514/file.jpg?ex=66304d16&is=661dd816&hm=17e06c690163b203ddd48c090670d3ffb96e401542b63d569d3d403e9802a67c&",
+              "proxyURL": "https://media.discordapp.net/attachments/745768777022701648/1229608427253141514/file.jpg?ex=66304d16&is=661dd816&hm=17e06c690163b203ddd48c090670d3ffb96e401542b63d569d3d403e9802a67c&",
+              "height": 600,
+              "width": 430,
+              "contentType": "image/jpeg",
+              "description": null,
+              "ephemeral": false,
+              "duration": null,
+              "waveform": null,
+              "flags": 0
+            }
+          ],
+          "deleted_by": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
         }
       ],
       "guildMemberAddRole": [
@@ -3089,6 +3288,133 @@
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "bannerURL": null
           }
+        },
+        {
+          "timesamp": 1713304936,
+          "oldContent": "https://theprotocol.it/filtry/node.js;t/junior;p/zdalna;rw/praca/junior-manual-tester-warszawa-plac-trzech-krzyzy-10-14,oferta,90510000-3c62-f645-8dbc-08dc549e8e57?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=-3231695570&searchId=b61ec050-fc3c-11ee-9565-89665ce58774&sug=listing_bd_2",
+          "newContent": "https://theprotocol.it/filtry/node.js;t/junior;p/zdalna;rw/praca/junior-manual-tester-warszawa-plac-trzech-krzyzy-10-14,oferta,90510000-3c62-f645-8dbc-08dc549e8e57?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=-3231695570&searchId=b61ec050-fc3c-11ee-9565-89665ce58774&sug=listing_bd_2",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713305045,
+          "oldContent": "FAJNE - Full Stack 9-14K\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna;rw/praca/fullstack-developer-gdansk,oferta,a0e90000-18c5-2e1c-7e13-08dc4f299b24?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=-3231695570&searchId=b61ec050-fc3c-11ee-9565-89665ce58774&sug=range_addon_listing_2",
+          "newContent": "FAJNE - Full Stack 9-14K\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna;rw/praca/fullstack-developer-gdansk,oferta,a0e90000-18c5-2e1c-7e13-08dc4f299b24?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=-3231695570&searchId=b61ec050-fc3c-11ee-9565-89665ce58774&sug=range_addon_listing_2",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713305194,
+          "oldContent": "Full stack może przyjmą dbrze płącą (ostatni dzień)\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna,hybrydowa;rw/praca/full-stack-web-developer-solec-kujawski-unii-europejskiej-2b,oferta,e1690000-4b59-06f4-f454-08dc3c31cd4d?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=8459956909&searchId=4f3d5c10-fc3d-11ee-9565-89665ce58774",
+          "newContent": "Full stack może przyjmą dbrze płącą (ostatni dzień)\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna,hybrydowa;rw/praca/full-stack-web-developer-solec-kujawski-unii-europejskiej-2b,oferta,e1690000-4b59-06f4-f454-08dc3c31cd4d?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=8459956909&searchId=4f3d5c10-fc3d-11ee-9565-89665ce58774",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713305244,
+          "oldContent": "Ciekawe JSD\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna,hybrydowa;rw/praca/junior-software-developer-krakow-czerwone-maki-82,oferta,84690000-b47e-0aed-040a-08dc4d86a953?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=8459956909&searchId=4f3d5c10-fc3d-11ee-9565-89665ce58774",
+          "newContent": "Ciekawe JSD\nhttps://theprotocol.it/filtry/node.js;t/junior;p/zdalna,hybrydowa;rw/praca/junior-software-developer-krakow-czerwone-maki-82,oferta,84690000-b47e-0aed-040a-08dc4d86a953?utm_source=adzuna&utm_medium=cpc&utm_campaign=protocol&utm_term=junior&s=8459956909&searchId=4f3d5c10-fc3d-11ee-9565-89665ce58774",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1713566437,
+          "oldContent": "",
+          "newContent": "",
+          "editedBy": {
+            "id": "928399458570502155",
+            "bot": true,
+            "system": false,
+            "flags": 0,
+            "username": "Senko",
+            "globalName": null,
+            "discriminator": "1742",
+            "avatar": "989a3becf3d69f7f79059eefbde277c2",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "verified": true,
+            "mfaEnabled": true,
+            "createdTimestamp": 1641418079751,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "hexAccentColor": null,
+            "tag": "Senko#1742",
+            "avatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "bannerURL": null
+          }
         }
       ],
       "guildMemberJoin": [
@@ -3536,6 +3862,26 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/449469335740743690/e699f4ec28912b8892ca07cdb1106e8d.webp"
+          }
+        },
+        {
+          "timesamp": 1713559060,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1713559062351,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "539148886762061855",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "woila",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/539148886762061855/59cdecb35f8c500bbb7bcc63d68a86b8.webp"
           }
         }
       ],
@@ -6873,6 +7219,62 @@
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/449469335740743690/e699f4ec28912b8892ca07cdb1106e8d.webp"
           }
+        },
+        {
+          "timesamp": 1713559061,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1610922415609,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "800489431265312808",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "nie wiesz nic...",
+            "roles": [
+              "743095111503839352",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1713559062351,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "539148886762061855",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "woila",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/539148886762061855/59cdecb35f8c500bbb7bcc63d68a86b8.webp"
+          }
         }
       ],
       "messageContentEdited": [
@@ -8532,6 +8934,27 @@
             "tag": "pawiu_",
             "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1713483341,
+          "oldContent": "m!p https://www.youtube.com/watch?v=CZ4tkbVRBJw",
+          "newContent": "m!p https://www.youtube.com/watch?v=CZ4tkbVRBJw",
+          "editedBy": {
+            "id": "609743130987593749",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "nejtvn",
+            "globalName": "Nejtvn",
+            "discriminator": "0",
+            "avatar": "a_b95439e2cd01376bb8071bf14c58224f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1565444490907,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "nejtvn",
+            "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
           }
         }
       ],
@@ -19038,6 +19461,65 @@
           "tts": false,
           "attachments": [],
           "deleted_by": null
+        }
+      ],
+      "guildMemberRemoveRole": [
+        {
+          "timesamp": 1713298910,
+          "removedRole": {
+            "guild": "751477872295936000",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "751478769700569148",
+            "name": "🎥 | Jakiś random",
+            "color": 16711680,
+            "hoist": true,
+            "rawPosition": 24,
+            "permissions": "6546771529",
+            "managed": false,
+            "mentionable": true,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1599236900497
+          },
+          "removedBy": {
+            "guildId": "751477872295936000",
+            "joinedTimestamp": 1599236686541,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "445974760669708289",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "ŁANAŁ",
+            "roles": [
+              "751478764826787950",
+              "751478769700569148",
+              "1096118152552796230",
+              "751477872295936000"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/445974760669708289/e949b53c7ba4986d9bd5daa52a184eec.webp"
+          },
+          "removedFrom": {
+            "guildId": "751477872295936000",
+            "joinedTimestamp": 1682103202585,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "770716971150475274",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "SmollFleishi",
+            "roles": [
+              "751478259635585226",
+              "751477872295936000"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/770716971150475274/9d6b12cfe562aab31f393511a3c9fcd7.webp"
+          }
         }
       ]
     }
