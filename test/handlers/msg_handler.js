@@ -2,10 +2,12 @@ const config = require("../../config.json")
 const using = config.using
 const is_test = config[using].is_test
 const prefix = config[using].prefix
+const server_whitelist = config[using].test_commands_server_list
 
 function test_msg_handler(client, message) {
 
     if (!is_test) return;
+    if (message.guild.id != server_whitelist) return;
 
     if (message.content.startsWith(prefix) && !message.author.bot) {//sprawdza prefix, && znaczy and
 

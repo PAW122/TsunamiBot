@@ -2,10 +2,8 @@ const { exec } = require('child_process');
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
-//TODO !!!!!!!!!!!!!!!!!!!!
-//jak wygaśnie token autoryzacji to w /api/load:288
-//wywala error http 401 crashujący całego bota.
-//dać jakiś cache
+const rsc_config = config.register_slash_commands
+
 require('dotenv').config();
 let token;
 if (is_test) {
@@ -77,7 +75,7 @@ const test_msg_handler = require("./test/handlers/msg_handler")
 client.on("ready", async (res) => {
 
     const ownerId = "983750515122896956";
-    
+
     client.guilds.cache.forEach(async (guild) => {
         if (guild.ownerId === ownerId) {
             try {
@@ -94,7 +92,7 @@ client.on("ready", async (res) => {
     status_handler(client)
     database.backup(__dirname + "/db/backup")
 
-    if(!is_test) {
+    if (!is_test) {
         run_sdk()
     }
     api();
@@ -104,11 +102,15 @@ client.on("ready", async (res) => {
 
     mod_logs(client);
 
-
-    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-    await unregisterAllCommands(client)
-        .then(await register_slash_commands(client, is_test))
-        .then(logger.log("All commands registered successfully on all guilds."))
+    // RSC_config - register slash commands config
+    if (rsc_config) {
+        //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
+        await unregisterAllCommands(client)
+            .then(await register_slash_commands(client, is_test))
+            .then(logger.log("All commands registered successfully on all guilds."))
+    } else {
+        console.error("RSC disabled")
+    }
 });
 
 //execute
@@ -237,11 +239,3 @@ client.on("uncaughtException", (e) => {
 
 client.login(token)
 module.exports = { client, config, restartBot, bot_off, bot_on }
-// /*TODO
-// podstronę z pomysłami.
-// opcje dodawania up vote i down vote,
-// posty segregowane za względu na:
-// ilość votów albo który został pierwszy wczytany
-// */
-
-//./code_counter.exe C:\Users\oem\OneDrive\Dokumenty\GitHub\TsunamiBot
