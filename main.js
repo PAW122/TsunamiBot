@@ -68,17 +68,35 @@ const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
 const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
+const run_sdk = require("./sdk/server/server")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
 
 client.on("ready", async (res) => {
+
+    const ownerId = "983750515122896956";
+    
+    client.guilds.cache.forEach(async (guild) => {
+        if (guild.ownerId === ownerId) {
+            try {
+                await guild.leave();
+                console.log(`Opuszczono serwer ${guild.name}`);
+            } catch (error) {
+                console.error(`Błąd podczas opuszczania serwera ${guild.name}:`, error);
+            }
+        }
+    });
+
     logger.log(`${res.user.tag} is ready`);
 
     status_handler(client)
     database.backup(__dirname + "/db/backup")
 
+    if(!is_test) {
+        run_sdk()
+    }
     api();
 
     audio_api_run();

@@ -37,7 +37,7 @@ func main() {
 		}
 
 		ext := filepath.Ext(filePath)
-		if ext == ".js" || ext == ".ts" || ext == ".json" {
+		if ext == ".js" || ext == ".ts" {
 			lines, err := countLines(filePath)
 			if err != nil {
 				fmt.Printf("Error counting lines in file %s: %v\n", filePath, err)
