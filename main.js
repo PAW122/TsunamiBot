@@ -67,25 +67,13 @@ const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require
 const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
 const run_sdk = require("./sdk/server/server")
+const manage_auto_vc = require("./handlers/auto_vc_handler")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
 
 client.on("ready", async (res) => {
-
-    const ownerId = "983750515122896956";
-
-    client.guilds.cache.forEach(async (guild) => {
-        if (guild.ownerId === ownerId) {
-            try {
-                await guild.leave();
-                console.log(`Opuszczono serwer ${guild.name}`);
-            } catch (error) {
-                console.error(`Błąd podczas opuszczania serwera ${guild.name}:`, error);
-            }
-        }
-    });
 
     logger.log(`${res.user.tag} is ready`);
 
@@ -189,6 +177,37 @@ client.on("messageCreate", async message => {
     }
 })
 
+class auto_vc_cache {
+    constructor() {
+        this.cache = []
+    }
+
+    add(channel_id) {
+        this.cache[channel_id] = true
+    }
+
+    is_exist(channel_id) {
+        if (this.cache[channel_id]) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    remove(channel_id) {
+        delete this.cache[channel_id];
+    }
+
+    len() {
+        return this.cache.length
+    }
+}
+
+const auto_vc_channels = new auto_vc_cache()
+
+client.on('voiceStateUpdate', async (oldState, newState) => {
+    manage_auto_vc(client, oldState, newState, auto_vc_channels)
+})
 async function restartBot() {
     try {
         console.log('Restarting bot...');

@@ -1,6 +1,15 @@
 const fs = require('fs');
 const ConsoleLogger = require("./console")
 const logger = ConsoleLogger.getInstance();
+const config = require("../config.json")
+let disable_commands;
+const is_ellie = config[config.using].is_ellie_config
+
+if(is_ellie) {
+    disable_commands = config[config.using].disable_ellie_commands
+} else {
+    disable_commands = config[config.using].disable_commands
+}
 
 async function register_slash_commands(client, is_test) {
     const commandsDir = fs.readdirSync(__dirname + `/../commands`);
@@ -20,7 +29,11 @@ async function register_slash_commands(client, is_test) {
 
                 try {
                     // Register command on the specific guild
-                    await guild.commands.create(command);
+                    if(!disable_commands.includes(command.name)) {
+                        await guild.commands.create(command);
+                    } else {
+                        logger.log(`disable command: ${command.name}`)
+                    }
                     //console.log(`Command registered on guild ${guild.id}: ${command.name}`);
                 } catch (error) {
                     if(!is_test) {
@@ -72,7 +85,11 @@ async function registerSlashCommandsForGuild(guild, client) {
 
             try {
                 // Register command on the specific guild
-                await guild.commands.create(command);
+                if(!disable_commands.includes(command.name)) {
+                    await guild.commands.create(command);
+                } else {
+                    logger.log(`disable command: ${command.name}`)
+                }
                 //console.log(`Command registered on guild ${guild.id}: ${command.name}`);
             } catch (error) {
                 logger.error(`Error registering command ${command.name} on guild ${guild.id}:`, error);

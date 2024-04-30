@@ -1,5 +1,5 @@
 {
-    "using": "local_dev",
+    "using": "public",
     "public": {
         "is_test": false,
         "register_slash_commands": true,
@@ -24,7 +24,14 @@
         "sdk": {
             "run": false,
             "client_id": ""
-        }
+        },
+        "is_ellie_config": true,
+        "disable_ellie_commands": [
+            "play","s-bread", "s-bruh", "s-cards", "s-dad-joke", "s-dance", "s-fluff", "s-hug", "s-lovs", "s-mad", "s-opening", "s-pat", "s-protecc", "s-simp", "s-spank"
+        ],
+        "disable_commands":[
+            
+        ]
     },
     "local_dev": {
         "is_test": true,
@@ -54,6 +61,13 @@
         "sdk": {
             "run": true,
             "client_id": "928399458570502155"
-        }
+        },
+        "is_ellie_config": true,
+        "disable_ellie_commands": [
+            
+        ],
+        "disable_commands":[
+            "play"
+        ]
     }
 }
