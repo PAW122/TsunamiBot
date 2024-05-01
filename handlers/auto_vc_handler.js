@@ -33,7 +33,7 @@ async function manage_auto_vc(client, oldState, newState, auto_vc_channels) {
     if (!channel_id) return
 
     // Join Vc Create:
-    const data = await database.read(`${guild_id}.auto_vc.${channel_id}`)
+    const data = await database.read(`${guild_id}.auto_vc`)
 
     if (!data || !data.auto_vc) return
 

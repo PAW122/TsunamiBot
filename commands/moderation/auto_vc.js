@@ -33,7 +33,7 @@ async function execute(interaction) {
 
 
     // Save the voice channel ID to the database
-    database.write(`${server_id}.auto_vc.${vcChannelID}`, { auto_vc: { channel_id: vcChannelID, status: status } });
+    database.write(`${server_id}.auto_vc`, { auto_vc: { channel_id: vcChannelID, status: status } });
 
     await interaction.reply({
         content: `Auto VC channel set to <#${vcChannelID}> with status ${status ? "on" : "off"}.`,

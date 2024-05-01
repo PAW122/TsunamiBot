@@ -134,13 +134,16 @@ async function handleServerClick(clickedServerId: string) {
     settings_parent!.innerHTML = "";
 
     //modLogs
-    // let link = `${config.MainURL}/modlogs/${clickedServerId}`
-    // genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
+    let link = `${config.MainURL}/modlogs/${clickedServerId}`
+    genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
     //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
+
+    let auto_vc = genSettings(settings_parent, "Auto create vc", true);
+
     //welcome message
     let welcome_text_box = genTextBox(settings_parent, "Welcome message", body.welcome_message_content, saveWelcomeMessage);
     let titleDiv = welcome_text_box.input.parentElement!.previousElementSibling as HTMLDivElement;
@@ -215,6 +218,26 @@ async function handleServerClick(clickedServerId: string) {
         }
     });
 
+    // reading auto vc
+    if (body.auto_vc === false) {
+        auto_vc.checkbox!.checked = false;
+        auto_vc.select.setAttribute("disabled", "true");
+    } else if (body.auto_vc === true) {
+        auto_vc.checkbox!.checked = true;
+    } else {
+        throw new Error("Corrupted auto vc message response data");
+    }
+    body.server_channels_list?.forEach((channel, _index) => {
+        const option = document.createElement('option');
+        option.value = channel.id;
+        option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
+        auto_vc.select.options.add(option);
+        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+        if (channel.id === body.auto_vc_channel) {
+            option.selected = true;
+        }
+    });
+
     // saving autorole switches
     autorole.checkbox!.addEventListener("change", async function () {
         let response = await fetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
@@ -231,6 +254,26 @@ async function handleServerClick(clickedServerId: string) {
             console.log(`Autorole role set to ${this.value}. Response: ${response.status}`);
         } else {
             console.warn(`Error setting autorole role to ${this.value}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+
+    // saving auto vc
+    auto_vc.checkbox!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/auto_vc/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        if (response.ok) {
+            console.log(`Welcome message set to ${this.checked}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting autorole to ${this.checked}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+    auto_vc.select!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/auto_vc/channel_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
+        if (response.ok) {
+            console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
             handleServerClick(clickedServerId);
         }
     })
@@ -254,6 +297,8 @@ async function handleServerClick(clickedServerId: string) {
             handleServerClick(clickedServerId);
         }
     })
+
+    // dad bot checkbox
     dad_bot.checkbox!.addEventListener("change", async function () {
         let response = await fetch(`${config.MainURL}/save/dad_messages/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
         if (response.ok) {
