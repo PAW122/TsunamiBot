@@ -25,7 +25,7 @@
             "run": false,
             "client_id": ""
         },
-        "is_ellie_config": true,
+        "is_ellie_config": false,
         "disable_ellie_commands": [
             "play","s-bread", "s-bruh", "s-cards", "s-dad-joke", "s-dance", "s-fluff", "s-hug", "s-lovs", "s-mad", "s-opening", "s-pat", "s-protecc", "s-simp", "s-spank"
         ],
