@@ -68,6 +68,7 @@ const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
 const run_sdk = require("./sdk/server/server")
 const manage_auto_vc = require("./handlers/auto_vc_handler")
+const filter_links = require("./handlers/filter_links")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -159,6 +160,7 @@ client.on("messageCreate", async message => {
     dad_handler(client, message)
     messages_stats_handler(message)
     test_msg_handler(client, message)
+    filter_links(client, message)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
@@ -208,6 +210,7 @@ const auto_vc_channels = new auto_vc_cache()
 client.on('voiceStateUpdate', async (oldState, newState) => {
     manage_auto_vc(client, oldState, newState, auto_vc_channels)
 })
+
 async function restartBot() {
     try {
         console.log('Restarting bot...');
