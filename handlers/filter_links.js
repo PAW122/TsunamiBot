@@ -13,13 +13,13 @@ async function filter_links(client, message) {
     const guild_id = message.guild.id
     // dodać na web możliwosc dodania samych zakazanych linków
 
-    console.log(message?.member?.permissions)
 
-    if (memberPermissions && memberPermissions.includes("MANAGE_MESSAGES")) {
-        // todo: log for mods "cant delete message: user, message,id time, content"
-        return;
-    }
+    const memberPermissions = message?.member?.permissions?.toArray();
 
+if (memberPermissions && memberPermissions.includes("MANAGE_MESSAGES")) {
+    // todo: log for mods "cant delete message: user, message,id time, content"
+    return;
+}
     const settings = await db.read(`${guild_id}.link_filter`)
     if (!settings || !settings.status || settings.status != true) return;
 
