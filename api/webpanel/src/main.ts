@@ -134,13 +134,16 @@ async function handleServerClick(clickedServerId: string) {
     settings_parent!.innerHTML = "";
 
     //modLogs
-    // let link = `${config.MainURL}/modlogs/${clickedServerId}`
-    // genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
+    let link = `${config.MainURL}/modlogs/${clickedServerId}`
+    genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
     //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
+
+    let auto_vc = genSettings(settings_parent, "Auto create vc", true);
+
     //welcome message
     let welcome_text_box = genTextBox(settings_parent, "Welcome message", body.welcome_message_content, saveWelcomeMessage);
     let titleDiv = welcome_text_box.input.parentElement!.previousElementSibling as HTMLDivElement;
@@ -153,6 +156,65 @@ async function handleServerClick(clickedServerId: string) {
     let dad_bot = genCheckBox(settings_parent, "Dad bot", body.dad_bot.enable);
     //mod logs TODO: zamienić false na wartość wczytywaną w fill_load z db | dodać zapisywanie zmian do db
     // let mod_logs = genCheckBox(settings_parent, "Mod Logs", false);
+
+    let filter_links = genCheckBox(settings_parent, "Filter links", body.filter_links);
+
+    let filter_exceeptions = genTextBox(settings_parent, "Filter exceeptions", body.filter_links_exception, saveLinkFilter);
+    let filter_exceeptions_text_box_div = filter_exceeptions.input.parentElement!.previousElementSibling as HTMLDivElement;
+    addTooltip(filter_exceeptions_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com,https://test/");
+    
+    // let filter_exceeptions_if_starts_with = genTextBox(settings_parent, "Filter 'if_starts_with' exceeptions", body.filter_links_exception_if_starts_with, saveLinkFilterif_starts_with);
+    // let filter_exceeptions_if_starts_with_text_box_div = filter_exceeptions_if_starts_with.input.parentElement!.previousElementSibling as HTMLDivElement;
+    // addTooltip(filter_exceeptions_if_starts_with_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com/");
+
+    async function saveLinkFilter(data: any) {
+        if(!data || data == "") {
+            data = false
+        }
+        const body_data = {
+            data: data
+        }
+        let response = await fetch(
+            `${config.MainURL}/save/exception_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, 
+            {
+              method: 'POST', // Dodaj metodę, np. POST
+              headers: {
+                'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
+              },
+              body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
+            }
+          );
+        
+        if (response.ok) {
+            console.log(`save Link Filter content set to. Response: ${response.status}`);
+        } else {
+            console.warn(`Error `);
+        }
+    }
+
+    // async function saveLinkFilterif_starts_with(data: any) {
+    //     if(!data || data == "") {
+    //         data = false
+    //     }
+    //     const body_data = {
+    //         data: data
+    //     }
+    //     let response = await fetch(
+    //         `${config.MainURL}/save/exception_is_starts_with_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, 
+    //         {
+    //           method: 'POST', // Dodaj metodę, np. POST
+    //           headers: {
+    //             'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
+    //           },
+    //           body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
+    //         }
+    //       );
+    //     if (response.ok) {
+    //         console.log(`save Link Filter content set to. Response: ${response.status}`);
+    //     } else {
+    //         console.warn(`Error `);
+    //     }
+    // }
 
     async function saveWelcomeMessage(data: string) {
         let response = await fetch(`${config.MainURL}/save/welcome_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);
@@ -215,6 +277,26 @@ async function handleServerClick(clickedServerId: string) {
         }
     });
 
+    // reading auto vc
+    if (body.auto_vc === false) {
+        auto_vc.checkbox!.checked = false;
+        auto_vc.select.setAttribute("disabled", "true");
+    } else if (body.auto_vc === true) {
+        auto_vc.checkbox!.checked = true;
+    } else {
+        throw new Error("Corrupted auto vc message response data");
+    }
+    body.server_channels_list?.forEach((channel, _index) => {
+        const option = document.createElement('option');
+        option.value = channel.id;
+        option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
+        auto_vc.select.options.add(option);
+        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+        if (channel.id === body.auto_vc_channel) {
+            option.selected = true;
+        }
+    });
+
     // saving autorole switches
     autorole.checkbox!.addEventListener("change", async function () {
         let response = await fetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
@@ -231,6 +313,26 @@ async function handleServerClick(clickedServerId: string) {
             console.log(`Autorole role set to ${this.value}. Response: ${response.status}`);
         } else {
             console.warn(`Error setting autorole role to ${this.value}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+
+    // saving auto vc
+    auto_vc.checkbox!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/auto_vc/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        if (response.ok) {
+            console.log(`Welcome message set to ${this.checked}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting autorole to ${this.checked}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+    auto_vc.select!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/auto_vc/channel_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
+        if (response.ok) {
+            console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
             handleServerClick(clickedServerId);
         }
     })
@@ -254,6 +356,19 @@ async function handleServerClick(clickedServerId: string) {
             handleServerClick(clickedServerId);
         }
     })
+
+    //filter links checkbox
+    filter_links.checkbox!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/links_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        if (response.ok) {
+            console.log(`filter links set to ${this.value}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting dad_bot channel to ${this.value}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+
+    // dad bot checkbox
     dad_bot.checkbox!.addEventListener("change", async function () {
         let response = await fetch(`${config.MainURL}/save/dad_messages/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
         if (response.ok) {

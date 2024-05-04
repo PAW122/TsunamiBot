@@ -12,20 +12,10 @@ const logger = ConsoleLogger.getInstance();
 
 const checkServerExists = require("../handlers/checkServerExists")
 
+router.use(express.json());
 
-/**
- * @param {string} tokenType
- * @param {string} token
- * @param {string} server_id
- * @param {bool} status - enable/disable command for server 
- * 
- */
-router.get("/dad_messages/enable/:tokenType/:token/:server_id/:status", async (req, res) => {
-    const tokenType = req.params.tokenType
-    const token = req.params.token
-    const server_id = req.params.server_id
-    let status = req.params.status
-
+async function default_save(path, status, req, res, tokenType, token, server_id) {
+    db.init()
     const is_auth = await auth.verification(tokenType, token, server_id)
     if (!is_auth) {
         return res.status(400).json({ error: "Not auth" })
@@ -40,13 +30,117 @@ router.get("/dad_messages/enable/:tokenType/:token/:server_id/:status", async (r
         status = true
     } else if (status == "false") {
         status = false
-    } else {
-        return res.status(400).json({ error: ":status should be boolean" })
     }
 
     db.init()
-    db.write(`${server_id}.dad_channel_enable`, status);
+    db.write(path, status);
     return res.status(200).json({ ok: 200 });
+}
+
+router.post("/exception_is_starts_with_filter/:tokenType/:token/:server_id", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let data = req.body.data
+
+
+    default_save(
+        `${server_id}.link_filter.exception_if_starts_with`,
+        data,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
+
+router.post("/exception_filter/:tokenType/:token/:server_id", async (req, res) => {
+
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let data = req.body.data
+
+
+    default_save(
+        `${server_id}.link_filter.exception`,
+        data,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
+
+router.get("/links_filter/:tokenType/:token/:server_id/:status", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+
+    default_save(
+        `${server_id}.link_filter.status`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
+
+router.get("/auto_vc/enable/:tokenType/:token/:server_id/:status", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+
+    default_save(
+        `${server_id}.auto_vc.auto_vc.status`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
+
+router.get("/auto_vc/channel_id/:tokenType/:token/:server_id/:channel_id", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let channel_id = req.params.channel_id
+
+    default_save(
+        `${server_id}.auto_vc.auto_vc.channel_id`,
+        channel_id,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
+
+/**
+ * @param {string} tokenType
+ * @param {string} token
+ * @param {string} server_id
+ * @param {bool} status - enable/disable command for server 
+ * 
+ */
+router.get("/dad_messages/enable/:tokenType/:token/:server_id/:status", async (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+
+    default_save(
+        `${server_id}.dad_channel_enable`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
 })
 
 /**
@@ -142,24 +236,18 @@ router.get("/welcome_dm_messages_content/:tokenType/:token/:server_id/:message",
     const server_id = req.params.server_id
     const message = req.params.message
 
-    const is_auth = await auth.verification(tokenType, token, server_id)
-    if (!is_auth) {
-        return res.status(400).json({ error: "Not auth" })
-    }
-
-    const is_server = await checkServerExists(server_id)
-    if (!is_server) {
-        return res.status(400).json({ error: "server_id is invalid" })
-    }
-
     if (message.length > 1024) {
         return res.status(400).json({ error: "message lenght should be < 1024 characters" })
     }
 
-    db.init();
-    db.write(`${server_id}.welcome_dm_message`, message);
-
-    return res.status(200).json({ ok: 200 })
+    default_save(
+        `${server_id}.welcome_dm_message`,
+        message,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
 })
 
 /**

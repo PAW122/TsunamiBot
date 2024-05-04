@@ -2,10 +2,8 @@ const { exec } = require('child_process');
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
-//TODO !!!!!!!!!!!!!!!!!!!!
-//jak wygaśnie token autoryzacji to w /api/load:288
-//wywala error http 401 crashujący całego bota.
-//dać jakiś cache
+const rsc_config = config.register_slash_commands
+
 require('dotenv').config();
 let token;
 if (is_test) {
@@ -68,17 +66,24 @@ const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
 const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
+const run_sdk = require("./sdk/server/server")
+const manage_auto_vc = require("./handlers/auto_vc_handler")
+const filter_links = require("./handlers/filter_links")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
 
 client.on("ready", async (res) => {
+
     logger.log(`${res.user.tag} is ready`);
 
     status_handler(client)
     database.backup(__dirname + "/db/backup")
 
+    if (!is_test) {
+        run_sdk()
+    }
     api();
 
     audio_api_run();
@@ -86,11 +91,15 @@ client.on("ready", async (res) => {
 
     mod_logs(client);
 
-
-    //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
-    await unregisterAllCommands(client)
-        .then(await register_slash_commands(client, is_test))
-        .then(logger.log("All commands registered successfully on all guilds."))
+    // RSC_config - register slash commands config
+    if (rsc_config) {
+        //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
+        await unregisterAllCommands(client)
+            .then(await register_slash_commands(client, is_test))
+            .then(logger.log("All commands registered successfully on all guilds."))
+    } else {
+        console.error("RSC disabled")
+    }
 });
 
 //execute
@@ -151,6 +160,7 @@ client.on("messageCreate", async message => {
     dad_handler(client, message)
     messages_stats_handler(message)
     test_msg_handler(client, message)
+    filter_links(client, message)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
@@ -167,6 +177,38 @@ client.on("messageCreate", async message => {
                 )
         }
     }
+})
+
+class auto_vc_cache {
+    constructor() {
+        this.cache = []
+    }
+
+    add(channel_id) {
+        this.cache[channel_id] = true
+    }
+
+    is_exist(channel_id) {
+        if (this.cache[channel_id]) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    remove(channel_id) {
+        delete this.cache[channel_id];
+    }
+
+    len() {
+        return this.cache.length
+    }
+}
+
+const auto_vc_channels = new auto_vc_cache()
+
+client.on('voiceStateUpdate', async (oldState, newState) => {
+    manage_auto_vc(client, oldState, newState, auto_vc_channels)
 })
 
 async function restartBot() {
@@ -219,11 +261,3 @@ client.on("uncaughtException", (e) => {
 
 client.login(token)
 module.exports = { client, config, restartBot, bot_off, bot_on }
-// /*TODO
-// podstronę z pomysłami.
-// opcje dodawania up vote i down vote,
-// posty segregowane za względu na:
-// ilość votów albo który został pierwszy wczytany
-// */
-
-//./code_counter.exe C:\Users\oem\OneDrive\Dokumenty\GitHub\TsunamiBot

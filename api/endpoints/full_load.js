@@ -58,18 +58,37 @@ router.post("/content", async (req, res) => {
     let autorole_role = "N/A"
     let dad_responses_enable = false
     let dad_bot = false
-    
+
+    let filter_links = false
+    let filter_links_exception = []
+    let filter_links_exception_if_starts_with = []
+
+    let auto_vc = false
+    let auto_vc_channel = "N/A"
+
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
         welcome_message_content =  data.welcome_message
         welcome_dm_message_content = data.welcome_dm_message
         welcome_message_enable = data.welcome_status ?? false
+
+        auto_vc = data?.auto_vc?.auto_vc?.status ?? false
+        auto_vc_channel = data?.auto_vc?.auto_vc?.channel_id
+        filter_links = data?.link_filter?.status ?? false
+
+        if(filter_links) {
+
+            filter_links_exception = data?.link_filter?.exception
+            filter_links_exception_if_starts_with = data?.link_filter?.exception_if_starts_with
+        }
     
         const channel_name = client.channels.cache.get(data.welcome_channel)//dont send
-        welcome_message_channel = {
-            id: data.welcome_channel,
-            name: channel_name.name
+        if(channel_name) {
+            welcome_message_channel = {
+                id: data.welcome_channel,
+                name: channel_name.name
+            }
         }
 
         let autorole = data.autorole
@@ -120,7 +139,12 @@ router.post("/content", async (req, res) => {
         autorole_enable: autorole_enable,
         autorole_role: autorole_role,
         server_roles_list: server_roles_list,
-        dad_bot: dad_bot
+        dad_bot: dad_bot,
+        auto_vc: auto_vc,
+        auto_vc_channel: auto_vc_channel,
+        filter_links,
+        filter_links_exception,
+        filter_links_exception_if_starts_with
     }
 
     return res.json(response_data);
