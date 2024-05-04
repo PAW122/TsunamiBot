@@ -11,10 +11,13 @@ async function filter_links(client, message) {
     let valid = false
     db.init()
     const guild_id = message.guild.id
+    // dodać na web możliwosc dodania samych zakazanych linków
 
-    if (message.member.permissions.has("MANAGE_MESSAGES")) {
+    console.log(message?.member?.permissions)
+
+    if (memberPermissions && memberPermissions.includes("MANAGE_MESSAGES")) {
         // todo: log for mods "cant delete message: user, message,id time, content"
-        return
+        return;
     }
 
     const settings = await db.read(`${guild_id}.link_filter`)
@@ -26,13 +29,13 @@ async function filter_links(client, message) {
     const content = message.content
 
     if (content.includes("http://") || content.includes("https://")) {
-        
-    if (exception) {
-        let exceptionsArray = exception.split(/[,\s]+/);
-        exceptionsArray.forEach(ex => {
-          if (content.includes(ex)) valid = true;
-        });
-      }
+
+        if (exception) {
+            let exceptionsArray = exception.split(/[,\s]+/);
+            exceptionsArray.forEach(ex => {
+                if (content.includes(ex)) valid = true;
+            });
+        }
 
         // if (exception_if_starts_with) {
         //     exception_if_starts_with = Array(exception_if_starts_with)
@@ -43,7 +46,7 @@ async function filter_links(client, message) {
         // }
 
         try {
-            if(!valid) {
+            if (!valid) {
                 await message.delete()
             }
             return valid
