@@ -7,6 +7,9 @@ const db = new Database(process.cwd() + "/db/files/servers.json")
 // dodać filtr od danej ranig można wysyłać
 // dodać opcje dodania listy userów którzy mogą wysyłać
 
+//!!!dodać opcję zbanowania konkretnego linku (starts with)
+// (banowanie linków innych zapek serwerów niż nasz!) (dodać checkboxa na stronie)
+
 async function filter_links(client, message) {
     let valid = false
     db.init()
