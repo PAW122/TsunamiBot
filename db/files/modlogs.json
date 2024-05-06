@@ -3932,6 +3932,27 @@
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "bannerURL": null
           }
+        },
+        {
+          "timesamp": 1714790444,
+          "oldContent": "Go! Go! Loser Ranger!",
+          "newContent": "Go! Go! Loser Ranger! (pewnie średnie)",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
         }
       ],
       "guildMemberJoin": [
@@ -4499,6 +4520,26 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/538863612387786762/969d344dbb33e66aa6271ca0aed34537.webp"
+          }
+        },
+        {
+          "timesamp": 1714834949,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1714834958199,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "353078057483108352",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "sabi",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
           }
         }
       ],
@@ -8529,6 +8570,241 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/538863612387786762/969d344dbb33e66aa6271ca0aed34537.webp"
+          }
+        },
+        {
+          "timesamp": 1714834950,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1610922415609,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "800489431265312808",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "nie wiesz nic...",
+            "roles": [
+              "743095111503839352",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1714834958199,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "353078057483108352",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "sabi",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
+          }
+        },
+        {
+          "timesamp": 1714916986,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "787453105373052948",
+            "name": "┋Porg Porucznik┋🌠┋",
+            "color": 2123412,
+            "hoist": true,
+            "rawPosition": 82,
+            "permissions": "6949424833",
+            "managed": false,
+            "mentionable": true,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1607813850492
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1621343668111,
+            "premiumSinceTimestamp": null,
+            "nickname": "D4W1D M4L1N4",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "578332808750301195",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "D4W1D M4L1N4",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "782719740866854932",
+              "787453105373052948",
+              "811897603226337300",
+              "816913669639241728",
+              "966812921869008966",
+              "1038216444476936242",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/578332808750301195/daea4369c29735d42ec5b699c5e2edf9.webp"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1714834958199,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "353078057483108352",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "sabi",
+            "roles": [
+              "743094629238439946",
+              "787453105373052948",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
+          }
+        },
+        {
+          "timesamp": 1714918737,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094852320755844",
+            "name": "┋Porg kapral┋💪┋",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 73,
+            "permissions": "6546640448",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1597238018828
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1706259688841,
+            "premiumSinceTimestamp": null,
+            "nickname": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "609743130987593749",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1709336222629,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "1145415341149786114",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "zapalnik",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "787453105373052948",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1145415341149786114/04354b8c5d6aecfd8e3737994b0bed55.webp"
+          }
+        },
+        {
+          "timesamp": 1714918744,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094852320755844",
+            "name": "┋Porg kapral┋💪┋",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 73,
+            "permissions": "6546640448",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1597238018828
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1706259688841,
+            "premiumSinceTimestamp": null,
+            "nickname": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "609743130987593749",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1714834958199,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "353078057483108352",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "sabi",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "787453105373052948",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
           }
         }
       ],
@@ -13342,6 +13618,132 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/830444545086455809/dffc460f411be945e0e352c43efffd26.webp"
+          }
+        },
+        {
+          "timesamp": 1714918739,
+          "removedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "787453105373052948",
+            "name": "┋Porg Porucznik┋🌠┋",
+            "color": 2123412,
+            "hoist": true,
+            "rawPosition": 82,
+            "permissions": "6949424833",
+            "managed": false,
+            "mentionable": true,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1607813850492
+          },
+          "removedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1621343668111,
+            "premiumSinceTimestamp": null,
+            "nickname": "D4W1D M4L1N4",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "578332808750301195",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "D4W1D M4L1N4",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "782719740866854932",
+              "787453105373052948",
+              "811897603226337300",
+              "816913669639241728",
+              "966812921869008966",
+              "1038216444476936242",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/578332808750301195/daea4369c29735d42ec5b699c5e2edf9.webp"
+          },
+          "removedFrom": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1709336222629,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "1145415341149786114",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "zapalnik",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1145415341149786114/04354b8c5d6aecfd8e3737994b0bed55.webp"
+          }
+        },
+        {
+          "timesamp": 1714918745,
+          "removedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "787453105373052948",
+            "name": "┋Porg Porucznik┋🌠┋",
+            "color": 2123412,
+            "hoist": true,
+            "rawPosition": 82,
+            "permissions": "6949424833",
+            "managed": false,
+            "mentionable": true,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1607813850492
+          },
+          "removedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1621343668111,
+            "premiumSinceTimestamp": null,
+            "nickname": "D4W1D M4L1N4",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "578332808750301195",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "D4W1D M4L1N4",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "782719740866854932",
+              "787453105373052948",
+              "811897603226337300",
+              "816913669639241728",
+              "966812921869008966",
+              "1038216444476936242",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/578332808750301195/daea4369c29735d42ec5b699c5e2edf9.webp"
+          },
+          "removedFrom": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1714834958199,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "353078057483108352",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "sabi",
+            "roles": [
+              "743094629238439946",
+              "743094852320755844",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
           }
         }
       ],
@@ -24222,6 +24624,37 @@
           "messageId": "1236120308310605927",
           "createdTimestamp": 1714784447506,
           "content": "https://xd",
+          "author": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": 14408461,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": "#dbdb0d",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": null
+        },
+        {
+          "timesamp": 1714950328,
+          "channelId": "1234907958110847040",
+          "messageId": "1236816091796213932",
+          "createdTimestamp": 1714950335216,
+          "content": "help",
           "author": {
             "id": "438336824516149249",
             "bot": false,
