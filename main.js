@@ -185,8 +185,7 @@ client.on("messageCreate", async message => {
 })
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
-    console.log("voiceStateUpdate")
-    await manage_auto_vc(client, oldState, newState, auto_vc_channels)
+    manage_auto_vc(client, oldState, newState, auto_vc_channels)
 })
 
 async function restartBot() {
