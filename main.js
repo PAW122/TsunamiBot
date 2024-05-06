@@ -69,10 +69,14 @@ const { AudioApiV2 } = require("./handlers/audio/apiV2")
 const run_sdk = require("./sdk/server/server")
 const manage_auto_vc = require("./handlers/auto_vc_handler")
 const filter_links = require("./handlers/filter_links")
+const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
+const auto_vc_cache = require("./handlers/auto_vc_cache")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
+
+const auto_vc_channels = new auto_vc_cache()
 
 client.on("ready", async (res) => {
 
@@ -161,6 +165,7 @@ client.on("messageCreate", async message => {
     messages_stats_handler(message)
     test_msg_handler(client, message)
     filter_links(client, message)
+    auto_vc_commands_handler(message, auto_vc_channels)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
@@ -179,36 +184,9 @@ client.on("messageCreate", async message => {
     }
 })
 
-class auto_vc_cache {
-    constructor() {
-        this.cache = []
-    }
-
-    add(channel_id) {
-        this.cache[channel_id] = true
-    }
-
-    is_exist(channel_id) {
-        if (this.cache[channel_id]) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    remove(channel_id) {
-        delete this.cache[channel_id];
-    }
-
-    len() {
-        return this.cache.length
-    }
-}
-
-const auto_vc_channels = new auto_vc_cache()
-
 client.on('voiceStateUpdate', async (oldState, newState) => {
-    manage_auto_vc(client, oldState, newState, auto_vc_channels)
+    console.log("voiceStateUpdate")
+    await manage_auto_vc(client, oldState, newState, auto_vc_channels)
 })
 
 async function restartBot() {
