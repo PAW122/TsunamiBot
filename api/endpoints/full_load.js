@@ -95,12 +95,18 @@ router.post("/content", async (req, res) => {
         if(autorole) {
             autorole_enable =  data.autorole.status ?? false
 
+            autorole_role = {
+                id: null,
+                name: null
+            };
+
             const roleId = data.autorole.role_id;//dont send
             const role = server.roles.cache.get(roleId);//dont send
-            autorole_role = {
-                id: role.id,
-                name: role.name
-            };
+
+            if(role && role.id && role.name) {
+                autorole_role.id = role.id
+                autorole_role.name = role.name
+            }
     
         }
 
