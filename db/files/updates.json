@@ -1,0 +1,31 @@
+{
+    "schemas": {
+        "Versions": "V.V.user_update.github_commit_number"
+    },
+    "updates": [
+        {
+            "Version": "0.0.1.201",
+            "Date": "08.05.2024",
+            "Name": "Updates page",
+            "Description": "+a page with bot updates has been added"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "06.05.2024",
+            "Name": "/flags command",
+            "Description": "+/flags and /flags_answer commands have been added, which allow you to play a mini-game of guessing which flag belongs to which country"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "05.05.2024",
+            "Name": "Auto vc update",
+            "Description": "the person who created the channel becomes its owner and can set the maximum number of people on the channel"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "30.04.2024",
+            "Name": "Auto vc",
+            "Description": "A system for automatic creation of voice channels has been added"
+        }
+    ]
+}

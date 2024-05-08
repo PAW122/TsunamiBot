@@ -15,6 +15,9 @@ function initial() {
     if (window.location.pathname === "/partners") {
         loadPartners();
         return;
+    } else if (window.location.pathname === "/updates") {
+        LoadUpdates();
+        return;
     }
 
     navbarStyle();
@@ -93,27 +96,60 @@ async function loadPartners() {
     }
 }
 
-async function login() {
-        let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
-        let json = await response.json();
-        if (json?.error && json.error === "invalid_token") {
-            loginManager.dispose();
-            window.location.reload();
-            return false
+async function LoadUpdates() {
+    const response = await fetch(`${config.MainURL}/load/updates`);
+    if (response.ok) {
+        const updatesData = await response.json();
+        const updatesContainer = document.getElementById("updates-container");
+        if (updatesContainer) {
+            // Iterujemy przez każdego partnera w obiekcie updatesData
+            for (const key in updatesData) {
+                console.log(key, updatesData)
+                if (Object.hasOwnProperty.call(updatesData, key)) {
+                    const version = updatesData[key];
+                    const updatedElemet = document.createElement("div");
+                    updatedElemet.classList.add("update");
+                    // Tworzymy HTML z danymi partnera
+                    updatedElemet.innerHTML = `
+                        <div class="updates-info">
+                            <div class="partner-details">
+                                <h2>${version.Version}</h2>
+                                <h1>${version.Name}</h1>
+                                ${version.Date ? `<a>Date: ${version.Date}</a>` : "Date: N/A"}
+                                ${version.Description ? `<p>Description: <a>${version.Description}</a></p>` : ""}
+                            </div>
+                        </div>
+                    `;
+                    updatesContainer.appendChild(updatedElemet);
+                }
+            }
         }
-        document.getElementById("username-text")!.textContent = `@${json.user.username}`
-        document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
-        let servers = json.servers;
-        drawServers(servers, handleServerClick);
-        document.querySelector("#logout-button")?.addEventListener("click", function () {
+    } else {
+        console.log("response error")
+    }
+}
 
-            fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
+async function login() {
+    let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
+    let json = await response.json();
+    if (json?.error && json.error === "invalid_token") {
+        loginManager.dispose();
+        window.location.reload();
+        return false
+    }
+    document.getElementById("username-text")!.textContent = `@${json.user.username}`
+    document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
+    let servers = json.servers;
+    drawServers(servers, handleServerClick);
+    document.querySelector("#logout-button")?.addEventListener("click", function () {
 
-            loginManager.dispose();
-            window.location.reload();
-        });
+        fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
 
-        return true
+        loginManager.dispose();
+        window.location.reload();
+    });
+
+    return true
 }
 
 async function handleServerClick(clickedServerId: string) {

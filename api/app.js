@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/index.html")
 })
 
+app.get("/updates", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/updates.html")
+})
+
 app.get("/partners", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/partners.html")
 })
