@@ -24,7 +24,7 @@ function initial() {
     let login_button = document.getElementById("login-button") as HTMLLinkElement
     login_button.href = config.AuthURL
 
-    console.log(loginManager.token.token)
+    // console.log(loginManager.token.token)
 
     const loginButton = document.getElementById("login-button");
     if (loginManager.token.token && loginButton) {
@@ -48,6 +48,12 @@ function initial() {
         }
     }
     window["lm"] = loginManager
+
+    document.getElementById("logout-button")?.addEventListener("click", () => {
+        console.log("invalid token")
+        loginManager.dispose()
+        window.location.reload();
+    })
 }
 
 
@@ -88,23 +94,26 @@ async function loadPartners() {
 }
 
 async function login() {
-    let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
-    let json = await response.json();
-    if (json?.error && json.error === "invalid_token") {
-        loginManager.dispose();
-        window.location.reload();
-    }
-    document.getElementById("username-text")!.textContent = `@${json.user.username}`
-    document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
-    let servers = json.servers;
-    drawServers(servers, handleServerClick);
-    document.querySelector("#logout-button")?.addEventListener("click", function () {
+        let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
+        let json = await response.json();
+        if (json?.error && json.error === "invalid_token") {
+            loginManager.dispose();
+            window.location.reload();
+            return false
+        }
+        document.getElementById("username-text")!.textContent = `@${json.user.username}`
+        document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
+        let servers = json.servers;
+        drawServers(servers, handleServerClick);
+        document.querySelector("#logout-button")?.addEventListener("click", function () {
 
-        fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
+            fetch(`${config.MainURL}/actions/logout/${loginManager.token.token_type}/${loginManager.token.token}`)
 
-        loginManager.dispose();
-        window.location.reload();
-    });
+            loginManager.dispose();
+            window.location.reload();
+        });
+
+        return true
 }
 
 async function handleServerClick(clickedServerId: string) {
@@ -162,29 +171,29 @@ async function handleServerClick(clickedServerId: string) {
     let filter_exceeptions = genTextBox(settings_parent, "Filter exceeptions", body.filter_links_exception, saveLinkFilter);
     let filter_exceeptions_text_box_div = filter_exceeptions.input.parentElement!.previousElementSibling as HTMLDivElement;
     addTooltip(filter_exceeptions_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com,https://test/");
-    
+
     // let filter_exceeptions_if_starts_with = genTextBox(settings_parent, "Filter 'if_starts_with' exceeptions", body.filter_links_exception_if_starts_with, saveLinkFilterif_starts_with);
     // let filter_exceeptions_if_starts_with_text_box_div = filter_exceeptions_if_starts_with.input.parentElement!.previousElementSibling as HTMLDivElement;
     // addTooltip(filter_exceeptions_if_starts_with_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com/");
 
     async function saveLinkFilter(data: any) {
-        if(!data || data == "") {
+        if (!data || data == "") {
             data = false
         }
         const body_data = {
             data: data
         }
         let response = await fetch(
-            `${config.MainURL}/save/exception_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, 
+            `${config.MainURL}/save/exception_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`,
             {
-              method: 'POST', // Dodaj metodę, np. POST
-              headers: {
-                'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
-              },
-              body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
+                method: 'POST', // Dodaj metodę, np. POST
+                headers: {
+                    'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
+                },
+                body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
             }
-          );
-        
+        );
+
         if (response.ok) {
             console.log(`save Link Filter content set to. Response: ${response.status}`);
         } else {
@@ -378,5 +387,4 @@ async function handleServerClick(clickedServerId: string) {
             handleServerClick(clickedServerId);
         }
     })
-
 }
