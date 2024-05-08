@@ -10575,6 +10575,48 @@
             "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
           }
+        },
+        {
+          "timesamp": 1715118125,
+          "oldContent": "m!p https://www.youtube.com/watch?v=IHv_6HP65VQ",
+          "newContent": "m!p https://www.youtube.com/watch?v=IHv_6HP65VQ",
+          "editedBy": {
+            "id": "609743130987593749",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "nejtvn",
+            "globalName": "Nejtvn",
+            "discriminator": "0",
+            "avatar": "a_b95439e2cd01376bb8071bf14c58224f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1565444490907,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "nejtvn",
+            "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          }
+        },
+        {
+          "timesamp": 1715119042,
+          "oldContent": "m!Phttps://www.youtube.com/watch?v=6ihF64OTsng",
+          "newContent": "m!Phttps://www.youtube.com/watch?v=6ihF64OTsng",
+          "editedBy": {
+            "id": "609743130987593749",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "nejtvn",
+            "globalName": "Nejtvn",
+            "discriminator": "0",
+            "avatar": "a_b95439e2cd01376bb8071bf14c58224f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1565444490907,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "nejtvn",
+            "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          }
         }
       ],
       "messageDelete": [
@@ -22579,6 +22621,90 @@
             "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/baaa66d392b79ba4a3db3f6cfbde2f63.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/baaa66d392b79ba4a3db3f6cfbde2f63.webp"
           }
+        },
+        {
+          "timesamp": 1715001981,
+          "oldContent": "a little thing im making with opengl and c :3",
+          "newContent": "a little gamdev thing im making with opengl and c :3",
+          "editedBy": {
+            "id": "597420184122294272",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "foxieflakey",
+            "globalName": "Cute Foxie Flakey UwU",
+            "discriminator": "0",
+            "avatar": "53c21b0fa2154707f6f9d0277b564c7a",
+            "avatarDecoration": null,
+            "createdTimestamp": 1562506471425,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "foxieflakey",
+            "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
+          }
+        },
+        {
+          "timesamp": 1715001984,
+          "oldContent": "a little gamdev thing im making with opengl and c :3",
+          "newContent": "a little gamedev thing im making with opengl and c :3",
+          "editedBy": {
+            "id": "597420184122294272",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "foxieflakey",
+            "globalName": "Cute Foxie Flakey UwU",
+            "discriminator": "0",
+            "avatar": "53c21b0fa2154707f6f9d0277b564c7a",
+            "avatarDecoration": null,
+            "createdTimestamp": 1562506471425,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "foxieflakey",
+            "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
+          }
+        },
+        {
+          "timesamp": 1715002635,
+          "oldContent": "because that kinda most annoying to debug, if matrix wrong then there most of time distorted or no outpt",
+          "newContent": "because that kinda most annoying to debug, if matrix wrong then there most of time distorted or no output",
+          "editedBy": {
+            "id": "597420184122294272",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "foxieflakey",
+            "globalName": "Cute Foxie Flakey UwU",
+            "discriminator": "0",
+            "avatar": "53c21b0fa2154707f6f9d0277b564c7a",
+            "avatarDecoration": null,
+            "createdTimestamp": 1562506471425,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "foxieflakey",
+            "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
+          }
+        },
+        {
+          "timesamp": 1715003236,
+          "oldContent": "```go\ngl.TexCoord2f(0, 0)\ngl.Vertex2f(0, 0)\ngl.TexCoord2f(1, 0)\ngl.Vertex2f(800, 0)\ngl.TexCoord2f(1, 1)\ngl.Vertex2f(800, 600)\ngl.TexCoord2f(0, 1)    gl.Vertex2f(0, 600)\n``` those wrong, opengl actually renders lots of windows away from where it suppose be because opengl uses NDC (normalized device coordinate)",
+          "newContent": "```go\ngl.TexCoord2f(0, 0)\ngl.Vertex2f(0, 0)\ngl.TexCoord2f(1, 0)\ngl.Vertex2f(800, 0)\ngl.TexCoord2f(1, 1)\ngl.Vertex2f(800, 600)\ngl.TexCoord2f(0, 1)\ngl.Vertex2f(0, 600)\n``` those wrong, opengl actually renders lots of windows away from where it suppose be because opengl uses NDC (normalized device coordinate)",
+          "editedBy": {
+            "id": "597420184122294272",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "foxieflakey",
+            "globalName": "Cute Foxie Flakey UwU",
+            "discriminator": "0",
+            "avatar": "53c21b0fa2154707f6f9d0277b564c7a",
+            "avatarDecoration": null,
+            "createdTimestamp": 1562506471425,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "foxieflakey",
+            "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
+          }
         }
       ],
       "guildMemberJoin": [
@@ -24705,6 +24831,114 @@
             "lastMessageId": null,
             "rateLimitPerUser": 0,
             "createdTimestamp": 1714517728124
+          }
+        }
+      ]
+    }
+  },
+  "623535556285956116": {
+    "modlogs": {
+      "guildMemberAddRole": [
+        {
+          "timesamp": 1715080527,
+          "addedRole": {
+            "guild": "623535556285956116",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "802933641524150272",
+            "name": "N1KT",
+            "color": 5533306,
+            "hoist": false,
+            "rawPosition": 1,
+            "permissions": "6479273537",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1611504697925
+          },
+          "addedBy": {
+            "guildId": "623535556285956116",
+            "joinedTimestamp": 1612602703123,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "292953664492929025",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "UnbelievaBoat",
+            "roles": [
+              "802933641524150272",
+              "802669536817184779",
+              "807539008858226699",
+              "623535556285956116"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/292953664492929025/c47af6e9bae8a91779996fa412b24207.webp"
+          },
+          "addedTo": {
+            "guildId": "623535556285956116",
+            "joinedTimestamp": 1715080509788,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Senko",
+            "roles": [
+              "802933641524150272",
+              "1237362083419521087",
+              "623535556285956116"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        }
+      ],
+      "messageContentEdited": [
+        {
+          "timesamp": 1715088694,
+          "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
+          }
+        },
+        {
+          "timesamp": 1715175134,
+          "oldContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
           }
         }
       ]
