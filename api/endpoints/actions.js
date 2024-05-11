@@ -15,7 +15,6 @@ router.get("/logout/:tokenType/:token", async (req, res) => {
 
 // actions/
 router.get("/server_status", async(req,res) => {
-    console.log("ping")
     const timestamp = Date.now();
     return res.send({status: "ok", date: timestamp, name: "senko-server"})
 })
