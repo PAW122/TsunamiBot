@@ -3953,6 +3953,29 @@
             "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
           }
+        },
+        {
+          "timesamp": 1715458258,
+          "oldContent": "",
+          "newContent": "",
+          "editedBy": {
+            "id": "928399458570502155",
+            "bot": true,
+            "system": false,
+            "flags": 0,
+            "username": "Senko",
+            "globalName": null,
+            "discriminator": "1742",
+            "avatar": "989a3becf3d69f7f79059eefbde277c2",
+            "avatarDecoration": null,
+            "verified": true,
+            "mfaEnabled": true,
+            "createdTimestamp": 1641418079751,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "tag": "Senko#1742",
+            "avatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
         }
       ],
       "guildMemberJoin": [
@@ -10617,6 +10640,31 @@
             "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
           }
+        },
+        {
+          "timesamp": 1715352440,
+          "oldContent": "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc3720fda5d50f199/6615b470be36f53436d97304/04092024_VALORANT_Games_Detected_vs_Actions_Taken.jpg",
+          "newContent": "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc3720fda5d50f199/6615b470be36f53436d97304/04092024_VALORANT_Games_Detected_vs_Actions_Taken.jpg",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
         }
       ],
       "messageDelete": [
@@ -12805,6 +12853,73 @@
             "tag": "pawiu_",
             "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715346408,
+          "channelId": "438621187132751875",
+          "messageId": "1238477234998607904",
+          "createdTimestamp": 1715346382618,
+          "content": "",
+          "author": {
+            "id": "577507822011416592",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "toxicwaste_",
+            "globalName": "ToxicWaste",
+            "discriminator": "0",
+            "avatar": "a02443bc7ca73e8eaff934fbdd9e9259",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1557758994344,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "hexAccentColor": null,
+            "tag": "toxicwaste_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [
+            {
+              "attachment": "https://cdn.discordapp.com/attachments/438621187132751875/1238477234784702534/image.png?ex=663f6d4e&is=663e1bce&hm=18df9c9cfeac7d45a83a756c64906817238dccbad1ff64c25d6cd7eec5059d4f&",
+              "name": "image.png",
+              "id": "1238477234784702534",
+              "size": 37796,
+              "url": "https://cdn.discordapp.com/attachments/438621187132751875/1238477234784702534/image.png?ex=663f6d4e&is=663e1bce&hm=18df9c9cfeac7d45a83a756c64906817238dccbad1ff64c25d6cd7eec5059d4f&",
+              "proxyURL": "https://media.discordapp.net/attachments/438621187132751875/1238477234784702534/image.png?ex=663f6d4e&is=663e1bce&hm=18df9c9cfeac7d45a83a756c64906817238dccbad1ff64c25d6cd7eec5059d4f&",
+              "height": 274,
+              "width": 739,
+              "contentType": "image/png",
+              "description": null,
+              "ephemeral": false,
+              "duration": null,
+              "waveform": null,
+              "flags": 0
+            }
+          ],
+          "deleted_by": {
+            "id": "692621246017568799",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "krokiet_0",
+            "globalName": "Krokiet",
+            "discriminator": "0",
+            "avatar": "86ce769e0eaae4390379ac659962ccb6",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1585204173331,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "krokiet_0",
+            "avatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
             "bannerURL": null
           }
         }
@@ -24924,6 +25039,27 @@
           "timesamp": 1715175134,
           "oldContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "newContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
+          }
+        },
+        {
+          "timesamp": 1715347894,
+          "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "editedBy": {
             "id": "807604332056150036",
             "bot": true,
