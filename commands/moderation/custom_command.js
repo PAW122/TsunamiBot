@@ -55,7 +55,7 @@ async function execute(interaction, client) {
     const trigger = interaction.options.getString("trigger")
     const response = interaction.options.getString("response")
     const slot = interaction.options.getString("slot")
-    const command_status = interaction.options.getBool("status")
+    const command_status = interaction.options.getBoolean("status")
 
     const user_id = interaction.user.id
     const guild_id = interaction.guild.id
