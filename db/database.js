@@ -24,6 +24,11 @@ class Database {
         }
     }
 
+    getAllKeys() {
+        const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
+        return Object.keys(database);
+    }
+
     /**
      * write
      * Dodaje nowy wpis do bazy danych

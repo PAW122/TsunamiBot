@@ -71,6 +71,8 @@ const manage_auto_vc = require("./handlers/auto_vc_handler")
 const filter_links = require("./handlers/filter_links")
 const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
 const auto_vc_cache = require("./handlers/auto_vc_cache")
+const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_commands")
+const CustomCommandsHandler = CustomCommands.getInstance();
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -94,6 +96,7 @@ client.on("ready", async (res) => {
     // AudioApiV2();
 
     mod_logs(client);
+    CustomCommandsHandler.loadTextCommands()
 
     // RSC_config - register slash commands config
     if (rsc_config) {
@@ -166,6 +169,7 @@ client.on("messageCreate", async message => {
     test_msg_handler(client, message)
     filter_links(client, message)
     auto_vc_commands_handler(message, auto_vc_channels)
+    handleCustomTextCommands(message)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
