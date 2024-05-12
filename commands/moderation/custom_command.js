@@ -78,6 +78,9 @@ async function execute(interaction, client) {
     }
 
     const status = CcHandler.addCommand(trigger, guild_id, data, slot, commandType)
+    if(command_status === false) {
+        CcHandler.removeCacheCommandText(guild_id, trigger)
+    }
 
     if(status) {
         await interaction.reply({

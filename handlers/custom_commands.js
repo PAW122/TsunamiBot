@@ -42,6 +42,11 @@ class CustomCommands {
         this.Textcache[name] = res
     }
 
+    removeCacheCommandText(server_id, trigger) {
+        const name = `${server_id}_${trigger}`
+        delete this.Textcache[name]
+    }
+
     getCommandData(name, server_id) {
         if(this.commandData[`${server_id}_${name}`]) {
             return this.commandData[`${server_id}_${name}`]
@@ -68,7 +73,7 @@ class CustomCommands {
 
             dataArray.forEach(command => {
                 if(!command || !command.trigger || !command.response) return;
-                if(!command.status || command.status != true) return;
+                if(!command.status || command.status != true) return
                 this.addCacheCommandText(key, command?.trigger, command?.response)
             })
         })
