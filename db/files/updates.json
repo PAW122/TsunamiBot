@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.2.215",
+            "Date": "12.05.2024",
+            "Name": "Custom Commands",
+            "Description": "custom commands have been added. At the moment they are very simple and do not allow for much, but they will be developed in the future.\nusing /custom_command <type:text> <slot:1/10> <trigger:ping> <response:pong> <status:True>\nwe can add a command that if someone writes 'ping' to the server, the bot will reply with the message 'pong'"
+        },
+        {
             "Version": "0.0.1.201",
             "Date": "08.05.2024",
             "Name": "Updates page",
