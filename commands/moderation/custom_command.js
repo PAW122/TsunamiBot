@@ -43,7 +43,7 @@ const command = new SlashCommandBuilder()
         .setDescription('reply to the message with the given text')
         .setRequired(true)
     )
-    .addBoolOption((option) => option
+    .addBooleanOption((option) => option
         .setName("status")
         .setDescription('turn off/on')
         .setRequired(true)
