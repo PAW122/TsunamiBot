@@ -73,7 +73,7 @@ class CustomCommands {
 
             dataArray.forEach(command => {
                 if(!command || !command.trigger || !command.response) return;
-                if(!command.status || command.status != true) return
+                if(!command.command_status || command.command_status != true) return
                 this.addCacheCommandText(key, command?.trigger, command?.response)
             })
         })

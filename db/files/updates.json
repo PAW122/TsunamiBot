@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.2.216",
+            "Date": "14.05.2024",
+            "Name": "Bug Fix: Custom Commands",
+            "Description": "Fixed a bug that caused commands not to load after restarting the bot"
+        },
+        {
             "Version": "0.0.2.215",
             "Date": "12.05.2024",
             "Name": "Custom Commands",
