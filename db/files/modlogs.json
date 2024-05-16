@@ -4564,6 +4564,46 @@
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
           }
+        },
+        {
+          "timesamp": 1715462977,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715462962022,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "679264939935924225",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "お尻が好きです",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715463345,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715463329358,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "967548065701576724",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "お尻とおまんこが好きです",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/967548065701576724/81d4001e0c782852b8c2fc702ffe5377.webp"
+          }
         }
       ],
       "guildMemberAddRole": [
@@ -8828,6 +8868,134 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/353078057483108352/4fbdd32f16f3d498b3560265518a1027.webp"
+          }
+        },
+        {
+          "timesamp": 1715462979,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1644854600557,
+            "premiumSinceTimestamp": null,
+            "nickname": "Rambo",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": 1706297552586,
+            "userId": "759765392787767316",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Rambo",
+            "roles": [
+              "787420397523828807",
+              "787453105373052948",
+              "811897603226337300",
+              "949415583223545866",
+              "1016742053356503142",
+              "743094629238439946",
+              "824607775472222208",
+              "957310453992788078",
+              "787430877499752548",
+              "800628404105904180",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/759765392787767316/8db358bcc4410e3f106fa205174143c1.webp"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715462962022,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "679264939935924225",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "お尻が好きです",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715463345,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1644854600557,
+            "premiumSinceTimestamp": null,
+            "nickname": "Rambo",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": 1706297552586,
+            "userId": "759765392787767316",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Rambo",
+            "roles": [
+              "787420397523828807",
+              "787453105373052948",
+              "811897603226337300",
+              "949415583223545866",
+              "1016742053356503142",
+              "743094629238439946",
+              "824607775472222208",
+              "957310453992788078",
+              "787430877499752548",
+              "800628404105904180",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/759765392787767316/8db358bcc4410e3f106fa205174143c1.webp"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715463329358,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "967548065701576724",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "お尻とおまんこが好きです",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/967548065701576724/81d4001e0c782852b8c2fc702ffe5377.webp"
           }
         }
       ],
@@ -25058,6 +25226,27 @@
         },
         {
           "timesamp": 1715347894,
+          "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
+          }
+        },
+        {
+          "timesamp": 1715607093,
           "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "editedBy": {
