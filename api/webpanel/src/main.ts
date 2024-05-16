@@ -212,7 +212,7 @@ async function handleServerClick(clickedServerId: string) {
     let filter_exceeptions_text_box_div = filter_exceeptions.input.parentElement!.previousElementSibling as HTMLDivElement;
     addTooltip(filter_exceeptions_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com,https://test/");
 
-    let add_custom_commands_list = genAddList(settings_parent, "custom_commands_list")
+    // let add_custom_commands_list = genAddList(settings_parent, "custom_commands_list")
 
     // let filter_exceeptions_if_starts_with = genTextBox(settings_parent, "Filter 'if_starts_with' exceeptions", body.filter_links_exception_if_starts_with, saveLinkFilterif_starts_with);
     // let filter_exceeptions_if_starts_with_text_box_div = filter_exceeptions_if_starts_with.input.parentElement!.previousElementSibling as HTMLDivElement;
