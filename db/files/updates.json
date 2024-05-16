@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.2.220",
+            "Date": "16.05.2024",
+            "Name": "Discord Mod Logs",
+            "Description": "+Mod logs for administration on channel. /modlogs <channel> <status>"
+        },
+        {
             "Version": "0.0.2.216",
             "Date": "14.05.2024",
             "Name": "Bug Fix: Custom Commands",
