@@ -3,6 +3,7 @@
     "public": {
         "is_test": false,
         "register_slash_commands": true,
+        "db_logs": false,
         "prefix": ".",
         "main_url": "https://senko.pagekite.me/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email",
@@ -36,6 +37,7 @@
     "local_dev": {
         "is_test": true,
         "register_slash_commands": true,
+        "db_logs": true,
         "test_slash_commands_path": "slash",
         "prefix": ".",
         "test_commands_server_list": ["727662119553728532"],

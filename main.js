@@ -50,6 +50,9 @@ const client = new Client({
     ]
 });
 
+const LoadModLogsGuilds = require("./handlers/modlogsMessages_handler")
+LoadModLogsGuilds.getInstance().LoadGuilds()
+
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
 const { commandsMap } = require("./handlers/commandsMap")
 const welcome_messages = require("./handlers/welcome")

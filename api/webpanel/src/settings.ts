@@ -38,6 +38,140 @@ export function genSettings(parent: HTMLDivElement, title: string = "Settings", 
     }
 }
 
+export function genAddList(parent: HTMLDivElement, title: string = "AddList", initialItems: { trigger: string, response: string }[] = []) {
+    let main = document.createElement("div");
+    main.classList.add("d-flex", "flex-column", "gap-2");
+
+    // Kontener dla tytułu i przycisku "+"
+    let titleContainer = document.createElement("div");
+    titleContainer.classList.add("d-flex", "align-items-center");
+
+    // Tytuł
+    let titleDiv = document.createElement("div");
+    titleDiv.classList.add("h3");
+    titleDiv.textContent = title;
+
+    // Przycisk "+"
+    let addButton = document.createElement("button");
+    addButton.textContent = "+";
+    addButton.classList.add("btn", "btn-primary", "ms-auto");
+    addButton.addEventListener("click", () => {
+        showModal();
+    });
+
+    // Dodajemy tytuł i przycisk do kontenera
+    titleContainer.appendChild(titleDiv);
+    titleContainer.appendChild(addButton);
+
+    // Dodajemy kontener tytułu i przycisku do głównego kontenera
+    main.appendChild(titleContainer);
+
+    // Dodajemy elementy początkowe listy
+    for (let item of initialItems) {
+        addListElement(item.trigger, item.response);
+    }
+
+    // Dodajemy główny kontener do kontenera grupy wejściowej
+    parent.appendChild(main);
+
+    function showModal() {
+        let modal = document.createElement("div");
+        modal.classList.add("modal", "fade", "show", "d-block");
+        modal.setAttribute("tabindex", "-1");
+        modal.setAttribute("role", "dialog");
+
+        let modalDialog = document.createElement("div");
+        modalDialog.classList.add("modal-dialog");
+        modalDialog.setAttribute("role", "document");
+
+        let modalContent = document.createElement("div");
+        modalContent.classList.add("modal-content");
+
+        let modalHeader = document.createElement("div");
+        modalHeader.classList.add("modal-header");
+
+        let closeButton = document.createElement("button");
+        closeButton.setAttribute("type", "button");
+        closeButton.classList.add("btn-close");
+        closeButton.setAttribute("data-bs-dismiss", "modal");
+        closeButton.setAttribute("aria-label", "Close");
+        modalHeader.appendChild(closeButton);
+
+        let title = document.createElement("h5");
+        title.classList.add("modal-title");
+        title.textContent = "Add New Element";
+        modalHeader.appendChild(title);
+
+        let modalBody = document.createElement("div");
+        modalBody.classList.add("modal-body");
+        modalBody.innerHTML = `
+            <form>
+                <div class="mb-3">
+                    <label for="trigger" class="form-label">Trigger:</label>
+                    <input type="text" class="form-control" id="trigger">
+                </div>
+                <div class="mb-3">
+                    <label for="response" class="form-label">Response:</label>
+                    <input type="text" class="form-control" id="response">
+                </div>
+            </form>
+        `;
+
+        let modalFooter = document.createElement("div");
+        modalFooter.classList.add("modal-footer");
+
+        let saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.classList.add("btn", "btn-primary");
+        saveButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            let trigger = (modalBody.querySelector("#trigger") as HTMLInputElement).value;
+            let response = (modalBody.querySelector("#response") as HTMLInputElement).value;
+            addListElement(trigger, response);
+            modal.remove();
+        });
+
+        let closeButtonFooter = document.createElement("button");
+        closeButtonFooter.textContent = "Close";
+        closeButtonFooter.classList.add("btn", "btn-secondary");
+        closeButtonFooter.setAttribute("data-bs-dismiss", "modal");
+
+        modalFooter.appendChild(closeButtonFooter);
+        modalFooter.appendChild(saveButton);
+
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalBody);
+        modalContent.appendChild(modalFooter);
+
+        modalDialog.appendChild(modalContent);
+        modal.appendChild(modalDialog);
+
+        document.body.appendChild(modal);
+    }
+
+    function addListElement(trigger: string, response: string) {
+        let listElement = document.createElement("div");
+        listElement.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+        listElement.innerHTML = `
+            <div>
+                <strong>Trigger:</strong> ${trigger}<br>
+                <strong>Response:</strong> ${response}
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm me-1">Edit</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </div>
+        `;
+        parent.insertBefore(listElement, main);
+    }
+}
+
+
+
+
+
+
+
 export function genCheckBox(parent: HTMLDivElement, title: string = "TextBox", checked: boolean, ) {
     let main = document.createElement("div");
     main.classList.add("d-flex", "flex-column", "gap-2");

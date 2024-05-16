@@ -3,7 +3,7 @@ import { drawServers } from "./ServerList.js"
 import * as config from "./config.js"
 import { navbarStyle } from "./helpers.js"
 import { auth } from "./login.js"
-import { genSettings, setting, genTextBox, addTooltip, genCheckBox, genButtonElement } from "./settings.js"
+import { genSettings, setting, genTextBox, addTooltip, genCheckBox, genButtonElement, genAddList } from "./settings.js"
 
 window.onload = initial
 const loginManager = new auth()
@@ -184,6 +184,10 @@ async function handleServerClick(clickedServerId: string) {
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
+
+    //mod logs messages
+    let modlogsMessages = genSettings(settings_parent, "Mod Logs messages", true);
+
     //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
 
@@ -207,6 +211,8 @@ async function handleServerClick(clickedServerId: string) {
     let filter_exceeptions = genTextBox(settings_parent, "Filter exceeptions", body.filter_links_exception, saveLinkFilter);
     let filter_exceeptions_text_box_div = filter_exceeptions.input.parentElement!.previousElementSibling as HTMLDivElement;
     addTooltip(filter_exceeptions_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com,https://test/");
+
+    let add_custom_commands_list = genAddList(settings_parent, "custom_commands_list")
 
     // let filter_exceeptions_if_starts_with = genTextBox(settings_parent, "Filter 'if_starts_with' exceeptions", body.filter_links_exception_if_starts_with, saveLinkFilterif_starts_with);
     // let filter_exceeptions_if_starts_with_text_box_div = filter_exceeptions_if_starts_with.input.parentElement!.previousElementSibling as HTMLDivElement;
@@ -280,6 +286,28 @@ async function handleServerClick(clickedServerId: string) {
         }
         // Możesz wykonać inne operacje na podstawie odpowiedzi
     }
+
+    //modlogsMessages
+    console.log(body.modlogsMessages_channel)
+    if (body.modlogsMessages_enable === false) {
+        modlogsMessages.checkbox!.checked = false;
+        modlogsMessages.select.setAttribute("disabled", "true");
+    } else if (body.modlogsMessages_enable === true) {
+        modlogsMessages.checkbox!.checked = true;
+    } else {
+
+        throw new Error("Corrupted modlogsMessages response data");
+    }
+    body.server_channels_list?.forEach((channel, _index) => {
+        const option = document.createElement('option');
+        option.value = channel.id;
+        option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
+        modlogsMessages.select.options.add(option);
+        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
+        if (channel.id === body.modlogsMessages_channel) {
+            option.selected = true;
+        }
+    });
 
     // reading autorole switches
     if (body.autorole_enable === false) {
@@ -382,9 +410,30 @@ async function handleServerClick(clickedServerId: string) {
         }
     })
 
+    //saving mod logs checkbox
+    modlogsMessages.checkbox!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/modlogs_channel_enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        if (response.ok) {
+            console.log(`modlogs status set to ${this.checked}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting autorole to ${this.checked}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+
+    modlogsMessages.select!.addEventListener("change", async function () {
+        let response = await fetch(`${config.MainURL}/save/modlogs_channel_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
+        if (response.ok) {
+            console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
+        } else {
+            console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
+            handleServerClick(clickedServerId);
+        }
+    })
+
     // saving welcome message switches
     welcome_channel.checkbox!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+        let response = await fetch(`${config.MainURL}/save/modlogs_channel_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
         if (response.ok) {
             console.log(`Welcome message set to ${this.checked}. Response: ${response.status}`);
         } else {

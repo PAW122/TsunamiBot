@@ -66,6 +66,9 @@ router.post("/content", async (req, res) => {
     let auto_vc = false
     let auto_vc_channel = "N/A"
 
+    let modlogsMessages_enable = false
+    let modlogsMessages_channel = "N/A"
+
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
@@ -76,6 +79,15 @@ router.post("/content", async (req, res) => {
         auto_vc = data?.auto_vc?.auto_vc?.status ?? false
         auto_vc_channel = data?.auto_vc?.auto_vc?.channel_id
         filter_links = data?.link_filter?.status ?? false
+        
+        modLogs = data?.modLogsMessages
+        modLogsStatus = data?.modLogsMessages?.status
+        modLogsChannelId = data?.modLogsMessages?.channel_id
+
+        if(modLogs) {
+            modlogsMessages_enable = modLogsStatus
+            modlogsMessages_channel = modLogsChannelId
+        }
 
         if(filter_links) {
 
@@ -150,7 +162,9 @@ router.post("/content", async (req, res) => {
         auto_vc_channel: auto_vc_channel,
         filter_links,
         filter_links_exception,
-        filter_links_exception_if_starts_with
+        filter_links_exception_if_starts_with,
+        modlogsMessages_enable: modlogsMessages_enable,
+        modlogsMessages_channel: modlogsMessages_channel
     }
 
     return res.json(response_data);

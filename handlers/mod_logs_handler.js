@@ -1,11 +1,12 @@
 const Database = require("../db/database");
-const database_servers = new Database(__dirname + "/../db/files/servers.json");
 const database_modLogs = new Database(__dirname + "/../db/files/modlogs.json")
 
 
 const ConsoleLogger = require("./console")
 const logger = ConsoleLogger.getInstance();
 
+const LoadModLogsGuilds = require("./modlogsMessages_handler")
+const sendLogs = LoadModLogsGuilds.getInstance(null)
 
 /*
 logika wyświetlanie wiadomości przez api
@@ -45,7 +46,6 @@ userUsernameUpdate
  * @param {*} client - discord bot client
  */
 function mod_logs(client) {
-    database_servers.init();
     database_modLogs.init();
     function getCurrentTimestampInSeconds() {
         return Math.floor(Date.now() / 1000);
@@ -78,7 +78,8 @@ function mod_logs(client) {
         }
 
         database_modLogs.addToList(`${guildId}.modlogs.messageDelete`, data)
-
+        if(data.content.length > 500) return;
+        sendLogs.SendLog(guildId, `***Message Deleted***\nmessage Author: **${data.author}**\nContent: **${data.content}**\nDeleted by: **${data.deleted_by}**\nChannel: <#${data.channelId}>`)
     })
 
     // + role for user
@@ -100,7 +101,7 @@ function mod_logs(client) {
                     addedTo: newMember
                 }
                 database_modLogs.addToList(`${guildId}.modlogs.guildMemberAddRole`, data)
-
+                sendLogs.SendLog(guildId, `***guild Member Update***\n Added Role: **${data.addedRole}**\nAdded By: **${data.addedBy}**\nAdded To: **${data.addedTo}**`)
             });
         }
     });
@@ -124,6 +125,7 @@ function mod_logs(client) {
                     removedFrom: newMember
                 }
                 database_modLogs.addToList(`${guildId}.modlogs.guildMemberRemoveRole`, data);
+                sendLogs.SendLog(guildId, `***guild Member Update***\nRemoved Role: **${data.removedRole}**\nRemoved By: **${data.removedBy}**\nRemoved From: **${data.removedFrom}**`)
             });
         }
     });
@@ -141,6 +143,7 @@ function mod_logs(client) {
         };
 
         database_modLogs.addToList(`${guildId}.modlogs.guildMemberNicknameUpdate`, data);
+        sendLogs.SendLog(guildId, `***Nickname Update***\nOld Nickname: **${data.oldNickname}**\nNew Nickname: **${data.newNickname}**\nMember: <@${data.member.id}>`)
     });
 
     client.on("guildMemberAdd", (member) => {
@@ -153,6 +156,7 @@ function mod_logs(client) {
         };
 
         database_modLogs.addToList(`${guildId}.modlogs.guildMemberJoin`, data);
+        sendLogs.SendLog(guildId, `***guild Member Add***\n member: **<@${data.member.id}>**`)
     });
 
     // guild baner
@@ -184,6 +188,7 @@ function mod_logs(client) {
             };
 
             database_modLogs.addToList(`${guildId}.modlogs.guildAfkChannelAdd`, data);
+            sendLogs.LoadGuilds(guildId, `***guild Update***\nNew Afk Channel: **<#${data.afkChannel.id}>`)
         }
     });
 
@@ -198,7 +203,9 @@ function mod_logs(client) {
             editedBy: newMessage.author
         };
 
+        console.log("msg update")
         database_modLogs.addToList(`${guildId}.modlogs.messageContentEdited`, data);
+        sendLogs.LoadGuilds(guildId, `***message Update***\nOld Content: **${data.oldContent}**\nNew Content: **${data.newContent}**\nEdited By: **<@${data.editedBy.id}>**`)
     });
 
     //guild member offline
@@ -262,6 +269,7 @@ function mod_logs(client) {
             };
 
             database_modLogs.addToList(`${guildId}.modlogs.userUsernameUpdate`, data);
+            sendLogs.SendLog(guildId, `***Username Update***\nOld Username: **${data.oldUsername}**\nNew Username: **${data.newUsername}**\nMember: <@${data.member.id}>`)
         }
     });
 

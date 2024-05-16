@@ -10,10 +10,24 @@ const db = new Database(__dirname + "/../../db/files/servers.json")
 const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
 
+const mod_logs_cache = require("../../handlers/modlogsMessages_handler")
+const mlc = mod_logs_cache.getInstance()
+
 const checkServerExists = require("../handlers/checkServerExists")
 
 router.use(express.json());
 
+/**
+ * 
+ * @param {string} path database data path 
+ * @param {*} status data to save
+ * @param {json} req request data
+ * @param {json} res response data
+ * @param {string} tokenType token type
+ * @param {string} token user auth token
+ * @param {string} server_id server Id
+ * @returns {json} return res.status(200).json({ok: 200})
+ */
 async function default_save(path, status, req, res, tokenType, token, server_id) {
     db.init()
     const is_auth = await auth.verification(tokenType, token, server_id)
@@ -36,6 +50,74 @@ async function default_save(path, status, req, res, tokenType, token, server_id)
     db.write(path, status);
     return res.status(200).json({ ok: 200 });
 }
+
+router.get("/modlogs_channel_id/:tokenType/:token/:server_id/:channel", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let channel = req.params.channel
+    //TODO wywołać kod z funkcji modlogsMessages podczas dodania
+    default_save(
+        `${server_id}.modLogsMessages.channel`,
+        channel,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+
+    //check status
+    const data = db.read(`${server_id}.modLogsMessages`)
+    if(data && data.status === true && data.channel_id) {
+        mlc.AddGuild(server_id, channel)
+    }
+})
+
+router.get("/modlogs_channel_enable/:tokenType/:token/:server_id/:status", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+    //TODO wywołać kod z funkcji modlogsMessages podczas dodania
+    default_save(
+        `${server_id}.modLogsMessages.status`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+
+    const data = db.read(`${server_id}.modLogsMessages`)
+    if(status === true && data && data.channel_id) {
+        mlc.AddGuild(server_id, channel)
+    }
+})
+
+router.post("/custom_commands_list/:tokenType/:token/:server_id", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let data = req.body.data
+
+    const slot = data.slot
+    const type = data.type
+    const save_data = {
+        trigger: data.trigger,
+        response: data.response,
+        commandType: data.commandType,
+        command_status: data.command_status
+    }
+
+    default_save(
+        `${server_id}.custom_commands.${type}.${slot}`,
+        save_data,
+        req, res,
+        tokenType,
+        token,
+        server_id    
+    )
+})
 
 router.post("/exception_is_starts_with_filter/:tokenType/:token/:server_id", async (req, res) => {
     const tokenType = req.params.tokenType
