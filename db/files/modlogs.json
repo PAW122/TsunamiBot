@@ -4604,6 +4604,46 @@
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/967548065701576724/81d4001e0c782852b8c2fc702ffe5377.webp"
           }
+        },
+        {
+          "timesamp": 1715780886,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715780863828,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "1202521158898155560",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Paprykuś",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715780905,
+          "member": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715780883406,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": true,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "743455079176077354",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "MrDzelSki",
+            "roles": [
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/743455079176077354/d1334b4129712961c9dff5ed341c9700.webp"
+          }
         }
       ],
       "guildMemberAddRole": [
@@ -8997,6 +9037,118 @@
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/967548065701576724/81d4001e0c782852b8c2fc702ffe5377.webp"
           }
+        },
+        {
+          "timesamp": 1715780887,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1706259688841,
+            "premiumSinceTimestamp": null,
+            "nickname": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "609743130987593749",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "roles": [
+              "743094852320755844",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715780863828,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "1202521158898155560",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Paprykuś",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715780906,
+          "addedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "743094629238439946",
+            "name": "┋Porg szeregowy┋⚔️┋",
+            "color": 15158332,
+            "hoist": true,
+            "rawPosition": 70,
+            "permissions": "6479531584",
+            "managed": false,
+            "mentionable": false,
+            "flags": 1,
+            "tags": {},
+            "createdTimestamp": 1597237965641
+          },
+          "addedBy": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1706259688841,
+            "premiumSinceTimestamp": null,
+            "nickname": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "609743130987593749",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "░▒▓ɴᴇᴊᴛᴠɴ░▒▓",
+            "roles": [
+              "743094852320755844",
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif"
+          },
+          "addedTo": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1715780883406,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "743455079176077354",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "MrDzelSki",
+            "roles": [
+              "743094629238439946",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/743455079176077354/d1334b4129712961c9dff5ed341c9700.webp"
+          }
         }
       ],
       "messageContentEdited": [
@@ -10831,6 +10983,358 @@
             "tag": "pawiu_",
             "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715785313,
+          "oldContent": "https://tenor.com/view/dancing-pear-butt-gif-11943060",
+          "newContent": "https://tenor.com/view/dancing-pear-butt-gif-11943060",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715785335,
+          "oldContent": "https://tenor.com/view/im-always-a-sleepy-boy-sleepy-boy-im-always-a-sleepy-guy-gif-19785417",
+          "newContent": "https://tenor.com/view/im-always-a-sleepy-boy-sleepy-boy-im-always-a-sleepy-guy-gif-19785417",
+          "editedBy": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715787242,
+          "oldContent": "https://tenor.com/view/cat-kitty-meow-yawning-fish-gif-25301683",
+          "newContent": "https://tenor.com/view/cat-kitty-meow-yawning-fish-gif-25301683",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787253,
+          "oldContent": "https://tenor.com/view/bone-zone-the-bone-zone-pbob-weep-woom-gif-25200797",
+          "newContent": "https://tenor.com/view/bone-zone-the-bone-zone-pbob-weep-woom-gif-25200797",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787510,
+          "oldContent": "https://cdn.discordapp.com/attachments/1054842523052408862/1097992377228071071/ruchammalefuraski.gif",
+          "newContent": "https://cdn.discordapp.com/attachments/1054842523052408862/1097992377228071071/ruchammalefuraski.gif",
+          "editedBy": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715787539,
+          "oldContent": "https://tenor.com/view/kuba-kubu%C5%BA-igorekpindolek-igorek-pinolek-gif-27495191",
+          "newContent": "https://tenor.com/view/kuba-kubu%C5%BA-igorekpindolek-igorek-pinolek-gif-27495191",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787540,
+          "oldContent": "https://tenor.com/view/pingwiny-dla-dzieci-gif-27194334",
+          "newContent": "https://tenor.com/view/pingwiny-dla-dzieci-gif-27194334",
+          "editedBy": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715787552,
+          "oldContent": "https://tenor.com/view/silver-2-gif-13229447818752629942",
+          "newContent": "https://tenor.com/view/silver-2-gif-13229447818752629942",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787560,
+          "oldContent": "https://tenor.com/view/hampel-gif-4430347160960051654",
+          "newContent": "https://tenor.com/view/hampel-gif-4430347160960051654",
+          "editedBy": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715787577,
+          "oldContent": "https://media.discordapp.net/attachments/1037501927187030117/1045052038742020106/20221114_084328.gif",
+          "newContent": "https://media.discordapp.net/attachments/1037501927187030117/1045052038742020106/20221114_084328.gif",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787583,
+          "oldContent": "https://tenor.com/view/kacperek-gif-27057818",
+          "newContent": "https://tenor.com/view/kacperek-gif-27057818",
+          "editedBy": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          }
+        },
+        {
+          "timesamp": 1715787677,
+          "oldContent": "https://tenor.com/view/your-mom-liquid-solid-snake-gif-26911537",
+          "newContent": "https://tenor.com/view/your-mom-liquid-solid-snake-gif-26911537",
+          "editedBy": {
+            "id": "577507822011416592",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "toxicwaste_",
+            "globalName": "ToxicWaste",
+            "discriminator": "0",
+            "avatar": "a02443bc7ca73e8eaff934fbdd9e9259",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1557758994344,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "hexAccentColor": null,
+            "tag": "toxicwaste_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715787682,
+          "oldContent": "https://tenor.com/view/line-line-was-too-long-running-dancing-gif-16600212",
+          "newContent": "https://tenor.com/view/line-line-was-too-long-running-dancing-gif-16600212",
+          "editedBy": {
+            "id": "577507822011416592",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "toxicwaste_",
+            "globalName": "ToxicWaste",
+            "discriminator": "0",
+            "avatar": "a02443bc7ca73e8eaff934fbdd9e9259",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1557758994344,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/2.png",
+            "hexAccentColor": null,
+            "tag": "toxicwaste_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/577507822011416592/a02443bc7ca73e8eaff934fbdd9e9259.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715787686,
+          "oldContent": "https://media.discordapp.net/attachments/1095665065308471338/1134943290643460096/image0-15.gif?ex=6534324e&is=6521bd4e&hm=bcff226929049055686e88da49b53fd9d7868160d2ec0016f740113934655401&",
+          "newContent": "https://media.discordapp.net/attachments/1095665065308471338/1134943290643460096/image0-15.gif?ex=6534324e&is=6521bd4e&hm=bcff226929049055686e88da49b53fd9d7868160d2ec0016f740113934655401&",
+          "editedBy": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp"
+          }
+        },
+        {
+          "timesamp": 1715808090,
+          "oldContent": "m!p https://www.youtube.com/watch?v=0UOl4dSZHhg",
+          "newContent": "m!p https://www.youtube.com/watch?v=0UOl4dSZHhg",
+          "editedBy": {
+            "id": "609743130987593749",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "nejtvn",
+            "globalName": "Nejtvn",
+            "discriminator": "0",
+            "avatar": "a_b95439e2cd01376bb8071bf14c58224f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1565444490907,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "nejtvn",
+            "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715817133,
+          "oldContent": "m!p https://www.youtube.com/watch?v=2kCOXJ3Zg8k",
+          "newContent": "m!p https://www.youtube.com/watch?v=2kCOXJ3Zg8k",
+          "editedBy": {
+            "id": "609743130987593749",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "nejtvn",
+            "globalName": "Nejtvn",
+            "discriminator": "0",
+            "avatar": "a_b95439e2cd01376bb8071bf14c58224f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1565444490907,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "nejtvn",
+            "avatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/609743130987593749/a_b95439e2cd01376bb8071bf14c58224f.gif",
             "bannerURL": null
           }
         }
@@ -13088,6 +13592,152 @@
             "tag": "krokiet_0",
             "avatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715785334,
+          "channelId": "438621187132751875",
+          "messageId": "1240318146930413608",
+          "createdTimestamp": 1715785290225,
+          "content": "https://tenor.com/view/dancing-pear-butt-gif-11943060",
+          "author": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp"
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": {
+            "id": "692621246017568799",
+            "bot": false,
+            "system": false,
+            "flags": 0,
+            "username": "krokiet_0",
+            "globalName": "Krokiet",
+            "discriminator": "0",
+            "avatar": "86ce769e0eaae4390379ac659962ccb6",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1585204173331,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "krokiet_0",
+            "avatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/692621246017568799/86ce769e0eaae4390379ac659962ccb6.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715796222,
+          "channelId": "438621187132751875",
+          "messageId": "1240328104996634717",
+          "createdTimestamp": 1715787664413,
+          "content": "https://media.discordapp.net/attachments/1095665065308471338/1134943290643460096/image0-15.gif?ex=6534324e&is=6521bd4e&hm=bcff226929049055686e88da49b53fd9d7868160d2ec0016f740113934655401&",
+          "author": {
+            "id": "679264939935924225",
+            "bot": false,
+            "system": false,
+            "flags": 256,
+            "username": "otpyuumi.1",
+            "globalName": "お尻が好きです",
+            "discriminator": "0",
+            "avatar": "abb4511bfee20bfbc04fe121fdaeeef4",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1582019781813,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "hexAccentColor": null,
+            "tag": "otpyuumi.1",
+            "avatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/679264939935924225/abb4511bfee20bfbc04fe121fdaeeef4.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715796229,
+          "channelId": "438621187132751875",
+          "messageId": "1240327407089614868",
+          "createdTimestamp": 1715787498019,
+          "content": "@everyone",
+          "author": {
+            "id": "1202521158898155560",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "papryka_00",
+            "globalName": "Paprykuś",
+            "discriminator": "0",
+            "avatar": "a90260b2a55e6be01693d7964130a393",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1706773786044,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "hexAccentColor": null,
+            "tag": "papryka_00",
+            "avatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/1202521158898155560/a90260b2a55e6be01693d7964130a393.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "bannerURL": null
           }
         }
@@ -22988,6 +23638,69 @@
             "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
           }
+        },
+        {
+          "timesamp": 1715689194,
+          "oldContent": "when it comes to anything with .NET, if you somehow manage to update my compiler, you can, because at the moment I have a broken version from 2015 that gives me errors in lines where there is no code at all\n\nand if anything, apart from one API written in C, I don't know anything about .NET",
+          "newContent": "when it comes to anything with .NET, if you somehow manage to update my compiler, you can, because at the moment I have a broken version from 2015 that gives me errors in lines where there is no code at all\n\nand if anything, apart from one API written in C, I don't know anything about .NET😓",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715690344,
+          "oldContent": "bdw in go, for libraries you use go get \"link\" and for other files <ProjectName>/<FolderName>",
+          "newContent": "bdw in go, for libraries you use ``go get \"link\"`` and for other files <ProjectName>/<FolderName>",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715690621,
+          "oldContent": "i se",
+          "newContent": "i see",
+          "editedBy": {
+            "id": "597420184122294272",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "foxieflakey",
+            "globalName": "Cute Foxie Flakey UwU",
+            "discriminator": "0",
+            "avatar": "53c21b0fa2154707f6f9d0277b564c7a",
+            "avatarDecoration": null,
+            "createdTimestamp": 1562506471425,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/3.png",
+            "tag": "foxieflakey",
+            "avatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/597420184122294272/53c21b0fa2154707f6f9d0277b564c7a.webp"
+          }
         }
       ],
       "guildMemberJoin": [
@@ -23322,6 +24035,464 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/1234909673702817903/28fbbd113f3d11ef80c0bdedf7562873.webp"
+          }
+        },
+        {
+          "timesamp": 1715821121,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821157,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821188,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821246,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908071818559504",
+            "name": "Mod",
+            "color": 3066993,
+            "hoist": true,
+            "rawPosition": 6,
+            "permissions": "1100249890817",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714495427804
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234908071818559504",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234908071818559504",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821515,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821854,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715822950,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715824061,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1235001014596403301",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
           }
         }
       ],
@@ -23687,6 +24858,69 @@
               "botId": "1234909673702817903"
             },
             "createdTimestamp": 1714511390373
+          }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPosition": 3,
+          "newPosition": 2,
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908326773653505",
+            "name": "mini_robot",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 1,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714495488590
+          }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPosition": 4,
+          "newPosition": 3,
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234965642025898097",
+            "name": "Sub",
+            "color": 15105570,
+            "hoist": true,
+            "rawPosition": 2,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714509153611
+          }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPosition": 1,
+          "newPosition": 3,
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234965266723635201",
+            "name": "bot",
+            "color": 10181046,
+            "hoist": true,
+            "rawPosition": 3,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714509064132
           }
         }
       ],
@@ -24496,6 +25730,69 @@
             },
             "createdTimestamp": 1714511390373
           }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPermissions": [],
+          "newPermissions": [],
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908326773653505",
+            "name": "mini_robot",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 1,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714495488590
+          }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPermissions": [],
+          "newPermissions": [],
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234965642025898097",
+            "name": "Sub",
+            "color": 15105570,
+            "hoist": true,
+            "rawPosition": 2,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714509153611
+          }
+        },
+        {
+          "timesamp": 1715821589,
+          "oldPermissions": [],
+          "newPermissions": [],
+          "role": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234965266723635201",
+            "name": "bot",
+            "color": 10181046,
+            "hoist": true,
+            "rawPosition": 3,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": null,
+            "createdTimestamp": 1714509064132
+          }
         }
       ],
       "guildMemberJoin": [
@@ -24558,6 +25855,303 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/1234909673702817903/28fbbd113f3d11ef80c0bdedf7562873.webp"
+          }
+        },
+        {
+          "timesamp": 1715821154,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821186,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821394,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234908071818559504",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821480,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908071818559504",
+            "name": "Mod",
+            "color": 3066993,
+            "hoist": true,
+            "rawPosition": 6,
+            "permissions": "1100249890817",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714495427804
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821553,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715821857,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715822953,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
+        },
+        {
+          "timesamp": 1715824070,
+          "removedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1235001014596403301",
+            "name": "Stream",
+            "color": 15158332,
+            "hoist": false,
+            "rawPosition": 8,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714517587089
+          },
+          "removedFrom": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
           }
         }
       ],
@@ -25088,6 +26682,99 @@
           "tts": false,
           "attachments": [],
           "deleted_by": null
+        },
+        {
+          "timesamp": 1715823587,
+          "channelId": "1235001339436601457",
+          "messageId": "1240475748381229097",
+          "createdTimestamp": 1715822865339,
+          "content": "test",
+          "author": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": null
+        },
+        {
+          "timesamp": 1715823636,
+          "channelId": "1235001339436601457",
+          "messageId": "1240478883132866631",
+          "createdTimestamp": 1715823612722,
+          "content": "test",
+          "author": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": null
+        },
+        {
+          "timesamp": 1715823733,
+          "channelId": "1235001339436601457",
+          "messageId": "1240479273148485674",
+          "createdTimestamp": 1715823705709,
+          "content": "test2",
+          "author": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          },
+          "pinned": false,
+          "tts": false,
+          "attachments": [],
+          "deleted_by": null
         }
       ],
       "guildAfkChannelAdd": [
@@ -25114,6 +26801,230 @@
             "lastMessageId": null,
             "rateLimitPerUser": 0,
             "createdTimestamp": 1714517728124
+          }
+        }
+      ],
+      "userUsernameUpdate": [
+        {
+          "timesamp": 1715821763,
+          "oldUsername": null,
+          "newUsername": "senko",
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714508549553,
+            "premiumSinceTimestamp": null,
+            "nickname": "senko",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "senko",
+            "roles": [
+              "1234963108238327962",
+              "1234965266723635201",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        },
+        {
+          "timesamp": 1715821832,
+          "oldUsername": "senko",
+          "newUsername": "senko_",
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714508549553,
+            "premiumSinceTimestamp": null,
+            "nickname": "senko_",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "senko_",
+            "roles": [
+              "1234963108238327962",
+              "1234965266723635201",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        },
+        {
+          "timesamp": 1715821922,
+          "oldUsername": "senko_",
+          "newUsername": null,
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714508549553,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Senko",
+            "roles": [
+              "1234963108238327962",
+              "1234965266723635201",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        },
+        {
+          "timesamp": 1715821927,
+          "oldUsername": null,
+          "newUsername": "senko",
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714508549553,
+            "premiumSinceTimestamp": null,
+            "nickname": "senko",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "senko",
+            "roles": [
+              "1234963108238327962",
+              "1234965266723635201",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        },
+        {
+          "timesamp": 1715822033,
+          "oldUsername": "senko",
+          "newUsername": "senko_",
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714508549553,
+            "premiumSinceTimestamp": null,
+            "nickname": "senko_",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "928399458570502155",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "senko_",
+            "roles": [
+              "1234963108238327962",
+              "1234965266723635201",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/928399458570502155/989a3becf3d69f7f79059eefbde277c2.webp"
+          }
+        }
+      ],
+      "messageContentEdited": [
+        {
+          "timesamp": 1715822889,
+          "oldContent": "test",
+          "newContent": "test_",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715822903,
+          "oldContent": "test_",
+          "newContent": "test",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715822974,
+          "oldContent": "test",
+          "newContent": "test_",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
+          }
+        },
+        {
+          "timesamp": 1715822982,
+          "oldContent": "test_",
+          "newContent": "test",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "banner": null,
+            "accentColor": null,
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "hexAccentColor": null,
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "bannerURL": null
           }
         }
       ]
@@ -25249,6 +27160,27 @@
           "timesamp": 1715607093,
           "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
+          }
+        },
+        {
+          "timesamp": 1715693532,
+          "oldContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "editedBy": {
             "id": "807604332056150036",
             "bot": true,
