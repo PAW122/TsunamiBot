@@ -7,11 +7,11 @@ const cache = _m.getInstance()
 //TODO: dodać opcję usówania welcome z db
 const command = new SlashCommandBuilder()
     .setName("modlogs")
-    .setDescription("Set up a welcome channel")
+    .setDescription("Set up a modlogs channel")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addChannelOption(option => option
         .setName('channel')
-        .setDescription('Welcome channel')
+        .setDescription('modlogs channel')
         .addChannelTypes(ChannelType.GuildText)
         .setRequired(true)
     )
@@ -33,7 +33,10 @@ async function execute(interaction) {
 
     const channel = interaction.options.getChannel('channel');
     const channel_id = channel.id
-    const status = interaction.options.getBoolean("status") || true;
+    let status = interaction.options.getBoolean("status");
+    if(status === undefined) {
+        status = true
+    }
 
     const server_id = interaction.guild.id;
 
@@ -43,7 +46,12 @@ async function execute(interaction) {
     };
 
     database.write(`${server_id}.modLogsMessages`, data);
-    cache.AddGuild(interaction.guild.id, channel_id)
+
+    if(status === false) {
+        cache.RemoveGuild(interaction.guild.id)
+    } else {
+        cache.AddGuild(interaction.guild.id, channel_id)
+    }
 
     await interaction.reply("Channel set up!");
 }

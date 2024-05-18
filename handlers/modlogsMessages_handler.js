@@ -38,7 +38,7 @@ class LoadModLogsGuilds {
             if (!guild_mod_logs_channel) return;
             
             console.log(guild_mod_logs_channel)
-            if(!guild_mod_logs_channel?.status || guild_mod_logs_channel?.status != true) return;
+            if(!guild_mod_logs_channel || guild_mod_logs_channel.status != true) return;
 
             const channel_id = guild_mod_logs_channel.channel_id
 
@@ -59,6 +59,11 @@ class LoadModLogsGuilds {
         return true
     }
 
+    RemoveGuild(guild_id) {
+        delete this.guilds[guild_id]
+        return true
+    }
+
     /**
      * 1. get channel id from cache
      * 2. send message
@@ -75,7 +80,8 @@ class LoadModLogsGuilds {
         if(!channel || !channel_id) return false;
 
         const embed = new EmbedBuilder()
-        .setTitle("Logs")
+        .setTitle("Mod Logs")
+        .setColor("Red")
         .setDescription(message)
 
         channel.send({embeds: [embed]})

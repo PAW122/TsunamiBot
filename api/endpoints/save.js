@@ -78,6 +78,7 @@ router.get("/modlogs_channel_enable/:tokenType/:token/:server_id/:status", (req,
     const token = req.params.token
     const server_id = req.params.server_id
     let status = req.params.status
+
     //TODO wywołać kod z funkcji modlogsMessages podczas dodania
     default_save(
         `${server_id}.modLogsMessages.status`,
@@ -91,6 +92,8 @@ router.get("/modlogs_channel_enable/:tokenType/:token/:server_id/:status", (req,
     const data = db.read(`${server_id}.modLogsMessages`)
     if(status === true && data && data.channel_id) {
         mlc.AddGuild(server_id, channel)
+    } else if(status === false) {
+        mlc.RemoveGuild(server_id)
     }
 })
 
