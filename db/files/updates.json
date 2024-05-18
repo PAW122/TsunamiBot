@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.2.226",
+            "Date": "18.05.2024",
+            "Name": "Discord Mod Logs",
+            "Description": "bug fix. users wasnt able to turn off mod logs"
+        },
+        {
             "Version": "0.0.2.220",
             "Date": "16.05.2024",
             "Name": "Discord Mod Logs",
