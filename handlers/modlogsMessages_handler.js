@@ -5,6 +5,8 @@ const logger = ConsoleLogger.getInstance();
 const Database = require("../db/database")
 const db = new Database(__dirname + "/../db/files/servers.json");
 
+const {EmbedBuilder} = require("discord.js")
+
 class LoadModLogsGuilds {
     constructor() {
         if (!LoadModLogsGuilds.instance) {
@@ -71,7 +73,12 @@ class LoadModLogsGuilds {
         const channel_id = this.guilds[guild_id]
         const channel = client.channels.cache.get(channel_id)
         if(!channel || !channel_id) return false;
-        channel.send(message)
+
+        const embed = new EmbedBuilder()
+        .setTitle("Logs")
+        .setDescription(message)
+
+        channel.send({embeds: [embed]})
         return true
     }
 }
