@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.229",
+            "Date": "19.05.2024",
+            "Name": "Discord Bot Logs",
+            "Description": "Fixed a bug where, after loading the dashboard, the 'Mod Logs' channel was not automatically selected if it was set. added the /bot_logs command and the BotLogs item to the dashboard Bot Logs sends bot logs to the selected channel, currently information about the use of commands from the moderation category (auto_vc, autorole, bot_logs, clear, custom_commands, link_filter, modlogs, reload, welcome) is logged. information about the use of the command, its settings and who used it will be sent to the previously selected channel"
+        },
+        {
             "Version": "0.0.2.226",
             "Date": "18.05.2024",
             "Name": "Discord Mod Logs",

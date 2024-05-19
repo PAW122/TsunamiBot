@@ -1,4 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 
 const {registerSlashCommandsForGuild, unregisterAllCommandsForGuild} = require("../../handlers/SlashCommandHandler")
 
@@ -16,6 +18,7 @@ async function execute(interaction, client) {
     )
 
     await interaction.reply("commands are being refreshed. This may take a few minutes");
+    BotLogsHandler.SendLog(guild.id, `User: <@${interaction.user.id}> Reloaded Bot commands for this server.`)
 }
 
 //return message if user use /help/ping

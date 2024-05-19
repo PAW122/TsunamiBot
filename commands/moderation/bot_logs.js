@@ -3,30 +3,23 @@ const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
 const BotLogs = require("../../handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance()
+
+const _m = require("../../handlers/modlogsMessages_handler")
+const cache = _m.getInstance()
 //TODO: dodać opcję usówania welcome z db
 const command = new SlashCommandBuilder()
-    .setName("welcome")
-    .setDescription("Set up a welcome channel")
+    .setName("bot_logs")
+    .setDescription("Set up a bot logs channel")
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addChannelOption(option => option
         .setName('channel')
-        .setDescription('Welcome channel')
+        .setDescription('bot logs channel')
         .addChannelTypes(ChannelType.GuildText)
         .setRequired(true)
     )
-    .addStringOption(option => option
-        .setName("message")
-        .setDescription('Add message to welcome image')
-        .setRequired(false)
-    )
-    .addStringOption(option => option
-        .setName("dm")
-        .setDescription('Add priv message to new user')
-        .setRequired(false)
-    )
     .addBooleanOption(option => option
         .setName("status")
-        .setDescription("turn welcome messages on / off\n deafult is on")
+        .setDescription("turn bot logs on / off\n deafult is on")
         .setRequired(false) 
     );
 
@@ -41,32 +34,27 @@ async function execute(interaction) {
     }
 
     const channel = interaction.options.getChannel('channel');
-    const message = interaction.options.getString("message");
-    const status = interaction.options.getBoolean("status");
-    const dm = interaction.options.getString("dm");
+    const channel_id = channel.id
+    const status = interaction.options.getBoolean("status") || true;
 
     const server_id = interaction.guild.id;
-    const channel_id = channel.id;
-    const server_name = channel.guild.name;
 
     const data = {
-        name: server_name,
-        welcome_channel: channel_id,
-        welcome_message: message,
-        welcome_status: status,
-        welcome_dm_message: dm
+        channel_id: channel_id,
+        status: status
     };
 
-    database.write(`${server_id}`, data);
+    BotLogsHandler.SendLog(server_id, `User <@${interaction.user.id}> set Bot Logs settings:\nchannel: <#${channel_id}> status: ${status}`)
+    database.write(`${server_id}.botLogs`, data);
+    cache.AddGuild(interaction.guild.id, channel_id)
 
     await interaction.reply("Channel set up!");
-    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set Welcome messages:\nChannel: <#${channel_id}>\nMessage: ${message}\nStatus: ${status}\ndm: ${dm}`)
 }
 
 // Return message if user uses /help/welcome
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `Set up a welcome channel.\n \n  if you put {server_name} in the welcome message it will be converted to the server name\n \nstatus true / false - trun on / turn off welcome messages`,
+        content: `Set up channel for bot logs.\n(logs when someone uese bot command)`,
         ephemeral: true,
     });
 }

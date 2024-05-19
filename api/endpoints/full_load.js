@@ -69,6 +69,9 @@ router.post("/content", async (req, res) => {
     let modlogsMessages_enable = false
     let modlogsMessages_channel = "N/A"
 
+    let BotlogsMessages_enable = false
+    let BotlogsMessages_channel = "N/A"
+
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
@@ -82,7 +85,12 @@ router.post("/content", async (req, res) => {
         
         modLogs = data?.modLogsMessages
         modLogsStatus = data?.modLogsMessages?.status
-        modLogsChannelId = data?.modLogsMessages?.channel_id
+        modLogsChannelId = data?.modLogsMessages?.channel
+
+        if(data?.botLogs?.channel && data?.botLogs?.status) {
+            BotlogsMessages_channel = data?.botLogs?.channel
+            BotlogsMessages_enable = data?.botLogs?.status
+        }
 
         if(modLogs) {
             modlogsMessages_enable = modLogsStatus
@@ -163,8 +171,12 @@ router.post("/content", async (req, res) => {
         filter_links,
         filter_links_exception,
         filter_links_exception_if_starts_with,
+        
         modlogsMessages_enable: modlogsMessages_enable,
-        modlogsMessages_channel: modlogsMessages_channel
+        modlogsMessages_channel: modlogsMessages_channel,
+
+        BotlogsMessages_channel: BotlogsMessages_channel,
+        BotlogsMessages_enable: BotlogsMessages_enable
     }
 
     return res.json(response_data);

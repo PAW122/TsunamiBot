@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 
 const command = new SlashCommandBuilder()
     .setName("auto_vc")
@@ -34,6 +36,7 @@ async function execute(interaction) {
 
     // Save the voice channel ID to the database
     database.write(`${server_id}.auto_vc`, { auto_vc: { channel_id: vcChannelID, status: status } });
+    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set up channel <#${vcChannelID}> us automatic voice chanel with status: ${status}`)
 
     await interaction.reply({
         content: `Auto VC channel set to <#${vcChannelID}> with status ${status ? "on" : "off"}.`,

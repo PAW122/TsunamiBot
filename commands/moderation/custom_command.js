@@ -1,6 +1,8 @@
 //customCommand.js
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const { CustomCommands } = require("../../handlers/custom_commands")
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 
 const command = new SlashCommandBuilder()
     .setName("custom_command")
@@ -87,6 +89,8 @@ async function execute(interaction, client) {
             content: "saved",
             ephernal: true
         })
+
+        BotLogsHandler.SendLog(guild_id, `User: <@${user_id}> set custom Command:\nTriger: ${trigger}\nResponse: ${response}\nCommandType: ${commandType}\nCommand Status: ${command_status}`)
     } else {
         await interaction.reply({
             content: "An error occurred while saving. please try again later",

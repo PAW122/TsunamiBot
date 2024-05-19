@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {Auth, AuthV2} = require("../handlers/auth")
+const { Auth, AuthV2 } = require("../handlers/auth")
 const auth = AuthV2.getInstance();
 
 const config = require("../config.json")
@@ -51,6 +51,39 @@ async function default_save(path, status, req, res, tokenType, token, server_id)
     return res.status(200).json({ ok: 200 });
 }
 
+router.get("/botlogsMessages_channel/:tokenType/:token/:server_id/:channel", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let channel = req.params.channel
+    //TODO wywołać kod z funkcji modlogsMessages podczas dodania
+    default_save(
+        `${server_id}.botLogs.channel`,
+        channel,
+        req, res,
+        tokenType,
+        token,
+        server_id
+    )
+
+})
+
+router.get("/botlogsMessages_enable/:tokenType/:token/:server_id/:status", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+    //TODO wywołać kod z funkcji modlogsMessages podczas dodania
+    default_save(
+        `${server_id}.botLogs.status`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id
+    )
+})
+
 router.get("/modlogs_channel_id/:tokenType/:token/:server_id/:channel", (req, res) => {
     const tokenType = req.params.tokenType
     const token = req.params.token
@@ -63,12 +96,12 @@ router.get("/modlogs_channel_id/:tokenType/:token/:server_id/:channel", (req, re
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 
     //check status
     const data = db.read(`${server_id}.modLogsMessages`)
-    if(data && data.status === true && data.channel_id) {
+    if (data && data.status === true && data.channel_id) {
         mlc.AddGuild(server_id, channel)
     }
 })
@@ -86,13 +119,13 @@ router.get("/modlogs_channel_enable/:tokenType/:token/:server_id/:status", (req,
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 
     const data = db.read(`${server_id}.modLogsMessages`)
-    if(status === true && data && data.channel_id) {
+    if (status === true && data && data.channel_id) {
         mlc.AddGuild(server_id, channel)
-    } else if(status === false) {
+    } else if (status === false) {
         mlc.RemoveGuild(server_id)
     }
 })
@@ -118,7 +151,7 @@ router.post("/custom_commands_list/:tokenType/:token/:server_id", (req, res) => 
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -135,7 +168,7 @@ router.post("/exception_is_starts_with_filter/:tokenType/:token/:server_id", asy
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -153,7 +186,7 @@ router.post("/exception_filter/:tokenType/:token/:server_id", async (req, res) =
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -169,7 +202,7 @@ router.get("/links_filter/:tokenType/:token/:server_id/:status", async (req, res
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -185,7 +218,7 @@ router.get("/auto_vc/enable/:tokenType/:token/:server_id/:status", async (req, r
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -201,7 +234,7 @@ router.get("/auto_vc/channel_id/:tokenType/:token/:server_id/:channel_id", async
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -224,7 +257,7 @@ router.get("/dad_messages/enable/:tokenType/:token/:server_id/:status", async (r
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 
@@ -259,12 +292,12 @@ router.get("/dad_messages/channel/:tokenType/:token/:server_id/:value", async (r
 
     //zapisz dane jeżęli są poprawne
     if (value != true || value != false || !check_channel) {
-        return res.status(400).json({error: "invalid value", value: value});
+        return res.status(400).json({ error: "invalid value", value: value });
     }
 
     db.init()
     db.write(`${server_id}.channel`, value);
-    return res.status(200).json({ok: 200})
+    return res.status(200).json({ ok: 200 })
 
     function check_channel() {
         const channel = client.channels.resolve(value);
@@ -331,7 +364,7 @@ router.get("/welcome_dm_messages_content/:tokenType/:token/:server_id/:message",
         req, res,
         tokenType,
         token,
-        server_id    
+        server_id
     )
 })
 

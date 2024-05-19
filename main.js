@@ -76,6 +76,8 @@ const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
 const auto_vc_cache = require("./handlers/auto_vc_cache")
 const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_commands")
 const CustomCommandsHandler = CustomCommands.getInstance();
+const BotLogs = require("./handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance();
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -100,6 +102,7 @@ client.on("ready", async (res) => {
 
     mod_logs(client);
     CustomCommandsHandler.loadTextCommands()
+    BotLogsHandler.LoadGuilds()
 
     // RSC_config - register slash commands config
     if (rsc_config) {
@@ -120,7 +123,7 @@ client.on("interactionCreate", async (interaction) => {
     const commandLocation = commandsMap.get(commandName);
 
     if (commandLocation) {
-        const { data, execute } = require(commandLocation);
+        const { _, execute } = require(commandLocation);
 
         try {
             await execute(interaction, client);

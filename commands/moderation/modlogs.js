@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ChannelType, PermissionsBitField, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 
 const _m = require("../../handlers/modlogsMessages_handler")
 const cache = _m.getInstance()
@@ -54,6 +56,7 @@ async function execute(interaction) {
     }
 
     await interaction.reply("Channel set up!");
+    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set Mod Logs:\nchannel: <#${channel_id}>\n status: ${status}`)
 }
 
 // Return message if user uses /help/welcome
