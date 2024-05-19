@@ -11,7 +11,10 @@ const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
 
 const mod_logs_cache = require("../../handlers/modlogsMessages_handler")
-const mlc = mod_logs_cache.getInstance()
+const mlc = mod_logs_cache.getInstance()// mod logs cache
+
+const BotLogs = require("../../handlers/bot_logs_handler")
+const blh = BotLogs.getInstance()// bot logs handler
 
 const checkServerExists = require("../handlers/checkServerExists")
 
@@ -66,6 +69,11 @@ router.get("/botlogsMessages_channel/:tokenType/:token/:server_id/:channel", (re
         server_id
     )
 
+    const data = db.read(`${server_id}.botLogs`)
+    if (data && data.status === true && data.channel) {
+        blh.AddGuild(server_id, channel)
+    }
+
 })
 
 router.get("/botlogsMessages_enable/:tokenType/:token/:server_id/:status", (req, res) => {
@@ -82,6 +90,13 @@ router.get("/botlogsMessages_enable/:tokenType/:token/:server_id/:status", (req,
         token,
         server_id
     )
+    
+    const data = db.read(`${server_id}.botLogs`)
+    if (data && data.status === true && data.channel) {
+        blh.AddGuild(server_id, channel)
+    } else if (status === false) {
+        blh.RemoveGuild(server_id)
+    }
 })
 
 router.get("/modlogs_channel_id/:tokenType/:token/:server_id/:channel", (req, res) => {
