@@ -1,12 +1,26 @@
 async function auto_vc_commands_handler(message, auto_vc_channels) {
 
+    if(message.author.bot) return;
+
     if (!auto_vc_channels.is_exist(message.channel.id)) {
         return
     };
 
     if (!auto_vc_channels.is_admin(message.channel.id, message.author.id)) {
-        return
+        
+        if(message.content.startsWith("max_members")) {
+            await message.reply("Only chanel creator can do that")
+        }
+        
+        return 
     }
+
+    /*
+    TODO:
+    zapisywać w db jakie kanały zostały stworezone przez bota tak aby wczytywać to po jego restarcie i przelecieć po wysztkich zapisanych
+    jeżeli ktoś jest na tym kanale to dodać do pamięci cache, jeżeli nikogo na nim nie ma to usunąć kanał
+    */
+
 
     const prefix = ""
 
