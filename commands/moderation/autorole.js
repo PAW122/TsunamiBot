@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ChannelType, PermissionsBitField, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 //TODO: dodać opcję usówania welcome z db
 const command = new SlashCommandBuilder()
     .setName("autorole")
@@ -38,6 +40,7 @@ async function execute(interaction) {
     };
 
     database.write(`${server_id}.autorole`, data);
+    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set autorole.\nRole <@&${role.id}>\nWith status: ${status}`)
 
     await interaction.reply("autorole set up!");
 }

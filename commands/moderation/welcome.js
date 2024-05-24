@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ChannelType, PermissionsBitField, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 //TODO: dodać opcję usówania welcome z db
 const command = new SlashCommandBuilder()
     .setName("welcome")
@@ -58,6 +60,7 @@ async function execute(interaction) {
     database.write(`${server_id}`, data);
 
     await interaction.reply("Channel set up!");
+    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set Welcome messages:\nChannel: <#${channel_id}>\nMessage: ${message}\nStatus: ${status}\ndm: ${dm}`)
 }
 
 // Return message if user uses /help/welcome

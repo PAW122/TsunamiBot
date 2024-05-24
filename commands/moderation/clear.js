@@ -1,6 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const Cooldowns = require("../../handlers/cooldowns")
 
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
+
 const cooldowns = new Cooldowns();
 
 const command = new SlashCommandBuilder()
@@ -33,6 +36,9 @@ async function execute(interaction, client) {
     } catch (err) {
         return (interaction.reply({ content: "I can't delete the message", ephemeral: true }));
     }
+
+    //log information on bot log channel
+    BotLogsHandler.SendLog(guild, `User: <@${user_id}> deleted ${to_delete} messages on Channel: <#${interaction.channel.id}>.\n Cooldown: 10s`)
 
     const embed2 = new EmbedBuilder()
         .setTitle('clear')

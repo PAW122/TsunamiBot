@@ -2,6 +2,18 @@ const fs = require('fs');
 const ConsoleLogger = require("../handlers/console")
 const logger = ConsoleLogger.getInstance();
 const path = require('path');
+const config = require("../config.json")
+const logs = config[config.using].db_logs
+
+function log_err(message) {
+    if(!logs) return
+    console.error(message)
+}
+
+function log(message) {
+    if(!logs) return
+    console.log(message)
+}
 
 class Database {
     constructor(file_path) {
@@ -22,6 +34,11 @@ class Database {
             //console.log(`Plik ${this.file_path} już istnieje.`);
             // console.log("db is working")
         }
+    }
+
+    getAllKeys() {
+        const database = JSON.parse(fs.readFileSync(this.file_path, 'utf-8'));
+        return Object.keys(database);
     }
 
     /**
@@ -138,14 +155,14 @@ class Database {
         for (let i = 0; i < pathSegments.length; i++) {
             current = current[pathSegments[i]];
             if (!current) {
-                console.error(`Path ${path} does not exist in the database.`);
+                log_err(`Path ${path} does not exist in the database.`);
                 return null;
             }
         }
     
         // Sprawdza czy ścieżka prowadzi do tablicy
         if (!Array.isArray(current)) {
-            console.error(`Path ${path} does not lead to an array.`);
+            log_err(`Path ${path} does not lead to an array.`);
             return null;
         }
     
@@ -240,7 +257,7 @@ class Database {
             const stats = fs.statSync(filePath);
             return stats.size;
         } catch (error) {
-            console.error('Error getting current file size:', error);
+            log_err('Error getting current file size:', error);
             return null;
         }
     }

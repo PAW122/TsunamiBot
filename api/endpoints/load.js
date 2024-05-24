@@ -4,6 +4,7 @@ const router = express.Router();
 const Database = require("../../db/database")
 const db = new Database(__dirname + "/../../db/files/servers.json")
 const partnets_db = new Database(__dirname + "/../../db/files/partners.json")
+const updates_db = new Database(__dirname + "/../../db/files/updates.json")
 
 const {Auth, AuthV2} = require("../handlers/auth")
 const auth = Auth.getInstance();
@@ -13,6 +14,10 @@ const ConsoleLogger = require("../../handlers/console")
 const logger = ConsoleLogger.getInstance();
 
 const checkServerExists = require("../handlers/checkServerExists")
+
+router.get("/updates", async(req, res) => {
+    return res.json(await updates_db.read("updates"))
+})
 
 router.get("/partners", async (req, res) => {
     return res.json(await partnets_db.read("partners"))

@@ -18,6 +18,10 @@ app.get("/", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/index.html")
 })
 
+app.get("/updates", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/updates.html")
+})
+
 app.get("/partners", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/partners.html")
 })
@@ -90,7 +94,6 @@ let data = DataStore.getInstance()
 app.post("/connect/:station_name/:ip", async (req, res) => {
     let ipAddress = req.params.ip
     const station_name = req.params.station_name
-    console.log(`ip: ${ipAddress}`)
     // console.log(req)
     
     //test req
@@ -109,7 +112,6 @@ app.post("/connect/:station_name/:ip", async (req, res) => {
 
    //lista piosenek przyjdzie w body
 
-    console.log(req.body)
     const songs_list = req.body
 
     console.log(station_name)
@@ -117,9 +119,6 @@ app.post("/connect/:station_name/:ip", async (req, res) => {
     //client odpowiedział, dodaj go do listy
     data.add(ipAddress, { name: station_name, files: songs_list });
 
-    console.log("wszystkie dane")
-    console.log(data.get())
-    
     return res.status(200).json({ok: 200})
 })
 

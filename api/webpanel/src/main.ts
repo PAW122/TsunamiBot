@@ -3,7 +3,7 @@ import { drawServers } from "./ServerList.js"
 import * as config from "./config.js"
 import { navbarStyle } from "./helpers.js"
 import { auth } from "./login.js"
-import { genSettings, setting, genTextBox, addTooltip, genCheckBox, genButtonElement } from "./settings.js"
+import { genSettings, setting, genTextBox, addTooltip, genCheckBox, genButtonElement, genAddList } from "./settings.js"
 
 window.onload = initial
 const loginManager = new auth()
@@ -15,6 +15,9 @@ function initial() {
     if (window.location.pathname === "/partners") {
         loadPartners();
         return;
+    } else if (window.location.pathname === "/updates") {
+        LoadUpdates();
+        return;
     }
 
     navbarStyle();
@@ -24,7 +27,7 @@ function initial() {
     let login_button = document.getElementById("login-button") as HTMLLinkElement
     login_button.href = config.AuthURL
 
-    console.log(loginManager.token.token)
+    // console.log(loginManager.token.token)
 
     const loginButton = document.getElementById("login-button");
     if (loginManager.token.token && loginButton) {
@@ -48,6 +51,12 @@ function initial() {
         }
     }
     window["lm"] = loginManager
+
+    document.getElementById("logout-button")?.addEventListener("click", () => {
+        console.log("invalid token")
+        loginManager.dispose()
+        window.location.reload();
+    })
 }
 
 
@@ -87,12 +96,45 @@ async function loadPartners() {
     }
 }
 
+async function LoadUpdates() {
+    const response = await fetch(`${config.MainURL}/load/updates`);
+    if (response.ok) {
+        const updatesData = await response.json();
+        const updatesContainer = document.getElementById("updates-container");
+        if (updatesContainer) {
+            // Iterujemy przez każdego partnera w obiekcie updatesData
+            for (const key in updatesData) {
+                if (Object.hasOwnProperty.call(updatesData, key)) {
+                    const version = updatesData[key];
+                    const updatedElemet = document.createElement("div");
+                    updatedElemet.classList.add("update");
+                    // Tworzymy HTML z danymi partnera
+                    updatedElemet.innerHTML = `
+                        <div class="updates-info">
+                            <div class="partner-details">
+                                <h2>${version.Version}</h2>
+                                <h1>${version.Name}</h1>
+                                ${version.Date ? `<a>Date: ${version.Date}</a>` : "Date: N/A"}
+                                ${version.Description ? `<p>Description: <a>${version.Description}</a></p>` : ""}
+                            </div>
+                        </div>
+                    `;
+                    updatesContainer.appendChild(updatedElemet);
+                }
+            }
+        }
+    } else {
+        console.log("response error")
+    }
+}
+
 async function login() {
     let response = await fetch(`${config.MainURL}/load/server-list/${loginManager.token.token_type}/${loginManager.token.token}`);
     let json = await response.json();
     if (json?.error && json.error === "invalid_token") {
         loginManager.dispose();
         window.location.reload();
+        return false
     }
     document.getElementById("username-text")!.textContent = `@${json.user.username}`
     document.getElementById("profile-picture")?.setAttribute("src", `https://cdn.discordapp.com/avatars/${json.user.id}/${json.user.avatar}.jpg`)
@@ -105,6 +147,8 @@ async function login() {
         loginManager.dispose();
         window.location.reload();
     });
+
+    return true
 }
 
 async function handleServerClick(clickedServerId: string) {
@@ -139,8 +183,17 @@ async function handleServerClick(clickedServerId: string) {
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
+
+    //mod logs messages
+    let modlogsMessages = genSettings(settings_parent, "Mod Logs messages", true);
+
+    //bot logs messages
+    let BotlogsMessages = genSettings(settings_parent, "Bot Logs", true);
+
     //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
+
+    let invite_tracker = genSettings(settings_parent, "Invite Tracker", true);
 
     let auto_vc = genSettings(settings_parent, "Auto create vc", true);
 
@@ -162,29 +215,31 @@ async function handleServerClick(clickedServerId: string) {
     let filter_exceeptions = genTextBox(settings_parent, "Filter exceeptions", body.filter_links_exception, saveLinkFilter);
     let filter_exceeptions_text_box_div = filter_exceeptions.input.parentElement!.previousElementSibling as HTMLDivElement;
     addTooltip(filter_exceeptions_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com,https://test/");
-    
+
+    // let add_custom_commands_list = genAddList(settings_parent, "custom_commands_list")
+
     // let filter_exceeptions_if_starts_with = genTextBox(settings_parent, "Filter 'if_starts_with' exceeptions", body.filter_links_exception_if_starts_with, saveLinkFilterif_starts_with);
     // let filter_exceeptions_if_starts_with_text_box_div = filter_exceeptions_if_starts_with.input.parentElement!.previousElementSibling as HTMLDivElement;
     // addTooltip(filter_exceeptions_if_starts_with_text_box_div, "list of links that dont get deleted\n\n e.x: https://youtube.com/");
 
     async function saveLinkFilter(data: any) {
-        if(!data || data == "") {
+        if (!data || data == "") {
             data = false
         }
         const body_data = {
             data: data
         }
         let response = await fetch(
-            `${config.MainURL}/save/exception_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, 
+            `${config.MainURL}/save/exception_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`,
             {
-              method: 'POST', // Dodaj metodę, np. POST
-              headers: {
-                'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
-              },
-              body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
+                method: 'POST', // Dodaj metodę, np. POST
+                headers: {
+                    'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
+                },
+                body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
             }
-          );
-        
+        );
+
         if (response.ok) {
             console.log(`save Link Filter content set to. Response: ${response.status}`);
         } else {
@@ -236,126 +291,141 @@ async function handleServerClick(clickedServerId: string) {
         // Możesz wykonać inne operacje na podstawie odpowiedzi
     }
 
-    // reading autorole switches
-    if (body.autorole_enable === false) {
-        autorole.checkbox!.checked = false;
-        autorole.select.setAttribute("disabled", "true");
-    } else if (body.autorole_enable === true) {
-        autorole.checkbox!.checked = true;
-    } else {
+    function manage_select_lists(parent_object,list, checkbox_value, selected_channel, error_message) {
+        // console.log(checkbox_value)
+        // console.log(selected_channel)
+        // console.log()
 
-        throw new Error("Corrupted autorole response data");
+        if (checkbox_value === false) {
+            parent_object.checkbox!.checked = false;
+            parent_object.select.setAttribute("disabled", "true");
+        } else if (checkbox_value === true) {
+            parent_object.checkbox!.checked = true;
+        } else {
+            console.error(error_message);
+        }
+        list?.forEach((channel, _index) => {
+            const option = document.createElement('option');
+            option.value = channel.id;
+            option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
+            parent_object.select.options.add(option);
+            if (channel.id === selected_channel) {
+                option.selected = true;
+            }
+        });
     }
-    body.server_roles_list?.forEach((role, _index) => {
-        const option = document.createElement('option');
-        option.value = role.id;
-        option.text = role.name.length > 32 ? role.name.substring(0, 29) + "..." : role.name;
-        autorole.select.options.add(option)
-        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
-        if (role.id === body.autorole_role.id) {
-            option.selected = true;
-        }
-    });
 
-    // reading welcome message switches
-    if (body.welcome_message_enable === false) {
-        welcome_channel.checkbox!.checked = false;
-        welcome_channel.select.setAttribute("disabled", "true");
-    } else if (body.welcome_message_enable === true) {
-        welcome_channel.checkbox!.checked = true;
-    } else {
-        throw new Error("Corrupted welcome message response data");
+    manage_select_lists(
+        modlogsMessages,
+        body.server_channels_list,
+        body.modlogsMessages_enable,
+        body.modlogsMessages_channel,
+        "Corrupted modlogsMessages response data"
+    )
+
+    manage_select_lists(
+        autorole,
+        body.server_roles_list,
+        body.autorole_enable,
+        body.autorole_role.id,
+        "Corrupted autorole response data"
+    )
+
+    manage_select_lists(
+        BotlogsMessages,
+        body.server_channels_list,
+        body.BotlogsMessages_enable,
+        body.BotlogsMessages_channel,
+        "Corrupted bot logs messages response data"
+    )
+
+    manage_select_lists(
+        welcome_channel,
+        body.server_channels_list,
+        body.welcome_message_enable,
+        body.welcome_message_channel.id,
+        "Corrupted welcome channel response data"
+    )
+
+    manage_select_lists(
+        invite_tracker,
+        body.server_channels_list,
+        body.inviteTracker_enable,
+        body.inviteTracker_chanel,
+        "Corrupted invite tracker response data"
+    )
+
+    manage_select_lists(
+        auto_vc,
+        body.server_channels_list,
+        body.auto_vc,
+        body.auto_vc_channel,
+        "Corrupted auto vc response data"
+    )
+
+    async function saving_changes(parent, checkbox_link, selectlist_link, name) {
+        // saving autorole switches
+        parent.checkbox!.addEventListener("change", async function () {
+            let response = await fetch(`${config.MainURL}${checkbox_link}${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
+            if (response.ok) {
+                console.log(`${name} set to ${parent.checkbox?.checked}. Response: ${response.status}`);
+            } else {
+                console.warn(`Error setting ${name} to ${parent.checkbox?.checked}. Refreshing`);
+                handleServerClick(clickedServerId);
+            }
+        })
+        parent.select!.addEventListener("change", async function () {
+            let response = await fetch(`${config.MainURL}${selectlist_link}${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
+            if (response.ok) {
+                console.log(`${name} role set to ${this.value}. Response: ${response.status}`);
+            } else {
+                console.warn(`Error setting ${name} to ${this.value}. Refreshing`);
+                handleServerClick(clickedServerId);
+            }
+        })
     }
-    body.server_channels_list?.forEach((channel, _index) => {
-        const option = document.createElement('option');
-        option.value = channel.id;
-        option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
-        welcome_channel.select.options.add(option);
-        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
-        if (channel.id === body.welcome_message_channel.id) {
-            option.selected = true;
-        }
-    });
 
-    // reading auto vc
-    if (body.auto_vc === false) {
-        auto_vc.checkbox!.checked = false;
-        auto_vc.select.setAttribute("disabled", "true");
-    } else if (body.auto_vc === true) {
-        auto_vc.checkbox!.checked = true;
-    } else {
-        throw new Error("Corrupted auto vc message response data");
-    }
-    body.server_channels_list?.forEach((channel, _index) => {
-        const option = document.createElement('option');
-        option.value = channel.id;
-        option.text = channel.name.length > 32 ? channel.name.substring(0, 29) + "..." : channel.name;
-        auto_vc.select.options.add(option);
-        // Ustaw opcję jako wybraną, jeśli jej id zgadza się z id zwróconym z serwera
-        if (channel.id === body.auto_vc_channel) {
-            option.selected = true;
-        }
-    });
+    saving_changes(
+        autorole,
+        "/save/auto_role_status/",
+        "/save/auto_role_id/",
+        "autorole"
+    )
 
-    // saving autorole switches
-    autorole.checkbox!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/auto_role_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
-        if (response.ok) {
-            console.log(`Autorole set to ${autorole.checkbox?.checked}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting autorole to ${autorole.checkbox?.checked}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
-    autorole.select!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/auto_role_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
-        if (response.ok) {
-            console.log(`Autorole role set to ${this.value}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting autorole role to ${this.value}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
+    saving_changes(
+        auto_vc,
+        "/save/auto_vc/enable/",
+        "/save/auto_vc/channel_id/",
+        "auto voice chat"
+    )
 
-    // saving auto vc
-    auto_vc.checkbox!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/auto_vc/enable/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
-        if (response.ok) {
-            console.log(`Welcome message set to ${this.checked}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting autorole to ${this.checked}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
-    auto_vc.select!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/auto_vc/channel_id/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
-        if (response.ok) {
-            console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
+    saving_changes(
+        modlogsMessages,
+        "/save/modlogs_channel_enable/",
+        "/save/modlogs_channel_id/",
+        "mod logs messages"
+    )
 
-    // saving welcome message switches
-    welcome_channel.checkbox!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/welcome_messages_status/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.checked}`);
-        if (response.ok) {
-            console.log(`Welcome message set to ${this.checked}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting autorole to ${this.checked}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
-    welcome_channel.select!.addEventListener("change", async function () {
-        let response = await fetch(`${config.MainURL}/save/welcome_messages_channel/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${this.value}`);
-        if (response.ok) {
-            console.log(`Welcome message channel set to ${this.value}. Response: ${response.status}`);
-        } else {
-            console.warn(`Error setting welcome message channel to ${this.value}. Refreshing`);
-            handleServerClick(clickedServerId);
-        }
-    })
+    saving_changes(
+        BotlogsMessages,
+        "/save/botlogsMessages_enable/",
+        "/save/botlogsMessages_channel/",
+        "bot logs messages"
+    )
+
+    saving_changes(
+        welcome_channel,
+        "/save/modlogs_channel_id/",
+        "/save/welcome_messages_channel/",
+        "welcome channel"
+    )
+
+    saving_changes(
+        invite_tracker,
+        "/save/invite_tracker_enable/",
+        "/save/invite_tracker_channel/",
+        "invite tracker"
+    )
 
     //filter links checkbox
     filter_links.checkbox!.addEventListener("change", async function () {
@@ -378,5 +448,4 @@ async function handleServerClick(clickedServerId: string) {
             handleServerClick(clickedServerId);
         }
     })
-
 }

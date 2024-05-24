@@ -66,6 +66,15 @@ router.post("/content", async (req, res) => {
     let auto_vc = false
     let auto_vc_channel = "N/A"
 
+    let modlogsMessages_enable = false
+    let modlogsMessages_channel = "N/A"
+
+    let BotlogsMessages_enable = false
+    let BotlogsMessages_channel = "N/A"
+
+    let inviteTracker_enable = false
+    let inviteTracker_chanel = "N/A"
+
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
@@ -76,6 +85,25 @@ router.post("/content", async (req, res) => {
         auto_vc = data?.auto_vc?.auto_vc?.status ?? false
         auto_vc_channel = data?.auto_vc?.auto_vc?.channel_id
         filter_links = data?.link_filter?.status ?? false
+        
+        modLogs = data?.modLogsMessages
+        modLogsStatus = data?.modLogsMessages?.status
+        modLogsChannelId = data?.modLogsMessages?.channel
+
+        if(data?.invite_tracker && data?.invite_tracker?.channel_id && data?.invite_tracker?.status) {
+            inviteTracker_enable = data.invite_tracker.status
+            inviteTracker_chanel = data.invite_tracker.channel_id
+        }
+
+        if(data?.botLogs?.channel && data?.botLogs?.status) {
+            BotlogsMessages_channel = data?.botLogs?.channel
+            BotlogsMessages_enable = data?.botLogs?.status
+        }
+
+        if(modLogs) {
+            modlogsMessages_enable = modLogsStatus
+            modlogsMessages_channel = modLogsChannelId
+        }
 
         if(filter_links) {
 
@@ -95,12 +123,18 @@ router.post("/content", async (req, res) => {
         if(autorole) {
             autorole_enable =  data.autorole.status ?? false
 
+            autorole_role = {
+                id: null,
+                name: null
+            };
+
             const roleId = data.autorole.role_id;//dont send
             const role = server.roles.cache.get(roleId);//dont send
-            autorole_role = {
-                id: role.id,
-                name: role.name
-            };
+
+            if(role && role.id && role.name) {
+                autorole_role.id = role.id
+                autorole_role.name = role.name
+            }
     
         }
 
@@ -144,7 +178,16 @@ router.post("/content", async (req, res) => {
         auto_vc_channel: auto_vc_channel,
         filter_links,
         filter_links_exception,
-        filter_links_exception_if_starts_with
+        filter_links_exception_if_starts_with,
+        
+        modlogsMessages_enable: modlogsMessages_enable,
+        modlogsMessages_channel: modlogsMessages_channel,
+
+        BotlogsMessages_channel: BotlogsMessages_channel,
+        BotlogsMessages_enable: BotlogsMessages_enable,
+
+        inviteTracker_enable: inviteTracker_enable,
+        inviteTracker_chanel: inviteTracker_chanel,
     }
 
     return res.json(response_data);

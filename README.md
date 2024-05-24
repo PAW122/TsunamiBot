@@ -151,6 +151,7 @@ może dodać opcję streamowania audio live (client w go) przesyłał by audio d
 playlist_name.json {queue: ["sona_name"...]}
 /play-playlist station <playlist_name>
 # TODO
+- dodać możliwosc wybrania tła dla wecome messages
 # hosting
 {
     system płatności: user_id {wybrana oferta (np 1mieś)}

@@ -13,4 +13,10 @@ router.get("/logout/:tokenType/:token", async (req, res) => {
     res.status(200).json({ok: 200})
 })
 
+// actions/
+router.get("/server_status", async(req,res) => {
+    const timestamp = Date.now();
+    return res.send({status: "ok", date: timestamp, name: "senko-server"})
+})
+
 module.exports = router

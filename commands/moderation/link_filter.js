@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
+const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance()
 
 const command = new SlashCommandBuilder()
     .setName("link_filter")
@@ -21,7 +23,8 @@ async function execute(interaction, client) {
 
     database.write(`${server_id}.link_filter`, { status: status, exception: [], exception_if_starts_with: [] })
 
-    await interaction.reply({ content: `Set status: ${status ? "on" : "off"}`, ephemeral: true });
+    await interaction.reply({ content: `Set status: ${status ? "on" : "off"}\n\nyou can add links that do not want to be removed on the bot's website`, ephemeral: true });
+    BotLogsHandler.SendLog(server_id, `User: <@${interaction.user.id}> set filter link:\nstatus: ${status}`)
 }
 
 //return message if user use /help/ping

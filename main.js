@@ -46,9 +46,13 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildInvites
     ]
 });
+
+const LoadModLogsGuilds = require("./handlers/modlogsMessages_handler")
+LoadModLogsGuilds.getInstance().LoadGuilds()
 
 const { register_slash_commands, unregisterAllCommands } = require("./handlers/SlashCommandHandler")
 const { commandsMap } = require("./handlers/commandsMap")
@@ -69,10 +73,23 @@ const { AudioApiV2 } = require("./handlers/audio/apiV2")
 const run_sdk = require("./sdk/server/server")
 const manage_auto_vc = require("./handlers/auto_vc_handler")
 const filter_links = require("./handlers/filter_links")
+const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
+const auto_vc_cache = require("./handlers/auto_vc_cache")
+const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_commands")
+const CustomCommandsHandler = CustomCommands.getInstance();
+const BotLogs = require("./handlers/bot_logs_handler")
+const BotLogsHandler = BotLogs.getInstance();
+const InviteTracker = require("./handlers/invite_tracker")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
+
+const auto_vc_channels = new auto_vc_cache()
+CustomCommandsHandler.loadTextCommands()
+BotLogsHandler.LoadGuilds()
+const inviteTracker = new InviteTracker(client)
+
 
 client.on("ready", async (res) => {
 
@@ -110,7 +127,7 @@ client.on("interactionCreate", async (interaction) => {
     const commandLocation = commandsMap.get(commandName);
 
     if (commandLocation) {
-        const { data, execute } = require(commandLocation);
+        const { _, execute } = require(commandLocation);
 
         try {
             await execute(interaction, client);
@@ -151,6 +168,7 @@ client.on('interactionCreate', async interaction => {
 client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)
     autorole(member, client)
+    inviteTracker.userJoin(member, client)
 });
 
 client.on("messageCreate", async message => {
@@ -161,6 +179,8 @@ client.on("messageCreate", async message => {
     messages_stats_handler(message)
     test_msg_handler(client, message)
     filter_links(client, message)
+    auto_vc_commands_handler(message, auto_vc_channels)
+    handleCustomTextCommands(message)
 
     if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("reload")) {
         const args = message.content.trim().split(/ +/);
@@ -178,34 +198,6 @@ client.on("messageCreate", async message => {
         }
     }
 })
-
-class auto_vc_cache {
-    constructor() {
-        this.cache = []
-    }
-
-    add(channel_id) {
-        this.cache[channel_id] = true
-    }
-
-    is_exist(channel_id) {
-        if (this.cache[channel_id]) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    remove(channel_id) {
-        delete this.cache[channel_id];
-    }
-
-    len() {
-        return this.cache.length
-    }
-}
-
-const auto_vc_channels = new auto_vc_cache()
 
 client.on('voiceStateUpdate', async (oldState, newState) => {
     manage_auto_vc(client, oldState, newState, auto_vc_channels)
@@ -257,6 +249,8 @@ async function bot_on() {
 
 client.on("uncaughtException", (e) => {
     logger.warn(e)
+    //TODO dodać funkcję zapisującą do db dane z crasha, dane bota
+    // i inne pierdoły, wysyłać komunikat na webhooka że bot jest down
 });
 
 client.login(token)
