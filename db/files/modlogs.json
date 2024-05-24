@@ -27136,6 +27136,118 @@
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/778643150981562368/97cb0c6cb86934e4142040359503487e.webp"
           }
+        },
+        {
+          "timesamp": 1716518431,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908326773653505",
+            "name": "mini_robot",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 1,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714495488590
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234908326773653505",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1716518435073,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "778643150981562368",
+            "avatar": null,
+            "flags": 1,
+            "displayName": "Senko",
+            "roles": [
+              "1234908326773653505",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/778643150981562368/97cb0c6cb86934e4142040359503487e.webp"
+          }
+        },
+        {
+          "timesamp": 1716518537,
+          "addedRole": {
+            "guild": "1234907957473575146",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "1234908326773653505",
+            "name": "mini_robot",
+            "color": 3447003,
+            "hoist": true,
+            "rawPosition": 1,
+            "permissions": "0",
+            "managed": false,
+            "mentionable": false,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1714495488590
+          },
+          "addedBy": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1714495400592,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "438336824516149249",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Pawiu",
+            "roles": [
+              "1234907999999496283",
+              "1234908326773653505",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          },
+          "addedTo": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1716518540723,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "778643150981562368",
+            "avatar": null,
+            "flags": 1,
+            "displayName": "Senko",
+            "roles": [
+              "1234908326773653505",
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/778643150981562368/97cb0c6cb86934e4142040359503487e.webp"
+          }
         }
       ],
       "rolePositionUpdate": [
@@ -28624,6 +28736,46 @@
           "member": {
             "guildId": "1234907957473575146",
             "joinedTimestamp": 1716515667119,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "778643150981562368",
+            "avatar": null,
+            "flags": 1,
+            "displayName": "Senko",
+            "roles": [
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/778643150981562368/97cb0c6cb86934e4142040359503487e.webp"
+          }
+        },
+        {
+          "timesamp": 1716518430,
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1716518435073,
+            "premiumSinceTimestamp": null,
+            "nickname": null,
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "778643150981562368",
+            "avatar": null,
+            "flags": 1,
+            "displayName": "Senko",
+            "roles": [
+              "1234907957473575146"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/778643150981562368/97cb0c6cb86934e4142040359503487e.webp"
+          }
+        },
+        {
+          "timesamp": 1716518536,
+          "member": {
+            "guildId": "1234907957473575146",
+            "joinedTimestamp": 1716518540723,
             "premiumSinceTimestamp": null,
             "nickname": null,
             "pending": false,

@@ -3,16 +3,17 @@ const database = new Database(__dirname + "/../db/files/servers.json");
 
 class InviteTracker {
 
-    constructor() {
+    constructor(client) {
         this.invites = {}
-    }
-
-    async userJoin(member, client) {
 
         client.guilds.cache.forEach(async guild => {
             const guildInvites = await guild.invites.fetch();
             this.invites[guild.id] = new Map(guildInvites.map(invite => [invite.code, invite.uses]));
         });
+    }
+
+    async userJoin(member, client) {
+
 
         // Pobierz aktualne zaproszenia
         const newInvites = await member.guild.invites.fetch();
@@ -41,9 +42,9 @@ class InviteTracker {
         if(!channel) return
 
         if(usedInvite) {
-            channel.send(`User <@${member.user.id}> joined using invite created by ***${usedInvite.inviter.tag}***`)
+            channel.send(`User <@${member.user.id}> joined using invite created by ${usedInvite.inviter.tag}`)
         } else {
-            channel.send(`User <@${member.user.tag}> joined via unknown means`)
+            channel.send(`User <@${member.user.id}> joined via unknown means`)
         }
     }
 

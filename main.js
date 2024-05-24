@@ -88,7 +88,7 @@ const test_msg_handler = require("./test/handlers/msg_handler")
 const auto_vc_channels = new auto_vc_cache()
 CustomCommandsHandler.loadTextCommands()
 BotLogsHandler.LoadGuilds()
-const inviteTracker = new InviteTracker()
+const inviteTracker = new InviteTracker(client)
 
 
 client.on("ready", async (res) => {
