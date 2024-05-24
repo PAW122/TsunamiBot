@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.234",
+            "Date": "24.05.2024",
+            "Name": "Invite tracker",
+            "Description": "Added invite tracker. Command: /invited_by_message <channel> <status>, can also be enabled on the site. invite tracker sends information about who created the invitation that the user used to join the server"
+        },
+        {
             "Version": "0.0.3.229",
             "Date": "19.05.2024",
             "Name": "Discord Bot Logs",
