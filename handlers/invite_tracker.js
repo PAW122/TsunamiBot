@@ -15,7 +15,7 @@ class InviteTracker {
         });
 
         // Pobierz aktualne zaproszenia
-        const newInvites = await member.guild.this.invites.fetch();
+        const newInvites = await member.guild.invites.fetch();
 
         // Konwersja kolekcji na tablicę
         const newInvitesArray = [...newInvites.values()];
