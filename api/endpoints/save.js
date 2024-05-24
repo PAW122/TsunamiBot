@@ -54,6 +54,38 @@ async function default_save(path, status, req, res, tokenType, token, server_id)
     return res.status(200).json({ ok: 200 });
 }
 
+router.get("/invite_tracker_channel/:tokenType/:token/:server_id/:channel", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let channel = req.params.channel
+
+    default_save(
+        `${server_id}.invite_tracker.channel_id`,
+        channel,
+        req, res,
+        tokenType,
+        token,
+        server_id
+    )
+})
+
+router.get("/invite_tracker_enable/:tokenType/:token/:server_id/:status", (req, res) => {
+    const tokenType = req.params.tokenType
+    const token = req.params.token
+    const server_id = req.params.server_id
+    let status = req.params.status
+
+    default_save(
+        `${server_id}.invite_tracker.status`,
+        status,
+        req, res,
+        tokenType,
+        token,
+        server_id
+    )
+})
+
 router.get("/botlogsMessages_channel/:tokenType/:token/:server_id/:channel", (req, res) => {
     const tokenType = req.params.tokenType
     const token = req.params.token

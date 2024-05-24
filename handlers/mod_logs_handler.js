@@ -203,7 +203,6 @@ function mod_logs(client) {
             editedBy: newMessage.author
         };
 
-        console.log("msg update")
         database_modLogs.addToList(`${guildId}.modlogs.messageContentEdited`, data);
         sendLogs.LoadGuilds(guildId, `***message Update***\nOld Content: **${data.oldContent}**\nNew Content: **${data.newContent}**\nEdited By: **<@${data.editedBy.id}>**`)
     });

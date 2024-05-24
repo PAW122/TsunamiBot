@@ -46,7 +46,8 @@ const client = new Client({
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildPresences
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildInvites
     ]
 });
 
@@ -78,12 +79,17 @@ const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_co
 const CustomCommandsHandler = CustomCommands.getInstance();
 const BotLogs = require("./handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance();
+const InviteTracker = require("./handlers/invite_tracker")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
 const test_msg_handler = require("./test/handlers/msg_handler")
 
 const auto_vc_channels = new auto_vc_cache()
+CustomCommandsHandler.loadTextCommands()
+BotLogsHandler.LoadGuilds()
+const inviteTracker = new InviteTracker()
+
 
 client.on("ready", async (res) => {
 
@@ -101,8 +107,6 @@ client.on("ready", async (res) => {
     // AudioApiV2();
 
     mod_logs(client);
-    CustomCommandsHandler.loadTextCommands()
-    BotLogsHandler.LoadGuilds()
 
     // RSC_config - register slash commands config
     if (rsc_config) {
@@ -164,6 +168,7 @@ client.on('interactionCreate', async interaction => {
 client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)
     autorole(member, client)
+    inviteTracker.userJoin(member, client)
 });
 
 client.on("messageCreate", async message => {
@@ -244,6 +249,8 @@ async function bot_on() {
 
 client.on("uncaughtException", (e) => {
     logger.warn(e)
+    //TODO dodać funkcję zapisującą do db dane z crasha, dane bota
+    // i inne pierdoły, wysyłać komunikat na webhooka że bot jest down
 });
 
 client.login(token)

@@ -37,7 +37,6 @@ class LoadModLogsGuilds {
             const guild_mod_logs_channel = db.read(`${key}.modLogsMessages`)
             if (!guild_mod_logs_channel) return;
             
-            console.log(guild_mod_logs_channel)
             if(!guild_mod_logs_channel || guild_mod_logs_channel.status != true) return;
 
             const channel_id = guild_mod_logs_channel.channel_id

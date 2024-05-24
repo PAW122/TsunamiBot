@@ -72,6 +72,9 @@ router.post("/content", async (req, res) => {
     let BotlogsMessages_enable = false
     let BotlogsMessages_channel = "N/A"
 
+    let inviteTracker_enable = false
+    let inviteTracker_chanel = "N/A"
+
     //load data if server is in DB
     //else database.data = "N/A"
     if(data) {
@@ -86,6 +89,11 @@ router.post("/content", async (req, res) => {
         modLogs = data?.modLogsMessages
         modLogsStatus = data?.modLogsMessages?.status
         modLogsChannelId = data?.modLogsMessages?.channel
+
+        if(data?.invite_tracker && data?.invite_tracker?.channel_id && data?.invite_tracker?.status) {
+            inviteTracker_enable = data.invite_tracker.status
+            inviteTracker_chanel = data.invite_tracker.channel_id
+        }
 
         if(data?.botLogs?.channel && data?.botLogs?.status) {
             BotlogsMessages_channel = data?.botLogs?.channel
@@ -176,7 +184,10 @@ router.post("/content", async (req, res) => {
         modlogsMessages_channel: modlogsMessages_channel,
 
         BotlogsMessages_channel: BotlogsMessages_channel,
-        BotlogsMessages_enable: BotlogsMessages_enable
+        BotlogsMessages_enable: BotlogsMessages_enable,
+
+        inviteTracker_enable: inviteTracker_enable,
+        inviteTracker_chanel: inviteTracker_chanel,
     }
 
     return res.json(response_data);

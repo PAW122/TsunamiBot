@@ -193,6 +193,8 @@ async function handleServerClick(clickedServerId: string) {
     //welcome channel
     let welcome_channel = genSettings(settings_parent, "Welcome Channel", true);
 
+    let invite_tracker = genSettings(settings_parent, "Invite Tracker", true);
+
     let auto_vc = genSettings(settings_parent, "Auto create vc", true);
 
     //welcome message
@@ -346,6 +348,14 @@ async function handleServerClick(clickedServerId: string) {
     )
 
     manage_select_lists(
+        invite_tracker,
+        body.server_channels_list,
+        body.inviteTracker_enable,
+        body.inviteTracker_chanel,
+        "Corrupted invite tracker response data"
+    )
+
+    manage_select_lists(
         auto_vc,
         body.server_channels_list,
         body.auto_vc,
@@ -408,6 +418,13 @@ async function handleServerClick(clickedServerId: string) {
         "/save/modlogs_channel_id/",
         "/save/welcome_messages_channel/",
         "welcome channel"
+    )
+
+    saving_changes(
+        invite_tracker,
+        "/save/invite_tracker_enable/",
+        "/save/invite_tracker_channel/",
+        "invite tracker"
     )
 
     //filter links checkbox
