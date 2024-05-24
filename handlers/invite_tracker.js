@@ -10,7 +10,7 @@ class InviteTracker {
     async userJoin(member, client) {
 
         client.guilds.cache.forEach(async guild => {
-            const guildInvites = await guild.this.invites.fetch();
+            const guildInvites = await guild.invites.fetch();
             this.invites[guild.id] = new Map(guildInvites.map(invite => [invite.code, invite.uses]));
         });
 
