@@ -3,30 +3,33 @@ const database = new Database(__dirname + "/../db/files/servers.json");
 
 class InviteTracker {
 
+    constructor() {
+        this.invites = {}
+    }
+
     async userJoin(member, client) {
-        let invites = {}
 
         client.guilds.cache.forEach(async guild => {
-            const guildInvites = await guild.invites.fetch();
-            invites[guild.id] = new Map(guildInvites.map(invite => [invite.code, invite.uses]));
+            const guildInvites = await guild.this.invites.fetch();
+            this.invites[guild.id] = new Map(guildInvites.map(invite => [invite.code, invite.uses]));
         });
 
         // Pobierz aktualne zaproszenia
-        const newInvites = await member.guild.invites.fetch();
+        const newInvites = await member.guild.this.invites.fetch();
 
         // Konwersja kolekcji na tablicę
         const newInvitesArray = [...newInvites.values()];
 
-        // Upewnij się, że invites dla danej gildii jest zainicjalizowane
-        if (!invites[member.guild.id]) {
-            invites[member.guild.id] = new Map();
+        // Upewnij się, że this.invites dla danej gildii jest zainicjalizowane
+        if (!this.invites[member.guild.id]) {
+            this.invites[member.guild.id] = new Map();
         }
 
         // Sprawdź, które zaproszenie zostało użyte
-        const usedInvite = newInvitesArray.find(invite => invite.uses > (invites[member.guild.id].get(invite.code) || 0));
+        const usedInvite = newInvitesArray.find(invite => invite.uses > (this.invites[member.guild.id].get(invite.code) || 0));
 
         // Zaktualizuj zaproszenia
-        invites[member.guild.id] = new Map(newInvites.map(invite => [invite.code, invite.uses]));
+        this.invites[member.guild.id] = new Map(newInvites.map(invite => [invite.code, invite.uses]));
 
         database.init()
         const data = await database.read(`${member.guild.id}.invite_tracker`)
@@ -56,7 +59,7 @@ class InviteTracker {
     // }
 
     // /**
-    //  * load all existing invites from server
+    //  * load all existing this.invites from server
     //  */
     // loadInvitesFromServer(guild_id) {
     //     const { client } = require("../main")
@@ -72,7 +75,7 @@ class InviteTracker {
     //         users_joined: 0,
     //         users_list: []//lista id użytkowników którzy użyli tego zaproszenia
     //     }
-    //     database.write(`${guild_id}.invites.${invite_id}`, data)
+    //     database.write(`${guild_id}.this.invites.${invite_id}`, data)
     // }
 
     // deleteInvite(guild_id, invite) {
