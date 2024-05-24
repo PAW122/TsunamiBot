@@ -4,6 +4,7 @@ const database = new Database(__dirname + "/../db/files/servers.json");
 class InviteTracker {
 
     async userJoin(member, client) {
+        let invites = {}
 
         client.guilds.cache.forEach(async guild => {
             const guildInvites = await guild.invites.fetch();
