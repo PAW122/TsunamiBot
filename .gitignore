@@ -8,3 +8,8 @@ api/webpanel/dist/*
 db/files/modlogs.json
 db/files/servers.json
 /db/files/audio
+TODO.md
+senko-server-staus/server-status.exe - autostart.lnk
+.vscode/settings.json
+handlers/getRoleHandler.js
+handlers/adminLogsChannel.js
