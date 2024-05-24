@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.248",
+            "Date": "24.05.2024",
+            "Name": "Senko emojis importer",
+            "Description": "Added command /senko-emojis <type> to easly add some basics senko emojis to the server with once command. Required permisions - Administrator"
+        },
+        {
             "Version": "0.0.3.234",
             "Date": "24.05.2024",
             "Name": "Invite tracker",
