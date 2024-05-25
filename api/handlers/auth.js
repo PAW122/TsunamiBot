@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = import('node-fetch');
 const { PermissionsBitField } = require('discord.js');
 
 const _config = require("../../config.json")

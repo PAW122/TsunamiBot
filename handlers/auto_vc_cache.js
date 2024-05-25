@@ -48,6 +48,14 @@ class auto_vc_cache {
         this.admins[user_id] = channel_id
     }
 
+    remove_admin(user_id, channel_id) {
+        if(this.admins[user_id] === channel_id) {
+            delete this.admins[user_id]
+            return true
+        }
+        return false
+    }
+
     is_admin(channel_id, user_id) {
         if(this.admins[user_id] === channel_id){
             return true

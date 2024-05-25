@@ -13,3 +13,6 @@ senko-server-staus/server-status.exe - autostart.lnk
 .vscode/settings.json
 handlers/getRoleHandler.js
 handlers/adminLogsChannel.js
+commands/normal/audio-view.js
+commands/normal/tsu.js
+handlers/tsu.js
