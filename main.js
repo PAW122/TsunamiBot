@@ -121,6 +121,7 @@ client.on("ready", async (res) => {
 
 client.on("guildCreate", async (guild) => {
     if(!guild) return
+    console.log(guild)
     registerSlashCommandsForGuild(guild, client);
 })
 

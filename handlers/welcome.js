@@ -20,6 +20,9 @@ async function welcome_messages(member, client) {
     const welcome_dm_message = data.welcome_dm_message || false;
     let username = member.user.username;
 
+    console.log(member)//TODO test
+    if(member.user.bot) return;
+
     console.log(welcome_status)
     if (welcome_status == false) return;
 
