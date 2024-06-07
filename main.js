@@ -89,9 +89,11 @@ const auto_vc_channels = new auto_vc_cache()
 CustomCommandsHandler.loadTextCommands()
 BotLogsHandler.LoadGuilds()
 const inviteTracker = new InviteTracker(client)
+mod_logs(client);
 
 
 client.on("ready", async (res) => {
+    console.log(client)
 
     logger.log(`${res.user.tag} is ready`);
 
@@ -106,8 +108,6 @@ client.on("ready", async (res) => {
     audio_api_run();
     // AudioApiV2();
 
-    mod_logs(client);
-
     // RSC_config - register slash commands config
     if (rsc_config) {
         //dodać sprawdzanie listy / commands bota na discordzie, jeżeli jest jakaś któraj nie ma w map to tylko wtedy usówać!
@@ -118,6 +118,11 @@ client.on("ready", async (res) => {
         console.error("RSC disabled")
     }
 });
+
+client.on("guildCreate", async (guild) => {
+    if(!guild) return
+    registerSlashCommandsForGuild(guild, client);
+})
 
 //execute
 client.on("interactionCreate", async (interaction) => {
