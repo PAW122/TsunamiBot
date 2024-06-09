@@ -1,4 +1,4 @@
-const fetch = import('node-fetch');
+const fetch = require('node-fetch');
 const { PermissionsBitField } = require('discord.js');
 
 const _config = require("../../config.json")
@@ -143,6 +143,7 @@ class AuthV2 {
             return cache_data[token + tokenType];
         } catch (err) {
             console.log(err)
+            return null
         }
     }
 
