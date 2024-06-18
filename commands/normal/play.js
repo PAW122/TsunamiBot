@@ -55,14 +55,14 @@ async function autocomplete(interaction) {
             break;
         }
     }
-    
+
     if (!focusedOptionName) {
         console.error("No focused option found.");
         return;
     }
-    
+
     const data_instance = DataStore.getInstance();
-    
+
     if (focusedOptionName === "station_name") {
         const stations = Object.values(data_instance.get()).map(item => item.name);
         // Sortujemy stacje według podobieństwa do focusedOptionValue
@@ -73,9 +73,14 @@ async function autocomplete(interaction) {
         });
         // Wybieramy tylko 25 najbardziej podobnych stacji
         const topStations = stations.slice(0, 25);
-        await interaction.respond(
-            topStations.map(choice => ({ name: choice, value: choice })),
-        );
+        try{
+            await interaction.respond(
+                topStations.map(choice => ({ name: choice, value: choice })),
+            );
+        }catch(err) {
+            return;
+        }
+
     } else if (focusedOptionName === "song") {
         const files = Object.values(data_instance.get()).flatMap(item => item.files);
         // Sortujemy pliki według podobieństwa do focusedOptionValue
@@ -86,11 +91,16 @@ async function autocomplete(interaction) {
         });
         // Wybieramy tylko 25 najbardziej podobnych plików
         const topFiles = files.slice(0, 25);
-        await interaction.respond(
-            topFiles.map(choice => ({ name: choice, value: choice })),
-        );
+        try {
+            await interaction.respond(
+                topFiles.map(choice => ({ name: choice, value: choice })),
+            );
+        } catch (err) {
+            return;
+        }
+
     }
-    
+
     // Funkcja obliczająca podobieństwo między dwoma ciągami znaków
     function similarity(s1, s2) {
         const longer = s1.length > s2.length ? s1 : s2;
@@ -101,12 +111,12 @@ async function autocomplete(interaction) {
         }
         return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
     }
-    
+
     // Funkcja obliczająca odległość edycyjną między dwoma ciągami znaków
     function editDistance(s1, s2) {
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
-    
+
         const costs = [];
         for (let i = 0; i <= s1.length; i++) {
             let lastValue = i;
@@ -128,8 +138,8 @@ async function autocomplete(interaction) {
         }
         return costs[s2.length];
     }
-    
-    
+
+
 
     /*  
     dodać logikę jsona dla autocomplete (jeżeli json posiada  < niż 25 wpisów to wyświetlać wszystkie tylko w innej kolejności (logika z help.js))
@@ -195,7 +205,7 @@ async function playNextSong(audioPlayer, files, ipAddress, station_name) {
 
     let song = files.shift(); // Take the next song from the list
     let song_path = await get_song(Object.keys(ipAddress)[0] + ":3002", station_name, song);
-    
+
     if (!song_path) {
         console.error("An error occurred while downloading the audio file.");
         return;
@@ -283,7 +293,7 @@ async function playAudioOnce(interaction, song, station_name) {
         //TEST
         audioPlayer.on("stateChange", async (oldState, newState) => {
 
-            if(oldState.status == "playing" && newState.status == "idle") {
+            if (oldState.status == "playing" && newState.status == "idle") {
                 songmanager.notPlaying(song)
             }
         })
