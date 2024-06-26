@@ -20,7 +20,7 @@
     "@google-cloud/storage": "^7.7.0",
     "@google-cloud/text-to-speech": "^5.0.1",
     "audio-decode": "^2.2.0",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "canvas": "^2.11.2",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.4",
