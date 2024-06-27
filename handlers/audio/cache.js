@@ -71,6 +71,7 @@ class AudioDataStore {
 
             dataArray.forEach(song => {
                 if (!song) return
+                if(song.check_count <= 0) return
                 this.add(username, {
                     song_name: song.song_name,
                     link: song.link,
@@ -87,6 +88,23 @@ class AudioDataStore {
             return true; // Usunięto pomyślnie
         } else {
             return false; // Klucz nie istnieje
+        }
+    }
+
+    remove_song(username, song_name) {
+        console.log(this.data)
+        if (this.data[username]) {
+            const songs = this.data[username].songs;
+            const index = songs.findIndex(song => song.song_name === song_name);
+            
+            if (index !== -1) {
+                songs.splice(index, 1); // Usuwa jeden element z tablicy na danym indeksie
+                return true; // Pomyślnie usunięto
+            } else {
+                return false; // Piosenka o podanej nazwie nie istnieje
+            }
+        } else {
+            return false; // Użytkownik nie istnieje
         }
     }
 

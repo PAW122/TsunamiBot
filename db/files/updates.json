@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.259",
+            "Date": "27.06.2024",
+            "Name": "New audio system",
+            "Description": "there are 2 commands: /addsong and /play-from.\n1. send file with your music on disocrd\n2. copy link to message\n3. use /addsong <song title> <paste cpoied link>\n4. you can now use /play-from <your nickname> <song title> to play your song on voice channel"
+        },
+        {
             "Version": "0.0.3.249",
             "Date": "07.06.2024",
             "Name": "Bug Fixes",

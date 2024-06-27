@@ -50,7 +50,6 @@ async function execute(interaction, client) {
     const data = {
         song_name: song_name,
         link: link,
-        username: username,
         added_timestamp: timestamp,
         check_count: 5  //if count = 0 -> link is no longer valid, delete record from db
     }
@@ -62,8 +61,7 @@ async function execute(interaction, client) {
     const db_data = database.read(`${user_id}`)
     const songs_list = get_songs(db_data)
 
-    audioCache.remove(`${username}`)
-    audioCache.add(username, {user_id: user_id, files: songs_list})
+    audioCache.add(username, data)
 }
 
 //return message if user use /help/ping

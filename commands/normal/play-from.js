@@ -5,6 +5,8 @@ const { AudioDataStore } = require("../../handlers/audio/cache")
 const fs = require('fs');
 const path = require('path');
 const axios = require("axios")
+const Database = require("../../db/database")
+const db = new Database(__dirname + "../../../db/files/users.json")
 
 const command = new SlashCommandBuilder()
     .setName("play-from")
@@ -21,20 +23,16 @@ const command = new SlashCommandBuilder()
         .setAutocomplete(true)
         .setRequired(true)
     )
-    .addBooleanOption((option) => option
-        .setName("autoplay")
-        .setDescription("auto play random song from playlist")
-        .setRequired(false)
-    )
 
 async function execute(interaction, client) {
     const user_name = interaction.options.getString('user_name');
     const song = interaction.options.getString('song');
-    const autoplay = interaction.options.getBoolean("autoplay") ?? false;
-    await playAudio(interaction, song, user_name, autoplay, client);
-}
 
-async function playAudio(interaction, song_name, user_name, autoplay, client) {
+    playAudio(interaction, song, user_name, client);
+    
+}// dodać przyciski do pause(pauza odtwarzania), skip(skip nuty), play
+
+async function playAudio(interaction, song_name, user_name, client) {
     const data_instance = AudioDataStore.getInstance();
     const selectedUserName = interaction.options.getString('user_name');
     const user_data = data_instance.get(selectedUserName);
@@ -60,19 +58,22 @@ async function playAudio(interaction, song_name, user_name, autoplay, client) {
     try {
         const guild = await client.guilds.fetch(guildId);
         if (!guild) {
-            console.error('Nie można znaleźć serwera Discord.');
+            interaction.reply("cannot find audio file")
+            invalid_link(selectedUserName, song_name, messageLink, client)
             return;
         }
 
         const channel = await guild.channels.fetch(channelId);
         if (!channel || !(channel instanceof Discord.TextChannel)) {
-            console.error('Nie można znaleźć kanału tekstowego Discord.');
+            interaction.reply("cannot find audio file")
+            invalid_link(selectedUserName, song_name, messageLink, client)
             return;
         }
 
-        const message = await channel.messages.fetch(messageId);
+        const message = await channel.messages?.fetch(messageId);
         if (!message) {
-            console.error('Nie można znaleźć wiadomości Discord.');
+            interaction.reply("cannot find audio file")
+            invalid_link(selectedUserName, song_name, messageLink, client)
             return;
         }
 
@@ -90,6 +91,38 @@ async function playAudio(interaction, song_name, user_name, autoplay, client) {
 
     } catch (error) {
         console.error('Wystąpił błąd podczas pobierania wiadomości Discord:', error);
+        if(error.code === 10008 || error.rawError.message === 'Unknown Message') {
+            invalid_link(selectedUserName, song_name, messageLink, client)
+        }
+        await interaction.reply("An error occurred while trying to obtain the audio file")
+    }
+
+}
+
+/**
+ * check_count --
+ * if check_count = 0
+ * send owner message and delete song from db 
+ */
+function invalid_link(selectedUserName, song_name, messageLink, client) {
+    const user = client.users.cache.find(user => user.username === selectedUserName);;
+    if(!user) return;
+
+    const user_id = user.id; if(!user_id) return;
+    let data = db.read(`${user_id}.songs.${song_name}`)
+    if(data === null || data === undefined) return;
+
+    const new_count = data.check_count - 1
+    let new_data = {...data}
+    new_data.check_count = new_count
+
+
+    if(data.check_count <= 0) {
+        const data_instance = AudioDataStore.getInstance();
+        // user.send(`Cannot find message "${messageLink}" to play **${song_name}** song\ncheck out file and reupload if needed`)
+        data_instance.remove_song(selectedUserName, song_name)
+    } else {
+        db.write(`${user_id}.songs.${song_name}`, new_data)
     }
 
 }
@@ -98,11 +131,11 @@ async function playAudioOnce(interaction, attachment) {
     try {
         // Sprawdź, czy załącznik jest typu mp3
         if (!attachment.name.endsWith('.mp3')) {
-            return interaction.reply("The attached file is not an mp3 file.");
+            return await interaction.channel.send("The attached file is not an mp3 file.");
         }
 
         // Zapisz załącznik tymczasowo na serwerze
-        const attachmentPath = path.join(__dirname + "../../../db/files/audio", attachment.name);
+        const attachmentPath = path.join(__dirname + "../../../db/files/audio", interaction.id);
         const file = fs.createWriteStream(attachmentPath);
         const response = await axios.get(attachment.url, { responseType: 'stream' });
         response.data.pipe(file);
@@ -114,7 +147,7 @@ async function playAudioOnce(interaction, attachment) {
 
         // Sprawdź, czy użytkownik znajduje się w kanale głosowym
         if (!interaction.member.voice.channel) {
-            return await interaction.reply({ content: "You need to be in a voice channel to use this command.", ephemeral: true });
+            return await interaction.channel.send({ content: "You need to be in a voice channel to use this command.", ephemeral: true });
         }
 
         // Pobierz kanał głosowy użytkownika
@@ -140,11 +173,22 @@ async function playAudioOnce(interaction, attachment) {
         audioPlayer.play(audioResource);
 
         // Zapisz komunikat, że teraz odtwarzany jest plik mp3
-        await interaction.channel.send({ content: `Now playing ${attachment.name} in your voice channel.`, ephemeral: true });
+        await interaction.reply({ content: `Now playing ${attachment.name} in your voice channel.`});
+
+        audioPlayer.on("stateChange", async (oldState, newState) => {
+            if (oldState.status === "playing" && newState.status === "idle") {
+                fs.unlink(attachmentPath, (err) => {
+                    if (err) {
+                        console.error('Error deleting mp3 file:', err);
+                    }
+                });
+            }
+        });
 
     } catch (error) {
         console.error('Error playing mp3 file:', error);
-        await interaction.reply({ content: "An error occurred while playing the mp3 file.", ephemeral: true });
+        await interaction.channel.send({ content: "An error occurred while playing the mp3 file.", ephemeral: true });
+        return
     }
 }
 
@@ -171,7 +215,6 @@ async function autocomplete(interaction) {
 
     if (focusedOptionName === "user_name") {
         const stations = Array.from(data_instance.get_users())
-        console.log(stations)
         // Sortujemy stacje według podobieństwa do focusedOptionValue
         stations.sort((a, b) => {
             const similarityA = similarity(a, focusedOptionValue);
