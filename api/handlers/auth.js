@@ -143,6 +143,7 @@ class AuthV2 {
             return cache_data[token + tokenType];
         } catch (err) {
             console.log(err)
+            return null
         }
     }
 

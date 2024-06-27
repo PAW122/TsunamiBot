@@ -80,6 +80,8 @@ const CustomCommandsHandler = CustomCommands.getInstance();
 const BotLogs = require("./handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance();
 const InviteTracker = require("./handlers/invite_tracker")
+const { AudioDataStore } = require("./handlers/audio/cache")
+const AudioStore = AudioDataStore.getInstance()
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -89,6 +91,7 @@ const auto_vc_channels = new auto_vc_cache()
 CustomCommandsHandler.loadTextCommands()
 BotLogsHandler.LoadGuilds()
 const inviteTracker = new InviteTracker(client)
+mod_logs(client);
 
 
 client.on("ready", async (res) => {
@@ -106,7 +109,8 @@ client.on("ready", async (res) => {
     audio_api_run();
     // AudioApiV2();
 
-    mod_logs(client);
+    await AudioStore.load_songs(client)
+    // console.log(AudioStore.get())
 
     // RSC_config - register slash commands config
     if (rsc_config) {
@@ -118,6 +122,11 @@ client.on("ready", async (res) => {
         console.error("RSC disabled")
     }
 });
+
+client.on("guildCreate", async (guild) => {
+    if(!guild) return
+    registerSlashCommandsForGuild(guild, client);
+})
 
 //execute
 client.on("interactionCreate", async (interaction) => {
@@ -133,7 +142,7 @@ client.on("interactionCreate", async (interaction) => {
             await execute(interaction, client);
         } catch (error) {
             logger.error(error);
-            await interaction.reply({
+            await interaction.channel.send({
                 content: "There was an error while executing this command!",
                 ephemeral: true,
             });

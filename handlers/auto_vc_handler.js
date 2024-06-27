@@ -64,7 +64,7 @@ async function manage_auto_vc(client, oldState, newState, auto_vc_channels) {
                 
                 auto_vc_channels.add(createdChannel.id)
                 auto_vc_channels.add_admin(user_id, createdChannel.id)
-                await createdChannel.send("Commnads: ***max_members <amount>***")
+                await createdChannel.send("Commnads: ***max_members <amount>***\n***pass_owner @user***")
 
 
             } catch (error) {

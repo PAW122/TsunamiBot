@@ -27,7 +27,7 @@ async function auto_vc_commands_handler(message, auto_vc_channels) {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
 
     if (args[0] === "help") {
-        message.reply("command list: ***max_members <amount>***")
+        message.reply("command list: ***max_members <amount>***\n***pass_owner @user***")
     } else if (args[0] === "max_members") {
         if (!args[1]) {
             return message.reply("Tru using **help**")
@@ -57,11 +57,41 @@ async function auto_vc_commands_handler(message, auto_vc_channels) {
         } catch (err) {
             return message.reply("an error occurred")
         }
-    }
+    } else if(args[0] === "pass_owner") {
+        if (!args[1]) {
+            return message.reply("Tru using **help**")
+        }
 
+        if (!auto_vc_channels.is_exist(message.channel.id)) {
+            return
+        };
 
-    if (message.content.startsWith("max_members")) {
-        console.log(message.content)
+        if (!auto_vc_channels.is_admin(message.channel.id, message.author.id)) {
+        
+            await message.reply("Only chanel creator can do that")
+            return 
+        }
+
+        //get marked user
+        const mentionedUsers = message.mentions.users;
+
+        // Sprawdź, czy są jacyś oznaczeni użytkownicy
+        if (mentionedUsers.size > 0) {
+            const user = mentionedUsers.values().next().value
+
+            if(!user || !user.id) {
+                await message.reply("invalid user")
+                return
+            }
+
+            //TODO: TEST
+            auto_vc_channels.add_admin(user.id, message.channel.id)
+            auto_vc_channels.remove_admin(message.author.id, message.channel.id)
+
+            await message.reply(`passed channel owner to <@${user.id}>`)
+        } else {
+            return message.reply("u need to mark who u want to pass channel owner\n try using ***help*** command")
+        }
     }
 }
 

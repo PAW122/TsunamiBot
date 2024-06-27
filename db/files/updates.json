@@ -4,6 +4,24 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.249",
+            "Date": "07.06.2024",
+            "Name": "Bug Fixes",
+            "Description": "now, after adding a bot to a new server, it automatically registers slash commands, fixed a bug where the bot crashed when trying to send a welcome message after adding a new bot to the server"
+        },
+        {
+            "Version": "0.0.3.248",
+            "Date": "25.05.2024",
+            "Name": "Auto vc update",
+            "Description": "Added command /pass_owner @user - channel owner can pass owner rights to another user"
+        },
+        {
+            "Version": "0.0.3.247",
+            "Date": "24.05.2024",
+            "Name": "Senko emojis importer",
+            "Description": "Added command /senko-emojis <type> to easly add some basics senko emojis to the server with once command. Required permisions - Administrator"
+        },
+        {
             "Version": "0.0.3.234",
             "Date": "24.05.2024",
             "Name": "Invite tracker",
