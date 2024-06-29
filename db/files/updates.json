@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.260",
+            "Date": "279.06.2024",
+            "Name": "Unban command",
+            "Description": "unban user using autocomplete select list"
+        },
+        {
             "Version": "0.0.3.259",
             "Date": "27.06.2024",
             "Name": "New audio system",
