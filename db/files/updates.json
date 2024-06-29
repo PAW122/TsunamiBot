@@ -4,8 +4,14 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.261",
+            "Date": "30.06.2024",
+            "Name": "Bug fix (pla-from commands)",
+            "Description": "+add delsong command +fix addsong command (before whe adding new song it didnt show up before bot restart bc of typo)"
+        },
+        {
             "Version": "0.0.3.260",
-            "Date": "279.06.2024",
+            "Date": "29.06.2024",
             "Name": "Unban command",
             "Description": "unban user using autocomplete select list"
         },
