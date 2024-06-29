@@ -199,7 +199,6 @@ async function playAudio(interaction, song, station_name, autoplay) {
 
 async function playNextSong(audioPlayer, files, ipAddress, station_name) {
     if (files.length === 0) {
-        console.log("No more songs to play.");
         return;
     }
 

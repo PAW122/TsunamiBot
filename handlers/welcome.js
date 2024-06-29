@@ -22,7 +22,6 @@ async function welcome_messages(member, client) {
 
     if(member.user.bot) return;
 
-    console.log(welcome_status)
     if (welcome_status == false) return;
 
     if(welcome_dm_message != false) {
