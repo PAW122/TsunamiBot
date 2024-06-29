@@ -109,8 +109,7 @@ client.on("ready", async (res) => {
     audio_api_run();
     // AudioApiV2();
 
-    await AudioStore.load_songs(client)
-    // console.log(AudioStore.get())
+    AudioStore.load_songs(client)
 
     // RSC_config - register slash commands config
     if (rsc_config) {
@@ -165,10 +164,17 @@ client.on('interactionCreate', async interaction => {
             } catch (error) {
                 logger.error(error);
                 console.log(error)
-                await interaction.reply({
-                    content: "There was an error while executing autocomplete in this command!",
-                    ephemeral: true,
-                });
+                if(interaction.replied || interaction.deferred) {
+                    await interaction.channel.send({
+                        content: "There was an error while executing autocomplete in this command!",
+                        ephemeral: true,
+                    });  
+                } else {
+                    await interaction.reply({
+                        content: "There was an error while executing autocomplete in this command!",
+                        ephemeral: true,
+                    });
+                }
             }
         }
     }
