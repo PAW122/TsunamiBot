@@ -27,7 +27,7 @@ async function execute(interaction, client) {
     const song_name = interaction.options.getString("song_name")
     const link = interaction.options.getString("link")
     const user_id = interaction.user.id
-    const username = interaction.user.name
+    const username = interaction.user.username
     const timestamp = Date.now() / 1000 | 0 //date in seconds
 
     if(!song_name || !link) {
@@ -54,14 +54,9 @@ async function execute(interaction, client) {
         check_count: 5  //if count = 0 -> link is no longer valid, delete record from db
     }
     database.write(`${user_id}.songs.${song_name}`, data)
-    
-    await interaction.reply(`**${song_name}** added to playlist`)
-
-    //add songs to list
-    const db_data = database.read(`${user_id}`)
-    const songs_list = get_songs(db_data)
-
     audioCache.add(username, data)
+
+    await interaction.reply(`**${song_name}** added to playlist`)
 }
 
 //return message if user use /help/ping
