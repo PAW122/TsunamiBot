@@ -58,6 +58,8 @@ router.post("/content", async (req, res) => {
     let autorole_role = "N/A"
     let dad_responses_enable = false
     let dad_bot = false
+    let ticket_channel = "N/A"
+    let tikcet_status = false
 
     let filter_links = false
     let filter_links_exception = []
@@ -89,6 +91,9 @@ router.post("/content", async (req, res) => {
         modLogs = data?.modLogsMessages
         modLogsStatus = data?.modLogsMessages?.status
         modLogsChannelId = data?.modLogsMessages?.channel
+
+        ticket_channel = data?.ticketChannel.channel_id
+        tikcet_status = data?.ticketChannel.status
 
         if(data?.invite_tracker && data?.invite_tracker?.channel_id && data?.invite_tracker?.status) {
             inviteTracker_enable = data.invite_tracker.status
@@ -188,6 +193,9 @@ router.post("/content", async (req, res) => {
 
         inviteTracker_enable: inviteTracker_enable,
         inviteTracker_chanel: inviteTracker_chanel,
+
+        ticket_channel: ticket_channel,
+        tikcet_status: tikcet_status,
     }
 
     return res.json(response_data);

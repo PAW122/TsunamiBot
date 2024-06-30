@@ -2,7 +2,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const BotLogs = require("../../handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance()
 
-const {registerSlashCommandsForGuild, unregisterAllCommandsForGuild} = require("../../handlers/SlashCommandHandler")
+const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("../../handlers/SlashCommandHandler")
 
 const command = new SlashCommandBuilder()
     .setName("reload")
@@ -12,13 +12,14 @@ const command = new SlashCommandBuilder()
 async function execute(interaction, client) {
     const guild = interaction.guild
 
-    unregisterAllCommandsForGuild(guild, client)
-    .then(
-        registerSlashCommandsForGuild(guild, client)
-    )
-
     await interaction.reply("commands are being refreshed. This may take a few minutes");
     BotLogsHandler.SendLog(guild.id, `User: <@${interaction.user.id}> Reloaded Bot commands for this server.`)
+
+    await unregisterAllCommandsForGuild(guild, client)
+    await registerSlashCommandsForGuild(guild, client)
+    if (interaction.replied || interaction.deferred) {
+        await interaction.editReply({ content: `commands are refreshed ✅` })
+    }
 }
 
 //return message if user use /help/ping

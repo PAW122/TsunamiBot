@@ -4,6 +4,12 @@
     },
     "updates": [
         {
+            "Version": "0.0.3.269",
+            "Date": "30.06.2024",
+            "Name": "Ticket System",
+            "Description": "/ticket_channel to set up channels for administration, /ticket for users to send tickets, select list on web"
+        },
+        {
             "Version": "0.0.3.261",
             "Date": "30.06.2024",
             "Name": "Bug fix (pla-from commands)",

@@ -197,6 +197,8 @@ async function handleServerClick(clickedServerId: string) {
 
     let auto_vc = genSettings(settings_parent, "Auto create vc", true);
 
+    let ticket_channel = genSettings(settings_parent, "Ticket Channel", true);
+
     //welcome message
     let welcome_text_box = genTextBox(settings_parent, "Welcome message", body.welcome_message_content, saveWelcomeMessage);
     let titleDiv = welcome_text_box.input.parentElement!.previousElementSibling as HTMLDivElement;
@@ -247,29 +249,6 @@ async function handleServerClick(clickedServerId: string) {
         }
     }
 
-    // async function saveLinkFilterif_starts_with(data: any) {
-    //     if(!data || data == "") {
-    //         data = false
-    //     }
-    //     const body_data = {
-    //         data: data
-    //     }
-    //     let response = await fetch(
-    //         `${config.MainURL}/save/exception_is_starts_with_filter/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}`, 
-    //         {
-    //           method: 'POST', // Dodaj metodę, np. POST
-    //           headers: {
-    //             'Content-Type': 'application/json' // Ustaw odpowiedni nagłówek dla typu danych
-    //           },
-    //           body: JSON.stringify(body_data) // Dodaj ciało (body) jako JSON
-    //         }
-    //       );
-    //     if (response.ok) {
-    //         console.log(`save Link Filter content set to. Response: ${response.status}`);
-    //     } else {
-    //         console.warn(`Error `);
-    //     }
-    // }
 
     async function saveWelcomeMessage(data: string) {
         let response = await fetch(`${config.MainURL}/save/welcome_messages_content/${loginManager.token.token_type}/${loginManager.token.token}/${clickedServerId}/${data}`);
@@ -292,9 +271,6 @@ async function handleServerClick(clickedServerId: string) {
     }
 
     function manage_select_lists(parent_object,list, checkbox_value, selected_channel, error_message) {
-        // console.log(checkbox_value)
-        // console.log(selected_channel)
-        // console.log()
 
         if (checkbox_value === false) {
             parent_object.checkbox!.checked = false;
@@ -363,6 +339,14 @@ async function handleServerClick(clickedServerId: string) {
         "Corrupted auto vc response data"
     )
 
+    manage_select_lists(
+        ticket_channel,
+        body.server_channels_list,
+        body.tikcet_status,
+        body.ticket_channel,
+        "Corrupted ticket channel response data"
+    )
+
     async function saving_changes(parent, checkbox_link, selectlist_link, name) {
         // saving autorole switches
         parent.checkbox!.addEventListener("change", async function () {
@@ -425,6 +409,13 @@ async function handleServerClick(clickedServerId: string) {
         "/save/invite_tracker_enable/",
         "/save/invite_tracker_channel/",
         "invite tracker"
+    )
+
+    saving_changes(
+        ticket_channel,
+        "/save/tikcet_status/",
+        "/save/tikcet_channel/",
+        "ticket channel"
     )
 
     //filter links checkbox
