@@ -9,6 +9,9 @@ const { SlashCommandBuilder } = require("discord.js");
 const { get_songs, AudioDataStore } = require("../../handlers/audio/cache")
 const audioCache = AudioDataStore.getInstance()
 
+const config = require("../../config.json")
+const configuration = config[config.using].config.max_song_name_len
+
 const command = new SlashCommandBuilder()
     .setName("delsong")
     .setDescription("delete song from your playlist")
@@ -34,7 +37,7 @@ async function execute(interaction, client) {
         return
     }
 
-    if (song_name.length > 24) {
+    if (song_name.length > configuration) {
         await interaction.reply("song name must be shorter then 24 characters")
         return
     }
