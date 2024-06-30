@@ -75,7 +75,7 @@ const manage_auto_vc = require("./handlers/auto_vc_handler")
 const filter_links = require("./handlers/filter_links")
 const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
 const auto_vc_cache = require("./handlers/auto_vc_cache")
-const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_commands")
+const { handleCustomTextCommands, CustomCommands } = require("./handlers/custom_commands")
 const CustomCommandsHandler = CustomCommands.getInstance();
 const BotLogs = require("./handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance();
@@ -123,7 +123,7 @@ client.on("ready", async (res) => {
 });
 
 client.on("guildCreate", async (guild) => {
-    if(!guild) return
+    if (!guild) return
     registerSlashCommandsForGuild(guild, client);
 })
 
@@ -164,11 +164,11 @@ client.on('interactionCreate', async interaction => {
             } catch (error) {
                 logger.error(error);
                 console.log(error)
-                if(interaction.replied || interaction.deferred) {
+                if (interaction.replied || interaction.deferred) {
                     await interaction.channel.send({
                         content: "There was an error while executing autocomplete in this command!",
                         ephemeral: true,
-                    });  
+                    });
                 } else {
                     await interaction.reply({
                         content: "There was an error while executing autocomplete in this command!",
@@ -203,13 +203,9 @@ client.on("messageCreate", async message => {
             const guild = message.guild
 
             await message.reply("commands are being refreshed. This may take a few minutes");
-            unregisterAllCommandsForGuild(guild, client)
-                .then(
-                    registerSlashCommandsForGuild(guild, client)
-                        .then(
-                            await message.channel.send("All command refreshed succesfully.")
-                        )
-                )
+            await unregisterAllCommandsForGuild(guild, client)
+            await registerSlashCommandsForGuild(guild, client)
+            await message.channel.send("All command refreshed succesfully.")
         }
     }
 })
