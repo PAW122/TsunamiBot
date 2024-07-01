@@ -92,8 +92,8 @@ router.post("/content", async (req, res) => {
         modLogsStatus = data?.modLogsMessages?.status
         modLogsChannelId = data?.modLogsMessages?.channel
 
-        ticket_channel = data?.ticketChannel.channel_id
-        tikcet_status = data?.ticketChannel.status
+        ticket_channel = data?.ticketChannel?.channel_id || "N/A"
+        tikcet_status = data?.ticketChannel?.status || false
 
         if(data?.invite_tracker && data?.invite_tracker?.channel_id && data?.invite_tracker?.status) {
             inviteTracker_enable = data.invite_tracker.status
