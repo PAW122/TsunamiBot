@@ -10,7 +10,10 @@
         "port": 80,
         "api_max_listeners": 0,
         "audio_port": 3001,
-        "audio_station_banned_names": ["admin", "owner"],
+        "audio_station_banned_names": [
+            "admin",
+            "owner"
+        ],
         "whitelist": false,
         "aduio_file_path": "/db/files/audio/",
         "config": {
@@ -19,20 +22,35 @@
             "lvling": {
                 "min_xp": 5,
                 "max_xp": 15
-            }
+            },
+            "max_song_name_len": 100
         },
-        "admin_list": ["438336824516149249"],
+        "admin_list": [
+            "438336824516149249"
+        ],
         "sdk": {
             "run": false,
             "client_id": ""
         },
         "is_ellie_config": false,
         "disable_ellie_commands": [
-            "play","s-bread", "s-bruh", "s-cards", "s-dad-joke", "s-dance", "s-fluff", "s-hug", "s-love", "s-mad", "s-opening", "s-pat", "s-protecc", "s-simp", "s-spank"
+            "play",
+            "s-bread",
+            "s-bruh",
+            "s-cards",
+            "s-dad-joke",
+            "s-dance",
+            "s-fluff",
+            "s-hug",
+            "s-love",
+            "s-mad",
+            "s-opening",
+            "s-pat",
+            "s-protecc",
+            "s-simp",
+            "s-spank"
         ],
-        "disable_commands":[
-            
-        ]
+        "disable_commands": []
     },
     "local_dev": {
         "is_test": true,
@@ -40,7 +58,9 @@
         "db_logs": true,
         "test_slash_commands_path": "slash",
         "prefix": ".",
-        "test_commands_server_list": ["727662119553728532"],
+        "test_commands_server_list": [
+            "727662119553728532"
+        ],
         "main_url": "http://localhost:3000/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=797070806885990431&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=identify+guilds+email",
         "port": 3000,
@@ -59,17 +79,121 @@
                 "max_xp": 15
             }
         },
-        "admin_list": ["438336824516149249"],
+        "admin_list": [
+            "438336824516149249"
+        ],
         "sdk": {
             "run": true,
             "client_id": "928399458570502155"
         },
         "is_ellie_config": false,
-        "disable_ellie_commands": [
-            
-        ],
-        "disable_commands":[
+        "disable_ellie_commands": [],
+        "disable_commands": [
             "play"
         ]
+    },
+    "sensivity_calculator_data": {
+        "game_list": ["osu", "valorant", "aimlab", "apex_legends", "battlefield1", "payday2", "minecraft", "csgo", "fortnite"],
+        "games": {
+            "osu": {
+                "osu": 1,
+                "valorant": 1.137,
+                "aimlab": 1.592,
+                "apex_legends": 3.618,
+                "battlefield1": 20,
+                "payday2": 20,
+                "minecraft": 20,
+                "csgo": 3.618,
+                "fortnite": 14.329
+            },
+            "valorant": {
+                "osu": 0.879,
+                "valorant": 1,
+                "aimlab": 1.400,
+                "apex_legends": 3.182,
+                "battlefield1": 17.000,
+                "payday2": 17.000,
+                "minecraft": 17.000,
+                "csgo": 3.182,
+                "fortnite": 12.601
+            },
+            "aimlab": {
+                "osu": 0.628,
+                "valorant": 0.714,
+                "aimlab": 1,
+                "apex_legends": 2.273,
+                "battlefield1": 11.000,
+                "payday2": 11.000,
+                "minecraft": 11.000,
+                "csgo": 2.273,
+                "fortnite": 9.001
+            },
+            "apex_legends": {
+                "osu": 0.276,
+                "valorant": 0.314,
+                "aimlab": 0.440,
+                "apex_legends": 1,
+                "battlefield1": 3.000,
+                "payday2": 3.000,
+                "minecraft": 3.000,
+                "csgo": 1.000,
+                "fortnite": 3.960
+            },
+            "battlefield1": {
+                "osu": 0.187,
+                "valorant": 0.213,
+                "aimlab": 0.298,
+                "apex_legends": 0.677,
+                "battlefield1": 1,
+                "payday2": 1.00,
+                "minecraft": 1.00,
+                "csgo": 0.677,
+                "fortnite": 2.682
+            },
+            "csgo": {
+                "osu": 0.276,
+                "valorant": 0.314,
+                "aimlab": 0.440,
+                "apex_legends": 1.000,
+                "battlefield1": 3.000,
+                "payday2": 3.000,
+                "minecraft": 3.000,
+                "csgo": 1,
+                "fortnite": 3.960
+            },
+            "fortnite": {
+                "osu": 0.070,
+                "valorant": 0.079,
+                "aimlab": 0.111,
+                "apex_legends": 0.253,
+                "battlefield1": -2.000,
+                "payday2": -2.000,
+                "minecraft": -2.000,
+                "csgo": 0.253,
+                "fortnite": 1
+            },
+            "minecraft": {
+                "osu": 0.187,
+                "valorant": 0.213,
+                "aimlab": 0.298,
+                "apex_legends": 0.677,
+                "battlefield1": 1.00,
+                "payday2": 1.00,
+                "minecraft": 1,
+                "csgo": 0.677,
+                "fortnite": 2.682
+            },
+            "payday2": {
+                "osu": 0.187,
+                "valorant": 0.213,
+                "aimlab": 0.298,
+                "apex_legends": 0.677,
+                "battlefield1": 1.00,
+                "payday2": 1.00,
+                "minecraft": 1.00,
+                "csgo": 0.677,
+                "fortnite": 2.682
+            }
+        }
     }
 }
