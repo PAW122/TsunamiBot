@@ -164,17 +164,12 @@ client.on('interactionCreate', async interaction => {
             } catch (error) {
                 logger.error(error);
                 console.log(error)
-                if (interaction.replied || interaction.deferred) {
-                    await interaction.channel.send({
-                        content: "There was an error while executing autocomplete in this command!",
-                        ephemeral: true,
-                    });
-                } else {
-                    await interaction.reply({
-                        content: "There was an error while executing autocomplete in this command!",
-                        ephemeral: true,
-                    });
-                }
+
+                await interaction.channel.send({
+                    content: "There was an error while executing autocomplete in this command!",
+                    ephemeral: true,
+                });
+
             }
         }
     }
