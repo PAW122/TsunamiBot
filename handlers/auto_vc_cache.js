@@ -1,3 +1,5 @@
+const Database = require("../db/database")
+const db = new Database(__dirname + "/../db/files/servers.json")
 class auto_vc_cache {
     constructor() {
         this.cache = []
@@ -9,14 +11,30 @@ class auto_vc_cache {
         return this.cache
     }
 
-    // async actions tracking
+    // NEW COMMANDS
 
-    /*
-    action = {
-        moving: bool
+    // keep track of created channels in db
+    // if bot server went down after restart bot isn't going to deelete
+    // auto vc channels created before restart
+
+    // load data from db
+    // exec on bot startup
+    load_data() {
+        const data = db.read()
+        
+    }
+
+    // save data to db
+    save_data(guild_id, channel_id) {
+        db.write()
+    }
+
+    // get all server's auto vc's data, remove deleted channel, save
+    delete_data() {
 
     }
-    */
+
+    // END == NEW COMMANDS
 
     set_action(channel_id, action) {
         this.actions[channel_id] = {
