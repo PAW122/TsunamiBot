@@ -4990,6 +4990,27 @@
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
             "bannerURL": null
           }
+        },
+        {
+          "timesamp": 1719677356,
+          "oldContent": "https://youtube.com/playlist?list=RDGas_nHHNjY4&playnext=1&si=BcCW1NofmQ7lBa1T",
+          "newContent": "https://youtube.com/playlist?list=RDGas_nHHNjY4&playnext=1&si=BcCW1NofmQ7lBa1T",
+          "editedBy": {
+            "id": "438336824516149249",
+            "bot": false,
+            "system": false,
+            "flags": 64,
+            "username": "pawiu_",
+            "globalName": "Pawiu",
+            "discriminator": "0",
+            "avatar": "a3b034975dcf03189fce8b7ca1d8cc8f",
+            "avatarDecoration": null,
+            "createdTimestamp": 1524578042869,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/1.png",
+            "tag": "pawiu_",
+            "avatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/438336824516149249/a3b034975dcf03189fce8b7ca1d8cc8f.webp"
+          }
         }
       ],
       "guildMemberJoin": [
@@ -21521,6 +21542,44 @@
             ],
             "avatarURL": null,
             "displayAvatarURL": "https://cdn.discordapp.com/avatars/492408742076219407/a_6af9123da3089a1982be04fdeac0f957.gif"
+          }
+        },
+        {
+          "timesamp": 1719712455,
+          "removedRole": {
+            "guild": "438621187132751873",
+            "icon": null,
+            "unicodeEmoji": null,
+            "id": "811974637445185578",
+            "name": "┋Porg Admirał┋🌵┋",
+            "color": 15844367,
+            "hoist": true,
+            "rawPosition": 101,
+            "permissions": "4332047945",
+            "managed": false,
+            "mentionable": true,
+            "flags": 0,
+            "tags": {},
+            "createdTimestamp": 1613660239326
+          },
+          "removedFrom": {
+            "guildId": "438621187132751873",
+            "joinedTimestamp": 1619088267822,
+            "premiumSinceTimestamp": null,
+            "nickname": "Filip",
+            "pending": false,
+            "communicationDisabledUntilTimestamp": null,
+            "userId": "628825587468992533",
+            "avatar": null,
+            "flags": 0,
+            "displayName": "Filip",
+            "roles": [
+              "743094852320755844",
+              "794562517158330378",
+              "438621187132751873"
+            ],
+            "avatarURL": null,
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/628825587468992533/012942abb42ed89f5befb8afd98dfbbd.webp"
           }
         }
       ],
@@ -38718,6 +38777,27 @@
           "timesamp": 1719581544,
           "oldContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "newContent": "**S.V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "editedBy": {
+            "id": "807604332056150036",
+            "bot": true,
+            "system": false,
+            "flags": null,
+            "username": "UnbelievaBoat",
+            "globalName": null,
+            "discriminator": "0000",
+            "avatar": "1f6cd5cc6a28e28d449215f1690b9de3",
+            "avatarDecoration": null,
+            "createdTimestamp": 1612618277325,
+            "defaultAvatarURL": "https://cdn.discordapp.com/embed/avatars/0.png",
+            "tag": "UnbelievaBoat#0000",
+            "avatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp",
+            "displayAvatarURL": "https://cdn.discordapp.com/avatars/807604332056150036/1f6cd5cc6a28e28d449215f1690b9de3.webp"
+          }
+        },
+        {
+          "timesamp": 1719754305,
+          "oldContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
+          "newContent": "**V.1.P 'y WŁAŚNIE DOSTAŁY DZIENNĄ WYPŁATE**",
           "editedBy": {
             "id": "807604332056150036",
             "bot": true,
