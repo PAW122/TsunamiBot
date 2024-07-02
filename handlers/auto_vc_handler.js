@@ -18,7 +18,7 @@ async function manage_auto_vc(client, oldState, newState, auto_vc_channels) {
 
     if (auto_vc_channels.is_exist(oldChannelID)) {
         const channel = newState.guild.channels.cache.get(oldChannelID);
-        if (!channel || channel.members.size === 0) {
+        if ((!channel || channel.members.size === 0) || (channel.members.size === 1 && channel.members.first().id === client.user.id)) {
             auto_vc_channels.remove(oldChannelID);
             try {
                 await channel.delete();
