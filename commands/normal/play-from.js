@@ -1,12 +1,13 @@
 const { SlashCommandBuilder } = require("discord.js");
 const Discord = require('discord.js');
-const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@discordjs/voice');
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice');
 const { AudioDataStore } = require("../../handlers/audio/cache")
 const fs = require('fs');
 const path = require('path');
 const axios = require("axios")
 const Database = require("../../db/database")
 const db = new Database(__dirname + "../../../db/files/users.json")
+let cache = new Set()
 
 const command = new SlashCommandBuilder()
     .setName("play-from")
@@ -23,13 +24,18 @@ const command = new SlashCommandBuilder()
         .setAutocomplete(true)
         .setRequired(true)
     )
+    // .addBooleanOption((option) => option
+    //     .setName("autoplay")
+    //     .setDescription("Auto play next song")
+    //     .setRequired(false)
+    // )
 
 async function execute(interaction, client) {
     const user_name = interaction.options.getString('user_name');
     const song = interaction.options.getString('song');
 
     playAudio(interaction, song, user_name, client);
-    
+
 }// dodać przyciski do pause(pauza odtwarzania), skip(skip nuty), play
 
 async function playAudio(interaction, song_name, user_name, client) {
@@ -39,7 +45,7 @@ async function playAudio(interaction, song_name, user_name, client) {
     if (!user_data || !user_data.songs) return;
 
     const song_data = user_data.songs.find(song => song.song_name === song_name);
-    if(!song_data) return interaction.reply("canot find song data")
+    if (!song_data) return interaction.reply("canot find song data")
 
     const messageLink = song_data.link
 
@@ -91,7 +97,7 @@ async function playAudio(interaction, song_name, user_name, client) {
 
     } catch (error) {
         console.error('Wystąpił błąd podczas pobierania wiadomości Discord:', error);
-        if(error.code === 10008 || error.rawError.message === 'Unknown Message') {
+        if (error.code === 10008 || error.rawError.message === 'Unknown Message') {
             invalid_link(selectedUserName, song_name, messageLink, client)
         }
         await interaction.reply("An error occurred while trying to obtain the audio file")
@@ -106,18 +112,18 @@ async function playAudio(interaction, song_name, user_name, client) {
  */
 function invalid_link(selectedUserName, song_name, messageLink, client) {
     const user = client.users.cache.find(user => user.username === selectedUserName);;
-    if(!user) return;
+    if (!user) return;
 
-    const user_id = user.id; if(!user_id) return;
+    const user_id = user.id; if (!user_id) return;
     let data = db.read(`${user_id}.songs.${song_name}`)
-    if(data === null || data === undefined) return;
+    if (data === null || data === undefined) return;
 
     const new_count = data.check_count - 1
-    let new_data = {...data}
+    let new_data = { ...data }
     new_data.check_count = new_count
 
 
-    if(data.check_count <= 0) {
+    if (data.check_count <= 0) {
         const data_instance = AudioDataStore.getInstance();
         // user.send(`Cannot find message "${messageLink}" to play **${song_name}** song\ncheck out file and reupload if needed`)
         data_instance.remove_song(selectedUserName, song_name)
@@ -129,6 +135,7 @@ function invalid_link(selectedUserName, song_name, messageLink, client) {
 
 async function playAudioOnce(interaction, attachment) {
     try {
+        cache.add(interaction.channel.id, true)
         // Sprawdź, czy załącznik jest typu mp3
         if (!attachment.name.endsWith('.mp3')) {
             return await interaction.channel.send("The attached file is not an mp3 file.");
@@ -138,6 +145,7 @@ async function playAudioOnce(interaction, attachment) {
         const attachmentPath = path.join(__dirname + "../../../db/files/audio", interaction.id);
         const file = fs.createWriteStream(attachmentPath);
         const response = await axios.get(attachment.url, { responseType: 'stream' });
+        let audio_status = null
         response.data.pipe(file);
 
         await new Promise((resolve, reject) => {
@@ -173,17 +181,43 @@ async function playAudioOnce(interaction, attachment) {
         audioPlayer.play(audioResource);
 
         // Zapisz komunikat, że teraz odtwarzany jest plik mp3
-        await interaction.reply({ content: `Now playing ${attachment.name} in your voice channel.`});
+        try{
+            await interaction.reply({ content: `Now playing ${attachment.name} in your voice channel.` });
+        }catch(err) {
+            await interaction.channel.send({ content: `Now playing ${attachment.name} in your voice channel.` })
+        }
 
         audioPlayer.on("stateChange", async (oldState, newState) => {
+            audio_status = newState
             if (oldState.status === "playing" && newState.status === "idle") {
+                cache.delete(interaction.channel.id)
                 fs.unlink(attachmentPath, (err) => {
                     if (err) {
                         console.error('Error deleting mp3 file:', err);
                     }
                 });
+
+                // if not playing next song:
+                setTimeout(() => {
+                    if (!cache.has(interaction.channel.id)) return;
+                    const currentConnection = getVoiceConnection(connection.joinConfig.guildId);
+                    if (currentConnection) {
+                        currentConnection.destroy();
+                        interaction.channel.send("I am leaving the voice channel due to inactivity")
+                    }
+                }, 5 * 60 * 1000);
             }
         });
+
+        // audioPlayer.on(AudioPlayerStatus.Idle, () => {
+        //     setTimeout(() => {
+        //         if(audio_status.status != "idle") return;
+        //         const currentConnection = getVoiceConnection(connection.joinConfig.guildId);
+        //         if (currentConnection) {
+        //             currentConnection.destroy();
+        //         }
+        //     }, 1 * 60 * 1000);
+        // });
 
     } catch (error) {
         console.error('Error playing mp3 file:', error);
@@ -238,7 +272,7 @@ async function autocomplete(interaction) {
 
         const songs = Object.values(user_data.songs).map(song => song.song_name); // Pobieramy tytuły piosenek
 
-        
+
         // Sortujemy pliki według podobieństwa do focusedOptionValue
         songs.sort((a, b) => {
             const similarityA = similarity(a, focusedOptionValue);
