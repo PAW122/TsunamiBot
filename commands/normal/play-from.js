@@ -205,7 +205,7 @@ async function playAudioOnce(interaction, attachment) {
                         currentConnection.destroy();
                         interaction.channel.send("I am leaving the voice channel due to inactivity")
                     }
-                }, 5 * 60 * 1000);
+                }, 1 * 60 * 1000);
             }
         });
 
@@ -228,6 +228,7 @@ async function playAudioOnce(interaction, attachment) {
 
 async function autocomplete(interaction) {
     const options = interaction.options._hoistedOptions;
+    let last_focused_name = null;
 
     // Szukanie opcji, w której użytkownik pisze
     let focusedOptionName = null;
@@ -267,6 +268,9 @@ async function autocomplete(interaction) {
 
     } else if (focusedOptionName === "song") {
         const selectedUserName = interaction.options.getString('user_name');
+        if(selectedUserName != last_focused_name) {
+            last_focused_name = selectedUserName 
+        }
         const user_data = data_instance.get(selectedUserName); // Pobieramy dane użytkownika na podstawie jego nazwy
         if (!user_data || !user_data.songs) return; // Sprawdzamy, czy użytkownik istnieje i czy ma piosenki
 
