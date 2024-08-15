@@ -5,7 +5,8 @@ const command = new SlashCommandBuilder()
     .setDescription("Send bot invite link");
 
 async function execute(interaction) {
-    await interaction.reply("https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands");
+    // TODO wczytywanie z configu
+    await interaction.reply("https://discord.com/oauth2/authorize?client_id=1273451611422724220&permissions=8&integration_type=0&scope=applications.commands+bot");
 }
 
 //return message if user use /help/ping

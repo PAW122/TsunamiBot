@@ -24,6 +24,7 @@ function initial() {
     if (String(config.MainURL) === "http://localhost:3000") {
         document.getElementById("test-banner")?.classList.remove("d-none")
     }
+    console.log(config.MainURL)
     let login_button = document.getElementById("login-button") as HTMLLinkElement
     login_button.href = config.AuthURL
 
