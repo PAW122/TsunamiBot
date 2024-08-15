@@ -21,6 +21,10 @@ async function execute(interaction, client) {
     const user_id = interaction.user.id
     const to_delete = interaction.options.getNumber('amount');
 
+    if(to_delete > 99) {
+        return await interaction.reply("> 99")
+    }
+
     //check for cooldowns
     if (!cooldowns.isEnd(`${guild}.${user_id}.clear`)) {
         return interaction.reply({
