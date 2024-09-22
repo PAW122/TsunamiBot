@@ -1,0 +1,85 @@
+{
+    "schemas": {
+        "Versions": "V.V.user_update.github_commit_number"
+    },
+    "updates": [
+        {
+            "Version": "0.0.3.249",
+            "Date": "07.06.2024",
+            "Name": "Bug Fixes",
+            "Description": "now, after adding a bot to a new server, it automatically registers slash commands, fixed a bug where the bot crashed when trying to send a welcome message after adding a new bot to the server"
+        },
+        {
+            "Version": "0.0.3.248",
+            "Date": "25.05.2024",
+            "Name": "Auto vc update",
+            "Description": "Added command /pass_owner @user - channel owner can pass owner rights to another user"
+        },
+        {
+            "Version": "0.0.3.247",
+            "Date": "24.05.2024",
+            "Name": "Senko emojis importer",
+            "Description": "Added command /senko-emojis <type> to easly add some basics senko emojis to the server with once command. Required permisions - Administrator"
+        },
+        {
+            "Version": "0.0.3.234",
+            "Date": "24.05.2024",
+            "Name": "Invite tracker",
+            "Description": "Added invite tracker. Command: /invited_by_message <channel> <status>, can also be enabled on the site. invite tracker sends information about who created the invitation that the user used to join the server"
+        },
+        {
+            "Version": "0.0.3.229",
+            "Date": "19.05.2024",
+            "Name": "Discord Bot Logs",
+            "Description": "Fixed a bug where, after loading the dashboard, the 'Mod Logs' channel was not automatically selected if it was set. added the /bot_logs command and the BotLogs item to the dashboard Bot Logs sends bot logs to the selected channel, currently information about the use of commands from the moderation category (auto_vc, autorole, bot_logs, clear, custom_commands, link_filter, modlogs, reload, welcome) is logged. information about the use of the command, its settings and who used it will be sent to the previously selected channel"
+        },
+        {
+            "Version": "0.0.2.226",
+            "Date": "18.05.2024",
+            "Name": "Discord Mod Logs",
+            "Description": "bug fix. users wasnt able to turn off mod logs"
+        },
+        {
+            "Version": "0.0.2.220",
+            "Date": "16.05.2024",
+            "Name": "Discord Mod Logs",
+            "Description": "+Mod logs for administration on channel. /modlogs <channel> <status>"
+        },
+        {
+            "Version": "0.0.2.216",
+            "Date": "14.05.2024",
+            "Name": "Bug Fix: Custom Commands",
+            "Description": "Fixed a bug that caused commands not to load after restarting the bot"
+        },
+        {
+            "Version": "0.0.2.215",
+            "Date": "12.05.2024",
+            "Name": "Custom Commands",
+            "Description": "custom commands have been added. At the moment they are very simple and do not allow for much, but they will be developed in the future.\nusing /custom_command <type:text> <slot:1/10> <trigger:ping> <response:pong> <status:True>\nwe can add a command that if someone writes 'ping' to the server, the bot will reply with the message 'pong'"
+        },
+        {
+            "Version": "0.0.1.201",
+            "Date": "08.05.2024",
+            "Name": "Updates page",
+            "Description": "+a page with bot updates has been added"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "06.05.2024",
+            "Name": "/flags command",
+            "Description": "+/flags and /flags_answer commands have been added, which allow you to play a mini-game of guessing which flag belongs to which country"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "05.05.2024",
+            "Name": "Auto vc update",
+            "Description": "the person who created the channel becomes its owner and can set the maximum number of people on the channel"
+        },
+        {
+            "Version": "0.0.1",
+            "Date": "30.04.2024",
+            "Name": "Auto vc",
+            "Description": "A system for automatic creation of voice channels has been added"
+        }
+    ]
+}
