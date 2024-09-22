@@ -7,7 +7,7 @@ const rsc_config = config.register_slash_commands
 require('dotenv').config();
 let token;
 if (is_test) {
-    token = process.env.TOKEN2;
+    token = process.env.ELLIE;
 } else {
     token = process.env.TOKEN;
 }

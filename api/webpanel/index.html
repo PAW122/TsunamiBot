@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bot Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -38,23 +38,36 @@
 
 <body data-bs-theme="dark">
 
-    <nav class="navbar d-flex gap-2 sticky-top bg-blur p-3 rounded">
-        <a class="navbar-brand" href="#">Bot panel</a>
-        <div>
-            <div class="profile-logout">
-                <a id="login-button" href="#" class="btn btn-primary">Login</a>
-                <a id="partners-button" href="/partners" class="btn btn-primary">Partners</a>
-                <a id="updates-button" href="/updates" class="btn btn-primary">Updates</a>
-                <a id="invite-button" href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands"class="btn btn-primary">Invite a Bot</a>
-            </div>
-            
-            <div class="input-group profile-login">
-                <img src="" height=38 id="profile-picture" class="rounded">
-                <div id="username-text" class="input-group-text">username</div>
-                <a id="logout-button" class="btn btn-outline-warning" href="#">
-                    <i class="bi bi-box-arrow-right"></i>
-                    Logout
-                </a>
+    <nav class="navbar navbar-expand-lg sticky-top bg-blur p-3 rounded">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bot Panel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a id="partners-button" href="/partners" class="nav-link">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="updates-button" href="/updates" class="nav-link">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="invite-button" href="https://discord.com/api/oauth2/authorize?client_id=928399458570502155&permissions=8&scope=bot+applications.commands" class="nav-link">Invite Bot</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a id="login-button" href="#" class="btn btn-primary me-2">Login</a>
+                    <div class="profile-login d-none">
+                        <img src="" height="38" id="profile-picture" class="rounded-circle me-2">
+                        <span id="username-text" class="me-2">username</span>
+                        <a id="logout-button" class="btn btn-outline-warning" href="#">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
