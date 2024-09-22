@@ -16,3 +16,5 @@ handlers/adminLogsChannel.js
 commands/normal/audio-view.js
 commands/normal/tsu.js
 handlers/tsu.js
+/db
+/db/files
