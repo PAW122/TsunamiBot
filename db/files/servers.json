@@ -10,13 +10,8 @@
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
-<<<<<<< Updated upstream
-        "xp": 4358,
-        "messages": 427
-=======
         "xp": 7139,
         "messages": 705
->>>>>>> Stashed changes
       },
       "778643150981562368": {
         "xp": 271,
@@ -35,8 +30,6 @@
           "command_status": false
         }
       }
-<<<<<<< Updated upstream
-=======
     },
     "auto_vc": {
       "auto_vc": {
@@ -46,7 +39,6 @@
     },
     "botLogs": {
       "status": false
->>>>>>> Stashed changes
     }
   },
   "1083481840159039588": {
@@ -121,31 +113,14 @@
     "name": "Senko",
     "users_lvls": {
       "609743130987593749": {
-<<<<<<< Updated upstream
-        "xp": 938,
-        "messages": 92
-=======
         "xp": 4155,
         "messages": 412
->>>>>>> Stashed changes
       },
       "771135515780972575": {
         "xp": 53,
         "messages": 6
       },
       "438336824516149249": {
-<<<<<<< Updated upstream
-        "xp": 1047,
-        "messages": 109
-      },
-      "577507822011416592": {
-        "xp": 3236,
-        "messages": 317
-      },
-      "759765392787767316": {
-        "xp": 915,
-        "messages": 92
-=======
         "xp": 2316,
         "messages": 235
       },
@@ -156,7 +131,6 @@
       "759765392787767316": {
         "xp": 2287,
         "messages": 224
->>>>>>> Stashed changes
       },
       "734374783529255022": {
         "xp": 7,
@@ -175,13 +149,8 @@
         "messages": 1
       },
       "692621246017568799": {
-<<<<<<< Updated upstream
-        "xp": 3337,
-        "messages": 323
-=======
         "xp": 4699,
         "messages": 465
->>>>>>> Stashed changes
       },
       "445236905462857731": {
         "xp": 30,
@@ -200,13 +169,8 @@
         "messages": 30
       },
       "335472786032164864": {
-<<<<<<< Updated upstream
-        "xp": 1267,
-        "messages": 124
-=======
         "xp": 1753,
         "messages": 172
->>>>>>> Stashed changes
       },
       "1145415341149786114": {
         "xp": 14,
@@ -221,13 +185,8 @@
         "messages": 4
       },
       "603888426600759332": {
-<<<<<<< Updated upstream
-        "xp": 135,
-        "messages": 13
-=======
         "xp": 443,
         "messages": 44
->>>>>>> Stashed changes
       },
       "495919786920771584": {
         "xp": 11,
@@ -254,13 +213,8 @@
         "messages": 1
       },
       "759363546231472159": {
-<<<<<<< Updated upstream
-        "xp": 344,
-        "messages": 34
-=======
         "xp": 797,
         "messages": 81
->>>>>>> Stashed changes
       },
       "1138888065708986459": {
         "xp": 12,
@@ -323,9 +277,6 @@
         "messages": 6
       },
       "492408742076219407": {
-<<<<<<< Updated upstream
-        "xp": 54,
-=======
         "xp": 462,
         "messages": 48
       },
@@ -351,7 +302,6 @@
       },
       "532909244450734080": {
         "xp": 48,
->>>>>>> Stashed changes
         "messages": 6
       }
     },
@@ -381,8 +331,6 @@
     "botLogs": {
       "status": true,
       "channel": "743856099156819998"
-<<<<<<< Updated upstream
-=======
     },
     "invite_tracker": {
       "channel_id": "764240709779193876",
@@ -394,7 +342,6 @@
     "ticketChannel": {
       "status": true,
       "channel_id": "752868035546841128"
->>>>>>> Stashed changes
     }
   },
   "691010748012429372": {
@@ -406,34 +353,20 @@
         "messages": 5
       },
       "438336824516149249": {
-<<<<<<< Updated upstream
-        "xp": 2334,
-        "messages": 233
-      },
-      "597420184122294272": {
-        "xp": 3013,
-        "messages": 298
-=======
         "xp": 4227,
         "messages": 426
       },
       "597420184122294272": {
         "xp": 5339,
         "messages": 522
->>>>>>> Stashed changes
       },
       "784889518632468561": {
         "xp": 401,
         "messages": 39
       },
       "361143836598337546": {
-<<<<<<< Updated upstream
-        "xp": 302,
-        "messages": 32
-=======
         "xp": 353,
         "messages": 37
->>>>>>> Stashed changes
       },
       "308861286647857153": {
         "xp": 11,
@@ -452,10 +385,6 @@
         "messages": 1
       },
       "331201574313656320": {
-<<<<<<< Updated upstream
-        "xp": 29,
-        "messages": 2
-=======
         "xp": 41,
         "messages": 3
       },
@@ -478,7 +407,6 @@
       "957146822466486272": {
         "xp": 31,
         "messages": 3
->>>>>>> Stashed changes
       }
     }
   },
@@ -509,10 +437,6 @@
   "751477872295936000": {
     "users_lvls": {
       "445974760669708289": {
-<<<<<<< Updated upstream
-        "xp": 14,
-        "messages": 2
-=======
         "xp": 21,
         "messages": 3
       },
@@ -523,7 +447,6 @@
       "667072254294753301": {
         "xp": 19,
         "messages": 3
->>>>>>> Stashed changes
       }
     }
   },
