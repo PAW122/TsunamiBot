@@ -10,12 +10,17 @@
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
+<<<<<<< Updated upstream
         "xp": 4358,
         "messages": 427
+=======
+        "xp": 7139,
+        "messages": 705
+>>>>>>> Stashed changes
       },
       "778643150981562368": {
-        "xp": 261,
-        "messages": 27
+        "xp": 271,
+        "messages": 28
       }
     },
     "owner": "438336824516149249",
@@ -30,11 +35,23 @@
           "command_status": false
         }
       }
+<<<<<<< Updated upstream
+=======
+    },
+    "auto_vc": {
+      "auto_vc": {
+        "channel_id": "727662119553728536",
+        "status": true
+      }
+    },
+    "botLogs": {
+      "status": false
+>>>>>>> Stashed changes
     }
   },
   "1083481840159039588": {
     "name": "SentiByte-Studio",
-    "welcome_channel": "1083484567450693652",
+    "welcome_channel": "1083481841144709210",
     "welcome_message": null,
     "welcome_status": null,
     "welcome_dm_message": "witramy na serweże",
@@ -45,8 +62,51 @@
     "error_logs": [],
     "users_lvls": {
       "438336824516149249": {
-        "xp": 9,
-        "messages": 1
+        "xp": 810,
+        "messages": 82
+      },
+      "546627177890971658": {
+        "xp": 1118,
+        "messages": 117
+      },
+      "778643150981562368": {
+        "xp": 37,
+        "messages": 4
+      }
+    },
+    "dad_channel_enable": true,
+    "link_filter": {
+      "status": false
+    },
+    "modLogsMessages": {
+      "channel": true
+    },
+    "ticketChannel": {
+      "status": true,
+      "channel_id": "1084904731798929409"
+    },
+    "botLogs": {
+      "status": true,
+      "channel": "1083481841144709215"
+    },
+    "custom_commands": {
+      "text": {
+        "1": {
+          "trigger": "test",
+          "response": "test",
+          "commandType": "text",
+          "command_status": true
+        }
+      }
+    },
+    "invite_tracker": {
+      "channel_id": "1083483076950237275",
+      "status": true
+    },
+    "auto_vc": {
+      "auto_vc": {
+        "channel_id": "1083481841144709215",
+        "status": true
       }
     }
   },
@@ -61,14 +121,20 @@
     "name": "Senko",
     "users_lvls": {
       "609743130987593749": {
+<<<<<<< Updated upstream
         "xp": 938,
         "messages": 92
+=======
+        "xp": 4155,
+        "messages": 412
+>>>>>>> Stashed changes
       },
       "771135515780972575": {
-        "xp": 18,
-        "messages": 2
+        "xp": 53,
+        "messages": 6
       },
       "438336824516149249": {
+<<<<<<< Updated upstream
         "xp": 1047,
         "messages": 109
       },
@@ -79,6 +145,18 @@
       "759765392787767316": {
         "xp": 915,
         "messages": 92
+=======
+        "xp": 2316,
+        "messages": 235
+      },
+      "577507822011416592": {
+        "xp": 3700,
+        "messages": 365
+      },
+      "759765392787767316": {
+        "xp": 2287,
+        "messages": 224
+>>>>>>> Stashed changes
       },
       "734374783529255022": {
         "xp": 7,
@@ -97,8 +175,13 @@
         "messages": 1
       },
       "692621246017568799": {
+<<<<<<< Updated upstream
         "xp": 3337,
         "messages": 323
+=======
+        "xp": 4699,
+        "messages": 465
+>>>>>>> Stashed changes
       },
       "445236905462857731": {
         "xp": 30,
@@ -117,8 +200,13 @@
         "messages": 30
       },
       "335472786032164864": {
+<<<<<<< Updated upstream
         "xp": 1267,
         "messages": 124
+=======
+        "xp": 1753,
+        "messages": 172
+>>>>>>> Stashed changes
       },
       "1145415341149786114": {
         "xp": 14,
@@ -133,8 +221,13 @@
         "messages": 4
       },
       "603888426600759332": {
+<<<<<<< Updated upstream
         "xp": 135,
         "messages": 13
+=======
+        "xp": 443,
+        "messages": 44
+>>>>>>> Stashed changes
       },
       "495919786920771584": {
         "xp": 11,
@@ -161,8 +254,13 @@
         "messages": 1
       },
       "759363546231472159": {
+<<<<<<< Updated upstream
         "xp": 344,
         "messages": 34
+=======
+        "xp": 797,
+        "messages": 81
+>>>>>>> Stashed changes
       },
       "1138888065708986459": {
         "xp": 12,
@@ -225,7 +323,35 @@
         "messages": 6
       },
       "492408742076219407": {
+<<<<<<< Updated upstream
         "xp": 54,
+=======
+        "xp": 462,
+        "messages": 48
+      },
+      "743455079176077354": {
+        "xp": 54,
+        "messages": 5
+      },
+      "973442160798093335": {
+        "xp": 56,
+        "messages": 7
+      },
+      "569978854282756117": {
+        "xp": 487,
+        "messages": 46
+      },
+      "578332808750301195": {
+        "xp": 17,
+        "messages": 2
+      },
+      "397148211812499466": {
+        "xp": 11,
+        "messages": 1
+      },
+      "532909244450734080": {
+        "xp": 48,
+>>>>>>> Stashed changes
         "messages": 6
       }
     },
@@ -243,7 +369,7 @@
           "trigger": "siema",
           "response": "pajacu",
           "commandType": "text",
-          "command_status": false
+          "command_status": true
         }
       }
     },
@@ -255,6 +381,20 @@
     "botLogs": {
       "status": true,
       "channel": "743856099156819998"
+<<<<<<< Updated upstream
+=======
+    },
+    "invite_tracker": {
+      "channel_id": "764240709779193876",
+      "status": true
+    },
+    "link_filter": {
+      "status": false
+    },
+    "ticketChannel": {
+      "status": true,
+      "channel_id": "752868035546841128"
+>>>>>>> Stashed changes
     }
   },
   "691010748012429372": {
@@ -266,20 +406,34 @@
         "messages": 5
       },
       "438336824516149249": {
+<<<<<<< Updated upstream
         "xp": 2334,
         "messages": 233
       },
       "597420184122294272": {
         "xp": 3013,
         "messages": 298
+=======
+        "xp": 4227,
+        "messages": 426
+      },
+      "597420184122294272": {
+        "xp": 5339,
+        "messages": 522
+>>>>>>> Stashed changes
       },
       "784889518632468561": {
-        "xp": 352,
-        "messages": 35
+        "xp": 401,
+        "messages": 39
       },
       "361143836598337546": {
+<<<<<<< Updated upstream
         "xp": 302,
         "messages": 32
+=======
+        "xp": 353,
+        "messages": 37
+>>>>>>> Stashed changes
       },
       "308861286647857153": {
         "xp": 11,
@@ -298,8 +452,33 @@
         "messages": 1
       },
       "331201574313656320": {
+<<<<<<< Updated upstream
         "xp": 29,
         "messages": 2
+=======
+        "xp": 41,
+        "messages": 3
+      },
+      "1086090266915655710": {
+        "xp": 14,
+        "messages": 1
+      },
+      "653753323031363585": {
+        "xp": 19,
+        "messages": 2
+      },
+      "1029847589216075846": {
+        "xp": 24,
+        "messages": 2
+      },
+      "1018686345390071868": {
+        "xp": 14,
+        "messages": 1
+      },
+      "957146822466486272": {
+        "xp": 31,
+        "messages": 3
+>>>>>>> Stashed changes
       }
     }
   },
@@ -330,8 +509,21 @@
   "751477872295936000": {
     "users_lvls": {
       "445974760669708289": {
+<<<<<<< Updated upstream
         "xp": 14,
         "messages": 2
+=======
+        "xp": 21,
+        "messages": 3
+      },
+      "693786016057917522": {
+        "xp": 52,
+        "messages": 4
+      },
+      "667072254294753301": {
+        "xp": 19,
+        "messages": 3
+>>>>>>> Stashed changes
       }
     }
   },
@@ -354,7 +546,7 @@
     "auto_vc": {
       "auto_vc": {
         "channel_id": "1234981531408273419",
-        "status": true
+        "status": false
       }
     }
   },
@@ -365,6 +557,234 @@
     },
     "link_filter": {
       "status": false
+    }
+  },
+  "654587915329994762": {
+    "modLogsMessages": {
+      "channel": true,
+      "status": false
+    },
+    "autorole": {
+      "status": true
+    },
+    "botLogs": {
+      "status": true,
+      "channel": "887565685172088862"
+    },
+    "welcome_channel": "887565685172088862",
+    "invite_tracker": {
+      "status": true,
+      "channel_id": "1278587616819679243"
+    },
+    "users_lvls": {
+      "736091884690341898": {
+        "xp": 1803,
+        "messages": 184
+      },
+      "348305549856866304": {
+        "xp": 19,
+        "messages": 2
+      },
+      "653753323031363585": {
+        "xp": 3326,
+        "messages": 333
+      },
+      "1250549078333460584": {
+        "xp": 126,
+        "messages": 12
+      },
+      "1074841553496973392": {
+        "xp": 254,
+        "messages": 29
+      },
+      "572194679878189056": {
+        "xp": 878,
+        "messages": 89
+      },
+      "852986556687319092": {
+        "xp": 1161,
+        "messages": 109
+      },
+      "1097310383787757630": {
+        "xp": 88,
+        "messages": 9
+      },
+      "1064707672659738755": {
+        "xp": 9,
+        "messages": 1
+      },
+      "1195876788929306796": {
+        "xp": 144,
+        "messages": 13
+      },
+      "881698535014293534": {
+        "xp": 280,
+        "messages": 30
+      },
+      "1008386876052344852": {
+        "xp": 276,
+        "messages": 29
+      },
+      "831563863056711791": {
+        "xp": 138,
+        "messages": 13
+      },
+      "988598566626930698": {
+        "xp": 84,
+        "messages": 10
+      },
+      "1047427006645682176": {
+        "xp": 192,
+        "messages": 22
+      },
+      "1080135462875844700": {
+        "xp": 14,
+        "messages": 1
+      },
+      "720815980439142472": {
+        "xp": 7,
+        "messages": 1
+      },
+      "1273494107444088836": {
+        "xp": 42,
+        "messages": 3
+      },
+      "926206913669120070": {
+        "xp": 290,
+        "messages": 28
+      },
+      "731371761064738836": {
+        "xp": 14,
+        "messages": 1
+      },
+      "911823096124669962": {
+        "xp": 369,
+        "messages": 39
+      },
+      "581593968991797254": {
+        "xp": 12,
+        "messages": 1
+      }
+    }
+  },
+  "1205787639333265468": {
+    "users_lvls": {
+      "1002303130949648475": {
+        "xp": 13,
+        "messages": 1
+      },
+      "653753323031363585": {
+        "xp": 784,
+        "messages": 80
+      },
+      "572194679878189056": {
+        "xp": 238,
+        "messages": 23
+      },
+      "926206913669120070": {
+        "xp": 982,
+        "messages": 92
+      },
+      "1008386876052344852": {
+        "xp": 114,
+        "messages": 11
+      },
+      "780329767953891358": {
+        "xp": 321,
+        "messages": 33
+      }
+    },
+    "autorole": {
+      "status": true,
+      "role_id": "1210486631836950599"
+    },
+    "modLogsMessages": {
+      "channel": true
+    },
+    "welcome_channel": "1210486081280151572",
+    "invite_tracker": {
+      "status": true,
+      "channel_id": "1210486478904360981"
+    }
+  },
+  "947557972022796318": {
+    "invite_tracker": {
+      "status": true,
+      "channel_id": "1285081246107697182"
+    },
+    "modLogsMessages": {
+      "channel": "1285081295072006246",
+      "status": true
+    },
+    "welcome_channel": "1171893675668803614",
+    "autorole": {
+      "status": true,
+      "role_id": "947560065072791594"
+    },
+    "botLogs": {
+      "status": true,
+      "channel": "1285081202386014241"
+    },
+    "dad_channel_enable": false,
+    "welcome_dm_message": "dear user, thank you for joining this server, as it means you either got personally invited by me, or joined via youtube, thank you for joining though, i really appreciate it -D.W 2024",
+    "welcome_message": "welcome toe the nations community",
+    "users_lvls": {
+      "596086112343162908": {
+        "xp": 5,
+        "messages": 1
+      },
+      "1273494107444088836": {
+        "xp": 462,
+        "messages": 45
+      },
+      "653753323031363585": {
+        "xp": 460,
+        "messages": 43
+      },
+      "1250549078333460584": {
+        "xp": 125,
+        "messages": 11
+      },
+      "1260268801887309889": {
+        "xp": 15,
+        "messages": 2
+      },
+      "926206913669120070": {
+        "xp": 336,
+        "messages": 29
+      },
+      "736091884690341898": {
+        "xp": 15,
+        "messages": 1
+      },
+      "1008386876052344852": {
+        "xp": 80,
+        "messages": 8
+      },
+      "780329767953891358": {
+        "xp": 146,
+        "messages": 13
+      },
+      "1166112563453513848": {
+        "xp": 6,
+        "messages": 1
+      }
+    }
+  },
+  "1287280007080841338": {
+    "users_lvls": {
+      "957146822466486272": {
+        "xp": 304,
+        "messages": 33
+      },
+      "1287293516145233960": {
+        "xp": 6,
+        "messages": 1
+      },
+      "1085356702930575530": {
+        "xp": 279,
+        "messages": 29
+      }
     }
   }
 }
