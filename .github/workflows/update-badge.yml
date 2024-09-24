@@ -1,9 +1,13 @@
 name: Update Lines of Code Badge
+name: Update Lines of Code Badge
 
 on:
   push:
     branches:
-      - main  # Zmień na swoją główną gałąź, jeśli to konieczne
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   update-badge:
@@ -16,13 +20,11 @@ jobs:
       - name: Count lines of code
         id: count_lines
         run: |
-          # Zlicz linie kodu w repozytorium
           lines=$(find . -name '*.py' -or -name '*.js' -or -name '*.java' -or -name '*.cpp' -or -name '*.c' -or -name '*.go' -or -name '*.rb' | xargs wc -l | tail -n 1 | awk '{print $1}')
           echo "lines=$lines" >> $GITHUB_ENV
 
       - name: Update README.md
         run: |
-          # Zaktualizuj README.md z nowym badge
           badge="![Lines of Code](https://img.shields.io/badge/lines%20of%20code-${{ env.lines }}-blue)"
           sed -i "s|!\[Lines of Code\].*|$badge|" README.md
 
