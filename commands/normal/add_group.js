@@ -14,7 +14,6 @@ const command = new SlashCommandBuilder()
 async function execute(interaction, client) {
     const name = interaction.options.getString("name")
     db.init()
-    console.log("test")
 
     if (!name || name.length > 64) {
         return await interaction.reply("Invalid group name")
@@ -32,22 +31,17 @@ async function execute(interaction, client) {
 
     const data = db.read(`${server_id}.groups`)
     if (!data || data.status === false) {
-        console.log("err-1")
         return await interaction.reply("this function is disbaled on this server")
     }
 
     const category_id = data.settings.category_id
     if (!category_id) {
-        console.log("err-2")
-        console.log(category_id)
-        console.log(data)
         return await interaction.reply("this function is disbaled on this server")
     }
 
     const category = interaction.guild.channels.cache.get(category_id);
 
     if (category && category.type === 4) { // Sprawdzenie, czy kanał istnieje i czy jest kategorią
-        console.log(`Znaleziono kategorię: ${category.name}`);
 
         // Sprawdzenie, czy w kategorii istnieje kanał o podanej nazwie
         const existingChannel = interaction.guild.channels.cache.find(
