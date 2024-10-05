@@ -103,6 +103,7 @@ async function playAudioOnce(interaction, attachment) {
 
         // Zapisz załącznik tymczasowo na serwerze
         const attachmentPath = path.join(__dirname + "../../../db/files/audio", attachment.name);
+        ensureDirectoryExistence(attachmentPath);
         const file = fs.createWriteStream(attachmentPath);
         const response = await axios.get(attachment.url, { responseType: 'stream' });
         response.data.pipe(file);
@@ -260,6 +261,21 @@ async function help_message(interaction, client) {
         content: `1. send mp3 file on discord and copy message link (right click on message)\n2. use **/addsong** command\ntype song name and past link to message with mp3 file\n3. use /play-from type your username and select song`,
         ephemeral: true
     })
+}
+
+// Funkcja tworząca foldery, jeśli ich nie ma
+function ensureDirectoryExistence(filePath) {
+    const dir = path.dirname(filePath); // Pobieramy katalogi ze ścieżki
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true }); // Tworzymy katalogi rekurencyjnie
+    }
+}
+
+// Funkcja tworząca plik, jeśli nie istnieje
+function ensureFileExistence(filePath) {
+    if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, ''); // Tworzymy pusty plik
+    }
 }
 
 module.exports = { command, execute, help_message, autocomplete };
