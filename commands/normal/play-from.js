@@ -172,7 +172,6 @@ async function autocomplete(interaction) {
 
     if (focusedOptionName === "user_name") {
         const stations = Array.from(data_instance.get_users())
-        console.log(stations)
         // Sortujemy stacje według podobieństwa do focusedOptionValue
         stations.sort((a, b) => {
             const similarityA = similarity(a, focusedOptionValue);

@@ -53,33 +53,38 @@ function mod_logs(client) {
 
     //delete message
     client.on("messageDelete", async (message) => {
-        const guildId = message.guild.id
-        if (!guildId) return;
+        try {
+            const guildId = message.guild.id
+            if (!guildId) return;
 
-        const data = {
-            timesamp: getCurrentTimestampInSeconds(),
-            channelId: message.channelId,
-            messageId: message.id,
-            createdTimestamp: message.createdTimestamp,
-            content: message.content,
-            author: message.author,
-            pinned: message.pinned,
-            tts: message.tts,
-            attachments: message.attachments,
-            deleted_by: null
+            const data = {
+                timesamp: getCurrentTimestampInSeconds(),
+                channelId: message.channelId,
+                messageId: message.id,
+                createdTimestamp: message.createdTimestamp,
+                content: message.content,
+                author: message.author,
+                pinned: message.pinned,
+                tts: message.tts,
+                attachments: message.attachments,
+                deleted_by: null
 
-        }//deleted by
+            }//deleted by
 
-        let logs = await message.guild.fetchAuditLogs({ type: 72 });
-        let entry = logs.entries.first() ?? false;
+            let logs = await message.guild.fetchAuditLogs({ type: 72 });
+            let entry = logs.entries.first() ?? false;
 
-        if (entry && entry.executor) {
-            data.deleted_by = entry.executor
+            if (entry && entry.executor) {
+                data.deleted_by = entry.executor
+            }
+
+            database_modLogs.addToList(`${guildId}.modlogs.messageDelete`, data)
+            if (data.content.length > 500) return;
+            sendLogs.SendLog(guildId, `***Message Deleted***\nmessage Author: **${data.author}**\nContent: **${data.content}**\nDeleted by: **${data.deleted_by}**\nChannel: <#${data.channelId}>`)
+        } catch (err) {
+            console.error(err)
+            return
         }
-
-        database_modLogs.addToList(`${guildId}.modlogs.messageDelete`, data)
-        if(data.content.length > 500) return;
-        sendLogs.SendLog(guildId, `***Message Deleted***\nmessage Author: **${data.author}**\nContent: **${data.content}**\nDeleted by: **${data.deleted_by}**\nChannel: <#${data.channelId}>`)
     })
 
     // + role for user
