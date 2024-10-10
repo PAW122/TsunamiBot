@@ -51,6 +51,7 @@ const command = new SlashCommandBuilder()
     
 
 async function autocomplete(interaction) {
+    try {
     db.init();
     const server_id = interaction.guild.id;
 
@@ -69,7 +70,7 @@ async function autocomplete(interaction) {
     });
 
     // Przygotowanie odpowiedzi do autouzupełniania
-    const choices = filteredChannels.slice(0, 25).map(channel => ({
+    const choices = filteredChannels.slice(0, 24).map(channel => ({
         name: channel.data.chanenl_name, // Nazwa do wyświetlenia
         value: channel.data.chanenl_name // Wartość do zwrócenia
     }));
@@ -79,8 +80,12 @@ async function autocomplete(interaction) {
         return await interaction.respond([{ name: 'Brak wyników', value: 'brak' }]);
     }
 
+
     // Odpowiedź na interakcję autouzupełniania
     await interaction.respond(choices);
+}catch(err) {
+    console.error("join_group.js 86 error")
+}
 }
 
 

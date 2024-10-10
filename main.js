@@ -165,7 +165,7 @@ client.on('interactionCreate', async interaction => {
             } catch (error) {
                 logger.error(error);
                 console.log(error)
-                await interaction.reply({
+                await interaction.channel.send({
                     content: "There was an error while executing autocomplete in this command!",
                     ephemeral: true,
                 });
