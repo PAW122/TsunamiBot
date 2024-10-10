@@ -41,11 +41,7 @@ async function execute(interaction, client) {
             name: category_name,
             type: 4, // Typ 4 oznacza kategorię
         });
-        console.log(`Stworzono nową kategorię o nazwie ${category_name}`);
-    } else {
-        console.log(`Kategoria o nazwie ${category_name} już istnieje`);
     }
-
 
     const categoryId = category.id;
     if(!categoryId) {
