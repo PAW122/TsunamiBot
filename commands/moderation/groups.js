@@ -59,7 +59,7 @@ async function execute(interaction, client) {
 
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `Set groups function -  allow users to create new channel in specified group`,
+        content: `Set groups function -  allow users to create new channels/groups in specified group`,
         ephemeral: true,
     });
 }

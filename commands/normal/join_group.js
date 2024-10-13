@@ -102,7 +102,7 @@ async function autocomplete(interaction) {
 
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `view your level information`,
+        content: `join to existing group\nonly if groups are enabled on the server by administration`,
         ephemeral: true
     })
 }

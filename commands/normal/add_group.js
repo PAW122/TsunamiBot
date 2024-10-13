@@ -121,7 +121,7 @@ async function execute(interaction, client) {
 //return message if user use /help/ping
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `view your level information`,
+        content: `create new group\nonly if groups are enabled on the server by administration`,
         ephemeral: true
     })
 }
