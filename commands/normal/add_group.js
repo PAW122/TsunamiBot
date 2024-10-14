@@ -30,8 +30,10 @@ async function execute(interaction, client) {
     const user_id = interaction.user.id
 
     const data = db.read(`${server_id}.groups`)
-    if (!data || data.status === false) {
-        return await interaction.reply("this function is disbaled on this server")
+
+    const groups_settings = data.settings
+    if (!groups_settings || !groups_settings.status || groups_settings.status != true) {
+        return interaction.reply({ content: 'Groups are disabled on this server.', ephemeral: true });
     }
 
     const category_id = data.settings.category_id
