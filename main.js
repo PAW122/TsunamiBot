@@ -159,7 +159,7 @@ client.on('interactionCreate', async interaction => {
         const commandLocation = commandsMap.get(commandName);
         if (commandLocation) {
             const { data, autocomplete } = require(commandLocation);
-
+ 
             try {
                 await autocomplete(interaction, client);
             } catch (error) {
@@ -173,6 +173,20 @@ client.on('interactionCreate', async interaction => {
         }
     }
 });
+
+// Dodanie event handlera do przycisków
+// client.on("interactionCreate", async (interaction) => {
+//     if (interaction.isButton()) {
+//         console.log(interaction)
+//         try {
+//             await handleButtonInteraction(interaction, data);
+//         } catch (error) {
+//             console.error(error);
+//             await interaction.reply({ content: "There was an error with the button interaction.", ephemeral: true });
+//         }
+//     }
+// });
+
 
 client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)

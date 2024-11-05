@@ -24,7 +24,7 @@ async function register_slash_commands(client, is_test) {
                 delete require.cache[require.resolve(filePath)]; // Clear the cache
                 const { command, _  } = require(filePath);
                 if(!command) {
-                    return logger.error("blank command")
+                    logger.error("blank command" + filePath)
                 }
 
                 try {
