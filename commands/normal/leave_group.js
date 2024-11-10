@@ -74,7 +74,7 @@ async function autocomplete(interaction) {
     });
 
     // Przygotowanie odpowiedzi do autouzupełniania
-    const choices = filteredChannels.map(channel => ({
+    const choices = filteredChannels.slice(0, 24).map(channel => ({
         name: channel.data.chanenl_name, // Nazwa do wyświetlenia
         value: channel.data.chanenl_name // Wartość do zwrócenia
     }));
