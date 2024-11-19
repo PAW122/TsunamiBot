@@ -98,7 +98,7 @@ client.on("ready", async (res) => {
 
     logger.log(`${res.user.tag} is ready`);
 
-    status_handler(client)
+    status_handler(client, config)
     database.backup(__dirname + "/db/backup")
 
     if (!is_test) {
