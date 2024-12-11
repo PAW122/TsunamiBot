@@ -6,15 +6,9 @@
         "db_logs": false,
         "prefix": ".",
         "creationDate": [2023, 12, 21],
-<<<<<<< Updated upstream
-        "main_url": "https://senko.pagekite.me/",
-        "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.pagekite.me%2F&scope=identify+guilds+email",
-        "port": 80,
-=======
         "main_url": "https://senko.tsunamistudio.net/",
         "web_link": "https://discord.com/oauth2/authorize?client_id=928399458570502155&response_type=code&redirect_uri=https%3A%2F%2Fsenko.tsunamistudio.net&scope=identify+guilds+email",
         "port": 3000,
->>>>>>> Stashed changes
         "api_max_listeners": 0,
         "audio_port": 3001,
         "audio_station_banned_names": ["admin", "owner"],
