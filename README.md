@@ -36,7 +36,7 @@
 
 - Web Api Hosting
 [https://pagekite.net] pagekite
-Public http "senko.pagekite.me" Trafic -> 127.0.0.1:80 
+Public http "senko.tsunamistudio.net" Trafic -> 127.0.0.1:80 
 
 - Audio Api Hosting
 [https://login.tailscale.com] tailscale
