@@ -5,7 +5,7 @@ const command = new SlashCommandBuilder()
     .setDescription("link to dashboard page");
 
 async function execute(interaction, client) {
-    await interaction.reply("https://senko.pagekite.me");
+    await interaction.reply("https://senko.tsunamistudio.net");
 }
 
 //return message if user use /help/ping
