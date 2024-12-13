@@ -1,5 +1,5 @@
 # TsunamiBot
-![Lines of Code](https://img.shields.io/badge/lines%20of%20code-9605-blue)
+![Lines of Code](https://img.shields.io/badge/lines%20of%20code-9196-blue)
 
 ## building
 - update `config.json` to use specific config
