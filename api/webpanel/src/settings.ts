@@ -211,6 +211,16 @@ export function genCheckBox(parent: HTMLDivElement, title: string = "TextBox", c
         // Zwracamy checkbox, aby można było go użyć później
     };
 }
+
+/**
+ * 
+ * @param parent 
+ * @param value 
+ * @param buttonId 
+ * @param buttonClass 
+ * @param url 
+ * @returns 
+ */
 export function genButtonElement(parent: HTMLElement, value: string, buttonId: string, buttonClass: string, url: string): HTMLButtonElement {
     // Tworzenie głównego kontenera dla przycisku
     const container = document.createElement("div");

@@ -7,7 +7,7 @@ const command = new SlashCommandBuilder()
 
 async function execute(interaction, client) {
 
-    const paths = ["../../assets/senko/fluff1.png", "../../assets/senko/fluff2.png", "../../assets/senko/fluff3.png"]
+    const paths = ["../../assets/senko/fluff1.png", "../../assets/senko/fluff2.png", "../../assets/senko/fluff3.jpg"]
     const randomIndex = Math.floor(Math.random() * paths.length);
 
     const asset = path.join(__dirname, paths[randomIndex]);
