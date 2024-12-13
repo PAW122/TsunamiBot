@@ -20,6 +20,7 @@ function initial() {
         return;
     }
 
+    // TODO navbarStyle is not working on localhost!
     navbarStyle();
     if (String(config.MainURL) === "http://localhost:3000") {
         document.getElementById("test-banner")?.classList.remove("d-none")
@@ -180,6 +181,10 @@ async function handleServerClick(clickedServerId: string) {
     //modLogs
     let link = `${config.MainURL}/modlogs/${clickedServerId}`
     genButtonElement(settings_parent, "Open Mod Logs", "mod_logs", "sdsd", link);
+
+    //reactionRole
+    let reactionRoleUrl = `${config.MainURL}/reactionrole_settings/${clickedServerId}`
+    genButtonElement(settings_parent, "Open Reaction role settings", "reaction_role", "sdsd", reactionRoleUrl);
 
     //autorole
     let autorole = genSettings(settings_parent, "Autorole", true);
