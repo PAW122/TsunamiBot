@@ -1,7 +1,7 @@
 {
   "name": "tsubot",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Lines of Code](https://img.shields.io/badge/lines%20of%20code-9603-blue)",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -44,5 +44,8 @@
   },
   "devDependencies": {
     "typescript": "^5.3.3"
+  },
+  "directories": {
+    "test": "test"
   }
 }

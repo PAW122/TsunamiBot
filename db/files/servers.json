@@ -10,8 +10,8 @@
     "settings": {},
     "users_lvls": {
       "438336824516149249": {
-        "xp": 9309,
-        "messages": 922
+        "xp": 9921,
+        "messages": 981
       },
       "778643150981562368": {
         "xp": 271,
@@ -2150,6 +2150,31 @@
         "xp": 22,
         "messages": 2
       }
+    }
+  },
+  "1313952694628515920": {
+    "name": "Serwer oppa",
+    "welcome_channel": "1316921026780729346",
+    "welcome_message": "Witaj na serwerze poświęconemu nowoczesnej technologii, poznaj fototerapię Bioelektrodami LifeWave !",
+    "welcome_status": null,
+    "welcome_dm_message": null,
+    "users_lvls": {
+      "492408742076219407": {
+        "xp": 505,
+        "messages": 50
+      },
+      "438336824516149249": {
+        "xp": 298,
+        "messages": 30
+      },
+      "1236039478494232657": {
+        "xp": 20,
+        "messages": 2
+      }
+    },
+    "autorole": {
+      "role_id": "1316923826734366821",
+      "status": true
     }
   }
 }
