@@ -7,7 +7,7 @@ const rsc_config = config.register_slash_commands
 require('dotenv').config();
 let token;
 if (is_test) {
-    token = process.env.ELLIE;
+    token = process.env.TOKEN_TEST;
 } else {
     token = process.env.TOKEN;
 }
@@ -38,7 +38,7 @@ console.log({
     "Test mode: ": is_test,
 })
 
-const { Client, GatewayIntentBits } = require("discord.js")
+const { Client, GatewayIntentBits, Events, Partials  } = require("discord.js")
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -47,8 +47,14 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildVoiceStates,
         GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildInvites
-    ]
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildMessageReactions
+    ],
+    partials: [
+        Partials.Message,
+        Partials.Channel,
+        Partials.Reaction
+    ],
 });
 
 const LoadModLogsGuilds = require("./handlers/modlogsMessages_handler")
@@ -82,6 +88,7 @@ const BotLogsHandler = BotLogs.getInstance();
 const InviteTracker = require("./handlers/invite_tracker")
 const { AudioDataStore } = require("./handlers/audio/cache")
 const AudioStore = AudioDataStore.getInstance()
+const {addEmoji, removeEmoji} = require("./handlers/emoji_handler")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -172,6 +179,15 @@ client.on('interactionCreate', async interaction => {
             }
         }
     }
+});
+
+// emoji's
+client.on(Events.MessageReactionAdd, async (reaction, user) => {
+    addEmoji(client, reaction, user)
+});
+
+client.on(Events.MessageReactionRemove, async (reaction, user) => {
+    removeEmoji(client, reaction, user)
 });
 
 // Dodanie event handlera do przycisków

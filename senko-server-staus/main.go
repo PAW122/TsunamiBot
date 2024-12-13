@@ -10,7 +10,7 @@ import (
 )
 
 const testLink = "http://localhost:3000/actions/server_status"
-const senkoLink = "https://senko.pagekite.me/actions/server_status"
+const senkoLink = "https://senko.tsunamistudio.net/actions/server_status"
 const sleep_time = 60
 
 // max 1 alert na raz

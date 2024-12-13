@@ -1,5 +1,5 @@
 # TsunamiBot
-![Lines of Code](https://img.shields.io/badge/lines%20of%20code-9603-blue)
+![Lines of Code](https://img.shields.io/badge/lines%20of%20code-9656-blue)
 
 ## building
 - update `config.json` to use specific config
@@ -36,7 +36,7 @@
 
 - Web Api Hosting
 [https://pagekite.net] pagekite
-Public http "senko.pagekite.me" Trafic -> 127.0.0.1:80 
+Public http "senko.tsunamistudio.net" Trafic -> 127.0.0.1:80 
 
 - Audio Api Hosting
 [https://login.tailscale.com] tailscale
@@ -449,3 +449,25 @@ dropienie, walki itd
                 > każda komenda w tym foldeże jest dostępna tylko dla osób z subem
                 > komendy testowe będą na prefix
     + usówanie linków do serwerów dc
+
+
+
+# in progres - reaction role
+/reaction-role-add <msg id> <>
+
+handler -> event add emoji -> check server.reaction-role.msg_id.emoji_id/name.data = {addedBy, addedTime, addRole_id, addEmoji, status} -> addRole_id.addToUser(userId)
+handler -> event remove emoji -> ...
+
+
+server.reaction_role.channel_id.msg_id.emoji_id/name.data
+
+# reaction role web - V1
+napisanie wiadomości w przeglądarce, wybranie kanału i send
++ lista emoji + rola
+i wszystko się samo zrobi
+
+
+# todo
+opcje wrzucenia linku na dc i po zalogowaniu user może zareagować na role w przeglądarce
+
+!!! login -> przenośić userna do /login

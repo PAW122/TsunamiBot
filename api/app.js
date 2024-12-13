@@ -12,6 +12,10 @@ const full_load = require("./endpoints/full_load")
 const actions = require("./endpoints/actions")
 const admin = require("./endpoints/admin")
 const full_mod_load = require("./endpoints/full_mod_logs_load")
+const reaction_role_api = require("./endpoints/reactionrole_settings")
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // index file serving
 app.get("/", (req, res) => {
@@ -24,6 +28,12 @@ app.get("/updates", (req, res) => {
 
 app.get("/partners", (req, res) => {
     return res.sendFile(process.cwd() + "/api/webpanel/partners.html")
+})
+
+app.use("/api_reactionrole", reaction_role_api)
+
+app.get("/reactionrole_settings/:id", (req, res) => {
+    return res.sendFile(process.cwd() + "/api/webpanel/reaction_role_settings.html")
 })
 
 app.get("/admin", (req, res) => {
@@ -85,7 +95,6 @@ app.use("/modlogs", mod_logs)
 app.use("/actions", actions)
 app.use("/admin", admin)
 app.use("/mod_logs", full_mod_load)
-app.use(bodyParser.json());
 // AUDIO TEST API ==================================================
 
 const { DataStore } = require("../handlers/audio/api")
