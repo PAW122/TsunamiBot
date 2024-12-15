@@ -108,7 +108,9 @@ async function startCaptioning(connection, interaction, discordClient, language)
 
         // Expose a callback to receive transcripts
         await page.exposeFunction('transcriptCallback', async (transcript) => {
+            console.log("transcriptCallback")
             if (transcript.trim() && currentUserId) {
+                console.log("transcript.trim")
                 const guildId = connection.joinConfig.guildId;
                 const guild = discordClient.guilds.cache.get(guildId);
 
@@ -130,6 +132,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
 
         // Keep Chromium running while bot is active
         connection.once(VoiceConnectionStatus.Disconnected, async () => {
+            console.log("web browser close")
             await browser.close();
         });
     } catch (error) {
