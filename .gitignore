@@ -2,12 +2,10 @@
 .eslintcache
 .stylelintcache
 /node_modules
+/db
 api/webpanel/dist/*
 .env
 /trash
-db/files/modlogs.json
-db/files/servers.json
-/db/files/audio
 TODO.md
 senko-server-staus/server-status.exe - autostart.lnk
 .vscode/settings.json
@@ -16,5 +14,5 @@ handlers/adminLogsChannel.js
 commands/normal/audio-view.js
 commands/normal/tsu.js
 handlers/tsu.js
-/db/files
 api/webpanel/config/public.js
+/db (copy)
