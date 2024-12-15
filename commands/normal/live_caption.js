@@ -62,12 +62,15 @@ let currentUserId = null; // To hold the userId of the current speaker
 async function startCaptioning(connection, interaction, discordClient, language) {
     try {
         // Launch Puppeteer with Chromium
+        console.log("lunch puppeteer")
         const browser = await puppeteer.launch({
             headless: true, // Run in headless mode
             args: ["--use-fake-ui-for-media-stream"] // Automatically allow microphone
         }).catch(err => {
             console.error('Puppeteer launch error:', err);
-        });;
+        });
+        console.log("succes lunch")
+        
         const page = await browser.newPage();
 
         // Load a minimal HTML file with Web Speech API
