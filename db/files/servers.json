@@ -384,12 +384,12 @@
         "messages": 5
       },
       "438336824516149249": {
-        "xp": 4307,
-        "messages": 435
+        "xp": 4256,
+        "messages": 429
       },
       "597420184122294272": {
-        "xp": 5348,
-        "messages": 523
+        "xp": 5339,
+        "messages": 522
       },
       "784889518632468561": {
         "xp": 401,
@@ -442,10 +442,6 @@
       "934335427572281355": {
         "xp": 19,
         "messages": 2
-      },
-      "1239628334086881310": {
-        "xp": 88,
-        "messages": 8
       }
     }
   },
@@ -1017,8 +1013,8 @@
         "messages": 1
       },
       "399235381096218625": {
-        "xp": 223,
-        "messages": 19
+        "xp": 179,
+        "messages": 16
       },
       "472074760969256960": {
         "xp": 277,
@@ -1181,8 +1177,8 @@
         "messages": 1
       },
       "986937602554871809": {
-        "xp": 24,
-        "messages": 2
+        "xp": 10,
+        "messages": 1
       },
       "652960804148215819": {
         "xp": 6,
@@ -2162,6 +2158,31 @@
         "xp": 22,
         "messages": 2
       }
+    }
+  },
+  "1313952694628515920": {
+    "name": "Serwer oppa",
+    "welcome_channel": "1316921026780729346",
+    "welcome_message": "Witaj na serwerze poświęconemu nowoczesnej technologii, poznaj fototerapię Bioelektrodami LifeWave !",
+    "welcome_status": null,
+    "welcome_dm_message": null,
+    "users_lvls": {
+      "492408742076219407": {
+        "xp": 505,
+        "messages": 50
+      },
+      "438336824516149249": {
+        "xp": 298,
+        "messages": 30
+      },
+      "1236039478494232657": {
+        "xp": 20,
+        "messages": 2
+      }
+    },
+    "autorole": {
+      "role_id": "1316923826734366821",
+      "status": true
     }
   }
 }
