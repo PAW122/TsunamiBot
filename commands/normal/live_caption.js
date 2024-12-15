@@ -2,6 +2,9 @@ const { SlashCommandBuilder } = require("discord.js");
 const { joinVoiceChannel, VoiceConnectionStatus } = require('@discordjs/voice');
 const puppeteer = require('puppeteer');
 
+const config = require("../../config.json")
+const config_data = config[config.using].chrome_path
+
 const command = new SlashCommandBuilder()
     .setName("live_caption")
     .setDescription("Translate what users on VC say to text for deaf people")
@@ -64,6 +67,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
         // Launch Puppeteer with Chromium
         console.log("lunch puppeteer")
         const browser = await puppeteer.launch({
+            executablePath: config_data,
             headless: false, // Run in headless mode
             args: ["--use-fake-ui-for-media-stream", '--no-sandbox', '--disable-setuid-sandbox'] // Automatically allow microphone
         }).catch(err => {
@@ -99,7 +103,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
                         let finalTranscript = '';
                         for (let i = event.resultIndex; i < event.results.length; i++) {
                             if (event.results[i].isFinal) {
-                                finalTranscript += event.results[i][0].transcript + '\\n';
+                                finalTranscript += event.results[i][0].transcript + '\\\\n';
                             }
                         }
                         window.transcriptCallback(finalTranscript);
