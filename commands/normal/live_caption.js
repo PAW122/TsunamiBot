@@ -37,6 +37,7 @@ async function execute(interaction, discordClient) {
 
     // Listening to the speaking event for identifying the user speaking
     connection.receiver.speaking.on('start', (userId) => {
+        console.log(`User with ID ${userId} started speaking`);
         const guildId = connection.joinConfig.guildId;
         const guild = discordClient.guilds.cache.get(guildId); // Pobierz serwer za pomocą guildId
 
@@ -64,7 +65,9 @@ async function startCaptioning(connection, interaction, discordClient, language)
         const browser = await puppeteer.launch({
             headless: true, // Run in headless mode
             args: ["--use-fake-ui-for-media-stream"] // Automatically allow microphone
-        });
+        }).catch(err => {
+            console.error('Puppeteer launch error:', err);
+        });;
         const page = await browser.newPage();
 
         // Load a minimal HTML file with Web Speech API
