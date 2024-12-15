@@ -76,7 +76,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
         
         const page = await browser.newPage().catch(err => {
             console.error('browser.newPage() launch error:', err);
-        });;
+        });
         console.log("page.")
 
         // Load a minimal HTML file with Web Speech API
@@ -128,6 +128,8 @@ async function startCaptioning(connection, interaction, discordClient, language)
                 console.log(`User ${user.user.username}: ${transcript}`);
                 interaction.channel.send(`**${user.user.username}:** ${transcript}`);
             }
+        }).catch(err => {
+            console.error('page.exposeFunction launch error:', err);
         });
 
         // Keep Chromium running while bot is active
