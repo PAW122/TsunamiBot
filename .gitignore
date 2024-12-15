@@ -17,3 +17,4 @@ commands/normal/audio-view.js
 commands/normal/tsu.js
 handlers/tsu.js
 /db/files
+api/webpanel/config/public.js
