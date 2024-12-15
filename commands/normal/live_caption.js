@@ -40,7 +40,6 @@ async function execute(interaction, discordClient) {
 
     // Listening to the speaking event for identifying the user speaking
     connection.receiver.speaking.on('start', (userId) => {
-        console.log(`User with ID ${userId} started speaking`);
         const guildId = connection.joinConfig.guildId;
         const guild = discordClient.guilds.cache.get(guildId); // Pobierz serwer za pomocą guildId
 
@@ -65,27 +64,21 @@ let currentUserId = null; // To hold the userId of the current speaker
 async function startCaptioning(connection, interaction, discordClient, language) {
     try {
         // Launch Puppeteer with Chromium
-        console.log("lunch puppeteer")
+
         const browser = await puppeteer.launch({
             executablePath: config_data,
-            headless: false, // Run in headless mode
+            headless: true, // Run in headless mode
             args: ["--use-fake-ui-for-media-stream", '--no-sandbox', '--disable-setuid-sandbox'] // Automatically allow microphone
         }).catch(err => {
             console.error('Puppeteer launch error:', err);
         });
-        console.log("succes lunch")
-        if(!browser) {
-            console.log("browser err")
-        }
+
         
         const page = await browser.newPage().catch(err => {
             console.error('browser.newPage() launch error:', err);
         });
 
-        if(!page) {
-            console.log("!page")
-        }
-        console.log(page)
+
 
         // Load a minimal HTML file with Web Speech API
         await page.setContent(`
@@ -117,9 +110,9 @@ async function startCaptioning(connection, interaction, discordClient, language)
 
         // Expose a callback to receive transcripts
         await page.exposeFunction('transcriptCallback', async (transcript) => {
-            console.log("transcriptCallback")
+  
             if (transcript.trim() && currentUserId) {
-                console.log("transcript.trim")
+           
                 const guildId = connection.joinConfig.guildId;
                 const guild = discordClient.guilds.cache.get(guildId);
 
@@ -134,7 +127,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
                     return;
                 }
 
-                console.log(`User ${user.user.username}: ${transcript}`);
+
                 interaction.channel.send(`**${user.user.username}:** ${transcript}`);
 
                 // Display the transcript on the page for debugging purposes
@@ -149,7 +142,6 @@ async function startCaptioning(connection, interaction, discordClient, language)
 
         // Keep Chromium running while bot is active
         connection.once(VoiceConnectionStatus.Disconnected, async () => {
-            console.log("web browser close")
             await browser.close();
         });
     } catch (error) {
