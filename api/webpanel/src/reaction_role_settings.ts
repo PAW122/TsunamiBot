@@ -8,7 +8,7 @@ interface ReactionRole {
 }
 
 interface ReactionRoleData {
-    [serverId: string]: {
+    [channelId: string]: {
         [messageId: string]: ReactionRole[];
     };
 }
@@ -41,8 +41,8 @@ class ReactionRoleSettings {
 
     private checkLoginStatus() {
         const token = localStorage.getItem('token');
-        const token_type = localStorage.getItem('token_type');
-        if (token && token_type) {
+        const tokenType = localStorage.getItem('token_type');
+        if (token && tokenType) {
             this.isLoggedIn = true;
             this.loadReactionRoles();
         } else {
@@ -81,14 +81,14 @@ class ReactionRoleSettings {
             try {
                 console.log('Attempting to load reaction roles...');
                 const token = localStorage.getItem('token');
-                const token_type = localStorage.getItem('token_type');
+                const tokenType = localStorage.getItem('token_type');
                 const response = await fetch('/api_reactionrole/load_all', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        tokenType: token_type,
+                        tokenType,
                         token,
                         server_id: this.serverId
                     })
@@ -120,13 +120,20 @@ class ReactionRoleSettings {
             return;
         }
 
-        for (const serverId in this.reactionRoles) {
-            for (const messageId in this.reactionRoles[serverId]) {
-                this.reactionRoles[serverId][messageId].forEach((rr, index) => {
+        for (const channelId in this.reactionRoles) {
+            for (const messageId in this.reactionRoles[channelId]) {
+                this.reactionRoles[channelId][messageId].forEach((rr, index) => {
                     const element = document.createElement('div');
                     element.className = 'col-md-4 mb-3';
                     element.innerHTML = `
-                        <div class="card reaction-role-item" data-server-id="${serverId}" data-message-id="${messageId}" data-index="${index}">
+                        <div class="card reaction-role-item" 
+                             data-channel-id="${channelId}" 
+                             data-message-id="${messageId}" 
+                             data-index="${index}"
+                             data-name="${rr.name}"
+                             data-role-id="${rr.role_id}"
+                             data-emoji="${rr.emoji}"
+                             data-status="${rr.status}">
                             <div class="card-body">
                                 <h5 class="card-title">${rr.name}</h5>
                                 <p class="card-text">Role: ${this.getRoleName(rr.role_id)}</p>
@@ -136,7 +143,7 @@ class ReactionRoleSettings {
                             </div>
                         </div>
                     `;
-                    element.addEventListener('click', () => this.openEditModal(serverId, messageId, index));
+                    element.addEventListener('click', (e) => this.openEditModal(channelId, messageId, index, false, e.currentTarget as HTMLElement));
                     container.appendChild(element);
                 });
             }
@@ -169,7 +176,7 @@ class ReactionRoleSettings {
         });
     }
 
-    private openEditModal(serverId?: string, messageId?: string, index?: number, addWithMessage: boolean = false) {
+    private openEditModal(channelId?: string, messageId?: string, index?: number, addWithMessage: boolean = false, clickedElement?: HTMLElement) {
         const form = document.getElementById('reactionRoleForm') as HTMLFormElement;
         const messageIdInput = document.getElementById('messageId') as HTMLInputElement;
         const messageContentInput = document.getElementById('messageContent') as HTMLTextAreaElement;
@@ -178,30 +185,32 @@ class ReactionRoleSettings {
         form.reset();
         this.populateDropdowns();
 
-        if (serverId && messageId && index !== undefined) {
-            const rr = this.reactionRoles[serverId][messageId][index];
-            (document.getElementById('name') as HTMLInputElement).value = rr.name;
-            (document.getElementById('role') as HTMLSelectElement).value = rr.role_id;
-            (document.getElementById('emojiName') as HTMLInputElement).value = rr.emoji;
+        if (clickedElement) {
+            const name = clickedElement.getAttribute('data-name') || '';
+            const roleId = clickedElement.getAttribute('data-role-id') || '';
+            const emoji = clickedElement.getAttribute('data-emoji') || '';
+            messageId = clickedElement.getAttribute('data-message-id') || '';
+            channelId = clickedElement.getAttribute('data-channel-id') || '';
+            index = parseInt(clickedElement.getAttribute('data-index') || '0');
+
+            (document.getElementById('name') as HTMLInputElement).value = name;
+            (document.getElementById('role') as HTMLSelectElement).value = roleId;
+            (document.getElementById('emojiName') as HTMLInputElement).value = emoji;
             messageIdInput.value = messageId;
             deleteButton.style.display = 'inline-block';
-            deleteButton.setAttribute('data-server-id', serverId);
+            deleteButton.setAttribute('data-channel-id', channelId);
             deleteButton.setAttribute('data-message-id', messageId);
             deleteButton.setAttribute('data-index', index.toString());
+            deleteButton.setAttribute('data-emoji', emoji); // Added line from update
             messageIdInput.parentElement!.style.display = 'block';
             messageContentInput.parentElement!.style.display = 'none';
         } else {
             deleteButton.style.display = 'none';
-            deleteButton.removeAttribute('data-server-id');
+            deleteButton.removeAttribute('data-channel-id');
             deleteButton.removeAttribute('data-message-id');
             deleteButton.removeAttribute('data-index');
-            if (addWithMessage) {
-                messageIdInput.parentElement!.style.display = 'none';
-                messageContentInput.parentElement!.style.display = 'block';
-            } else {
-                messageIdInput.parentElement!.style.display = 'block';
-                messageContentInput.parentElement!.style.display = 'none';
-            }
+            messageIdInput.parentElement!.style.display = 'block';
+            messageContentInput.parentElement!.style.display = 'none';
         }
 
         this.editModal.show();
@@ -216,10 +225,10 @@ class ReactionRoleSettings {
             const emoji = (document.getElementById('emojiName') as HTMLInputElement).value;
             const messageId = (document.getElementById('messageId') as HTMLInputElement).value;
 
-            const token_type = localStorage.getItem('token_type');
+            const tokenType = localStorage.getItem('token_type');
             const token = localStorage.getItem('token');
 
-            if (!token_type || !token) {
+            if (!tokenType || !token) {
                 console.error('Authentication tokens not found');
                 return;
             }
@@ -231,7 +240,7 @@ class ReactionRoleSettings {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        tokenType: token_type,
+                        tokenType,
                         token,
                         server_id: this.serverId,
                         channel_id: channelId,
@@ -331,7 +340,7 @@ class ReactionRoleSettings {
         this.loadReactionRoles();
     }
 
-    private logout() {
+    private logout() { // TODO
         localStorage.removeItem('token');
         localStorage.removeItem('token_type');
         this.isLoggedIn = false;
@@ -339,7 +348,7 @@ class ReactionRoleSettings {
         this.reactionRoles = {};
         this.renderReactionRoleList();
     }
-    // api_reactionrole
+
     private async deleteReactionRole() {
         // const deleteButton = document.getElementById('deleteReactionRole') as HTMLButtonElement;
         // Pobieranie elementów
@@ -348,6 +357,7 @@ class ReactionRoleSettings {
 
         const messageId = messageIdElement.value; // Odczytujemy wartość z elementu
         const emoji = emojiElement.value; 
+
 
         if (messageId && emoji) {
             const tokenType = localStorage.getItem('token_type');
@@ -399,15 +409,6 @@ class ReactionRoleSettings {
             console.error('Missing message ID or emoji for deletion');
         }
     }
-
-    // private getChannelIdForMessage(messageId: string): string {
-    //     for (const channelId in this.reactionRoles) {
-    //         if (this.reactionRoles[channelId] && this.reactionRoles[channelId][messageId]) {
-    //             return channelId;
-    //         }
-    //     }
-    //     return '';
-    // }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
