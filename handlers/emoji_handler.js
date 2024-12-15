@@ -100,8 +100,6 @@ async function removeEmoji(client, reaction, user) {
 
     for (const element of data) {
         if (element.emoji === emoji.name && element.status === true) {
-            console.log("Usuwanie roli użytkownika:");
-            console.log(element.role_id);
 
             try {
                 const guild = client.guilds.cache.get(guildId); // Pobranie serwera
@@ -113,7 +111,7 @@ async function removeEmoji(client, reaction, user) {
 
                 // Próba zabrania roli
                 await member.roles.remove(element.role_id);
-                console.log(`Rola ${element.role_id} została usunięta użytkownikowi ${member.user.tag}.`);
+                //console.log(`Rola ${element.role_id} została usunięta użytkownikowi ${member.user.tag}.`);
             } catch (err) {
                 console.error('Błąd podczas usuwania roli - emoji_handler:', err);
 
