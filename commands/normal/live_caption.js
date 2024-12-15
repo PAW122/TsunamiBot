@@ -111,6 +111,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
                     return;
                 }
 
+                console.log(`User ${user.user.username}: ${transcript}`);
                 interaction.channel.send(`**${user.user.username}:** ${transcript}`);
             }
         });
