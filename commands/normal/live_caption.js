@@ -88,6 +88,7 @@ async function startCaptioning(connection, interaction, discordClient, language)
             <!doctype html>
             <html>
             <body>
+                <div id="transcript-output" style="white-space: pre-line; font-family: Arial, sans-serif; font-size: 16px; color: #000; border: 1px solid #ccc; padding: 10px;"></div>
                 <script>
                     const recognition = new webkitSpeechRecognition();
                     recognition.continuous = true;
@@ -131,6 +132,12 @@ async function startCaptioning(connection, interaction, discordClient, language)
 
                 console.log(`User ${user.user.username}: ${transcript}`);
                 interaction.channel.send(`**${user.user.username}:** ${transcript}`);
+
+                // Display the transcript on the page for debugging purposes
+                await page.evaluate((text) => {
+                    const outputDiv = document.getElementById('transcript-output');
+                    outputDiv.textContent = text;
+                }, transcript);
             }
         }).catch(err => {
             console.error('page.exposeFunction launch error:', err);
