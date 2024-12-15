@@ -64,8 +64,8 @@ async function startCaptioning(connection, interaction, discordClient, language)
         // Launch Puppeteer with Chromium
         console.log("lunch puppeteer")
         const browser = await puppeteer.launch({
-            headless: true, // Run in headless mode
-            args: ["--use-fake-ui-for-media-stream"] // Automatically allow microphone
+            headless: false, // Run in headless mode
+            args: ["--use-fake-ui-for-media-stream", '--no-sandbox', '--disable-setuid-sandbox'] // Automatically allow microphone
         }).catch(err => {
             console.error('Puppeteer launch error:', err);
         });
