@@ -8,7 +8,7 @@
         "creationDate": [2023, 12, 21],
         "main_url": "https://senko.tsunamistudio.net/",
         "web_link": "https://discord.com/api/oauth2/authorize?client_id=928399458570502155&response_type=token&redirect_uri=https%3A%2F%2Fsenko.tsunamistudio.net%2F&scope=identify+guilds+email",
-        "port": 3300,
+        "port": 3000,
         "api_max_listeners": 0,
         "audio_port": 3304,
         "audio_station_banned_names": ["admin", "owner"],
