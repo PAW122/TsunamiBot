@@ -77,7 +77,11 @@ async function startCaptioning(connection, interaction, discordClient, language)
         const page = await browser.newPage().catch(err => {
             console.error('browser.newPage() launch error:', err);
         });
-        console.log("page.")
+
+        if(!page) {
+            console.log("!page")
+        }
+        console.log(page)
 
         // Load a minimal HTML file with Web Speech API
         await page.setContent(`
