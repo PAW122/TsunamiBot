@@ -16,3 +16,5 @@ commands/normal/tsu.js
 handlers/tsu.js
 api/webpanel/config/public.js
 /db (copy)
+config.json
+/db
