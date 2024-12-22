@@ -9,16 +9,20 @@
 */
 
 // let ticket_channels_collection
+// { channel_id, delete_time }
+let ticket_channels_collection = new Map();
 
 /**
- * 
+ * @param {*} channel_id
  */
 async function add_new_pengind_channel(channel_id) {
-
+    // 1. save channel_id to ticket_channels_collection
+    ticket_channels_collection.set(channel_id, Date.now() + 24 * 60 * 60 * 1000);
 }
 
 /**
  * load_pending_ticket_channels_from_db
+ * TODO
  */
 async function load_tickets_db() {
 
@@ -43,6 +47,6 @@ async function delete_pending_channel(channel_id) {
 // rekursywna funkcja w pentli działająca co 5 min (do sprawdzania czy kanal
 // z listy jest juz do usuniecia)
 async function tickets_loop() {
- 
+
     
 }
