@@ -7,7 +7,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
-
+const {add_new_pengind_channel} = require("../../handlers/tickets_handler")
 
 const command = new SlashCommandBuilder()
     .setName("ticket_close")
@@ -60,8 +60,12 @@ async function execute(interaction, client) {
             to wtedy ticket nie zostanie zamknięty
             else usuń wpis z db
         */
-        const data = {
-            ticket_close_time: Date.now() + 24 * 60 * 60 * 1000,
+       const ticket_close_time = 24; // 24h
+
+    //    const test_close_time = Date.now() + 1 * 60 * 1000 // 1 minute in milliseconds
+
+        const data = { // todo: add option to customize ticket_close_time
+            ticket_close_time: Date.now() + ticket_close_time * 60 * 60 * 1000,
             ticket_opinion: {
                 user_id: interaction.user.id, // closed by
                 emoji_list: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'],
@@ -71,11 +75,11 @@ async function execute(interaction, client) {
 
         // save reactions for emoji handler
         database.write(`${guild_id}.pending_tickets.${channel_id}.${message_id}`, data)
-
-        return await interaction.channel.send(`Ticket closed. Thank you for using our ticket system. \nPlease rate your experience on a scale of 1 to 5.\nTicket will be closed in 24h`);
+        add_new_pengind_channel(channel_id, data.ticket_close_time)
+        return await interaction.channel.send(`Ticket will be closed in 24h`);
     }
 
-    // save ticket_close_time in db & in tickets_handler.js add_new_pengind_channel()
+    // save ticket_close_timte in db & in tickets_handler.js add_new_pengind_channel()
 }
 
 async function help_message(interaction, client) {

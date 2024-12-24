@@ -26,7 +26,6 @@ async function execute(interaction, client) {
 
     const average_rating = ratings_list.reduce((a, b) => a + b, 0) / ratings_list.length;
 
-
     return await interaction.reply({
         content: `Average rating: ${average_rating}`,
         ephemeral: true
