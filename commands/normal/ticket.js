@@ -25,28 +25,23 @@ const command = new SlashCommandBuilder()
     .addStringOption(option => option
         .setName("title")
         .setDescription("set title for the ticket")
+        .setRequired(true)
     )
     .addStringOption(option => option
-        .setName("Description")
+        .setName("description")
         .setDescription("ticket content")
+        .setRequired(true)
     )
 
-function execute(interaction, client) {
+async function execute(interaction, client) {
 
     const title = interaction.options.getString("title");
     const description = interaction.options.getString("Description");
 
-    if (!title || !description) {
-        return interaction.reply({
-            content: `You need to provide all options`,
-            ephemeral: true
-        });
-    }
-
     const guild_id = interaction.guild.id;
 
     // check in db is ticket system is enabled
-    const settings = database.get(`${guild_id}.tickets_settings`);
+    const settings = database.read(`${guild_id}.ticket_settings`);
     const ticket_category_id = settings.tickets_category;
     if(!settings || !settings.status || !ticket_category_id) {
         return interaction.reply({
@@ -56,10 +51,22 @@ function execute(interaction, client) {
     }
 
     // create ticket channel in tickets category
-    const ticket_channel = interaction.guild.channels.create(title, {
-        type: "GUILD_TEXT",
-        parent: ticket_category_id
+    const ticket_channel = await interaction.guild.channels.create({
+        name: `ticket-${interaction.user.id}`,
+        type: 0, // text channel
+        parent: ticket_category_id,
+        permissionOverwrites: [
+            {
+                id: interaction.guild.id,
+                deny: ['ViewChannel'], // Deny view access to everyone
+            },
+            {
+                id: interaction.user.id,
+                allow: ['ViewChannel'], // Allow view access to the ticket creator
+            },
+        ],
     });
+    
     // check is the channel was created
     if (!ticket_channel) {
         return interaction.reply({
@@ -75,10 +82,10 @@ function execute(interaction, client) {
         embeds: [{
             title: title,
             description: description,
-            color: "BLUE",
+            color: 15844367,
             timestamp: new Date(),
             footer: {
-                text: interaction.user.id
+                text: "use /ticket_close to close ticket"
             }
         }]
     });

@@ -89,6 +89,7 @@ const InviteTracker = require("./handlers/invite_tracker")
 const { AudioDataStore } = require("./handlers/audio/cache")
 const AudioStore = AudioDataStore.getInstance()
 const {addEmoji, removeEmoji} = require("./handlers/emoji_handler")
+const {addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -184,6 +185,7 @@ client.on('interactionCreate', async interaction => {
 // emoji's
 client.on(Events.MessageReactionAdd, async (reaction, user) => {
     addEmoji(client, reaction, user)
+    addRatingEmoji(client, reaction, user)
 });
 
 client.on(Events.MessageReactionRemove, async (reaction, user) => {

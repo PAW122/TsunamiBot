@@ -20,7 +20,7 @@ const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const Database = require("../../db/database");
 const database = new Database(__dirname + "/../../db/files/servers.json");
 
-const BotLogs = require("../../handlers/bot_logs_handler")
+const BotLogs = require("../../handlers/bot_logs_handler");
 const BotLogsHandler = BotLogs.getInstance()
 
 const command = new SlashCommandBuilder()
@@ -30,16 +30,19 @@ const command = new SlashCommandBuilder()
     .addBooleanOption(option => option
         .setName("collect_ratings")
         .setDescription("ask user for opinion after closing a ticket")
+        .setRequired(true)
     )
     .addBooleanOption(option => option
         .setName("delete_on_close")
         .setDescription("delete ticket whe closed, false = move ticket channel to closed_tickets category")
+        .setRequired(true)
     )
     .addBooleanOption(option => option
         .setName("status")
         .setDescription("turn function on/off")
     )
 
+    // TODO: add option to set role for ticket review channels
 async function execute(interaction, client) {
 
     const collect_ratings = interaction.options.getBoolean("collect_ratings") || false;
@@ -47,13 +50,6 @@ async function execute(interaction, client) {
     const status = interaction.options.getBoolean("status") || true;
 
     const guild_id = interaction.guild.id;
-
-    if (!collect_ratings || !delete_on_close) {
-        return await interaction.reply({
-            content: `You need to provide all options`,
-            ephemeral: true
-        });
-    }
 
     let data = {
         tickets_category: null,
@@ -64,42 +60,91 @@ async function execute(interaction, client) {
     }
 
     // search for category names "tickets"
-    const ticket_category_id = interaction.guild.channels.cache.find(c => c.name === "tickets" && c.type === "GUILD_CATEGORY")?.id;
+    const ticket_category_id = interaction.guild.channels.cache.find(
+        c => c.name === "tickets" && c.type === 4
+    )?.id;
+    
     if (!ticket_category_id) {
+
         try {
-            const category = await interaction.guild.channels.create("tickets", {
-                type: "GUILD_CATEGORY"
+            // Tworzenie kategorii, jeśli nie istnieje
+            const category = await interaction.guild.channels.create({
+                name: "tickets",
+                type: 4, // Typ 4 = GUILD_CATEGORY
+                permissionOverwrites: [
+                    {
+                        id: interaction.guild.id, // ID serwera (domyślna rola @everyone)
+                        deny: ['ViewChannel'], // Zablokuj widoczność kanału dla wszystkich
+                    },
+                    {
+                        id: interaction.client.user.id, // ID bota
+                        allow: ['ViewChannel', 'SendMessages', 'ManageChannels'], // Daj botowi pełny dostęp
+                    },
+                    {
+                        id: interaction.guild.roles.everyone.id, // Alternatywnie ustawienie dla domyślnej roli @everyone
+                        deny: ['ViewChannel'], // Zablokuj dostęp
+                    },
+                ],
             });
+            
+            data.tickets_category = category.id;
+            
+    
             if (category) {
-                interaction.guild.channels.cache.find(c => c.name === "tickets" && c.type === "GUILD_CATEGORY").id
-                data.tickets_category = category.id
+                console.log("Category created:");
+    
+                // Aktualizacja danych z ID nowej kategorii
+                data.tickets_category = category.id;
             }
         } catch (err) {
-            return await interaction.channel.send({
-                content: `I can't create category for tickets`,
+            console.error("Error while creating category:", err);
+    
+            return await interaction.reply({
+                content: `I can't create a category for tickets.`,
                 ephemeral: true
             });
         }
+    } else {
+        // Jeśli kategoria istnieje, ustaw dane na jej ID
+        data.tickets_category = ticket_category_id;
     }
+    
 
     // search for category names "closed_tickets"
-    const closed_tickets_category_id = interaction.guild.channels.cache.find(c => c.name === "closed_tickets" && c.type === "GUILD_CATEGORY")?.id;
+    const closed_tickets_category_id = interaction.guild.channels.cache.find
+    (c => c.name === "closed_tickets" && c.type === 4)?.id;
+
     if (!closed_tickets_category_id) {
         try {
-            const category = await interaction.guild.channels.create("closed_tickets", {
-                type: "GUILD_CATEGORY"
+            const category = await interaction.guild.channels.create({
+                name: "closed_tickets",
+                type: 4, // 4 = GUILD_CATEGORY
+                permissionOverwrites: [
+                    {
+                        id: interaction.guild.id, // ID serwera (domyślna rola @everyone)
+                        deny: ['ViewChannel'], // Zablokuj widoczność kanału dla wszystkich
+                    },
+                    {
+                        id: interaction.client.user.id, // ID bota
+                        allow: ['ViewChannel', 'SendMessages', 'ManageChannels'], // Daj botowi pełny dostęp
+                    },
+                    {
+                        id: interaction.guild.roles.everyone.id, // Alternatywnie ustawienie dla domyślnej roli @everyone
+                        deny: ['ViewChannel'], // Zablokuj dostęp
+                    },
+                ],
             });
             if (category) {
-                interaction.guild.channels.cache.find(c => c.name === "closed_tickets" && c.type === "GUILD_CATEGORY").id
                 data.closed_tickets_category_id = category.id
             }
         } catch (err) {
-            return await interaction.channel.send({
+            return await interaction.reply({
                 content: `I can't create category for closed tickets`,
                 ephemeral: true
             });
         }
-
+    } else {
+        data.closed_tickets_category_id = closed_tickets_category_id
     }
 
     if (!data.tickets_category) {
