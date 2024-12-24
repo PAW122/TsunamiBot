@@ -21,6 +21,13 @@ async function execute(interaction, client) {
     const user_id = interaction.user.id
     const to_delete = interaction.options.getNumber('amount');
 
+    if(to_delete > 100 || to_delete < 1) {
+        return await interaction.reply({
+            content: `You can delete only 1-100 messages`,
+            ephemeral: true
+        })
+    }
+
     //check for cooldowns
     if (!cooldowns.isEnd(`${guild}.${user_id}.clear`)) {
         return interaction.reply({
