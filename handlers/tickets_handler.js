@@ -19,11 +19,8 @@ let ticket_channels_collection = new Map();
  * @param {*} channel_id
  */
 function add_new_pengind_channel(channel_id, close_time) {
-    if (close_time) {
-        ticket_channels_collection.set(channel_id, close_time);
-    } else {
-        console.log(`close_time is undefined for channel_id: ${channel_id}`);
-    }
+    if (!close_time) return;
+    ticket_channels_collection.set(channel_id, close_time);
 }
 
 /**
