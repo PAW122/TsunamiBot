@@ -1,6 +1,11 @@
-const { use } = require("../api/app");
 const Database = require("../db/database")
 const db = new Database(process.cwd() + "/db/files/servers.json")
+
+/*
+    TODO:
+    jezeli user zareaguje na wiadomość ktora nie istnieje,
+    usunac wpis z db aby nie marnowac czasu na sprawdzanie wiadomosci
+*/
 
 async function addEmoji(client, reaction, user) {
     if (reaction.partial) {
@@ -65,14 +70,6 @@ async function addEmoji(client, reaction, user) {
             }
         }
     }
-
-
-
-
-
-
-
-
 
 }
 

@@ -1,20 +1,9 @@
-*.tsbuildinfo
-.eslintcache
-.stylelintcache
-/node_modules
-/db
-/db/files/modlogs.json
-api/webpanel/dist/*
-.env
-/trash
-TODO.md
-senko-server-staus/server-status.exe - autostart.lnk
-.vscode/settings.json
-handlers/getRoleHandler.js
-handlers/adminLogsChannel.js
-commands/normal/audio-view.js
-commands/normal/tsu.js
 handlers/tsu.js
 api/webpanel/config/public.js
 /db (copy)
-db/files/modlogs.json
+config.json
+/db
+api/webpanel/dist
+/node_modules
+.env
+

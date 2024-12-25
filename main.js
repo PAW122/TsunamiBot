@@ -89,6 +89,8 @@ const InviteTracker = require("./handlers/invite_tracker")
 const { AudioDataStore } = require("./handlers/audio/cache")
 const AudioStore = AudioDataStore.getInstance()
 const {addEmoji, removeEmoji} = require("./handlers/emoji_handler")
+const {addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
+const {tickets_loop, load_tickets_db,} = require("./handlers/tickets_handler")
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -106,6 +108,7 @@ client.on("ready", async (res) => {
     logger.log(`${res.user.tag} is ready`);
 
     status_handler(client, config)
+    load_tickets_db().then(tickets_loop())
     database.backup(__dirname + "/db/backup")
 
     if (!is_test) {
@@ -184,6 +187,7 @@ client.on('interactionCreate', async interaction => {
 // emoji's
 client.on(Events.MessageReactionAdd, async (reaction, user) => {
     addEmoji(client, reaction, user)
+    addRatingEmoji(client, reaction, user)
 });
 
 client.on(Events.MessageReactionRemove, async (reaction, user) => {
