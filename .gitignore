@@ -3,6 +3,7 @@
 .stylelintcache
 /node_modules
 /db
+/db/files/modlogs.json
 api/webpanel/dist/*
 .env
 /trash
@@ -16,3 +17,4 @@ commands/normal/tsu.js
 handlers/tsu.js
 api/webpanel/config/public.js
 /db (copy)
+db/files/modlogs.json
