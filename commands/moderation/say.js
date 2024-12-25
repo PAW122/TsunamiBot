@@ -16,7 +16,7 @@ async function execute(interaction, client) {
         content: interaction.options.getString("message"),
     })
 
-    await interaction.channel.send({
+    await interaction.reply({
         content: "Message sent",
         ephemeral: true
     })
