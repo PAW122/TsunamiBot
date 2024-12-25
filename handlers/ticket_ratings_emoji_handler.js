@@ -1,6 +1,6 @@
 const Database = require("../db/database")
 const db = new Database(process.cwd() + "/db/files/servers.json")
-
+const {delete_pending_channel} = require("../handlers/tickets_handler")
 
 async function addRatingEmoji(client, reaction, user) {
     if (reaction.partial) {
@@ -109,6 +109,7 @@ async function addRatingEmoji(client, reaction, user) {
                 channel.setParent(closed_tickets_category);
             }
 
+            delete_pending_channel(channelId)
             // & set status to false on pending_tickets db
 
             // console.log(`Rola ${element.role_id} została dodana użytkownikowi ${member.user.tag}.`);

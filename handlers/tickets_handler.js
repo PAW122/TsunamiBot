@@ -123,4 +123,5 @@ module.exports = {
     add_new_pengind_channel,
     tickets_loop,
     load_tickets_db,
+    delete_pending_channel
 }
