@@ -11,7 +11,6 @@ const {add_new_pengind_channel} = require("../../handlers/tickets_handler")
 
 const command = new SlashCommandBuilder()
     .setName("ticket_close")
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .setDescription("Close ticket")
 
 async function execute(interaction, client) {
@@ -84,7 +83,7 @@ async function execute(interaction, client) {
 
 async function help_message(interaction, client) {
     interaction.reply({
-        content: `-`,
+        content: `Close ticket`,
         ephemeral: true
     })
 }

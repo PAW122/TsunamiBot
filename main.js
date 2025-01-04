@@ -38,7 +38,7 @@ console.log({
     "Test mode: ": is_test,
 })
 
-const { Client, GatewayIntentBits, Events, Partials  } = require("discord.js")
+const { Client, GatewayIntentBits, Events, Partials } = require("discord.js")
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -76,21 +76,21 @@ const { messages_stats_handler } = require("./handlers/stats_handler")
 const { registerSlashCommandsForGuild, unregisterAllCommandsForGuild } = require("./handlers/SlashCommandHandler")
 const { audio_api_run } = require("./handlers/audio/api")
 const { AudioApiV2 } = require("./handlers/audio/apiV2")
-const run_sdk = require("./sdk/server/server")
 const manage_auto_vc = require("./handlers/auto_vc_handler")
 const filter_links = require("./handlers/filter_links")
 const auto_vc_commands_handler = require("./handlers/auto_vc_commands")
 const auto_vc_cache = require("./handlers/auto_vc_cache")
-const {handleCustomTextCommands, CustomCommands} = require("./handlers/custom_commands")
+const { handleCustomTextCommands, CustomCommands } = require("./handlers/custom_commands")
 const CustomCommandsHandler = CustomCommands.getInstance();
 const BotLogs = require("./handlers/bot_logs_handler")
 const BotLogsHandler = BotLogs.getInstance();
 const InviteTracker = require("./handlers/invite_tracker")
 const { AudioDataStore } = require("./handlers/audio/cache")
 const AudioStore = AudioDataStore.getInstance()
-const {addEmoji, removeEmoji} = require("./handlers/emoji_handler")
-const {addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
-const {tickets_loop, load_tickets_db,} = require("./handlers/tickets_handler")
+const { addEmoji, removeEmoji } = require("./handlers/emoji_handler")
+const { addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
+const { tickets_loop, load_tickets_db, } = require("./handlers/tickets_handler")
+
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -102,6 +102,10 @@ BotLogsHandler.LoadGuilds()
 const inviteTracker = new InviteTracker(client)
 mod_logs(client);
 
+(async () => {
+    const { sdk_main } = await import('./sdk/server/server.js');
+    sdk_main()
+})();
 
 client.on("ready", async (res) => {
 
@@ -109,11 +113,8 @@ client.on("ready", async (res) => {
 
     status_handler(client, config)
     load_tickets_db().then(tickets_loop())
-    database.backup(__dirname + "/db/backup")
-
-    if (!is_test) {
-        run_sdk()
-    }
+    // database.backup(__dirname + "/db/backup")
+    
     api();
 
     audio_api_run();
@@ -134,7 +135,7 @@ client.on("ready", async (res) => {
 });
 
 client.on("guildCreate", async (guild) => {
-    if(!guild) return
+    if (!guild) return
     registerSlashCommandsForGuild(guild, client);
 })
 
@@ -169,7 +170,7 @@ client.on('interactionCreate', async interaction => {
         const commandLocation = commandsMap.get(commandName);
         if (commandLocation) {
             const { data, autocomplete } = require(commandLocation);
- 
+
             try {
                 await autocomplete(interaction, client);
             } catch (error) {

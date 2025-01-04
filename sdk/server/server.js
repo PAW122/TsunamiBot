@@ -1,52 +1,46 @@
+import express from "express";
+import dotenv from "dotenv";
+import fetch from "node-fetch";
 
-const express = require("express")
-require('dotenv').config();
-const fetch = require("fetch")
-const config = require("../../config.json")
-const run = config[config.using].sdk.run
+dotenv.config({ path: "../../.env" });
 
-const app = express();
-const port = 3003;
+async function sdk_main() {
+  console.log("========================== sdk");
+  const app = express();
+  const port = 3001;
+  
+  // Allow express to parse JSON bodies
+  app.use(express.json());
 
-// Allow express to parse JSON bodies
-app.use(express.json());
-
-app.get("/" ,async (req, res) => {
-  res.sendFile(process.cwd() + "/sdk/client/index.html")
-})
-
-app.post("/api/token", async (req, res) => {
-  console.log("SDK TOKEN")
-
-  // Exchange the code for an access_token
-  const response = await fetch(`https://discord.com/api/oauth2/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      client_id: process.env.VITE_DISCORD_CLIENT_ID,
-      client_secret: process.env.DISCORD_CLIENT_SECRET,
-      grant_type: "authorization_code",
-      code: req.body.code,
-    }),
+  app.get("/", (req, res) => {
+    res.send("Serwer działa poprawnie! Endpoint POST jest dostępny pod /api/token.");
   });
 
-  // Retrieve the access_token from the response
-  const { access_token } = await response.json();
+  app.post("/api/token", async (req, res) => {
+    // Exchange the code for an access_token
+    const response = await fetch(`https://discord.com/api/oauth2/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        client_id: process.env.VITE_DISCORD_CLIENT_ID,
+        client_secret: process.env.DISCORD_CLIENT_SECRET,
+        grant_type: "authorization_code",
+        code: req.body.code,
+      }),
+    });
 
-  // Return the access_token to our client as { access_token: "..."}
-  res.send({ access_token });
-});
+    // Retrieve the access_token from the response
+    const { access_token } = await response.json();
 
-function run_sdk() {
-  if(!run) {
-    console.log("SDK server disabled")
-    return
-  };
+    // Return the access_token to our client as { access_token: "..."}
+    res.send({ access_token });
+  });
+
   app.listen(port, () => {
-    console.log(`SDK server runing on http://localhost:${port}`);
+    console.log(`Server listening at http://localhost:${port}`);
   });
 }
 
-module.exports = run_sdk
+export { sdk_main };

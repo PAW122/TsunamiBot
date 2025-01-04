@@ -126,7 +126,15 @@ wifi connection usage - 0.2MB/s - Audio stream for 1 user
 ## =========================TODO=LIST==========================================
 # TODO!!! Audio
 !!! zmiejszyć deafultową głośność o 50%!
-audip api V2:
+audip api V2
+
+komenda: zbierz_druzyne <tytoł> <opis> <max ludzi>
+pod nią emoji checkboxa zielonego,
+jak ktos kliknie to jest dodawany na liste,
+zielone X to usowany z listy,
+max ludzi
+
+taki pool do zbierania lodzi do grania
 
 wrzucanie piosenek na stronie internetowen, /play_user <username> <song name>
 
