@@ -9,5 +9,8 @@ export default defineConfig({
 			tsDecorators: true
 		}),
 		DiscordProxy.Vite()
-	]
+	],
+	css: {
+		postcss: 'config/postcss.config.mjs'
+	}
 })

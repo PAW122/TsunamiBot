@@ -1,13 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Events } from '@discord/embedded-app-sdk'
-import { GameName } from '../core/constants.js'
 import { Player } from '../entities/Player.js'
-import { State } from '../entities/State.js'
 import { useDiscordSdk } from './useDiscordSdk.js'
 import { discordSdk } from './useDiscordSdk.js'
 import { Client, Room } from 'colyseus.js'
-import { getUserAvatarUrl, getUserDisplayName } from '../utils/discord.js'
 import type { IColyseus, IGuildsMembersRead } from '../core/types.js'
+import { useLobbies } from './useLobbies.js'
 
 type TGameContext = { guildMember: IGuildsMembersRead | null } & Partial<IColyseus>
 
@@ -34,7 +32,7 @@ function useGameContextSetup() {
 	const isRunning = useRef(false)
 	const [guildMember, setGuildMember] = useState<IGuildsMembersRead | null>(null)
 	const [client, setClient] = useState<Client | undefined>(undefined)
-	const [room, setRoom] = useState<Room<State> | undefined>(undefined)
+	const [room, setRoom] = useState<Room | undefined>(undefined)
 
 	const setupGameContext = useCallback(async () => {
 		const guildMember: IGuildsMembersRead | null = await fetch(
@@ -52,36 +50,11 @@ function useGameContextSetup() {
 		const wsUrl = `wss://${location.host}/.proxy/colyseus`
 		const client = new Client(wsUrl)
 
-		let roomName = 'Channel'
-
-		if (discordSdk.channelId != null && discordSdk.guildId != null) {
-			const channel = await discordSdk.commands.getChannel({ channel_id: discordSdk.channelId })
-			if (channel.name != null) {
-				roomName = channel.name
-			}
-		}
-
-		const avatarUri = getUserAvatarUrl({
-			guildMember,
-			user: session!.user
-		})
-
-		const name = getUserDisplayName({
-			guildMember,
-			user: session!.user
-		})
-
-		const newRoom = await client.joinOrCreate<State>(GameName, {
-			channelId: discordSdk.channelId,
-			roomName,
-			userId: session!.user.id,
-			name,
-			avatarUri
-		})
+		const lobbyRoom = await client.joinOrCreate('lobby')
 
 		setGuildMember(guildMember)
 		setClient(client)
-		setRoom(newRoom)
+		setRoom(lobbyRoom)
 	}, [accessToken, session])
 
 	useEffect(() => {
@@ -106,21 +79,21 @@ export function usePlayers() {
 
 function usePlayersContextSetup() {
 	const [players, setPlayers] = useState<Player[]>([])
-	const { room } = useGameContext()
+	const { currentGame } = useLobbies()
 	const isRunning = useRef(false)
 	const { session } = useDiscordSdk()
 
 	useEffect(() => {
-		if (!room) {
+		if (!currentGame) {
+			isRunning.current = false
+			setPlayers([])
 			return
 		}
-		if (isRunning.current) {
-			return
-		}
+		if (isRunning.current) return
 		isRunning.current = true
 
 		try {
-			room.state.players.onAdd((player: Player) => {
+			currentGame.state.players.onAdd((player: Player) => {
 				setPlayers((players) => [...players, player])
 
 				player.listen('talking', (newValue: boolean) => {
@@ -136,23 +109,23 @@ function usePlayersContextSetup() {
 				})
 			})
 
-			room.state.players.onRemove((player: Player) => {
+			currentGame.state.players.onRemove((player: Player) => {
 				setPlayers((players) => [...players.filter((p) => p.userId !== player.userId)])
 			})
 		} catch (e) {
 			console.error("Couldn't connect:", e)
 		}
-	}, [room])
+	}, [currentGame])
 
 	useEffect(() => {
 		function handleSpeakingStart({ user_id }: { user_id: string }) {
 			if (session?.user?.id === user_id) {
-				room?.send('startTalking')
+				currentGame?.send('startTalking')
 			}
 		}
 		function handleSpeakingStop({ user_id }: { user_id: string }) {
 			if (session?.user?.id === user_id) {
-				room?.send('stopTalking')
+				currentGame?.send('stopTalking')
 			}
 		}
 
@@ -162,7 +135,7 @@ function usePlayersContextSetup() {
 			discordSdk.unsubscribe(Events.SPEAKING_START, handleSpeakingStart)
 			discordSdk.unsubscribe(Events.SPEAKING_STOP, handleSpeakingStop)
 		}
-	}, [room, session])
+	}, [currentGame, session])
 
 	return players
 }

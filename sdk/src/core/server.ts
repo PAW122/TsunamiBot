@@ -1,7 +1,5 @@
-import { GameName } from './constants.js'
-import { StateHandlerRoom } from '../rooms/StateHandlerRoom.js'
 import http from 'node:http'
-import { Server as ColyseusServer } from '@colyseus/core'
+import { Server as ColyseusServer, LobbyRoom } from '@colyseus/core'
 import { MonitorOptions, monitor } from '@colyseus/monitor'
 import { WebSocketTransport } from '@colyseus/ws-transport'
 import { NodeEngine } from '@robojs/server/engines.js'
@@ -9,6 +7,7 @@ import express from 'express'
 import { logger as defaultLogger } from 'robo.js'
 import type { InitOptions, StartOptions } from '@robojs/server/engines.js'
 import type { ViteDevServer } from 'vite'
+import { TicTacToe } from '../rooms/TicTacToe.js'
 
 const logger = defaultLogger.fork('server')
 
@@ -20,7 +19,8 @@ export class ColyseusServerEngine extends NodeEngine {
 		await super.init(options)
 		this._init()
 
-		this._colyseusServer!.define(GameName, StateHandlerRoom).filterBy(['channelId'])
+		this._colyseusServer!.define('lobby', LobbyRoom)
+		this._colyseusServer!.define('tic_tac_toe', TicTacToe).enableRealtimeListing()
 	}
 
 	public setupVite(vite: ViteDevServer) {

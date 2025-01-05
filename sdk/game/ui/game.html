@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Tic-Tac-Toe</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-settings {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .game-settings select {
+            background-color: #333;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .game-board {
+            display: grid;
+            gap: 10px;
+            background-color: #00ffff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .sub-board {
+            display: grid;
+            gap: 2px;
+            background-color: #000;
+            padding: 5px;
+            position: relative;
+            opacity: 1; /* Added for better transition */
+        }
+
+        .sub-board:not(.active):not(:has(.sub-board-winner)) {
+            opacity: 0.6;
+        }
+
+        .sub-board.active {
+            box-shadow: 0 0 10px 3px #00ffff;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            border: 1px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .cell:hover {
+            background-color: #333;
+        }
+
+        .players-info {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 200px;
+        }
+
+        .player {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .player.active {
+            background-color: #2a2a2a;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #333;
+        }
+
+        .player-name {
+            font-size: 18px;
+        }
+
+        #leaveGame {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        #leaveGame:hover {
+            background-color: #ff6666;
+        }
+
+        .triangle {
+            color: yellow;
+        }
+
+        .sub-board-winner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            z-index: 10;
+        }
+
+        .sub-board-winner.X {
+            color: #ff4444;
+        }
+
+        .sub-board-winner.O {
+            color: #4444ff;
+        }
+
+        .sub-board-winner.△ {
+            color: #ffff44;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-settings">
+        <select id="boardSize" onchange="changeBoardSize()">
+            <option value="3">3x3</option>
+            <option value="4">4x4</option>
+            <option value="5">5x5</option>
+            <option value="6">6x6</option>
+        </select>
+        <select id="playerCount" onchange="changePlayerCount()">
+            <option value="2">2 graczy</option>
+            <option value="3">3 graczy</option>
+        </select>
+    </div>
+
+    <div class="game-container">
+        <div class="game-board" id="mainBoard">
+            <!-- Plansze będą generowane przez JavaScript -->
+        </div>
+
+        <div class="players-info" id="playersContainer">
+            <div class="player active">
+                <div class="avatar">
+                    <img src="/placeholder.svg?height=50&width=50" alt="Player 1">
+                </div>
+                <div class="player-name">Gracz 1 (X)</div>
+            </div>
+            <div class="player">
+                <div class="avatar">
+                    <img src="/placeholder.svg?height=50&width=50" alt="Player 2">
+                </div>
+                <div class="player-name">Gracz 2 (O)</div>
+            </div>
+            <button id="leaveGame">Opuść grę</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPlayer = 'X';
+        let activeBoard = -1;
+        let boardSize = 3;
+        let playerCount = 2;
+        let players = ['X', 'O'];
+        let gameState = [];
+        let subBoardWinners = [];
+
+        // Zmiana rozmiaru planszy
+        function changeBoardSize() {
+            boardSize = parseInt(document.getElementById('boardSize').value);
+            resetGame();
+        }
+
+        // Zmiana liczby graczy
+        function changePlayerCount() {
+            playerCount = parseInt(document.getElementById('playerCount').value);
+            players = playerCount === 2 ? ['X', 'O'] : ['X', 'O', '△'];
+            updatePlayersDisplay();
+            resetGame();
+        }
+
+        // Aktualizacja wyświetlania graczy
+        function updatePlayersDisplay() {
+            const container = document.getElementById('playersContainer');
+            const leaveButton = document.getElementById('leaveGame');
+            container.innerHTML = ''; // Wyczyść kontener
+
+            players.forEach((symbol, index) => {
+                const playerDiv = document.createElement('div');
+                playerDiv.className = `player ${currentPlayer === symbol ? 'active' : ''}`;
+                playerDiv.innerHTML = `
+                    <div class="avatar">
+                        <img src="/placeholder.svg?height=50&width=50" alt="Player ${index + 1}">
+                    </div>
+                    <div class="player-name">Gracz ${index + 1} (${symbol})</div>
+                `;
+                container.appendChild(playerDiv);
+            });
+
+            container.appendChild(leaveButton);
+        }
+
+        // Tworzenie planszy
+        function createBoard() {
+            const mainBoard = document.getElementById('mainBoard');
+            mainBoard.innerHTML = '';
+            mainBoard.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+
+            gameState = Array(boardSize * boardSize).fill().map(() => Array(boardSize * boardSize).fill(null));
+            subBoardWinners = Array(boardSize * boardSize).fill(null);
+
+            for (let i = 0; i < boardSize * boardSize; i++) {
+                const subBoard = document.createElement('div');
+                subBoard.className = 'sub-board';
+                subBoard.dataset.boardIndex = i;
+                subBoard.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+
+                for (let j = 0; j < boardSize * boardSize; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.cellIndex = j;
+                    cell.addEventListener('click', () => handleMove(i, j));
+                    subBoard.appendChild(cell);
+                }
+
+                mainBoard.appendChild(subBoard);
+            }
+        }
+
+        // Obsługa ruchu
+        function handleMove(boardIndex, cellIndex) {
+            if (subBoardWinners[boardIndex]) {
+                return; // Nie można grać na wygranej sub-planszy
+            }
+
+            if (activeBoard !== -1 && activeBoard !== boardIndex && !isSubBoardFull(activeBoard) && !subBoardWinners[activeBoard]) {
+                return; // Można grać tylko na aktywnej sub-planszy, chyba że jest pełna lub wygrana
+            }
+
+            const cell = document.querySelector(
+                `.sub-board[data-board-index="${boardIndex}"] .cell[data-cell-index="${cellIndex}"]`
+            );
+
+            if (cell.textContent || gameState[boardIndex][cellIndex]) {
+                return; // Komórka jest już zajęta
+            }
+
+            // Wykonaj ruch
+            cell.textContent = currentPlayer;
+            gameState[boardIndex][cellIndex] = currentPlayer;
+            if (currentPlayer === '△') {
+                cell.classList.add('triangle');
+            }
+
+            // Sprawdź, czy sub-plansza została wygrana
+            if (checkWin(gameState[boardIndex])) {
+                markSubBoardAsWon(boardIndex, currentPlayer);
+                subBoardWinners[boardIndex] = currentPlayer;
+            }
+
+            // Zmień gracza
+            const currentPlayerIndex = players.indexOf(currentPlayer);
+            currentPlayer = players[(currentPlayerIndex + 1) % players.length];
+            updatePlayerTurn();
+
+            // Ustaw następną aktywną planszę
+            setActiveBoard(cellIndex);
+            highlightActiveBoard(); // Added highlightActiveBoard call
+        }
+
+        // Sprawdzenie, czy sub-plansza jest pełna
+        function isSubBoardFull(boardIndex) {
+            return gameState[boardIndex].every(cell => cell !== null);
+        }
+
+        // Ustawienie aktywnej planszy
+        function setActiveBoard(boardIndex) {
+            if (subBoardWinners[boardIndex] || isSubBoardFull(boardIndex)) {
+                activeBoard = -1; // Pozwól na grę na dowolnej sub-planszy
+            } else {
+                activeBoard = boardIndex;
+            }
+            highlightActiveBoard();
+        }
+
+        // Sprawdzenie wygranej
+        function checkWin(board) {
+            const lines = [];
+
+            // Wiersze i kolumny
+            for (let i = 0; i < boardSize; i++) {
+                lines.push(board.slice(i * boardSize, (i + 1) * boardSize));
+                lines.push(board.filter((_, index) => index % boardSize === i));
+            }
+
+            // Przekątne
+            lines.push(board.filter((_, index) => index % (boardSize + 1) === 0));
+            lines.push(board.filter((_, index) => index % (boardSize - 1) === 0 && index > 0 && index < board.length - 1));
+
+            return lines.some(line => line.every(cell => cell === line[0] && cell !== null));
+        }
+
+        // Oznaczenie wygranej sub-planszy
+        function markSubBoardAsWon(boardIndex, winner) {
+            const subBoard = document.querySelector(`.sub-board[data-board-index="${boardIndex}"]`);
+            const winnerOverlay = document.createElement('div');
+            winnerOverlay.className = `sub-board-winner ${winner}`;
+            winnerOverlay.textContent = winner;
+            subBoard.appendChild(winnerOverlay);
+        }
+
+        // Aktualizacja wyświetlania aktywnego gracza
+        function updatePlayerTurn() {
+            const playerDivs = document.querySelectorAll('.player');
+            playerDivs.forEach((player, index) => {
+                if (players[index] === currentPlayer) {
+                    player.classList.add('active');
+                } else {
+                    player.classList.remove('active');
+                }
+            });
+        }
+
+        // Podświetlenie aktywnej planszy
+        function highlightActiveBoard() {
+            const subBoards = document.querySelectorAll('.sub-board');
+            subBoards.forEach((board, index) => {
+                if (activeBoard === -1 || activeBoard === index) {
+                    board.classList.add('active');
+                } else {
+                    board.classList.remove('active');
+                }
+            });
+        }
+
+        // Reset gry
+        function resetGame() {
+            currentPlayer = 'X';
+            activeBoard = -1;
+            createBoard();
+            highlightActiveBoard();
+            updatePlayersDisplay();
+        }
+
+        // Obsługa przycisku opuszczenia gry
+        document.getElementById('leaveGame').addEventListener('click', () => {
+            if (confirm('Czy na pewno chcesz opuścić grę?')) {
+                window.location.href = 'lobby.html';
+            }
+        });
+
+        // Inicjalizacja gry
+        createBoard();
+        highlightActiveBoard();
+    </script>
+</body>
+</html>
+

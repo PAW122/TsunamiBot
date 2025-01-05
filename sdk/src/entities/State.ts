@@ -2,26 +2,32 @@ import { Schema, MapSchema, type } from '@colyseus/schema'
 import { TPlayerOptions, Player } from './Player.js'
 
 export interface IState {
-	roomName: string
-	channelId: string
+	roomName: string,
+	maxPlayers: number,
+	gridSize: number
 }
 
 export class State extends Schema {
 	@type({ map: Player })
 	players = new MapSchema<Player>()
+	@type({ map: Player })
+	observers = new MapSchema<Player>()
 
 	@type('string')
 	public roomName: string
+	@type('number')
+	public maxPlayers: number
+	@type('number')
+	public gridSize: number
 
 	@type('string')
-	public channelId: string
-
-	serverAttribute = 'this attribute wont be sent to the client-side'
+	public state: 'waiting_for_players' | 'playing' | 'ended' = 'waiting_for_players'
 
 	constructor(attributes: IState) {
 		super()
 		this.roomName = attributes.roomName
-		this.channelId = attributes.channelId
+		this.maxPlayers = attributes.maxPlayers
+		this.gridSize = attributes.gridSize
 	}
 
 	private _getPlayer(sessionId: string): Player | undefined {
@@ -29,9 +35,17 @@ export class State extends Schema {
 	}
 
 	createPlayer(sessionId: string, playerOptions: TPlayerOptions) {
+		if (this.players.size >= this.maxPlayers) {
+			this.observers.set(playerOptions.userId, new Player({ ...playerOptions, sessionId }))
+			return
+		}
 		const existingPlayer = Array.from(this.players.values()).find((p) => p.sessionId === sessionId)
 		if (existingPlayer == null) {
 			this.players.set(playerOptions.userId, new Player({ ...playerOptions, sessionId }))
+
+			if (this.players.size === this.maxPlayers) {
+				this.state = 'playing'
+			}
 		}
 	}
 
@@ -39,6 +53,11 @@ export class State extends Schema {
 		const player = Array.from(this.players.values()).find((p) => p.sessionId === sessionId)
 		if (player != null) {
 			this.players.delete(player.userId)
+		}
+
+		const observer = Array.from(this.observers.values()).find((p) => p.sessionId === sessionId)
+		if (observer != null) {
+			this.observers.delete(observer.userId)
 		}
 	}
 

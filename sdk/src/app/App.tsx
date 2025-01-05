@@ -3,6 +3,7 @@ import { Activity } from './Activity.js'
 import { LoadingScreen } from '../components/LoadingScreen.js'
 import { GameContextProvider, PlayersContextProvider } from '../hooks/usePlayers.js'
 import './global.css'
+import { LobbiesContextProvider } from '../hooks/useLobbies.js'
 
 export default function App() {
 	return (
@@ -12,9 +13,11 @@ export default function App() {
 			scope={['identify', 'guilds', 'guilds.members.read', 'rpc.voice.read']}
 		>
 			<GameContextProvider>
-				<PlayersContextProvider>
-					<Activity />
-				</PlayersContextProvider>
+				<LobbiesContextProvider>
+					<PlayersContextProvider>
+						<Activity />
+					</PlayersContextProvider>
+				</LobbiesContextProvider>
 			</GameContextProvider>
 		</DiscordContextProvider>
 	)

@@ -8,17 +8,14 @@ export class StateHandlerRoom extends Room<State> {
 	onCreate(options: IState) {
 		this.setState(new State(options))
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		this.onMessage('startTalking', (client, _data) => {
 			this.state.startTalking(client.sessionId)
 		})
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		this.onMessage('stopTalking', (client, _data) => {
 			this.state.stopTalking(client.sessionId)
 		})
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 	onAuth(_client: any, _options: any, _req: any) {
 		return true
 	}

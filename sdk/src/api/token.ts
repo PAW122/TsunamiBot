@@ -8,7 +8,6 @@ interface RequestBody {
 export default async (req: RoboRequest) => {
 	const { code } = (await req.json()) as RequestBody
 
-	// Exchange the code for an access_token
 	const response = await fetch(`https://discord.com/api/oauth2/token`, {
 		method: 'POST',
 		headers: {
