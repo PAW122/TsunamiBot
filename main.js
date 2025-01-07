@@ -102,10 +102,6 @@ BotLogsHandler.LoadGuilds()
 const inviteTracker = new InviteTracker(client)
 mod_logs(client);
 
-(async () => {
-    const { sdk_main } = await import('./sdk/server/server.js');
-    sdk_main()
-})();
 
 client.on("ready", async (res) => {
 
