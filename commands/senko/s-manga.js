@@ -21,8 +21,7 @@ const command = new SlashCommandBuilder()
         .setRequired(true)
     )
 
-async function init(client) {
-    // Get volumes
+async function fetchVolumes() {
     const v = await axios.get('https://api.mangadex.org/manga/c26269c7-0f5d-4966-8cd5-b79acb86fb7a/aggregate?translatedLanguage[]=en');
     volumes = v.data.volumes;
 
@@ -39,6 +38,10 @@ async function init(client) {
 
         volumes[volumeKey].chapters = sortedChapters;
     }
+}
+
+async function init(client) {
+    await fetchVolumes();
 
     // Register button handler
     client.on('interactionCreate', async (interaction) => {
@@ -194,6 +197,10 @@ async function init(client) {
 }
 
 async function execute(interaction, client) {
+    if (volumes.length === 0) {
+        await fetchVolumes();
+    }
+
     const volume = interaction.options.getString('volume');
     const chapter = interaction.options.getString('chapter');
 
@@ -280,6 +287,10 @@ async function help_message(interaction, client) {
 }
 
 async function autocomplete(interaction) {
+    if (volumes.length === 0) {
+        await fetchVolumes();
+    }
+
     const options = interaction.options._hoistedOptions;
 
     let focusedOptionName = null;
