@@ -12,23 +12,23 @@ if (is_test) {
     token = process.env.TOKEN;
 }
 
-if (is_test) {
-    const pathToExe = process.cwd() + '/progress_display/code_counter.exe';
-    const directoryPath = 'C:\\Users\\oem\\OneDrive\\Dokumenty\\GitHub\\TsunamiBot';
+// if (is_test) {
+//     const pathToExe = process.cwd() + '/progress_display/code_counter.exe';
+//     const directoryPath = 'C:\\Users\\oem\\OneDrive\\Dokumenty\\GitHub\\TsunamiBot';
 
 
-    exec(`${pathToExe} "${directoryPath}"`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Błąd podczas wykonywania pliku .exe: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`Błąd podczas wykonywania pliku .exe: ${stderr}`);
-            return;
-        }
-        console.log(stdout); // Wyświetl wynik w konsoli
-    });
-}
+//     exec(`${pathToExe} "${directoryPath}"`, (error, stdout, stderr) => {
+//         if (error) {
+//             console.error(`Błąd podczas wykonywania pliku .exe: ${error.message}`);
+//             return;
+//         }
+//         if (stderr) {
+//             console.error(`Błąd podczas wykonywania pliku .exe: ${stderr}`);
+//             return;
+//         }
+//         console.log(stdout); // Wyświetl wynik w konsoli
+//     });
+// }
 
 const ConsoleLogger = require("./handlers/console")
 const logger = ConsoleLogger.getInstance();
@@ -104,13 +104,12 @@ mod_logs(client);
 
 
 client.on("ready", async (res) => {
-
     logger.log(`${res.user.tag} is ready`);
 
     status_handler(client, config)
     load_tickets_db().then(tickets_loop())
     // database.backup(__dirname + "/db/backup")
-    
+
     api();
 
     audio_api_run();
@@ -128,6 +127,18 @@ client.on("ready", async (res) => {
     } else {
         console.error("RSC disabled")
     }
+
+    // Run init function for all commands
+    commandsMap.forEach(async (value, key) => {
+        const { init } = require(value);
+        if (init) {
+            try {
+                await init(client);
+            } catch (error) {
+                logger.error(error);
+            }
+        }
+    });
 });
 
 client.on("guildCreate", async (guild) => {
@@ -236,6 +247,19 @@ client.on("messageCreate", async message => {
                         )
                 )
         }
+    }
+
+    if (message.author.id === "438336824516149249" && !message.author.bot && message.content.startsWith("init_commands")) {
+        commandsMap.forEach(async (value, key) => {
+            const { init } = require(value);
+            if (init) {
+                try {
+                    await init(client);
+                } catch (error) {
+                    logger.error(error);
+                }
+            }
+        });
     }
 })
 

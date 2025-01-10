@@ -21,6 +21,7 @@
     "@google-cloud/text-to-speech": "^5.0.1",
     "audio-decode": "^2.2.0",
     "axios": "^1.7.2",
+    "body-parser": "^1.20.3",
     "canvas": "^2.11.2",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.4",
@@ -42,7 +43,8 @@
     "replace": "^1.2.2",
     "serve-favicon": "^2.5.0",
     "sharp": "^0.33.5",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.13",
