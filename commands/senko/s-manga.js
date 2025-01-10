@@ -2,7 +2,6 @@ const { SlashCommandBuilder, MessageFlags, EmbedBuilder, Collection, ButtonBuild
 const axios = require("axios");
 
 let volumes = [];
-let chapters = {};
 let messageCache = new Collection();
 let imageCache = new Collection();
 
@@ -26,6 +25,21 @@ async function init(client) {
     // Get volumes
     const v = await axios.get('https://api.mangadex.org/manga/c26269c7-0f5d-4966-8cd5-b79acb86fb7a/aggregate?translatedLanguage[]=en');
     volumes = v.data.volumes;
+
+    for (const volumeKey in volumes) {
+        const chapters = volumes[volumeKey].chapters;
+        const sortedChapterKeys = Object.keys(chapters)
+            .map(key => parseFloat(key))
+            .sort((a, b) => a - b)
+            .map(num => num.toString());
+        const sortedChapters = sortedChapterKeys.reduce((arr, key) => {
+            arr.push(chapters[key]);
+            return arr;
+        }, []);
+
+        volumes[volumeKey].chapters = sortedChapters;
+    }
+
     // Register button handler
     client.on('interactionCreate', async (interaction) => {
         if (!interaction.isButton()) return;
@@ -64,10 +78,11 @@ async function init(client) {
                 flags: MessageFlags.Ephemeral
             });
 
-            chapter = volumes[volume].chapters[data.nextChapter].chapter;
             page = 0;
-            const prevChapter = getPreviousKey(volumes[volume].chapters, chapter);
-            const nextChapter = getNextKey(volumes[volume].chapters, chapter);
+            chapter = data.nextChapter;
+            const chapterIndex = volumes[volume].chapters.findIndex((c) => c.chapter === chapter);
+            const prevChapter = volumes[volume].chapters[chapterIndex - 1]?.chapter || null;
+            const nextChapter = volumes[volume].chapters[chapterIndex + 1]?.chapter || null;
             data = {
                 volume: volume,
                 chapter: chapter,
@@ -87,11 +102,12 @@ async function init(client) {
                 flags: MessageFlags.Ephemeral
             });
 
-            chapter = volumes[volume].chapters[data.prevChapter].chapter;
-            const pageCount = imageCache.get(`${volume}-${chapter}`).length;
+            chapter = data.prevChapter;
+            const pageCount = imageCache.get(`${volume}-${data.prevChapter}`).length;
             page = pageCount - 1;
-            const nextChapter = getNextKey(volumes[volume].chapters, chapter);
-            const prevChapter = getPreviousKey(volumes[volume].chapters, chapter);
+            const chapterIndex = volumes[volume].chapters.findIndex((c) => c.chapter === chapter);
+            const prevChapter = volumes[volume].chapters[chapterIndex - 1]?.chapter || null;
+            const nextChapter = volumes[volume].chapters[chapterIndex + 1]?.chapter || null;
             data = {
                 volume: volume,
                 chapter: chapter,
@@ -108,7 +124,7 @@ async function init(client) {
             images = imageCache.get(`${volume}-${chapter}`);
         } else {
             try {
-                const chapterData = volumes[volume].chapters[chapter];
+                const chapterData = volumes[volume].chapters.find((c) => c.chapter === chapter);
                 const imageData = await axios.get(`https://api.mangadex.org/at-home/server/${chapterData.id}?forcePort443=false`);
                 const img = imageData.data.chapter.data.map((i) => {
                     return `${imageData.data.baseUrl}/data/${imageData.data.chapter.hash}/${i}`;
@@ -180,7 +196,8 @@ async function init(client) {
 async function execute(interaction, client) {
     const volume = interaction.options.getString('volume');
     const chapter = interaction.options.getString('chapter');
-    if (!volume || !chapter || !volumes[volume] || !volumes[volume].chapters[chapter]) {
+
+    if (!volume || !chapter || !volumes[volume] || !volumes[volume].chapters.find((c) => c.chapter === chapter)) {
         await interaction.reply({
             content: 'Invalid volume or chapter',
             flags: MessageFlags.Ephemeral
@@ -193,7 +210,7 @@ async function execute(interaction, client) {
         images = imageCache.get(`${volume}-${chapter}`);
     } else {
         try {
-            const chapterData = volumes[volume].chapters[chapter];
+            const chapterData = volumes[volume].chapters.find((c) => c.chapter === chapter);
             const imageData = await axios.get(`https://api.mangadex.org/at-home/server/${chapterData.id}?forcePort443=false`);
             const img = imageData.data.chapter.data.map((i) => {
                 return `${imageData.data.baseUrl}/data/${imageData.data.chapter.hash}/${i}`;
@@ -243,7 +260,8 @@ async function execute(interaction, client) {
         ]
     });
     const message = await interaction.fetchReply();
-    const nextChapter = getNextKey(volumes[volume].chapters, chapter);
+    const chapterIndex = volumes[volume].chapters.findIndex((c) => c.chapter === chapter);
+    const nextChapter = volumes[volume].chapters[chapterIndex + 1].chapter || null;
     messageCache.set(message.id, {
         volume: volume,
         chapter: chapter,
@@ -294,12 +312,12 @@ async function autocomplete(interaction) {
         const selectedVolume = interaction.options.getString('volume');
         let res = [];
         if (volumes[selectedVolume]) {
-            for (const [key, value] of Object.entries(volumes[selectedVolume].chapters)) {
+            volumes[selectedVolume].chapters.map((chapter) => {
                 res.push({
-                    name: `Chapter ${value.chapter}`,
-                    value: value.chapter
+                    name: `Chapter ${chapter.chapter}`,
+                    value: chapter.chapter
                 });
-            }
+            });
             res = res.filter(item => item.name.toLowerCase().includes(focusedOptionValue.toLowerCase()));
             try {
                 await interaction.respond(res);
@@ -308,23 +326,6 @@ async function autocomplete(interaction) {
             }
         }
     }
-}
-
-function getNextKey(obj, currentKey) {
-    const keys = Object.keys(obj);
-    const currentIndex = keys.indexOf(currentKey);
-    if (currentIndex !== -1 && currentIndex < keys.length - 1) {
-        return keys[currentIndex + 1];
-    }
-    return null;
-}
-function getPreviousKey(obj, currentKey) {
-    const keys = Object.keys(obj);
-    const currentIndex = keys.indexOf(currentKey);
-    if (currentIndex !== -1 && currentIndex > 0) {
-        return keys[currentIndex - 1];
-    }
-    return null;
 }
 
 
