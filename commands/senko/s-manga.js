@@ -56,8 +56,8 @@ async function init(client) {
             ],
             flags: MessageFlags.Ephemeral
         });
-        console.log(messageCache.toJSON());
-        console.log(interaction.message.id);
+        // console.log(messageCache.toJSON());
+        // console.log(interaction.message.id);
 
         let data = messageCache.get(interaction.message.id);
         if (interaction.user.id !== data.author_id) return interaction.reply({
