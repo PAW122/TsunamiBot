@@ -193,7 +193,7 @@ function mod_logs(client) {
             };
 
             database_modLogs.addToList(`${guildId}.modlogs.guildAfkChannelAdd`, data);
-            sendLogs.LoadGuilds(guildId, `***guild Update***\nNew Afk Channel: **<#${data.afkChannel.id}>`)
+            sendLogs.SendLog(guildId, `***guild Update***\nNew Afk Channel: **<#${data.afkChannel.id}>`)
         }
     });
 
@@ -209,7 +209,7 @@ function mod_logs(client) {
         };
 
         database_modLogs.addToList(`${guildId}.modlogs.messageContentEdited`, data);
-        sendLogs.LoadGuilds(guildId, `***message Update***\nOld Content: **${data.oldContent}**\nNew Content: **${data.newContent}**\nEdited By: **<@${data.editedBy.id}>**`)
+        sendLogs.SendLog(guildId, `***message Update***\nOld Content: **${data.oldContent}**\nNew Content: **${data.newContent}**\nEdited By: **<@${data.editedBy.id}>**`)
     });
 
     //guild member offline
