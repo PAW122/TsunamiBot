@@ -129,16 +129,16 @@ client.on("ready", async (res) => {
     }
 
     // Run init function for all commands
-    commandsMap.forEach(async (value, key) => {
-        const { init } = require(value);
-        if (init) {
-            try {
-                await init(client);
-            } catch (error) {
-                logger.error(error);
-            }
-        }
-    });
+    // commandsMap.forEach(async (value, key) => {
+    //     const { init } = require(value);
+    //     if (init) {
+    //         try {
+    //             await init(client);
+    //         } catch (error) {
+    //             logger.error(error);
+    //         }
+    //     }
+    // });
 });
 
 client.on("guildCreate", async (guild) => {

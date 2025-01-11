@@ -1,6 +1,6 @@
 //towrzy mapę wszystkich komend w /commands aby póżniej wywoływać odpowiednie komendy bez przeszukiwania za każdym razem folderów.
 const fs = require('fs');
-
+const {client} = require("../main")
 const commandsMap = new Map();
 
 const commandsDir = fs.readdirSync(__dirname + '/../commands', { withFileTypes: true });
@@ -16,6 +16,12 @@ for (const dirEntry of commandsDir) {
             const filePath = `${subDirPath}/${commandFile}`;
 
             commandsMap.set(commandName, filePath);
+            try{
+                const {init} = require(filePath)
+                await init(client)
+            } catch(err) {
+                console.error(err)
+            }
         }
     }
 }
