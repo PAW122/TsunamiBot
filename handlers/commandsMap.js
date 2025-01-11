@@ -17,9 +17,12 @@ for (const dirEntry of commandsDir) {
 
             commandsMap.set(commandName, filePath);
             try{
-                const {init} = require(filePath)
-                if(!init) return; 
-                init(client)
+                if(commandName === "s-manga") {
+                    const {init} = require(filePath)
+                    if(!init) return; 
+                    init(client)
+                    console.log(commandName)
+                }
             } catch(err) {
                 console.error(err)
             }

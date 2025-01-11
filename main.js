@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+// const { exec } = require('child_process');
 const config_manager = require("./config.json")
 const config = config_manager[config_manager.using]
 const is_test = config.is_test ? config.is_test : false
