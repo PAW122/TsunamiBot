@@ -18,7 +18,7 @@ for (const dirEntry of commandsDir) {
             commandsMap.set(commandName, filePath);
             try{
                 const {init} = require(filePath)
-                await init(client)
+                init(client)
             } catch(err) {
                 console.error(err)
             }
