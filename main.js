@@ -127,18 +127,6 @@ client.on("ready", async (res) => {
     } else {
         console.error("RSC disabled")
     }
-
-    // Run init function for all commands
-    // commandsMap.forEach(async (value, key) => {
-    //     const { init } = require(value);
-    //     if (init) {
-    //         try {
-    //             await init(client);
-    //         } catch (error) {
-    //             logger.error(error);
-    //         }
-    //     }
-    // });
 });
 
 client.on("guildCreate", async (guild) => {
@@ -188,6 +176,24 @@ client.on('interactionCreate', async interaction => {
                     ephemeral: true,
                 });
             }
+        }
+    }
+});
+
+// Buttons
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) return;
+    const customId = interaction.customId.split(":");
+    const commandName = customId[0];
+    if (!commandName) return;
+
+    const commandLocation = commandsMap.get(commandName);
+    const { buttons } = require(commandLocation);
+    if (buttons) {
+        try {
+            await buttons(interaction);
+        } catch (error) {
+            logger.error(error);
         }
     }
 });
