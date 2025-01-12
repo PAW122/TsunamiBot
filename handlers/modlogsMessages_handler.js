@@ -79,11 +79,15 @@ class LoadModLogsGuilds {
         if(!channel || !channel_id) return false;
 
         const embed = new EmbedBuilder()
-        .setTitle("Mod Logs")
-        .setColor("Red")
-        .setDescription(message)
+            .setTitle("Mod Logs")
+            .setColor("Red")
+            .setDescription(message)
 
-        channel.send({embeds: [embed]})
+        try {
+            channel.send({embeds: [embed]})
+        } catch (err) {
+            console.log("modlogsMessages_handler.js:89 $ " + err)
+        }
         return true
     }
 }
