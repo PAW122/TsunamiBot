@@ -181,6 +181,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 // Buttons
+// button id is required to be command_name:button_id e.g: s-manga:manga_previous
 client.on('interactionCreate', async interaction => {
     if (!interaction.isButton()) return;
     const customId = interaction.customId.split(":");
