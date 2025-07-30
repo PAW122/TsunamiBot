@@ -90,6 +90,7 @@ const AudioStore = AudioDataStore.getInstance()
 const { addEmoji, removeEmoji } = require("./handlers/emoji_handler")
 const { addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
 const { tickets_loop, load_tickets_db, } = require("./handlers/tickets_handler")
+const { leaveServerHandler } = require("./handlers/leave_server_handler")
 
 
 // "/test" handlers
@@ -227,6 +228,10 @@ client.on('guildMemberAdd', async member => {
     welcome_messages(member, client)
     autorole(member, client)
     inviteTracker.userJoin(member, client)
+});
+
+client.on('guildMemberRemove', async member => {
+    leaveServerHandler(member, client)
 });
 
 client.on("messageCreate", async message => {
