@@ -91,7 +91,7 @@ const { addEmoji, removeEmoji } = require("./handlers/emoji_handler")
 const { addRatingEmoji } = require("./handlers/ticket_ratings_emoji_handler")
 const { tickets_loop, load_tickets_db, } = require("./handlers/tickets_handler")
 const { leaveServerHandler } = require("./handlers/leave_server_handler")
-
+const { rememberMessage } = require("./handlers/cache");
 
 // "/test" handlers
 require("./test/handlers/handler")(client)
@@ -236,6 +236,7 @@ client.on('guildMemberRemove', async member => {
 
 client.on("messageCreate", async message => {
     if (message.author.bot) return;
+    rememberMessage(message);
     log_messages(message)
     lvl_system(message)
     dad_handler(client, message)
