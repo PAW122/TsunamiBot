@@ -64,9 +64,9 @@ async function welcome_messages(member, client) {
         try {
             // load the background image
             var img_url = "https://i.imgur.com/zvWTUVu.jpg"
-            if (guild == "1350759246249332777") {
-                img_url = "https://fs.tsunamistudio.net/2150787780.jpg"
-            }
+            //if (guild == "1350759246249332777") {
+            //    img_url = "https://fs.tsunamistudio.net/2150787780.jpg"
+            //}
             const backimg = await Canvas.loadImage(img_url, { imageOrientation: 'none' });
             ctx.drawImage(backimg, 0, 0);
 
